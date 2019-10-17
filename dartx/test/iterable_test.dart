@@ -397,9 +397,17 @@ void main() {
       );
     });
 
-    test('.reverse()', () {
-      expect([].reverse(), []);
-      expect(['t', 'te', 'tes'].reverse(), ['t', 'te', 'tes'].reversed);
+    group('.reverse()', () {
+      test('List', () {
+        expect([].reverse(), []);
+        expect(['t', 'te', 'tes'].reverse(), ['t', 'te', 'tes'].reversed);
+      });
+
+      test('Iterable', () {
+        expect([].toIterable().reverse(), []);
+        var iterable = ['t', 'te', 'tes'].toIterable();
+        expect(iterable.reverse(), ['t', 'te', 'tes'].reversed);
+      });
     });
 
     test('.distinct()', () {

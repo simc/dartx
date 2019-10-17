@@ -33,18 +33,19 @@ extension ListX<E> on List<E> {
 
   /// Returns a new list containing all elements except first [n] elements.
   List<E> drop(int n) {
-    if (n < 0)
-      throw ArgumentError("Requested element count $n is less than zero.");
+    if (n < 0) {
+      throw ArgumentError('Requested element count $n is less than zero.');
+    }
     if (n == 0) toList();
 
     var resultSize = length - n;
-    if (resultSize <= 0) return List();
-    if (resultSize == 1) return [first];
+    if (resultSize <= 0) return [];
+    if (resultSize == 1) return [last];
     return sublist(n);
   }
 
-  /// Returns a new list containing all elements except last elements that satisfy
-  /// the given [predicate].
+  /// Returns a new list containing all elements except last elements that
+  /// satisfy the given [predicate].
   List<E> dropWhile(bool predicate(E element)) {
     int startIndex;
     for (var i = 0; i < length; i++) {
@@ -53,24 +54,25 @@ extension ListX<E> on List<E> {
         break;
       }
     }
-    if (startIndex == null) return List();
+    if (startIndex == null) return [];
     return sublist(startIndex);
   }
 
   /// Returns a new list containing all elements except last [n] elements.
   List<E> dropLast(int n) {
-    if (n < 0)
-      throw ArgumentError("Requested element count $n is less than zero.");
+    if (n < 0) {
+      throw ArgumentError('Requested element count $n is less than zero.');
+    }
     if (n == 0) toList();
 
     var resultSize = length - n;
-    if (resultSize <= 0) return List();
+    if (resultSize <= 0) return [];
     if (resultSize == 1) return [first];
     return sublist(0, length - n);
   }
 
-  /// Returns a new list containing all elements except last elements that satisfy
-  /// the given [predicate].
+  /// Returns a new list containing all elements except last elements that
+  /// satisfy the given [predicate].
   List<E> dropLastWhile(bool predicate(E element)) {
     int endIndex;
     for (var i = lastIndex; i >= 0; i--) {
@@ -79,7 +81,7 @@ extension ListX<E> on List<E> {
         break;
       }
     }
-    if (endIndex == null) return List();
+    if (endIndex == null) return [];
     return sublist(0, endIndex + 1);
   }
 
@@ -89,8 +91,9 @@ extension ListX<E> on List<E> {
   /// If this list isn't sorted according to the [compare] function, the result
   /// is unpredictable.
   ///
-  /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
-  /// the objects. If any object is not [Comparable], this throws a [CastError].
+  /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
+  /// on the objects. If any object is not [Comparable], this throws a
+  /// [CastError].
   ///
   /// Returns [length] if all the items in this list compare less than [value].
   int lowerBound(E value, {int compare(E a, E b)}) {
@@ -102,8 +105,9 @@ extension ListX<E> on List<E> {
   /// If the list isn't sorted according to the [compare] function, the result
   /// is unpredictable.
   ///
-  /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
-  /// the objects. If any object is not [Comparable], this throws a [CastError].
+  /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
+  /// on the objects. If any object is not [Comparable], this throws a
+  /// [CastError].
   ///
   /// Returns -1 if [value] is not in the list by default.
   int binarySearch(E value, {int compare(E a, E b)}) {
@@ -130,12 +134,12 @@ extension ListX<E> on List<E> {
     _insertionSort(this, compare: comparator, start: start, end: end);
   }
 
-  /// Sorts this list between [start] (inclusive) and [end] (exclusive) using the
-  /// merge sort algorithm.
+  /// Sorts this list between [start] (inclusive) and [end] (exclusive) using
+  /// the merge sort algorithm.
   ///
-  /// If [comparator] is omitted, this defaults to calling [Comparable.compareTo]
-  /// on the objects. If any object is not [Comparable], this throws a
-  /// [CastError].
+  /// If [comparator] is omitted, this defaults to calling
+  /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
+  /// this throws a  [CastError].
   ///
   /// Merge-sorting works by splitting the job into two parts, sorting each
   /// recursively, and then merging the two sorted parts.

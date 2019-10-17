@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:path/path.dart' as pathHelper;
+import 'package:path/path.dart' as path_helper;
 
 export 'dartx.dart';
 
