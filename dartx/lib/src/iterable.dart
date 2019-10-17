@@ -2,6 +2,7 @@ part of dartx;
 
 const _groupBy = groupBy;
 
+/// Extensions for iterables
 extension IterableX<E> on Iterable<E> {
   /// Second element.
   ///

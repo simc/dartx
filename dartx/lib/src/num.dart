@@ -2,22 +2,59 @@ part of dartx;
 
 extension NumX<T extends num> on T {
   /// Returns a [Duration] equal to this [int] number of microseconds.
-  Duration get microseconds => Duration(microseconds: toInt());
+  Duration get microseconds {
+    return Duration(microseconds: toInt());
+  }
 
   /// Returns a [Duration] equal to this [int] number of milliseconds.
-  Duration get milliseconds => Duration(milliseconds: toInt());
+  Duration get milliseconds {
+    if (this is int) {
+      return Duration(milliseconds: this as int);
+    } else {
+      var microseconds = this * Duration.microsecondsPerMillisecond;
+      return Duration(microseconds: microseconds.toInt());
+    }
+  }
 
   /// Returns a [Duration] equal to this [int] number of seconds.
-  Duration get seconds => Duration(seconds: toInt());
+  Duration get seconds {
+    if (this is int) {
+      return Duration(seconds: this as int);
+    } else {
+      var microseconds = this * Duration.microsecondsPerSecond;
+      return Duration(microseconds: microseconds.toInt());
+    }
+  }
 
   /// Returns a [Duration] equal to this [int] number of minutes.
-  Duration get minutes => Duration(minutes: toInt());
+  Duration get minutes {
+    if (this is int) {
+      return Duration(minutes: this as int);
+    } else {
+      var microseconds = this * Duration.microsecondsPerMinute;
+      return Duration(microseconds: microseconds.toInt());
+    }
+  }
 
   /// Returns a [Duration] equal to this [int] number of hours.
-  Duration get hours => Duration(hours: toInt());
+  Duration get hours {
+    if (this is int) {
+      return Duration(hours: this as int);
+    } else {
+      var microseconds = this * Duration.microsecondsPerHour;
+      return Duration(microseconds: microseconds.toInt());
+    }
+  }
 
   /// Returns a [Duration] equal to this [int] number of days.
-  Duration get days => Duration(days: toInt());
+  Duration get days {
+    if (this is int) {
+      return Duration(days: this as int);
+    } else {
+      var microseconds = this * Duration.microsecondsPerDay;
+      return Duration(microseconds: microseconds.toInt());
+    }
+  }
 
   /// Ensures that this value lies in the specified range
   /// [minimumValue]..[maximumValue].
@@ -33,7 +70,7 @@ extension NumX<T extends num> on T {
   /// 10.coerceIn(100, 0) // will fail with ArgumentError
   /// ````
   T coerceIn(T minimumValue, [T maximumValue]) {
-    if (minimumValue > maximumValue) {
+    if (maximumValue != null && minimumValue > maximumValue) {
       throw ArgumentError('Cannot coerce value to an empty range: '
           'maximum $maximumValue is less than minimum $minimumValue.');
     }
