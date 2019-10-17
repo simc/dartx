@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image:  google/dart:latest
+      image:  google/dart:dev
     
     steps:
     - uses: actions/checkout@v1
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image:  google/dart:latest
+      image:  google/dart:dev
     
     steps:
     - uses: actions/checkout@v1
