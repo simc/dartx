@@ -1,11 +1,11 @@
 name: dartx
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.1.0
 author: Simon Leier <simonleier@gmail.com>
 homepage: https://github.com/leisim/dartx
 
 environment:
-  sdk: ">=2.6.0-dev.5.0"
+  sdk: ">=2.6.0-dev.5.0 <3.0.0"
 
 dependencies:
   collection: ^1.14.12
