@@ -2,8 +2,6 @@
 
 [![Dart CI](https://github.com/leisim/dartx/workflows/Dart%20CI/badge.svg)](https://github.com/leisim/dartx/actions) [![Codecov](https://img.shields.io/codecov/c/github/leisim/dartx.svg)](https://codecov.io/gh/leisim/dartx) [![dartx](https://img.shields.io/pub/v/dartx?label=dartx)](https://pub.dev/packages/dartx) [![flutterx](https://img.shields.io/pub/v/flutterx?label=flutterx)](https://pub.dev/packages/flutterx)
 
-If you come from Kotlin, you will appreciate all the handy extensions.
-
 *If you miss an extension, please open an issue or pull request*
 
 ### Resources:
@@ -11,7 +9,7 @@ If you come from Kotlin, you will appreciate all the handy extensions.
 - [Pub Package](https://pub.dev/packages/dartx)
 - [GitHub Repository](https://github.com/leisim/dartx)
 
-On this page you can find some of the extension. Take a look at the docs to see all of them.
+On this page you can find some of the extensions. Take a look at the docs to see all of them.
 
 ## Getting started 🎉
 
@@ -27,7 +25,7 @@ After you import the library, you can use the extensions.
 ```dart
 import 'package:dartx/dartx.dart';
 
-var slice = [1, 2, 3, 4, 5].slice(1,-2); // [2, 3]
+var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3]
 ```
 
 ## Iterable
@@ -38,7 +36,7 @@ Returns elements at indices between `start` (inclusive) and `end` (inclusive)
 var list = [0, 1, 2, 3, 4, 5]);
 var last = list.slice(-1); // [5]
 var lastHalf = list.slice(3); // [3, 4, 5]
-var allButFirstAndLast = list.slice(1,-2); // [1, 2, 3, 4]
+var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
 ### sortedBy() & thenBy()
