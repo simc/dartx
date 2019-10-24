@@ -1,3 +1,4 @@
+/// Superpowers for Dart. Collection of useful static extension methods.
 library dartx;
 
 import 'dart:collection';

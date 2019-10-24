@@ -11,11 +11,12 @@ extension StringX on String {
   }
 
   /// Returns a copy of this string having its first letter uppercased, or the
-  /// original string, if it's empty or already starts with an upper case letter.
+  /// original string, if it's empty or already starts with an upper case
+  /// letter.
   ///
   /// ```dart
-  /// print("abcd".capitalize()) // Abcd
-  /// print("Abcd".capitalize()) // Abcd
+  /// print('abcd'.capitalize()) // Abcd
+  /// print('Abcd'.capitalize()) // Abcd
   /// ```
   String capitalize() {
     switch (length) {
@@ -32,8 +33,8 @@ extension StringX on String {
   /// original string, if it's empty or already starts with a lower case letter.
   ///
   /// ```dart
-  /// print("abcd".decapitalize()) // abcd
-  /// print("Abcd".decapitalize()) // abcd
+  /// print('abcd'.decapitalize()) // abcd
+  /// print('Abcd'.decapitalize()) // abcd
   /// ```
   String decapitalize() {
     switch (length) {
@@ -46,15 +47,18 @@ extension StringX on String {
     }
   }
 
+  /// Returns `true` if this string is empty or consists solely of whitespace
+  /// characters.
   bool get isBlank => trimLeft().isEmpty;
 
+  /// Returns `true` if this char sequence is not empty and contains some
+  /// characters except of whitespace characters.
   bool get isNotBlank => !isBlank;
 
-  ///
-  /// Checks if the given string [s] is upper case
-  ///
-  bool get isUpperCase => this == this.toUpperCase();
+  /// Returns `true` if the first character is upper case.
+  bool get isUpperCase => this == toUpperCase();
 
+  /// Returns `true` if the first character is lower case.
   bool get isLowerCase => this == toLowerCase();
 
   bool get isAscii {
@@ -71,18 +75,25 @@ extension StringX on String {
     return true;
   }
 
+  /// Returns a new string with characters in reversed order.
   String get reversed => String.fromCharCodes(runes.toList().reversed);
 
   bool get isInt => toIntOrNull() != null;
 
+  /// Parses the string as an [int] number and returns the result.
   int toInt() => int.parse(this);
 
+  /// Parses the string as an [int] number and returns the result or `null` if
+  /// the string is not a valid representation of a number.
   int toIntOrNull() => int.tryParse(this);
 
   bool get isDouble => toIntOrNull() != null;
 
+  /// Parses the string as a [double] number and returns the result.
   double toDouble() => double.parse(this);
 
+  /// Parses the string as an [double] number and returns the result or `null`
+  /// if the string is not a valid representation of a number.
   double toDoubleOrNull() => double.tryParse(this);
 
   List<int> toUtf8() => utf8.encode(this);

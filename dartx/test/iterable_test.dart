@@ -282,20 +282,29 @@ void main() {
       expect(['t', 'te', 'tes'].count((it) => it.length > 1), 2);
     });
 
-    /*test('.takeFirst()', () {
+    group('.reversed', () {
+      test('List', () {
+        expect([].reversed, []);
+        expect(['t', 'te', 'tes'].reversed, ['t', 'te', 'tes'].reversed);
+      });
+
+      test('Iterable', () {
+        expect([].toIterable().reversed, []);
+        var iterable = ['t', 'te', 'tes'].toIterable();
+        expect(iterable.reversed, ['t', 'te', 'tes'].reversed);
+      });
+    });
+
+    test('.takeFirst()', () {
       expect([].takeFirst(0), []);
-      expect([].takeFirst(2), []);
       expect([1, 2, 3].takeFirst(0), []);
       expect([1, 2, 3].takeFirst(2), [1, 2]);
-      expect([1, 2, 3].takeFirst(4), [1, 2, 3]);
     });
 
     test('.takeLast()', () {
       expect([].takeLast(0), []);
-      expect([].takeLast(2), []);
       expect([1, 2, 3].takeLast(0), []);
       expect([1, 2, 3].takeLast(2), [2, 3]);
-      expect([1, 2, 3].takeLast(4), [1, 2, 3]);
     });
 
     test('.firstWhile()', () {
@@ -308,9 +317,9 @@ void main() {
     test('.lastWhile()', () {
       expect([].lastWhile((e) => true), []);
       expect([1, 2, 3].lastWhile((e) => false), []);
-      expect([1, 2, 3].lastWhile((e) => e < 3), [2, 3]);
+      expect([1, 2, 3].lastWhile((e) => e > 1), [2, 3]);
       expect([1, 2, 3].lastWhile((e) => true), [1, 2, 3]);
-    });*/
+    });
 
     test('.whereIndexed()', () {
       var index = 0;
@@ -332,7 +341,7 @@ void main() {
     test('.whereToIndexed()', () {
       var index = 0;
       var list = <int>[];
-      [1, 2, 3, 4, 3, 2, 1].whereToIndexed(list, (e, i) {
+      [1, 2, 3, 4, 3, 2, 1].whereIndexedTo(list, (e, i) {
         expect(index++, i);
         return e % 2 == 0;
       });
@@ -395,19 +404,6 @@ void main() {
           [3, 3]
         ],
       );
-    });
-
-    group('.reverse()', () {
-      test('List', () {
-        expect([].reverse(), []);
-        expect(['t', 'te', 'tes'].reverse(), ['t', 'te', 'tes'].reversed);
-      });
-
-      test('Iterable', () {
-        expect([].toIterable().reverse(), []);
-        var iterable = ['t', 'te', 'tes'].toIterable();
-        expect(iterable.reverse(), ['t', 'te', 'tes'].reversed);
-      });
     });
 
     test('.distinct()', () {

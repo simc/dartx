@@ -448,26 +448,50 @@ extension IterableX<E> on Iterable<E> {
     return count;
   }
 
-  //Transformations
+  // Transformations
 
-  /*List<E> takeFirst(int n) sync* {
-    var i = 0;
-    for (var element in this) {
-      if (i++ >= n) break;
-      yield element;
-    }
+  /// Returns an [Iterable] of the objects in this list in reverse order.
+  Iterable<E> get reversed {
+    return this is List<E> ? (this as List<E>).reversed : toList().reversed;
   }
 
+  /// Returns a list containing first [n] elements.
+  ///
+  /// ```dart
+  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// print(chars.take(3)) // [1, 2, 3]
+  /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
+  /// print(chars.takeLast(2)) // [8, 9]
+  /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
+  /// ```
+  List<E> takeFirst(int n) {
+    var list = this is List<E> ? this as List<E> : toList();
+    return list.sublist(0, n);
+  }
+
+  /// Returns a list containing last [n] elements.
+  ///
+  /// ```dart
+  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// print(chars.take(3)) // [1, 2, 3]
+  /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
+  /// print(chars.takeLast(2)) // [8, 9]
+  /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
+  /// ```
   List<E> takeLast(int n) {
-    var list = this is List ? this as List<E> : toList();
-
-    var i = 0;
-    for (var element in this.reverse()) {
-      if (i++ >= n) break;
-      yield element;
-    }
+    var list = this is List<E> ? this as List<E> : toList();
+    return list.sublist(length - n);
   }
 
+  //// Returns the first elements satisfying the given [predicate].
+  ///
+  /// ```dart
+  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// print(chars.take(3)) // [1, 2, 3]
+  /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
+  /// print(chars.takeLast(2)) // [8, 9]
+  /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
+  /// ```
   Iterable<E> firstWhile(bool predicate(E element)) sync* {
     for (var element in this) {
       if (!predicate(element)) break;
@@ -475,15 +499,25 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
-  Iterable<E> lastWhile(bool predicate(E element)) sync* {
-    for (var element in this.reverse()) {
+  /// Returns the last elements satisfying the given [predicate].
+  ///
+  /// ```dart
+  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// print(chars.take(3)) // [1, 2, 3]
+  /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
+  /// print(chars.takeLast(2)) // [8, 9]
+  /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
+  /// ```
+  Iterable<E> lastWhile(bool predicate(E element)) {
+    var list = ListQueue<E>();
+    for (var element in reversed) {
       if (!predicate(element)) break;
-      yield element;
+      list.addFirst(element);
     }
-  }*/
+    return list;
+  }
 
-  /// Returns a new lazy [Iterable] with all elements that satisfy the
-  /// given [predicate].
+  /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(bool predicate(E element, int index)) sync* {
     var index = 0;
     for (var element in this) {
@@ -493,6 +527,8 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Appends all elements matching the given [predicate] to the given
+  /// [destination].
   void whereTo(List<E> destination, bool predicate(E element)) {
     for (var element in this) {
       if (predicate(element)) {
@@ -501,7 +537,9 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
-  void whereToIndexed(
+  /// Appends all elements matching the given [predicate] to the given
+  /// [destination].
+  void whereIndexedTo(
       List<E> destination, bool predicate(E element, int index)) {
     var index = 0;
     for (var element in this) {
@@ -511,6 +549,7 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNot(bool predicate(E element)) sync* {
     for (var element in this) {
       if (!predicate(element)) {
@@ -519,6 +558,7 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNotIndexed(bool predicate(E element, int index)) sync* {
     var index = 0;
     for (var element in this) {
@@ -528,6 +568,8 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Appends all elements not matching the given [predicate] to the given
+  /// [destination].
   void whereNotTo(List<E> destination, bool predicate(E element)) {
     for (var element in this) {
       if (!predicate(element)) {
@@ -536,6 +578,8 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Appends all elements not matching the given [predicate] to the given
+  /// [destination].
   void whereNotToIndexed(
       List<E> destination, bool predicate(E element, int index)) {
     var index = 0;
@@ -567,24 +611,6 @@ extension IterableX<E> on Iterable<E> {
     for (var element in this) {
       action(element);
       yield element;
-    }
-  }
-
-  /// Returns a new lazy [Iterable] with elements in reversed order.
-  Iterable<E> reverse() {
-    List<E> list;
-    if (this is List<E>) {
-      return (this as List<E>).reversed;
-    } else {
-      list = toList();
-      Iterable<E> generator() sync* {
-        var length = list.length;
-        for (var i = length - 1; i >= 0; i--) {
-          yield list[i];
-        }
-      }
-
-      return generator();
     }
   }
 
@@ -756,7 +782,7 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
-  //Operations with other iterables
+  // Operations with other iterables
 
   /// Returns a new lazy [Iterable] containing all elements that are contained
   /// by both this collection and the [other] collection.
