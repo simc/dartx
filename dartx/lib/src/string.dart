@@ -56,10 +56,10 @@ extension StringX on String {
   bool get isNotBlank => !isBlank;
 
   /// Returns `true` if the first character is upper case.
-  bool get isUpperCase => this == toUpperCase();
+  bool get isUpperCase => isNotEmpty && this == toUpperCase();
 
   /// Returns `true` if the first character is lower case.
-  bool get isLowerCase => this == toLowerCase();
+  bool get isLowerCase => isNotEmpty && this == toLowerCase();
 
   bool get isAscii {
     for (var codeUnit in codeUnits) {
@@ -87,7 +87,7 @@ extension StringX on String {
   /// the string is not a valid representation of a number.
   int toIntOrNull() => int.tryParse(this);
 
-  bool get isDouble => toIntOrNull() != null;
+  bool get isDouble => toDoubleOrNull() != null;
 
   /// Parses the string as a [double] number and returns the result.
   double toDouble() => double.parse(this);
@@ -105,8 +105,4 @@ extension StringX on String {
     var digest = crypto.md5.convert(utf8);
     return String.fromCharCodes(digest.bytes);
   }
-
-  List<String> toList() => chars.toList();
-
-  Set<String> toSet() => chars.toSet();
 }
