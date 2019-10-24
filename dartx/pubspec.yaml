@@ -1,6 +1,6 @@
 name: dartx
 description: Superpowers for Dart. Collection of useful static extension methods.
-version: 0.1.0+1
+version: 0.1.1
 author: Simon Leier <simonleier@gmail.com>
 homepage: https://github.com/leisim/dartx
 
