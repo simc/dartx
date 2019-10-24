@@ -178,6 +178,36 @@ void main() {
       expect(list4.contentEquals(list3), false);
     });
 
+    test('.sorted()', () {
+      expect([].sorted(), []);
+      expect([6, 3, 2, 4, 5, 1, 0].sorted(), [0, 1, 2, 3, 4, 5, 6]);
+    });
+
+    test('.sortedDescending()', () {
+      expect([].sortedDescending(), []);
+      expect([6, 3, 2, 4, 5, 1, 0].sortedDescending(), [0, 1, 2, 3, 4, 5, 6]);
+    });
+
+    test('.sortedBy()', () {
+      expect([].sortedBy((it) => 1), []);
+      expect(['this', 'is', 'a', 'abcde'].sortedBy((it) => it.length),
+          ['a', 'is', 'this', 'abcde']);
+    });
+
+    test('.sortedWith()', () {
+      expect([].sortedWith((a, b) => 0), []);
+      expect(
+          ['this', 'is', 'a', 'abcde']
+              .sortedWith((a, b) => a.length.compareTo(b.length)),
+          ['a', 'is', 'this', 'abcde']);
+    });
+
+    test('.sortedByDescending()', () {
+      expect([].sortedByDescending((it) => 1), []);
+      expect(['this', 'is', 'a', 'abcde'].sortedByDescending((it) => it.length),
+          ['abcde', 'this', 'is', 'a']);
+    });
+
     test('.joinToString()', () {
       expect([].joinToString(), '');
       expect([0, 1, 2, 3, 4].joinToString(), '0, 1, 2, 3, 4');
