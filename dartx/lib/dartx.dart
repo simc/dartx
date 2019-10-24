@@ -6,10 +6,10 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
+import 'package:collection/collection.dart' hide DelegatingList;
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:quiver/collection.dart';
 
-part 'src/util/delegating_list.dart';
 part 'src/iterable.dart';
 part 'src/list.dart';
 part 'src/num.dart';

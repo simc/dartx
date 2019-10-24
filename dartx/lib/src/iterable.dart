@@ -223,8 +223,8 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  SortedList<E> sortedBy(Comparable selector(E element)) {
-    return SortedList<E>._withSelector(this, selector, 1, null);
+  _SortedList<E> sortedBy(Comparable selector(E element)) {
+    return _SortedList<E>._withSelector(this, selector, 1, null);
   }
 
   /// Returns a new list with all elements sorted according to descending
@@ -236,8 +236,8 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  SortedList<E> sortedByDescending(Comparable selector(E element)) {
-    return SortedList<E>._withSelector(this, selector, -1, null);
+  _SortedList<E> sortedByDescending(Comparable selector(E element)) {
+    return _SortedList<E>._withSelector(this, selector, -1, null);
   }
 
   /// Returns a new list with all elements sorted according to specified
@@ -248,8 +248,8 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  SortedList<E> sortedWith(Comparator<E> comparator) {
-    return SortedList<E>._(this, comparator, null);
+  _SortedList<E> sortedWith(Comparator<E> comparator) {
+    return _SortedList<E>._(this, comparator, null);
   }
 
   /// Creates a string from all the elements separated using [separator] and
