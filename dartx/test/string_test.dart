@@ -13,6 +13,7 @@ void main() {
     test('.capitalize()', () {
       expect(''.capitalize(), '');
       expect('123'.capitalize(), '123');
+      expect('t'.capitalize(), 'T');
       expect('test'.capitalize(), 'Test');
       expect('Test'.capitalize(), 'Test');
     });
@@ -20,6 +21,7 @@ void main() {
     test('.decapitalize()', () {
       expect(''.decapitalize(), '');
       expect('123'.decapitalize(), '123');
+      expect('T'.decapitalize(), 't');
       expect('Test'.decapitalize(), 'test');
       expect('test'.decapitalize(), 'test');
     });

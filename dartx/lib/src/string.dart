@@ -23,7 +23,7 @@ extension StringX on String {
       case 0:
         return this;
       case 1:
-        return substring(0, 1).toUpperCase();
+        return toUpperCase();
       default:
         return substring(0, 1).toUpperCase() + substring(1);
     }
@@ -41,7 +41,7 @@ extension StringX on String {
       case 0:
         return this;
       case 1:
-        return substring(0, 1).toLowerCase();
+        return toLowerCase();
       default:
         return substring(0, 1).toLowerCase() + substring(1);
     }

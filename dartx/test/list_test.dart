@@ -29,6 +29,14 @@ void main() {
       expect(list.drop(4), []);
     });
 
+    test('.dropWhile()', () {
+      var list = [1, 2, 3, 4, 5, 6];
+      expect([].dropWhile((it) => true), []);
+      expect(list.dropWhile((it) => true), []);
+      expect(list.dropWhile((it) => false), list);
+      expect(list.dropWhile((it) => it < 4), [4, 5, 6]);
+    });
+
     test('.dropLast()', () {
       var list = [1, 2, 3];
       expect(() => list.dropLast(-1), throwsArgumentError);
@@ -38,6 +46,14 @@ void main() {
       expect(list.dropLast(2), [1]);
       expect(list.dropLast(3), []);
       expect(list.dropLast(4), []);
+    });
+
+    test('.dropLastWhile()', () {
+      var list = [1, 2, 3, 4, 5, 6];
+      expect([].dropLastWhile((it) => true), []);
+      expect(list.dropLastWhile((it) => true), []);
+      expect(list.dropLastWhile((it) => false), list);
+      expect(list.dropLastWhile((it) => it > 3), [1, 2, 3]);
     });
   });
 }

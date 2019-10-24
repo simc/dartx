@@ -49,7 +49,7 @@ extension ListX<E> on List<E> {
   List<E> dropWhile(bool predicate(E element)) {
     int startIndex;
     for (var i = 0; i < length; i++) {
-      if (predicate(this[i])) {
+      if (!predicate(this[i])) {
         startIndex = i;
         break;
       }
