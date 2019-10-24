@@ -185,7 +185,7 @@ void main() {
 
     test('.sortedDescending()', () {
       expect([].sortedDescending(), []);
-      expect([6, 3, 2, 4, 5, 1, 0].sortedDescending(), [0, 1, 2, 3, 4, 5, 6]);
+      expect([6, 3, 2, 4, 5, 1, 0].sortedDescending(), [6, 5, 4, 3, 2, 1, 0]);
     });
 
     test('.sortedBy()', () {

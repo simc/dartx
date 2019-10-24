@@ -210,8 +210,7 @@ extension IterableX<E> on Iterable<E> {
   /// natural sort order.
   List<E> sortedDescending() {
     var list = toList();
-    var comparableList = list as List<Comparable>;
-    comparableList.sort((a, b) => -a.compareTo(b));
+    list.sort((a, b) => -(a as Comparable).compareTo(b));
     return list;
   }
 
