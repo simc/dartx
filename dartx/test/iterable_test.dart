@@ -21,7 +21,7 @@ void main() {
         expect([1, 2, 3, 4].third, 3);
       });
 
-      test('throws RangeError if there is no second element', () {
+      test('throws RangeError if there is no third element', () {
         expect(() => [1, 2].third, throwsRangeError);
       });
     });
@@ -31,7 +31,7 @@ void main() {
         expect([1, 2, 3, 4].fourth, 4);
       });
 
-      test('throws RangeError if there is no second element', () {
+      test('throws RangeError if there is no fourth element', () {
         expect(() => [1, 2, 3].fourth, throwsRangeError);
       });
     });
