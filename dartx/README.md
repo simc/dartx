@@ -99,7 +99,7 @@ Get the name and extension of a file:
 ```dart
 var file = File('some/path/testFile.dart');
 print(file.name); // 'testFile.dart'
-print(file.nameWithoutExtension); // ''testFile'
+print(file.nameWithoutExtension); // 'testFile'
 ```
 
 ### appendText()
