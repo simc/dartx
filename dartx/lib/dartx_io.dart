@@ -8,7 +8,8 @@ import 'dart:typed_data';
 import 'package:path/path.dart' as path_helper;
 
 export 'dartx.dart';
+export 'src/io/http_request/headers/headers.dart';
 
 part 'src/io/directory.dart';
-part 'src/io/file_system_entity.dart';
 part 'src/io/file.dart';
+part 'src/io/file_system_entity.dart';
