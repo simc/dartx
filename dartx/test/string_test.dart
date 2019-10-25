@@ -48,6 +48,18 @@ void main() {
       expect('test'.isLowerCase, true);
     });
 
+    test('.isCapitalized', () {
+      expect(''.isCapitalized, false);
+      expect('tEST'.isCapitalized, false);
+      expect('Test'.isCapitalized, true);
+    });
+
+    test('.isDecapitalized', () {
+      expect(''.isDecapitalized, false);
+      expect('Test'.isDecapitalized, false);
+      expect('tEST'.isDecapitalized, true);
+    });
+
     test('.reversed', () {
       expect(''.reversed, '');
       expect('test'.reversed, 'tset');

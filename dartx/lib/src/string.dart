@@ -55,11 +55,17 @@ extension StringX on String {
   /// characters except of whitespace characters.
   bool get isNotBlank => !isBlank;
 
-  /// Returns `true` if the first character is upper case.
+  /// Returns `true` if the whole string is upper case.
   bool get isUpperCase => isNotEmpty && this == toUpperCase();
 
-  /// Returns `true` if the first character is lower case.
+  /// Returns `true` if the whole string is lower case.
   bool get isLowerCase => isNotEmpty && this == toLowerCase();
+
+  /// Returns `true` if the first character is upper case.
+  bool get isCapitalized => isNotEmpty && this[0].isUpperCase;
+
+  /// Returns `true` if the first character is lower case.
+  bool get isDecapitalized => isNotEmpty && this[0].isLowerCase;
 
   bool get isAscii {
     for (var codeUnit in codeUnits) {
