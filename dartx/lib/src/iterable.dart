@@ -265,27 +265,27 @@ extension IterableX<E> on Iterable<E> {
     int limit,
     String truncated = '...',
   }) {
-    var result = '';
+    var buffer = StringBuffer();
     var count = 0;
     for (var element in this) {
       if (limit != null && count >= limit) {
-        result += truncated;
-        return result;
+        buffer.write(truncated);
+        return buffer.toString();
       }
       if (count > 0) {
-        result += separator;
+        buffer.write(separator);
       }
-      result += prefix;
+      buffer.write(prefix);
       if (transform != null) {
-        result += transform(element);
+        buffer.write(transform(element));
       } else {
-        result += element.toString();
+        buffer.write(element.toString());
       }
-      result += postfix;
+      buffer.write(postfix);
 
       count++;
     }
-    return result;
+    return buffer.toString();
   }
 
   //Math operations
