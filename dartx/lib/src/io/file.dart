@@ -10,7 +10,7 @@ extension FileX on File {
 
   /// Appends a [string] to the content of this file using UTF-8 or the
   /// specified [encoding].
-  Future<void> appendString(String string, {Encoding encoding: utf8}) async {
+  Future<void> appendString(String string, {Encoding encoding = utf8}) async {
     var raf = await open(mode: FileMode.writeOnlyAppend);
     await raf.writeString(string);
     await raf.close();

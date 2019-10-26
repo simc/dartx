@@ -13,13 +13,13 @@ extension DirectoryX on Directory {
     );
   }
 
-  /// Copies all of the files in the [from] directory to [to].
+  /// Copies all of the files in this directory to [target].
   ///
   /// This is similar to `cp -R <from> <to>`:
   /// * Symlinks are supported.
   /// * Existing files are over-written, if any.
-  /// * If [to] is within [from], throws [ArgumentError] (an infinite operation).
-  /// * If [from] and [to] are canonically the same, no operation occurs.
+  /// * If [target] is within `this`, throws [ArgumentError].
+  /// * If `this` and [target] are canonically the same, no operation occurs.
   ///
   /// Returns a future that completes when complete.
   Future<Null> copyRecursively(Directory target) async {

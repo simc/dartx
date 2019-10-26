@@ -130,7 +130,7 @@ extension ListX<E> on List<E> {
   ///
   /// This insertion sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void insertionSort({Comparator<E> comparator, int start: 0, int end}) {
+  void insertionSort({Comparator<E> comparator, int start = 0, int end}) {
     _insertionSort(this, compare: comparator, start: start, end: end);
   }
 
@@ -150,7 +150,7 @@ extension ListX<E> on List<E> {
   ///
   /// This merge sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void mergeSort({int start: 0, int end, Comparator<E> comparator}) {
+  void mergeSort({int start = 0, int end, Comparator<E> comparator}) {
     _mergeSort(this, start: start, end: end, compare: comparator);
   }
 }

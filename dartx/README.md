@@ -31,7 +31,7 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3]
 ## Iterable
 
 ### slice()
-Returns elements at indices between `start` (inclusive) and `end` (inclusive)
+Returns elements at indices between `start` (inclusive) and `end` (inclusive).
 ```dart
 var list = [0, 1, 2, 3, 4, 5]);
 var last = list.slice(-1); // [5]
@@ -40,7 +40,7 @@ var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
 ### sortedBy() & thenBy()
-Sort lists by multiple properties
+Sort lists by multiple properties.
 ```dart
 var dogs = [
   Dog(name: "Tom", age: 3),
@@ -57,7 +57,7 @@ var sorted = dogs
 ```
 
 ### distinctBy()
-Get distinct elements from a list:
+Get distinct elements from a list.
 ```dart
 var list = ['this', 'is', 'a', 'test'];
 var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
@@ -73,9 +73,9 @@ var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 ## String
 
 ### chars
-Get a list of single character strings from a string.
+Get a list of single character strings from a string. Supports emojis.
 ```dart
-var chars = 'test'.chars; // ['t', 'e', 's', 't']
+var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
 ### isBlank()
@@ -95,7 +95,7 @@ var notANumber = '123-45'.toIntOrNull(); // null
 ## File
 
 ### name
-Get the name and extension of a file:
+Get the name and extension of a file.
 ```dart
 var file = File('some/path/testFile.dart');
 print(file.name); // 'testFile.dart'
@@ -109,7 +109,7 @@ await File('someFile.json').appendText('{test: true}');
 ```
 
 ### isWithin()
-Checks if a file is inside a directory
+Checks if a file is inside a directory.
 ```dart
 var dir = Directory('some/path');
 File('some/path/file.dart').isWithin(dir); // true
