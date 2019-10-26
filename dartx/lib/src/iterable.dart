@@ -571,6 +571,29 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Returns a new lazy [Iterable] containing the results of applying the
+  /// given [transform] function to each element and its index in the original
+  /// collection.
+  Iterable<R> mapIndexed<R>(R Function(int index, E) transform) sync* {
+    var index = 0;
+    for (var element in this) {
+      yield transform(index++, element);
+    }
+  }
+
+  /// Returns a new lazy [Iterable] containing only the non-null results of
+  /// applying the given [transform] function to each element and its index
+  /// in the original collection.
+  Iterable<R> mapIndexedNotNull<R>(R Function(int index, E) transform) sync* {
+    var index = 0;
+    for (var element in this) {
+      final result = transform(index++, element);
+      if (result != null) {
+        yield result;
+      }
+    }
+  }
+
   /// Returns a new lazy [Iterable] which performs the given action on each
   /// element.
   Iterable<E> onEach(void action(E element)) sync* {
