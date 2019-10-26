@@ -7,7 +7,7 @@ void main() {
   group('StringX', () {
     test('.chars', () {
       expect('test12'.chars, ['t', 'e', 's', 't', '1', '2']);
-      expect('ഐ⌛酪Б'.chars, ['ഐ', '⌛', '酪', 'Б']);
+      expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.chars, ['ഐ', '⌛', '酪', 'Б', '👨‍👨‍👧‍👦']);
     });
 
     test('.capitalize()', () {
@@ -62,7 +62,7 @@ void main() {
 
     test('.reversed', () {
       expect(''.reversed, '');
-      expect('test'.reversed, 'tset');
+      expect('test👨‍👨‍👧‍👦'.reversed, '👨‍👨‍👧‍👦tset');
     });
 
     test('.isInt', () {

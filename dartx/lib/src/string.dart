@@ -4,11 +4,11 @@ const _ascii = 0x007f;
 const _latin1 = 0x00ff;
 
 extension StringX on String {
-  Iterable<String> get chars sync* {
-    for (var rune in runes) {
-      yield String.fromCharCode(rune);
-    }
-  }
+  /// The characters of a string.
+  ///
+  /// A character is a Unicode Grapheme cluster represented by a substring of
+  /// the original string.
+  Iterable<String> get chars => Characters(this);
 
   /// Returns a copy of this string having its first letter uppercased, or the
   /// original string, if it's empty or already starts with an upper case
@@ -82,7 +82,16 @@ extension StringX on String {
   }
 
   /// Returns a new string with characters in reversed order.
-  String get reversed => String.fromCharCodes(runes.toList().reversed);
+  String get reversed {
+    var range = Characters(this).iteratorAtEnd;
+
+    var buffer = StringBuffer();
+    while (range.moveBack()) {
+      buffer.write(range.current);
+    }
+
+    return buffer.toString();
+  }
 
   bool get isInt => toIntOrNull() != null;
 
