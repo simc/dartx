@@ -7,13 +7,13 @@ extension IterableNumX<T extends num> on Iterable<T> {
   /// All elements have to be of type [num] or `null`. `null` elements are not
   /// counted.
   T sum() {
-    var sum = T is int ? 0 : 0.0;
+    var sum = (T == int ? 0 : 0.0) as T;
     for (var current in this) {
       if (current != null) {
         sum += current;
       }
     }
-    return sum as T;
+    return sum;
   }
 
   /// Returns the average of all elements in the collection.
