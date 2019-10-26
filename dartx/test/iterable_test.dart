@@ -408,6 +408,27 @@ void main() {
           [1, 2, 3, 4].mapNotNull((it) => it % 2 == 0 ? it * 2 : null), [4, 8]);
     });
 
+    test('.mapIndexed()', () {
+      expect([].mapIndexed((index, it) => 1), []);
+      expect([1, 2, 3, 4].mapIndexed((index, it) => null),
+          [null, null, null, null]);
+      expect([5, 4, null, 2].mapIndexed((index, it) => index), [0, 1, 2, 3]);
+      expect(
+          [1, 2, 3, 4].mapIndexed((index, it) => it % 2 == 0 ? it * 2 : null),
+          [null, 4, null, 8]);
+    });
+
+    test('.mapIndexedNotNull()', () {
+      expect([].mapIndexedNotNull((index, it) => 1), []);
+      expect([1, 2, 3, 4].mapIndexedNotNull((index, it) => null), []);
+      expect([5, 4, null, 2].mapIndexedNotNull((index, it) => index),
+          [0, 1, 2, 3]);
+      expect(
+          [1, 2, 3, 4]
+              .mapIndexedNotNull((index, it) => it % 2 == 0 ? it * 2 : null),
+          [4, 8]);
+    });
+
     test('.onEach()', () {
       expect([].onEach((it) => 1), []);
       expect(
