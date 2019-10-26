@@ -225,22 +225,10 @@ void main() {
       );
     });
 
-    test('.sum()', () {
-      expect([].sum(), 0);
-      expect([1, 2, 3, 4, 5].sum(), 15);
-      expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].sum(), 30);
-    });
-
     test('.sumBy()', () {
       expect([].sumBy((it) => 0.0), 0);
       expect(['t', 'te', 'tes'].sumBy((it) => it.length), 6);
       expect(['t', null, '', 'tes', null].sumBy((it) => it?.length), 4);
-    });
-
-    test('.average()', () {
-      expect(() => <int>[].average(), throwsStateError);
-      expect([1, 2, 3, 4, 5].average(), 3.0);
-      expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].average(), 3.0);
     });
 
     test('.averageBy()', () {

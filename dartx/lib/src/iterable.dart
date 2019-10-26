@@ -290,18 +290,6 @@ extension IterableX<E> on Iterable<E> {
 
   //Math operations
 
-  /// Returns the sum of all elements in the collection.
-  ///
-  /// All elements have to be of type [num] or `null`. `null` elements are not
-  /// counted.
-  double sum() {
-    var sum = 0.0;
-    for (var current in this) {
-      sum += (current as num) ?? 0;
-    }
-    return sum;
-  }
-
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
   ///
@@ -312,27 +300,6 @@ extension IterableX<E> on Iterable<E> {
       sum += selector(current) ?? 0;
     }
     return sum;
-  }
-
-  /// Returns the average of all elements in the collection.
-  ///
-  /// All elements must be of type [Comparable].
-  /// `null` elements are counted as 0. Empty collections return null.
-  double average() {
-    var count = 0;
-    num sum = 0;
-    for (var current in this as Iterable<num>) {
-      if (current != null) {
-        sum += current;
-      }
-      count++;
-    }
-
-    if (count == 0) {
-      throw StateError('No elements in collection');
-    } else {
-      return sum / count;
-    }
   }
 
   /// Returns the average of values returned by [selector] for all elements in
