@@ -92,14 +92,38 @@ var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
 ```
 
+## Function
+
+### invoke()
+Executes a function. This is very useful for `null` checks.
+```dart
+var func = (String value) {
+  print(value);
+}
+
+func?.invoke('hello world');
+```
+
+### partial(), partial2() ...
+Applies some of the required arguments to a function and returns a function which takes the remaining arguments.
+```dart
+void greet(String firstName, String lastName) {
+  print('Hi $firstName $lastName!');
+}
+
+var greetStark = greet.partial('Stark');
+greetStark('Sansa'); // Hi Sansa Stark!
+greetStark('Tony'); // Hi Tony Stark!
+```
+
 ## File
 
 ### name
 Get the name and extension of a file.
 ```dart
 var file = File('some/path/testFile.dart');
-print(file.name); // 'testFile.dart'
-print(file.nameWithoutExtension); // 'testFile'
+print(file.name); // testFile.dart
+print(file.nameWithoutExtension); // testFile
 ```
 
 ### appendText()
