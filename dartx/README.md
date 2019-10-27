@@ -33,7 +33,7 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3]
 ### slice()
 Returns elements at indices between `start` (inclusive) and `end` (inclusive).
 ```dart
-var list = [0, 1, 2, 3, 4, 5]);
+var list = [0, 1, 2, 3, 4, 5];
 var last = list.slice(-1); // [5]
 var lastHalf = list.slice(3); // [3, 4, 5]
 var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
