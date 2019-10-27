@@ -339,6 +339,73 @@ void main() {
       expect([1, 2, 3].lastWhile((e) => true), [1, 2, 3]);
     });
 
+    test('.filterIndexed()', () {
+      var result = [6, 5, 4, 3, 2, 1, 0].filter((it) => it % 2 == 0);
+      expect(result, [6, 4, 2, 0]);
+    });
+
+    test('.filterIndexed()', () {
+      var index = 0;
+      var result = [6, 5, 4, 3, 2, 1, 0].filterIndexed((it, i) {
+        expect(it, 6 - index);
+        expect(i, index);
+        index++;
+        return i > 3;
+      });
+      expect(result, [2, 1, 0]);
+    });
+
+    test('.filterTo()', () {
+      var list = <int>[];
+      [1, 2, 3, 4, 3, 2, 1].filterTo(list, (e) => e % 2 == 0);
+      expect(list, [2, 4, 2]);
+    });
+
+    test('.filterToIndexed()', () {
+      var index = 0;
+      var list = <int>[];
+      [1, 2, 3, 4, 3, 2, 1].filterIndexedTo(list, (e, i) {
+        expect(index++, i);
+        return e % 2 == 0;
+      });
+      expect(list, [2, 4, 2]);
+    });
+
+    test('.filterNot()', () {
+      expect([1, 2, 3, 4, 3, 2, 1].filterNot((e) => e % 2 == 0), [1, 3, 3, 1]);
+    });
+
+    test('.filterNotIndexed()', () {
+      var index = 0;
+      expect(
+        [1, 2, 3, 4, 3, 2, 1].filterNotIndexed((e, i) {
+          expect(index++, i);
+          return e % 2 == 0;
+        }),
+        [1, 3, 3, 1],
+      );
+    });
+
+    test('.filterNotTo()', () {
+      var list = <int>[];
+      [1, 2, 3, 4, 3, 2, 1].filterNotTo(list, (e) => e % 2 == 0);
+      expect(list, [1, 3, 3, 1]);
+    });
+
+    test('.filterToIndexed()', () {
+      var index = 0;
+      var list = <int>[];
+      [1, 2, 3, 4, 3, 2, 1].filterNotToIndexed(list, (e, i) {
+        expect(index++, i);
+        return e % 2 == 0;
+      });
+      expect(list, [1, 3, 3, 1]);
+    });
+
+    test('.filterNotNull()', () {
+      expect([0, null, 1, null, null, 2].filterNotNull(), [0, 1, 2]);
+    });
+
     test('.whereIndexed()', () {
       var index = 0;
       var result = [6, 5, 4, 3, 2, 1, 0].whereIndexed((it, i) {
