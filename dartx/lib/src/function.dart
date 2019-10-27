@@ -25,7 +25,6 @@ extension Function2X<A, B, R> on Function2<A, B, R> {
   Function1<A, Function1<B, R>> curry() =>
       (A first) => (B second) => this(first, second);
 
-  /// Curry a binary function with its first argument.
   Function1<B, R> partial(A first) => (B second) => this(first, second);
 
   Function0<R> partial2(A first, B second) => () => this(first, second);
@@ -33,7 +32,7 @@ extension Function2X<A, B, R> on Function2<A, B, R> {
   Function2<B, A, R> flip() => (B second, A first) => this(first, second);
 }
 
-extension Uncurry2X<A, B, R> on Function1<A, Function1<B, R>> {
+extension Curry2X<A, B, R> on Function1<A, Function1<B, R>> {
   Function2<A, B, R> uncurry() => (A first, B second) => this(first)(second);
 }
 
@@ -54,7 +53,7 @@ extension Function3X<R, A, B, C> on Function3<A, B, C, R> {
       () => this(first, second, third);
 }
 
-extension Uncurry3X<A, B, C, R> on Function1<A, Function1<B, Function1<C, R>>> {
+extension Curry3X<A, B, C, R> on Function1<A, Function1<B, Function1<C, R>>> {
   Function3<A, B, C, R> uncurry() =>
       (A first, B second, C third) => this(first)(second)(third);
 }
@@ -81,7 +80,7 @@ extension Function4X<R, A, B, C, D> on Function4<A, B, C, D, R> {
       () => this(first, second, third, fourth);
 }
 
-extension Uncurry4X<A, B, C, D, R>
+extension Curry4X<A, B, C, D, R>
     on Function1<A, Function1<B, Function1<C, Function1<D, R>>>> {
   Function4<A, B, C, D, R> uncurry() =>
       (A first, B second, C third, D fourth) =>
