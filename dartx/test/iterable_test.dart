@@ -497,13 +497,16 @@ void main() {
     });
 
     test('.onEach()', () {
-      expect([].onEach((it) => 1), []);
+      var list = [
+        [1],
+        [2],
+        [3]
+      ];
+      list.onEach((it) {
+        it.add(it[0]);
+      });
       expect(
-        [
-          [1],
-          [2],
-          [3]
-        ].onEach((it) => it.add(it.first)),
+        list,
         [
           [1, 1],
           [2, 2],

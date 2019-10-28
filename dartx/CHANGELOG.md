@@ -1,3 +1,7 @@
+## 0.2.0
+- Added async extensions for `Iterable`: `.mapAsync()`, `whereNotNullAsync()` etc.
+- **Breaking** `onEach()` now returns `void`:
+
 ## 0.1.2
 - Fixed docs
 - Added `Function.curry()`, `Function.invoke()`, `Function.partial()` and `Function.flip()`

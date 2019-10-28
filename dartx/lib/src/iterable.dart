@@ -163,6 +163,14 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Returns a new lazy [Iterable] which performs the given action on each
+  /// element.
+  void onEach(void action(E element)) {
+    for (var element in this) {
+      action(element);
+    }
+  }
+
   /// Checks if all elements in the specified [collection] are contained in
   /// this collection.
   bool containsAll(Iterable<E> collection) {
@@ -483,45 +491,6 @@ extension IterableX<E> on Iterable<E> {
     return list;
   }
 
-  /// Returns all elements matching the given [predicate].
-  Iterable<E> filter(bool predicate(E element)) => where(predicate);
-
-  /// Returns all elements that satisfy the given [predicate].
-  Iterable<E> filterIndexed(bool predicate(E element, int index)) =>
-      whereIndexed(predicate);
-
-  /// Appends all elements matching the given [predicate] to the given
-  /// [destination].
-  void filterTo(List<E> destination, bool predicate(E element)) =>
-      whereTo(destination, predicate);
-
-  /// Appends all elements matching the given [predicate] to the given
-  /// [destination].
-  void filterIndexedTo(
-          List<E> destination, bool predicate(E element, int index)) =>
-      whereIndexedTo(destination, predicate);
-
-  /// Returns all elements not matching the given [predicate].
-  Iterable<E> filterNot(bool predicate(E element)) => whereNot(predicate);
-
-  /// Returns all elements not matching the given [predicate].
-  Iterable<E> filterNotIndexed(bool predicate(E element, int index)) =>
-      whereNotIndexed(predicate);
-
-  /// Appends all elements not matching the given [predicate] to the given
-  /// [destination].
-  void filterNotTo(List<E> destination, bool predicate(E element)) =>
-      whereNotTo(destination, predicate);
-
-  /// Appends all elements not matching the given [predicate] to the given
-  /// [destination].
-  void filterNotToIndexed(
-          List<E> destination, bool predicate(E element, int index)) =>
-      whereNotToIndexed(destination, predicate);
-
-  /// Returns a new lazy [Iterable] with all elements which are not null.
-  Iterable<E> filterNotNull() => where((element) => element != null);
-
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(bool predicate(E element, int index)) sync* {
     var index = 0;
@@ -598,6 +567,45 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] with all elements which are not null.
   Iterable<E> whereNotNull() => where((element) => element != null);
 
+  /// Returns all elements matching the given [predicate].
+  Iterable<E> filter(bool predicate(E element)) => where(predicate);
+
+  /// Returns all elements that satisfy the given [predicate].
+  Iterable<E> filterIndexed(bool predicate(E element, int index)) =>
+      whereIndexed(predicate);
+
+  /// Appends all elements matching the given [predicate] to the given
+  /// [destination].
+  void filterTo(List<E> destination, bool predicate(E element)) =>
+      whereTo(destination, predicate);
+
+  /// Appends all elements matching the given [predicate] to the given
+  /// [destination].
+  void filterIndexedTo(
+          List<E> destination, bool predicate(E element, int index)) =>
+      whereIndexedTo(destination, predicate);
+
+  /// Returns all elements not matching the given [predicate].
+  Iterable<E> filterNot(bool predicate(E element)) => whereNot(predicate);
+
+  /// Returns all elements not matching the given [predicate].
+  Iterable<E> filterNotIndexed(bool predicate(E element, int index)) =>
+      whereNotIndexed(predicate);
+
+  /// Appends all elements not matching the given [predicate] to the given
+  /// [destination].
+  void filterNotTo(List<E> destination, bool predicate(E element)) =>
+      whereNotTo(destination, predicate);
+
+  /// Appends all elements not matching the given [predicate] to the given
+  /// [destination].
+  void filterNotToIndexed(
+          List<E> destination, bool predicate(E element, int index)) =>
+      whereNotToIndexed(destination, predicate);
+
+  /// Returns a new lazy [Iterable] with all elements which are not null.
+  Iterable<E> filterNotNull() => where((element) => element != null);
+
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element in the original
   /// collection.
@@ -613,7 +621,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing the results of applying the
   /// given [transform] function to each element and its index in the original
   /// collection.
-  Iterable<R> mapIndexed<R>(R Function(int index, E) transform) sync* {
+  Iterable<R> mapIndexed<R>(R transform(int index, E element)) sync* {
     var index = 0;
     for (var element in this) {
       yield transform(index++, element);
@@ -623,22 +631,13 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element and its index
   /// in the original collection.
-  Iterable<R> mapIndexedNotNull<R>(R Function(int index, E) transform) sync* {
+  Iterable<R> mapIndexedNotNull<R>(R transform(int index, E element)) sync* {
     var index = 0;
     for (var element in this) {
       final result = transform(index++, element);
       if (result != null) {
         yield result;
       }
-    }
-  }
-
-  /// Returns a new lazy [Iterable] which performs the given action on each
-  /// element.
-  Iterable<E> onEach(void action(E element)) sync* {
-    for (var element in this) {
-      action(element);
-      yield element;
     }
   }
 
