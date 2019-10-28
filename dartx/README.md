@@ -103,7 +103,7 @@ Duration totalTime = [12.5.seconds, 101.milliseconds, 2.5.minutes].sum();
 DateTime oneWeekLater = DateTime.now() + 1.week;
 ```
 
-Check out [⏰ time.dart]() for more information and examples.
+Check out [⏰ time.dart](https://github.com/jogboms/time.dart) for more information and examples.
 
 ## num
 
