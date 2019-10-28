@@ -56,6 +56,16 @@ extension NumX<T extends num> on T {
     }
   }
 
+  /// Returns a [Duration] equal to this [int] number of weeks.
+  Duration get weeks {
+    if (this is int) {
+      return Duration(days: (this as int) * 7);
+    } else {
+      var microseconds = this * Duration.microsecondsPerDay;
+      return Duration(microseconds: microseconds.toInt() * 7);
+    }
+  }
+
   /// Ensures that this value lies in the specified range
   /// [minimumValue]..[maximumValue].
   ///

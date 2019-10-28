@@ -32,9 +32,6 @@ void main() {
         expect(10.microseconds, Duration(microseconds: 10));
       });
 
-      test('can be converted into nanoseconds', () {
-        expect(5.nanoseconds, Duration(microseconds: 5 ~/ 1000));
-      });
     });
 
     group('DateTime', () {
