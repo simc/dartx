@@ -1,6 +1,7 @@
 /// Superpowers for Dart. Collection of useful static extension methods.
 library dartx;
 
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
@@ -11,7 +12,10 @@ import 'package:collection/collection.dart' hide DelegatingList;
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:quiver/collection.dart';
 
+export 'package:time/time.dart';
+
 part 'src/function.dart';
+part 'src/iterable_async.dart';
 part 'src/iterable_num.dart';
 part 'src/iterable.dart';
 part 'src/list.dart';

@@ -1,61 +1,6 @@
 part of dartx;
 
 extension NumX<T extends num> on T {
-  /// Returns a [Duration] equal to this [int] number of microseconds.
-  Duration get microseconds {
-    return Duration(microseconds: toInt());
-  }
-
-  /// Returns a [Duration] equal to this [int] number of milliseconds.
-  Duration get milliseconds {
-    if (this is int) {
-      return Duration(milliseconds: this as int);
-    } else {
-      var microseconds = this * Duration.microsecondsPerMillisecond;
-      return Duration(microseconds: microseconds.toInt());
-    }
-  }
-
-  /// Returns a [Duration] equal to this [int] number of seconds.
-  Duration get seconds {
-    if (this is int) {
-      return Duration(seconds: this as int);
-    } else {
-      var microseconds = this * Duration.microsecondsPerSecond;
-      return Duration(microseconds: microseconds.toInt());
-    }
-  }
-
-  /// Returns a [Duration] equal to this [int] number of minutes.
-  Duration get minutes {
-    if (this is int) {
-      return Duration(minutes: this as int);
-    } else {
-      var microseconds = this * Duration.microsecondsPerMinute;
-      return Duration(microseconds: microseconds.toInt());
-    }
-  }
-
-  /// Returns a [Duration] equal to this [int] number of hours.
-  Duration get hours {
-    if (this is int) {
-      return Duration(hours: this as int);
-    } else {
-      var microseconds = this * Duration.microsecondsPerHour;
-      return Duration(microseconds: microseconds.toInt());
-    }
-  }
-
-  /// Returns a [Duration] equal to this [int] number of days.
-  Duration get days {
-    if (this is int) {
-      return Duration(days: this as int);
-    } else {
-      var microseconds = this * Duration.microsecondsPerDay;
-      return Duration(microseconds: microseconds.toInt());
-    }
-  }
-
   /// Ensures that this value lies in the specified range
   /// [minimumValue]..[maximumValue].
   ///

@@ -30,7 +30,7 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3]
 
 ## Iterable
 
-### slice()
+### .slice()
 Returns elements at indices between `start` (inclusive) and `end` (inclusive).
 ```dart
 var list = [0, 1, 2, 3, 4, 5];
@@ -39,7 +39,7 @@ var lastHalf = list.slice(3); // [3, 4, 5]
 var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
-### sortedBy() & thenBy()
+### .sortedBy() & .thenBy()
 Sort lists by multiple properties.
 ```dart
 var dogs = [
@@ -56,14 +56,14 @@ var sorted = dogs
 // Bark, Cookie, Charlie (7), Charlie (2), Tom
 ```
 
-### distinctBy()
+### .distinctBy()
 Get distinct elements from a list.
 ```dart
 var list = ['this', 'is', 'a', 'test'];
 var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
 ```
 
-### flatten()
+### .flatten()
 Get a new lazy `Iterable` of all elements from all collections in a collection.
 ```dart
 var nestedList = [[1, 2, 3], [4, 5, 6]];
@@ -72,29 +72,54 @@ var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 
 ## String
 
-### chars
+### .chars
 Get a list of single character strings from a string. Supports emojis.
 ```dart
 var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
-### isBlank()
+### .isBlank
 Returns `true` if this string is empty or consists solely of whitespace characters.
 ```dart
 var notBlank = '   .'.isBlank; // false
 var blank = '  '.isBlank; // true
 ```
 
-### toIntOrNull()
+### .toIntOrNull()
 Parses the string as an ineger or returns `null` if it is not a number.
 ```dart
 var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
 ```
 
+## Time utils
+Dartx exports [@jogboms](https://github.com/jogboms) great [⏰ time.dart](https://github.com/jogboms/time.dart) package so you can do the following:
+
+```dart
+int secondsInADay = 1.days.inSeconds;
+
+Duration totalTime = [12.5.seconds, 101.milliseconds, 2.5.minutes].sum();
+
+DateTime oneWeekLater = DateTime.now() + 1.week;
+```
+
+Check out [⏰ time.dart]() for more information and examples.
+
+## num
+
+### .coerceIn()
+Ensures that this value lies in the specified range.
+```dart
+var numberInRange = 123.coerceIn(0, 1000); // 123
+var numberOutOfRange = -123.coerceIn(0, 1000); // 0
+```
+
+### .toBytes()
+Converts this value to binary form.
+
 ## Function
 
-### invoke()
+### .invoke()
 Executes a function. This is very useful for `null` checks.
 ```dart
 var func = (String value) {
@@ -104,7 +129,7 @@ var func = (String value) {
 func?.invoke('hello world');
 ```
 
-### partial(), partial2() ...
+### .partial(), .partial2() ...
 Applies some of the required arguments to a function and returns a function which takes the remaining arguments.
 ```dart
 void greet(String firstName, String lastName) {
@@ -118,7 +143,7 @@ greetStark('Tony'); // Hi Tony Stark!
 
 ## File
 
-### name
+### .name
 Get the name and extension of a file.
 ```dart
 var file = File('some/path/testFile.dart');
@@ -126,13 +151,13 @@ print(file.name); // testFile.dart
 print(file.nameWithoutExtension); // testFile
 ```
 
-### appendText()
+### .appendText()
 Append text to a file.
 ```dart
 await File('someFile.json').appendText('{test: true}');
 ```
 
-### isWithin()
+### .isWithin()
 Checks if a file is inside a directory.
 ```dart
 var dir = Directory('some/path');
