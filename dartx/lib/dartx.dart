@@ -18,3 +18,4 @@ part 'src/list.dart';
 part 'src/num.dart';
 part 'src/sorted_list.dart';
 part 'src/string.dart';
+part 'src/time.dart';

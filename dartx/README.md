@@ -92,6 +92,43 @@ var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
 ```
 
+## Time 
+Credits to [joboms](https://github.com/jogboms)!
+```dart
+final Duration tenMinutes = 10.minutes;
+final DateTime afterTenMinutes = DateTime.now() + 10.minutes;
+final Duration tenMinutesAndSome = 10.minutes + 15.seconds;
+final int tenMinutesInSeconds = 10.minutes.inSeconds;
+final DateTime tenMinutesLater = 10.minutes.later;
+```
+
+You can perform all basic arithmetic operations on `Duration` as you always have been:
+
+```dart
+final Duration interval = 10.minutes + 15.seconds - 3.minutes + 2.hours;
+final Duration doubled = interval * 2;
+```
+
+You can also use these operations on `DateTime`:
+
+```dart
+final DateTime oneHourAfter = DateTime() + 1.hours;
+```
+
+`Duration` is easily convertible as it always has been:
+
+```dart
+final int twoMinutesInSeconds = 2.minutes.inSeconds;
+```
+
+You can also convert `Duration` to `DateTime`, if needed:
+
+```dart
+final DateTime timeInFuture = 5.minutes.later;
+final DateTime timeInPast = 5.minutes.ago;
+```
+
+
 ## Function
 
 ### invoke()
