@@ -25,7 +25,7 @@ After you import the library, you can use the extensions.
 ```dart
 import 'package:dartx/dartx.dart';
 
-var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3]
+var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 ```
 
 ## Iterable
