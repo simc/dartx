@@ -1,3 +1,6 @@
+## 0.2.0
+- Moved to `time.dart` library for time extensions
+
 ## 0.1.2
 - Fixed docs
 - Added `Function.curry()`, `Function.invoke()`, `Function.partial()` and `Function.flip()`
