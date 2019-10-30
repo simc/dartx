@@ -13,10 +13,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install dependencies
       run: pub get
-      working-directory: dartx
     - name: Run tests
       run: pub run test
-      working-directory: dartx
       
   coverage:
     runs-on: ubuntu-latest
@@ -28,12 +26,10 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install dependencies
       run: pub get
-      working-directory: dartx
     - name: Collect coverage
       run: |
         pub global activate test_coverage
         pub global run test_coverage
-      working-directory: dartx
     - uses: codecov/codecov-action@v1.0.0	
       with:
         token: ${{ secrets.CODECOV_TOKEN }}	
