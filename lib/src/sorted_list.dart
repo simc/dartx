@@ -63,6 +63,9 @@ class _SortedList<E> extends _DelegatingList<E> {
     return _SortedList<E>._(this, comparator, _comparator);
   }
 
+  @override
+  List<T> cast<T>() => delegate.cast<T>();
+
   int _compare(E element1, E element2) {
     var compare = 0;
     if (_parentComparator != null) {
@@ -113,12 +116,6 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
 
   @override
   Map<int, E> asMap() => delegate.asMap();
-
-  @override
-  _DelegatingList<T> cast<T>() {
-    // TODO(cbracken): Dart 2.0 requires this method to be implemented.
-    throw UnimplementedError('cast');
-  }
 
   @override
   void clear() => delegate.clear();
@@ -234,10 +231,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   bool any(bool test(E element)) => delegate.any(test);
 
   @override
-  Iterable<T> cast<T>() {
-    // TODO(cbracken): Dart 2.0 requires this method to be implemented.
-    throw UnimplementedError('cast');
-  }
+  Iterable<T> cast<T>() => delegate.cast<T>();
 
   @override
   bool contains(Object element) => delegate.contains(element);
@@ -325,8 +319,5 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   Iterable<E> where(bool test(E element)) => delegate.where(test);
 
   @override
-  Iterable<T> whereType<T>() {
-    // TODO(cbracken): Dart 2.0 requires this method to be implemented.
-    throw UnimplementedError('whereType');
-  }
+  Iterable<T> whereType<T>() => delegate.whereType<T>();
 }
