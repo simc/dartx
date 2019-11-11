@@ -117,6 +117,22 @@ var numberOutOfRange = -123.coerceIn(0, 1000); // 0
 ### .toBytes()
 Converts this value to binary form.
 
+## range
+
+### rangeTo
+
+Creates a range between two ints (upwards, downwards and with custom steps)
+```dart
+// upwards with default step size 1
+for (var i in 1.rangeTo(5)) {
+  print(i); // 1, 2, 3, 4, 5
+}
+// downwards with custom step
+for (var i in 10.rangeTo(2).step(2)) {
+  print(i); // 10, 8, 6, 4, 2
+}
+```
+
 ## Function
 
 ### .invoke()
