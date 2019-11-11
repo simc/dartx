@@ -23,12 +23,12 @@ extension IntRangeExtension on int {
   /// ```
   ///
   ///
-  IntRange rangeTo(int end) => IntRange(this, end, 1);
+  IntRange rangeTo(int endInclusive) => IntRange(this, endInclusive, step: 1);
 }
 
 /// IntRange()
 class IntRange extends IterableBase<int> {
-  IntRange(int first, int endInclusive, int step)
+  IntRange(int first, int endInclusive, {int step = 1})
       : _first = first,
         // can't initialize directly du to naming conflict with step() method
         // ignore: prefer_initializing_formals
@@ -53,13 +53,13 @@ class IntRange extends IterableBase<int> {
   final int stepSize;
 
   @override
-  Iterator<int> get iterator => IntRangeIterator(_first, _last, stepSize);
+  Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
 }
 
 extension IntRangeX on IntRange {
   /// Creates a [IntRange] with a different [stepSize],
   /// keeps first and last value
-  IntRange step(int step) => IntRange(_first, _last, step);
+  IntRange step(int step) => IntRange(_first, _last, step: step);
 }
 
 int _getProgressionLastElement(int start, int end, int step) {
@@ -87,8 +87,8 @@ int _mod(int a, int b) {
   }
 }
 
-class IntRangeIterator extends Iterator<int> {
-  IntRangeIterator(this.first, this.last, this.step);
+class _IntRangeIterator extends Iterator<int> {
+  _IntRangeIterator(this.first, this.last, this.step);
 
   final int first;
   final int step;

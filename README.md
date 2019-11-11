@@ -121,7 +121,7 @@ Converts this value to binary form.
 
 ### rangeTo
 
-Creates a range between to ints (upwards, downwards and with custom steps)
+Creates a range between two ints (upwards, downwards and with custom steps)
 ```dart
 // upwards with default step size 1
 for (var i in 1.rangeTo(5)) {
