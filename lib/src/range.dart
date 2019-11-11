@@ -26,8 +26,14 @@ extension IntRangeExtension on int {
   IntRange rangeTo(int endInclusive) => IntRange(this, endInclusive, step: 1);
 }
 
-/// IntRange()
+/// A iterable range between two ints which is iterable with a specific step
+/// size
 class IntRange extends IterableBase<int> {
+  /// Creates a range between two ints ([first], [endInclusive]) which can be
+  /// iterated through.
+  ///
+  /// [step] (optional, defaults to 1) has to be positive even when iterating
+  /// downwards.
   IntRange(int first, int endInclusive, {int step = 1})
       : _first = first,
         // can't initialize directly du to naming conflict with step() method
