@@ -135,14 +135,14 @@ for (var i in 10.rangeTo(2).step(2)) {
 
 ## Function
 
-### .invoke()
-Executes a function. This is very useful for `null` checks.
+### .invoke() - DEPRECATED
+Use `call()` instead. This is very useful for `null` checks.
 ```dart
 var func = (String value) {
   print(value);
 }
 
-func?.invoke('hello world');
+func?.call('hello world');
 ```
 
 ### .partial(), .partial2() ...
