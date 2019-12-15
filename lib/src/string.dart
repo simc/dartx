@@ -115,9 +115,12 @@ extension StringX on String {
 
   List<int> toUtf16() => codeUnits;
 
-  String get md5 {
-    var utf8 = toUtf8();
-    var digest = crypto.md5.convert(utf8);
-    return String.fromCharCodes(digest.bytes);
-  }
+  /// Calculates the MD5 digest and returns the value as a [String] of
+  /// hexadecimal digits.
+  ///
+  /// ```dart
+  /// print('abc'.md5); //900150983cd24fb0d6963f7d28e17f72
+  /// print('message digest'.md5); //f96b697d7cb7938d525a2f31aaf161d0
+  /// ```
+  String get md5 => crypto.md5.convert(toUtf8()).toString();
 }
