@@ -61,7 +61,7 @@ extension FileSystemEntityX on FileSystemEntity {
 
   ///Returns a new [File] with the `name` part changed
   ///```dart
-  ///File('path/to/foo.dart').withName('bar.txt'); // -> File('path/to/bar.dart')
+  ///File('path/to/foo.dart').withName('bar.txt'); // -> File('path/to/bar.txt')
   ///File('path/to/foo').withName('bar') // -> File('path/to/bar')
   ///```
   FileSystemEntity withName(String newName) {
