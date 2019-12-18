@@ -58,4 +58,29 @@ extension FileSystemEntityX on FileSystemEntity {
   /// Directory('/root/path').isWithin(Directory('/root/path')) // -> false
   /// ```
   bool isWithin(Directory parent) => path_helper.isWithin(parent.path, path);
+
+  ///Returns a new [File] with the `name` part changed
+  ///```dart
+  ///File('path/to/foo.dart').withName('bar.txt'); // -> File('path/to/bar.dart')
+  ///File('path/to/foo').withName('bar') // -> File('path/to/bar')
+  ///```
+  FileSystemEntity withName(String newName) {
+    return File('$dirName${Platform.pathSeparator}$newName');
+    }
+
+  ///Returns the file extension of the [path], the portion of the `name` 
+  ///from the last '.' to the end (including the '.' itself).
+  ///```dart
+  ///File('path/to/foo.dart').extension; // -> '.dart'
+  ///File('path/to/foo').extension; // -> ''
+  ///File('path.to/foo').extension; // -> ''
+  ///File('path/to/foo.dart.js').extension; // -> '.js'
+  ///```
+  ///If the filename starts with a '.', then that is not considered an 
+  ///extension.
+  ///```Dart
+  ///File('~/.profile').extension;    // -> ''
+  ///File('~/.notes.txt').extension;    // -> '.txt'
+  ///```
+  String get extension => path_helper.extension(path);
 }
