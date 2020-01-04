@@ -10,12 +10,13 @@ jobs:
       - name: Install dart
         run: |
           choco install dart-sdk
+          Set-Alias -Name pub -Value C:\tools\dart-sdk\bin\pub.bat
           refreshenv
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: pub.bat get
+        run: pub get
       - name: Run tests
-        run: pub.bat run test
+        run: pub run test
 
   test:
     runs-on: ubuntu-latest
