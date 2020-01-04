@@ -11,6 +11,8 @@ jobs:
         run: |
           choco install dart-sdk
           refreshenv
+          dart --version
+          pub --version
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: pub get
