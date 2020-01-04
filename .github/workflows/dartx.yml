@@ -3,6 +3,18 @@ name: Dart CI
 on: [push]
 
 jobs:
+  test-windows:
+    runs-on: windows-latest
+  steps:
+    - name: Install dart
+      run: |
+        choco install dart-sdk
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: pub get
+    - name: Run tests
+      run: pub run test
+
   test:
     runs-on: ubuntu-latest
     
@@ -20,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image:  google/dart:dev
+      image:  google/dart:2.7
     
     steps:
     - uses: actions/checkout@v1
