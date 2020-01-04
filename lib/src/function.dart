@@ -8,6 +8,7 @@ typedef R Function4<A, B, C, D, R>(A a, B b, C c, D d);
 
 extension Function0X<R> on Function0<R> {
   /// Invokes this function and returns it's return value.
+  @Deprecated('Use `call()`')
   R invoke() => this();
 }
 
