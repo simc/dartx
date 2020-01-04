@@ -5,6 +5,7 @@
 - [PR-21](https://github.com/leisim/dartx/pull/21) New `String.md5` to calculate a MD5 digest
 - [PR-25](https://github.com/leisim/dartx/pull/25) New `FileSystemEntity.withName(String newName)` to get a `File` with a different name
 - [PR-25](https://github.com/leisim/dartx/pull/25) New `FileSystemEntity.extension` to get the file extension
+- [PR-17](https://github.com/leisim/dartx/pull/17) `Callable.invoke()` is now marked as `Deprecated` in favour of darts `call()` method. It will not be removed though, until darts `.call()` methods gets [auto-completion](https://github.com/dart-lang/sdk/issues/39761).
 
 ## 0.2.0
 - Moved to `time.dart` library for time extensions
