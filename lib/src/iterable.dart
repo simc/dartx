@@ -696,20 +696,15 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
-  /// Returns a new lazy [Iterable] of results of applying the given [transform]
-  /// function to an each list representing a view over the window of the given
-  /// [size] sliding along this collection with the given [step].
+  /// Returns a new lazy [Iterable] of windows of the given [size] sliding along
+  /// this collection with the given [step].
   ///
-  /// Note that the list passed to the [transform] function is ephemeral and is
-  /// valid only inside that function. You should not store it or allow it to
-  /// escape in some way, unless you made a snapshot of it. The last list may
-  /// have less elements than the given size.
+  /// The last list may have less elements than the given size.
   ///
   /// Both [size] and [step] must be positive and can be greater than the number
   /// of elements in this collection.
-  Iterable<R> windowed<R>(
-    int size,
-    R transform(List<E> window), {
+  Iterable<List<E>> windowed(
+    int size, {
     int step = 1,
     bool partialWindows = false,
   }) sync* {
@@ -724,20 +719,20 @@ extension IterableX<E> on Iterable<E> {
         }
         buffer.add(element);
         if (buffer.length == size) {
-          yield transform(buffer);
+          yield buffer;
           buffer = <E>[];
           skip = gap;
         }
       }
       if (buffer.isNotEmpty && (partialWindows || buffer.length == size)) {
-        yield transform(buffer);
+        yield buffer;
       }
     } else {
       var buffer = ListQueue<E>(size);
       for (var element in this) {
         buffer.add(element);
         if (buffer.length == size) {
-          yield transform(buffer.toList());
+          yield buffer.toList();
           for (var i = 0; i < step; i++) {
             buffer.removeFirst();
           }
@@ -745,13 +740,13 @@ extension IterableX<E> on Iterable<E> {
       }
       if (partialWindows) {
         while (buffer.length > step) {
-          yield transform(buffer.toList());
+          yield buffer.toList();
           for (var i = 0; i < step; i++) {
             buffer.removeFirst();
           }
         }
         if (buffer.isNotEmpty) {
-          yield transform(buffer.toList());
+          yield buffer.toList();
         }
       }
     }

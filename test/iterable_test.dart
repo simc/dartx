@@ -542,13 +542,19 @@ void main() {
 
     group('.windowed()', () {
       test('size 1', () {
-        expect([].windowed(1, (list) => 1), []);
-        expect([0, 1, 2, 3, 4, 5].windowed(1, (list) => list.first),
-            [0, 1, 2, 3, 4, 5]);
+        expect([].windowed(1), []);
+        expect([0, 1, 2, 3, 4, 5].windowed(1), [
+          [0],
+          [1],
+          [2],
+          [3],
+          [4],
+          [5]
+        ]);
       });
 
       test('size 4', () {
-        var result = [0, 1, 2, 3, 4, 5].windowed(4, (list) => list);
+        var result = [0, 1, 2, 3, 4, 5].windowed(4);
         expect(result, [
           [0, 1, 2, 3],
           [1, 2, 3, 4],
@@ -557,8 +563,7 @@ void main() {
       });
 
       test('partialWindows', () {
-        var result = [0, 1, 2, 3, 4, 5]
-            .windowed(4, (list) => list, partialWindows: true);
+        var result = [0, 1, 2, 3, 4, 5].windowed(4, partialWindows: true);
         expect(result, [
           [0, 1, 2, 3],
           [1, 2, 3, 4],
@@ -570,7 +575,7 @@ void main() {
       });
 
       test('steps', () {
-        var result = [0, 1, 2, 3, 4, 5].windowed(3, (list) => list, step: 2);
+        var result = [0, 1, 2, 3, 4, 5].windowed(3, step: 2);
         expect(result, [
           [0, 1, 2],
           [2, 3, 4]
@@ -578,8 +583,8 @@ void main() {
       });
 
       test('steps & partialWindows', () {
-        var result = [0, 1, 2, 3, 4, 5]
-            .windowed(3, (list) => list, step: 2, partialWindows: true);
+        var result =
+            [0, 1, 2, 3, 4, 5].windowed(3, step: 2, partialWindows: true);
         expect(result, [
           [0, 1, 2],
           [2, 3, 4],
