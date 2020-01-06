@@ -11,7 +11,7 @@ dependencies:
   path: ">=1.6.4 <1.7.0"
   crypto: ">=2.1.0 <2.2.0"
   characters: ">=0.3.0 <0.4.0"
-  time: ^1.1.0
+  time: ^1.2.0
 
 dev_dependencies:
   test: ^1.9.2
