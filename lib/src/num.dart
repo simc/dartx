@@ -47,17 +47,22 @@ extension NumX<T extends num> on T {
   /// ```
   T coerceAtMost(T maximumValue) =>
       this > maximumValue ? maximumValue : this;
+}
 
+extension IntX<T extends int> on T {
   /// Converts this value to binary form.
   Uint8List toBytes([Endian endian = Endian.big]) {
-    var data = ByteData(8);
-    if (this is int) {
-      data.setInt64(0, this as int, endian);
-    } else if (this is double) {
-      data.setFloat64(0, this as double, endian);
-    } else {
-      throw ArgumentError('Unsupported num type');
-    }
+    final data = ByteData(8);
+    data.setInt64(0, this, endian);
+    return data.buffer.asUint8List();
+  }
+}
+
+extension DoubleX<T extends double> on T {
+  /// Converts this value to binary form.
+  Uint8List toBytes([Endian endian = Endian.big]) {
+    final data = ByteData(8);
+    data.setFloat64(0, this, endian);
     return data.buffer.asUint8List();
   }
 }
