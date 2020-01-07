@@ -39,16 +39,14 @@ void main() {
     test('.coerceAtLeast()', () {
       expect(DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 1, 1)),
           DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 1, 20)),
+      expect(DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 11, 20)),
           DateTime(1984, 11, 20));
     });
 
     test('.coerceAtMost()', () {
-      expect(10.coerceAtMost(12), 10);
-      expect(10.coerceAtMost(5), 5);
       expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 1, 20)),
           DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 1, 1)),
+      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 1));
     });
 
