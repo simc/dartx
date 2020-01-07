@@ -44,7 +44,7 @@ void main() {
     });
 
     test('.coerceAtMost()', () {
-      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 1, 20)),
+      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 20)),
           DateTime(1984, 11, 19));
       expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 1));
