@@ -21,7 +21,7 @@ extension NumX<T extends num> on T {
     }
     if (this < minimumValue) return minimumValue;
     if (maximumValue != null && this > maximumValue) return maximumValue;
-    return this as T;
+    return this;
   }
 
   /// Ensures that this value is not less than the specified [minimumValue].
@@ -34,7 +34,7 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtLeast(20)) // 20
   /// ```
   T coerceAtLeast(T minimumValue) =>
-      this < minimumValue ? minimumValue : this as T;
+      this < minimumValue ? minimumValue : this;
 
   /// Ensures that this value is not greater than the specified [maximumValue].
   ///
@@ -46,7 +46,7 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtMost(20)) // 10
   /// ```
   T coerceAtMost(T maximumValue) =>
-      this > maximumValue ? maximumValue : this as T;
+      this > maximumValue ? maximumValue : this;
 
   /// Converts this value to binary form.
   Uint8List toBytes([Endian endian = Endian.big]) {
