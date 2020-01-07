@@ -3,34 +3,47 @@ name: Dart CI
 on: [push]
 
 jobs:
+  test-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Install dart
+        run: |
+          choco install dart-sdk
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: C:\tools\dart-sdk\bin\pub.bat get
+      - name: Run tests
+        run: C:\tools\dart-sdk\bin\pub.bat run test
+
   test:
     runs-on: ubuntu-latest
-    
+
     container:
       image:  google/dart:dev
-    
+
     steps:
-    - uses: actions/checkout@v1
-    - name: Install dependencies
-      run: pub get
-    - name: Run tests
-      run: pub run test
-      
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+
   coverage:
     runs-on: ubuntu-latest
-    
+
     container:
-      image:  google/dart:dev
-    
+      image:  google/dart:2.7
+
     steps:
-    - uses: actions/checkout@v1
-    - name: Install dependencies
-      run: pub get
-    - name: Collect coverage
-      run: |
-        pub global activate test_coverage
-        pub global run test_coverage
-    - uses: codecov/codecov-action@v1.0.0	
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}	
-        file: dartx/coverage/lcov.info
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Collect coverage
+        run: |
+          pub global activate test_coverage
+          pub global run test_coverage
+      - uses: codecov/codecov-action@v1.0.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: dartx/coverage/lcov.info
