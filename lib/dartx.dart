@@ -13,6 +13,7 @@ import 'package:crypto/crypto.dart' as crypto;
 export 'package:time/time.dart';
 
 part 'src/comparable.dart';
+part 'src/comparator.dart';
 part 'src/function.dart';
 part 'src/iterable_num.dart';
 part 'src/iterable.dart';

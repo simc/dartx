@@ -248,7 +248,7 @@ extension IterableX<E> on Iterable<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   _SortedList<E> sortedWith(Comparator<E> comparator) {
-    return _SortedList<E>._(this, comparator, null);
+    return _SortedList<E>._(this, comparator);
   }
 
   /// Creates a string from all the elements separated using [separator] and
