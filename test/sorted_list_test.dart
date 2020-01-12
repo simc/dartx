@@ -249,5 +249,51 @@ void main() {
     test('sublist', () {
       expect(_sortedList.sublist(1, 2), [2]);
     });
+
+    test('can sort items by 3 comparators', () {
+      const itemList = [
+        Item(0, 1, 2),
+        Item(2, 1, 0),
+        Item(1, 2, 0),
+      ];
+
+      final sorted = itemList
+          .sortedBy((item) => item.a)
+          .thenBy((item) => item.b)
+          .thenBy((item) => item.c);
+
+      expect(
+          sorted.toList(),
+          equals(const [
+            Item(0, 1, 2),
+            Item(1, 2, 0),
+            Item(2, 1, 0),
+          ]));
+    });
   });
+}
+
+class Item {
+  final int a;
+  final int b;
+  final int c;
+
+  const Item(this.a, this.b, this.c);
+
+  @override
+  String toString() {
+    return 'Item{a: $a, b: $b, c: $c}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Item &&
+          runtimeType == other.runtimeType &&
+          a == other.a &&
+          b == other.b &&
+          c == other.c;
+
+  @override
+  int get hashCode => a.hashCode ^ b.hashCode ^ c.hashCode;
 }
