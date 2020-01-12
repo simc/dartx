@@ -1,6 +1,6 @@
 part of dartx;
 
-extension ComposeComparable<T> on Comparator<T> {
+extension CompararatorX<T> on Comparator<T> {
   /// return a new comparator,
   /// that sorts the items first by the criteria of this comparator,
   /// then by the criteria of the given comparator
