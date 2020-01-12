@@ -1,29 +1,29 @@
 part of dartx;
 
-Comparator<E> _getComparator<E>(int order, Comparable selector(E element)) {
-  return (E a, E b) {
+Comparator<E> _getComparator<E>(int order, Comparable selector(E element),
+    {Comparator<E> parent}) {
+  final newComparator = (E a, E b) {
     return order * selector(a).compareTo(selector(b));
   };
+  return parent?.compose(newComparator) ?? newComparator;
 }
 
 class _SortedList<E> extends _DelegatingList<E> {
   final Iterable<E> _source;
   final Comparator<E> _comparator;
-  final Comparator<E> _parentComparator;
   List<E> _sortedResults;
 
   _SortedList._(
     this._source,
     this._comparator,
-    this._parentComparator,
   );
 
   _SortedList._withSelector(
     this._source,
     Comparable selector(E element),
     int order,
-    this._parentComparator,
-  ) : _comparator = _getComparator(order, selector);
+    Comparator<E> parentComparator,
+  ) : _comparator = _getComparator(order, selector, parent: parentComparator);
 
   @override
   List<E> get delegate {
@@ -60,22 +60,14 @@ class _SortedList<E> extends _DelegatingList<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   _SortedList<E> thenWith(Comparator<E> comparator) {
-    return _SortedList<E>._(this, comparator, _comparator);
+    return _SortedList<E>._(this, _comparator.compose(comparator));
   }
 
   @override
   List<T> cast<T>() => delegate.cast<T>();
 
   int _compare(E element1, E element2) {
-    var compare = 0;
-    if (_parentComparator != null) {
-      compare = _parentComparator(element1, element2);
-    }
-    if (compare == 0) {
-      return _comparator(element1, element2);
-    } else {
-      return compare;
-    }
+    return _comparator(element1, element2);
   }
 }
 
