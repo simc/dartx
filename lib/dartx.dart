@@ -12,6 +12,7 @@ import 'package:crypto/crypto.dart' as crypto;
 
 export 'package:time/time.dart';
 
+part 'src/object.dart';
 part 'src/comparable.dart';
 part 'src/comparator.dart';
 part 'src/function.dart';
