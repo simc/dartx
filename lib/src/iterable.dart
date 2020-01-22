@@ -172,6 +172,15 @@ extension IterableX<E> on Iterable<E> {
     return true;
   }
 
+  /// Checks if any elements in the specified [collection] are contained in
+  /// this collection.
+  bool containsAny(Iterable<E> collection) {
+    for (var element in collection) {
+      if (contains(element)) return true;
+    }
+    return false;
+  }
+
   /// Returns true if this collection is structurally equal to the [other]
   /// collection.
   ///
