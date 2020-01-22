@@ -73,16 +73,18 @@ void main() {
       expect('123456789'.isInt, true);
     });
 
-    test('.toInt()', () {
-      expect('0'.toInt(), 0);
-      expect('1'.toInt(), 1);
-      expect('123456789'.toInt(), 123456789);
-    });
+    group('.toInt()', () {
+      test('with radix', () {
+        expect('100'.toInt(radix: 2), 4);
+        expect('100'.toInt(radix: 16), 256);
+        expect('FF'.toInt(radix: 16), 255);
+      });
 
-    test('.toInt(radix)', () {
-      expect('100'.toInt(radix: 2), 4);
-      expect('100'.toInt(radix: 16), 256);
-      expect('FF'.toInt(radix: 16), 255);
+      test('without radix', () {
+        expect('0'.toInt(), 0);
+        expect('1'.toInt(), 1);
+        expect('123456789'.toInt(), 123456789);
+      });
     });
 
     test('.toIntOrNull()', () {
