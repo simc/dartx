@@ -96,11 +96,25 @@ extension StringX on String {
   bool get isInt => toIntOrNull() != null;
 
   /// Parses the string as an [int] number and returns the result.
-  int toInt() => int.parse(this);
+  ///
+  /// The [radix] must be in the range 2..36. The digits used are
+  /// first the decimal digits 0..9, and then the letters 'a'..'z' with
+  /// values 10 through 35. Also accepts upper-case letters with the same
+  /// values as the lower-case ones.
+  ///
+  /// If no [radix] is given then it defaults to 10.
+  int toInt({int radix}) => int.parse(this, radix: radix);
 
   /// Parses the string as an [int] number and returns the result or `null` if
   /// the string is not a valid representation of a number.
-  int toIntOrNull() => int.tryParse(this);
+  ///
+  /// The [radix] must be in the range 2..36. The digits used are
+  /// first the decimal digits 0..9, and then the letters 'a'..'z' with
+  /// values 10 through 35. Also accepts upper-case letters with the same
+  /// values as the lower-case ones.
+  ///
+  /// If no [radix] is given then it defaults to 10.
+  int toIntOrNull({int radix}) => int.tryParse(this, radix: radix);
 
   bool get isDouble => toDoubleOrNull() != null;
 
