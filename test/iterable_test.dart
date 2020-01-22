@@ -164,6 +164,14 @@ void main() {
       expect(list1.contentEquals(list1), true);
     });
 
+    test('.containsAny()', () {
+      var list1 = const [1, 2, 3, 4, 5];
+      var list2 = const [1, 3, 6];
+
+      expect(list1.containsAny(list2), true);
+      expect(list2.containsAny([2, 4, 7]), false);
+    });
+
     test('.contentEquals()', () {
       var list1 = const ['test', 'test', 'tom', 'true'];
       var list2 = const ['test', 't', 'te', 'tes'];

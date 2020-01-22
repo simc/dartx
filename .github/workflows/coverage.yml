@@ -1,0 +1,23 @@
+name: Coverage
+
+on: [push]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:2.7
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Collect coverage
+        run: |
+          pub global activate test_coverage
+          pub global run test_coverage
+      - uses: codecov/codecov-action@v1.0.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: dartx/coverage/lcov.info
