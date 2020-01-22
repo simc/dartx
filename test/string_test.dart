@@ -142,5 +142,23 @@ void main() {
           '57edf4a22be3c955ac49da2e2107b67a'
       );
     });
+
+    test('.toBool', () async {
+      expect('true'.toBool, true);
+      expect(''.toBool, false);
+
+      expect('TRUE'.toBool, true);
+      expect('True'.toBool, true);
+      expect('truE'.toBool, true);
+      expect('tRue'.toBool, true);
+
+      expect('false'.toBool, false);
+      expect('FALSE'.toBool, false);
+
+      expect('on'.toBool, true);
+      expect('ON'.toBool, true);
+      expect('off'.toBool, false);
+      expect('OFF'.toBool, false);
+    });
   });
 }

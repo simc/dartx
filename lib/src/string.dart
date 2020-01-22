@@ -123,4 +123,10 @@ extension StringX on String {
   /// print('message digest'.md5); //f96b697d7cb7938d525a2f31aaf161d0
   /// ```
   String get md5 => crypto.md5.convert(toUtf8()).toString();
+
+  /// Returns true if it equals to 'true' or 'on' or '1',
+  /// otherwise returns false
+  bool get toBool => toLowerCase() == 'true'
+    || toLowerCase() == 'on'
+    || this == '1';
 }
