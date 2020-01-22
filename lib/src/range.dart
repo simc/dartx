@@ -60,9 +60,7 @@ class IntRange extends IterableBase<int> {
 
   @override
   Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
-}
 
-extension IntRangeX on IntRange {
   /// Creates a [IntRange] with a different [stepSize],
   /// keeps first and last value
   IntRange step(int step) => IntRange(_first, _last, step: step);
