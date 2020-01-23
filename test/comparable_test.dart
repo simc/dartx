@@ -13,7 +13,6 @@ class _WrappedInt implements Comparable<_WrappedInt> {
 void main() {
   group('ComparableX', () {
     test('.coerceIn()', () {
-      DateTime.now();
       expect(DateTime(1984, 11, 19).coerceIn(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 19));
       expect(DateTime(1984, 11, 19).coerceIn(
