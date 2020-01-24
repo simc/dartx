@@ -49,6 +49,56 @@ void main() {
           DateTime(1984, 11, 1));
     });
 
+    //test('.between()', () {
+    //  expect(
+    //    DateTime(1984, 11, 19)
+    //      .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
+    //    true
+    //  );
+    //  expect(
+    //    DateTime(2019, 11, 19)
+    //      .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
+    //    true
+    //  );
+    //  expect(
+    //    DateTime(2020, 1, 1)
+    //      .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
+    //    true
+    //  );
+    //  expect(
+    //    DateTime(2020, 1, 2)
+    //      .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
+    //    false
+    //  );
+    //  expect(
+    //    DateTime(1984, 11, 18)
+    //      .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
+    //    false
+    //  );
+    //});
+
+    //test('.inRange()', () {
+    //  final range = ComparableRange(
+    //    DateTime(1984, 11, 19), DateTime(2020, 1, 1)
+    //  );
+
+    //  expect(
+    //    DateTime(1984, 11, 19).inRange(range), true
+    //  );
+    //  expect(
+    //    DateTime(2019, 11, 19).inRange(range), true
+    //  );
+    //  expect(
+    //    DateTime(2020, 1, 1).inRange(range), true
+    //  );
+    //  expect(
+    //    DateTime(2020, 1, 2).inRange(range), false
+    //  );
+    //  expect(
+    //    DateTime(1984, 11, 18).inRange(range), false
+    //  );
+    //});
+
     test('comparable extension operators', () {
       final one = _WrappedInt(1);
       final ten = _WrappedInt(10);
