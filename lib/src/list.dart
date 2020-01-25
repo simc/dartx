@@ -153,4 +153,58 @@ extension ListX<E> on List<E> {
   void mergeSort({int start = 0, int end, Comparator<E> comparator}) {
     _mergeSort(this, start: start, end: end, compare: comparator);
   }
+  
+  /// Gets the minimum of this list according to the ranking specified by the [compare] function.
+  ///
+  /// The [compare] function must act as a [Comparator].
+  ///
+  /// The default implementation uses [Comparable.compare] if
+  /// [compare] is omitted.
+  ///
+  /// This Iterable should be composed of Comparables.
+  dynamic min({int Function(dynamic a, dynamic b) compare}) {
+    var minimum = this[0];
+    if (compare != null) {
+      for (var i = 1; i < length; i++) {
+        if (compare(this[i], minimum) < 0) {
+          minimum = this[i];
+        }
+      }
+    }
+    else {
+      for (var i = 1; i < length; i++) {
+        if (Comparable.compare(this[i] as Comparable, minimum as Comparable) <
+            0) {
+          minimum = this[i];
+        }
+      }
+    }
+    return minimum;
+  }
+
+  /// Gets the maximum of this list according to the ranking specified by the [compare] function.
+  ///
+  /// The [compare] function must act as a [Comparator].
+  ///
+  /// The default implementation uses [Comparable.compare] if
+  /// [compare] is omitted.
+  dynamic max({int Function(dynamic a, dynamic b) compare}) {
+    var maximum = this[0];
+    if (compare != null) {
+      for (var i = 1; i < length; i++) {
+        if (compare(this[i], maximum) > 0) {
+          maximum = this[i];
+        }
+      }
+    }
+    else {
+      for (var i = 1; i < length; i++) {
+        if (Comparable.compare(this[i] as Comparable, maximum as Comparable) >
+            0) {
+          maximum = this[i];
+        }
+      }
+    }
+    return maximum;
+  }
 }
