@@ -165,6 +165,7 @@ extension ListX<E> on List<E> {
   ///
   /// If this.length == 0, null will be returned.
   dynamic min({int Function(dynamic a, dynamic b) compare}) {
+    if(length == 0) return null;
     var minimum = this[0];
     if (compare != null) {
       for (var i = 1; i < length; i++) {
