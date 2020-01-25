@@ -162,6 +162,8 @@ extension ListX<E> on List<E> {
   /// [compare] is omitted.
   ///
   /// This Iterable should be composed of Comparables.
+  ///
+  /// If this.length == 0, null will be returned.
   dynamic min({int Function(dynamic a, dynamic b) compare}) {
     var minimum = this[0];
     if (compare != null) {
@@ -188,7 +190,12 @@ extension ListX<E> on List<E> {
   ///
   /// The default implementation uses [Comparable.compare] if
   /// [compare] is omitted.
+  ///
+  /// This Iterable should be composed of Comparables.
+  ///
+  /// If this.length == 0, null will be returned.
   dynamic max({int Function(dynamic a, dynamic b) compare}) {
+    if(length == 0) return null;
     var maximum = this[0];
     if (compare != null) {
       for (var i = 1; i < length; i++) {
