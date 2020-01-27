@@ -39,9 +39,10 @@ extension IterableNumX<T extends num> on Iterable<T> {
   /// Returns the median of the elements in this collection.
   ///
   /// Empty collections throw an error.
+  /// null values are disregarded.
   double median() {
     if (length == 0) throw StateError('No elements in collection');
-    var a = toList()..sort();
+    var a = toList().removeWhere((item) => item is null)..sort();
     var l = length;
     if (l.isOdd) {
       return a[(l/2).floor()].toDouble();
