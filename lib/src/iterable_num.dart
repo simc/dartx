@@ -43,7 +43,7 @@ extension IterableNumX<T extends num> on Iterable<T> {
   double median() {
     if (length == 0) throw StateError('No elements in collection');
     var a = toList().removeWhere((item) => item is null)..sort();
-    var l = length;
+    var l = a.length;
     if (l.isOdd) {
       return a[(l/2).floor()].toDouble();
     }
