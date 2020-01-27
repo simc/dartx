@@ -28,7 +28,7 @@ void main() {
       expect([1, 2, 3, 4, 5].median(), 3);
       expect([5, 3, 2, 4, 1].median(), 3);
       expect([5, 3, 2, 4, 1, 1].median(), 2.5);
-      expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].median(), throwsStateError);
+      expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].median(), 3.5);
     });
   });
 }
