@@ -35,22 +35,23 @@ extension IterableNumX<T extends num> on Iterable<T> {
       return sum / count;
     }
   }
-  
+
   /// Returns the median of the elements in this collection.
   ///
   /// Empty collections throw an error.
-  /// Null values are ignored.
+  /// `null` values are ignored.
   double median() {
     if (length == 0) throw StateError('No elements in collection');
-    var a = toList()..removeWhere((item) => item == null)..sort();
-    var l = a.length;
-    if (l.isOdd) {
-      return a[(l/2).floor()].toDouble();
-    }
-    else {
-      var x = a[(l/2).floor()];
-      var y = a[(l/2).floor()-1];
-      return (x+y)/2;
+    final values = toList()
+      ..removeWhere((item) => item == null)
+      ..sort();
+    final size = values.length;
+    if (size.isOdd) {
+      return values[(size / 2).floor()].toDouble();
+    } else {
+      final x = values[(size / 2).floor()];
+      final y = values[(size / 2).floor() - 1];
+      return (x + y) / 2;
     }
   }
 }

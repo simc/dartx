@@ -22,13 +22,21 @@ void main() {
       expect([1, 2, 3, 4, 5].average(), 3.0);
       expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].average(), 3.0);
     });
-    
+
     test('.median()', () {
       expect(() => <int>[].median(), throwsStateError);
+      // odd
       expect([1, 2, 3, 4, 5].median(), 3);
       expect([5, 3, 2, 4, 1].median(), 3);
+
+      // even
       expect([5, 3, 2, 4, 1, 1].median(), 2.5);
+
+      // removes nulls
       expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].median(), 3.5);
+
+      // handles double values
+      expect([1.5, 2, 2.5, 4, 5].median(), 2.5);
     });
   });
 }
