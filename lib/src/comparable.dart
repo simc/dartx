@@ -7,10 +7,12 @@ extension ComparableX<T extends Comparable<T>> on T {
   bool operator >(T other) => compareTo(other) > 0;
   bool operator >=(T other) => compareTo(other) >= 0;
 
-  /// Ensures that this value lies in the specified range [min]..[max].
+  /// Ensures that this value lies in the specified range
+  /// [minimumValue]..[maximumValue].
   ///
-  /// @return this value if it's in the range, or [min] if this value is
-  /// less than [min], or [max] if this value is greater than [max].
+  /// @return this value if it's in the range, or [minimumValue]
+  /// if this value is less than [minimumValue],
+  /// or [maximumValue] if this value is greater than [maximumValue].
   T coerceIn(T minimumValue, [T maximumValue]) {
     if (maximumValue != null && minimumValue > maximumValue) {
       throw ArgumentError('Cannot coerce value to an empty range: '
@@ -21,17 +23,17 @@ extension ComparableX<T extends Comparable<T>> on T {
     return this;
   }
 
-  /// Ensures that this value is not less than the specified [min].
+  /// Ensures that this value is not less than the specified [minimumValue].
   ///
-  /// @return this value if it's greater than or equal to the [min]
-  /// or the [min] otherwise.
+  /// @return this value if it's greater than or equal to the [minimumValue]
+  /// or the [minimumValue] otherwise.
   T coerceAtLeast(T minimumValue) =>
       this < minimumValue ? minimumValue : this;
 
-  /// Ensures that this value is not greater than the specified [max].
+  /// Ensures that this value is not greater than the specified [maximumValue].
   ///
-  /// @return this value if it's less than or equal to the [max]
-  /// or the [max] otherwise.
+  /// @return this value if it's less than or equal to the [maximumValue]
+  /// or the [maximumValue] otherwise.
   T coerceAtMost(T maximumValue) =>
       this > maximumValue ? maximumValue : this;
 }
