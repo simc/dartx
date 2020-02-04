@@ -922,6 +922,9 @@ extension IterableX<E> on Iterable<E> {
     yield* this;
   }
 
+  /// Returns a new [Stream] with all elements of this collection.
+  Stream<E> asStream() => Stream.fromIterable(this);
+
   /// Returns a new [HashSet] with all distinct elements of this collection.
   HashSet<E> toHashSet() => HashSet.from(this);
 

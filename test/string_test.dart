@@ -87,12 +87,6 @@ void main() {
       });
     });
 
-    test('.toInt(radix)', () {
-      expect('100'.toInt(radix: 2), 4);
-      expect('100'.toInt(radix: 16), 256);
-      expect('FF'.toInt(radix: 16), 255);
-    });
-
     test('.toIntOrNull()', () {
       expect(''.toIntOrNull(), null);
       expect('a'.toIntOrNull(), null);
