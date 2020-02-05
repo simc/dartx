@@ -769,19 +769,6 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
-  /// Returns a new lazy [Iterable] of all elements from all collections in this
-  /// collection.
-  ///
-  /// ```dart
-  /// var nestedList = List([[1, 2, 3], [4, 5, 6]]);
-  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
-  /// ```
-  Iterable<dynamic> flatten() sync* {
-    for (var current in this) {
-      yield* (current as Iterable);
-    }
-  }
-
   /// Returns a new lazy [Iterable] which iterates over this collection [n]
   /// times.
   ///
@@ -1006,16 +993,17 @@ extension IterableX<E> on Iterable<E> {
   }
 }
 
-//This extension helps preserving types when using the flatten methods.
-extension IterableIterableX<R> on Iterable<Iterable<R>> {
-  Iterable<R> flatten() sync* {
+extension IterableIterableX<E> on Iterable<Iterable<E>> {
+  /// Returns a new lazy [Iterable] of all elements from all collections in this
+  /// collection.
+  ///
+  /// ```dart
+  /// var nestedList = List([[1, 2, 3], [4, 5, 6]]);
+  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// ```
+  Iterable<E> flatten() sync* {
     for (var current in this) {
       yield* current;
     }
   }
-}
-
-//This extension helps preserving types when using the flatten methods.
-extension IterableListX<R> on Iterable<List<R>> {
-  Iterable<R> flatten() => IterableIterableX(this).flatten();
 }

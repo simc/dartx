@@ -614,28 +614,33 @@ void main() {
       expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
     });
 
-    test('.flatten()', () {
-      expect([].flatten(), []);
-
-      var list = [
-        [0, 0, 0],
-        [1, 1, 1],
-        [2, 2, 2],
-      ];
-
-      expect(list.flatten(), [0, 0, 0, 1, 1, 1, 2, 2, 2]);
-      expect(list.flatten(), isA<Iterable<int>>());
-      expect(list.flatten().toList(), isA<List<int>>());
-
-      var iterableOfIterables = Iterable.generate(3, (index) sync* {
-        yield index;
-        yield index + 1;
-        yield index + 2;
+    group('.flatten()', () {
+      test('for iterables of the same type', () {
+        // ignore: omit_local_variable_types
+        Iterable<Iterable<int>> iterableOfIterables =
+            Iterable.generate(3, (index) sync* {
+          yield index;
+          yield index + 1;
+          yield index + 2;
+        });
+        // ignore: omit_local_variable_types
+        Iterable<int> iterable = iterableOfIterables.flatten();
+        expect(iterable, [0, 1, 2, 1, 2, 3, 2, 3, 4]);
+        expect(iterable, isA<Iterable<int>>());
+        expect(iterable.toList(), isA<List<int>>());
       });
 
-      expect(iterableOfIterables.flatten(), [0, 1, 2, 1, 2, 3, 2, 3, 4]);
-      expect(iterableOfIterables.flatten(), isA<Iterable<int>>());
-      expect(iterableOfIterables.flatten().toList(), isA<List<int>>());
+      test('dynamic type', () {
+        // ignore: omit_local_variable_types
+        Iterable<Iterable<dynamic>> iterableOfIterables = () sync* {
+          yield [1, 2, 3];
+          yield ['a', 'b'];
+        }();
+        // ignore: omit_local_variable_types
+        Iterable<dynamic> iterable = iterableOfIterables.flatten();
+        expect(iterable, [1, 2, 3, 'a', 'b']);
+        expect(iterable, isA<Iterable<dynamic>>());
+      });
     });
 
     group('.cycle()', () {
