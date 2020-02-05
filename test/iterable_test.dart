@@ -609,6 +609,11 @@ void main() {
       );
     });
 
+    test('.asStream()', () {
+      expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
+      expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+    });
+
     test('.flatten()', () {
       expect([].flatten(), []);
 
