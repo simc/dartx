@@ -1005,3 +1005,17 @@ extension IterableX<E> on Iterable<E> {
     return [t, f];
   }
 }
+
+//This extension helps preserving types when using the flatten methods.
+extension IterableIterableX<R> on Iterable<Iterable<R>> {
+  Iterable<R> flatten() sync* {
+    for (var current in this) {
+      yield* current;
+    }
+  }
+}
+
+//This extension helps preserving types when using the flatten methods.
+extension IterableListX<R> on Iterable<List<R>> {
+  Iterable<R> flatten() => IterableIterableX(this).flatten();
+}

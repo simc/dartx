@@ -620,9 +620,22 @@ void main() {
       var list = [
         [0, 0, 0],
         [1, 1, 1],
-        [2, 2, 2]
+        [2, 2, 2],
       ];
+
       expect(list.flatten(), [0, 0, 0, 1, 1, 1, 2, 2, 2]);
+      expect(list.flatten(), isA<Iterable<int>>());
+      expect(list.flatten().toList(), isA<List<int>>());
+
+      var iterableOfIterables = Iterable.generate(3, (index) sync* {
+        yield index;
+        yield index + 1;
+        yield index + 2;
+      });
+
+      expect(iterableOfIterables.flatten(), [0, 1, 2, 1, 2, 3, 2, 3, 4]);
+      expect(iterableOfIterables.flatten(), isA<Iterable<int>>());
+      expect(iterableOfIterables.flatten().toList(), isA<List<int>>());
     });
 
     group('.cycle()', () {
