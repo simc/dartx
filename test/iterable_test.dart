@@ -609,9 +609,18 @@ void main() {
       );
     });
 
-    test('.asStream()', () {
-      expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
-      expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+    group('.asStream()', () {
+      test('.asStream()', () {
+        expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
+        expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+      });
+
+      test('.asStreamAwaited()', () {
+        expect(
+          [Future.value(0), Future.value(1)].asStreamAwaited(),
+          emitsInOrder([0, 1]),
+        );
+      });
     });
 
     test('.flatten()', () {
