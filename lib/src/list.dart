@@ -169,8 +169,8 @@ extension ListListX<E> on List<List<E>> {
   /// accessing elements by index afterwards
   ///
   /// ```dart
-  /// var flat = [['a', 'b'], ['d', 'f']].flatten();
-  /// print(flat[2]); // prints b
+  /// var flat = [['a', 'b'], ['c', 'd']].flatten();
+  /// print(flat[2]); // prints "c"
   /// ```
   List<E> flatten() => [for (var list in this) ...list];
 }
