@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
-
+import 'package:async/async.dart';
 import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
@@ -616,10 +617,15 @@ void main() {
       });
 
       test('.asStreamAwaited()', () {
-        expect(
-          [Future.value(0), Future.value(1)].asStreamAwaited(),
-          emitsInOrder([0, 1]),
-        );
+        var queue = StreamQueue([
+          Future.value(0),
+          Future.value(1),
+          Future.value(2),
+          Future.value(3),
+        ].asStreamAwaited());
+
+        // Ignore lines from the process until it's about to emit the URL.
+        expect(queue, emitsInOrder([0, 1, 2, 3]));
       });
     });
 
