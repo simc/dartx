@@ -624,7 +624,6 @@ void main() {
           Future.value(3),
         ].asStreamAwaited());
 
-        // Ignore lines from the process until it's about to emit the URL.
         expect(queue, emitsInOrder([0, 1, 2, 3]));
       });
     });
