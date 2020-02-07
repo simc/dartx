@@ -145,7 +145,12 @@ class IntRange extends IterableBase<int> implements ClosedRange<int> {
   bool contains(Object element) {
     if (element is! num) return false;
     final value = element as num;
-    final inRange = super.contains(value);
+    bool inRange;
+    if (start <= endInclusive) {
+      inRange = start <= value && value <= endInclusive;
+    } else {
+      inRange = endInclusive <= value && value <= start;
+    }
     if (!inRange) return false;
     return _differenceModulo(value.toInt(), start, stepSize) == 0;
   }

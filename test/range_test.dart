@@ -272,7 +272,6 @@ void main() {
       expect(range.start, 10);
       expect(range.endInclusive, 18);
       expect(range.stepSize, 2);
-
       expect(range.contains(9), isFalse);
       expect(range.contains(10), isTrue);
       expect(range.contains(11), isFalse);
