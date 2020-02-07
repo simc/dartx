@@ -37,23 +37,10 @@ void main() {
   group('ClosedRange', () {
     test('==', () {
       final r1 = DateTime(1984, 11, 19).rangeTo(DateTime(2020, 1, 1));
-      final r2 = ComparableRange(DateTime(1984, 11, 19), DateTime(2020, 1, 1));
+      final r2 = DateTime(1984, 11, 19).rangeTo(DateTime(2020, 1, 1));
       expect(r1 == r2, isTrue);
 
-      // ignore: omit_local_variable_types
-      final ComparableRange<num> comparableRange = ComparableRange(0, 1);
-      expect(ComparableRange<num>(0, 1), comparableRange);
-      expect(ComparableRange<num>(0, 1), comparableRange);
-
-      // ignore: omit_local_variable_types
-      final IntRange intRange = 0.rangeTo(1);
-      expect(IntRange(0, 1), intRange);
-
-      // not the same runtimeType
-      // ignore: unrelated_type_equality_checks
-      expect(comparableRange == intRange, isFalse);
-      // ignore: unrelated_type_equality_checks
-      expect(intRange == comparableRange, isFalse);
+      expect('a'.rangeTo('b'), 'a'.rangeTo('b'));
     });
 
     test('alphabetical range', () {
@@ -200,6 +187,85 @@ void main() {
         expect(range.firstWhere(isEven), 4);
       });
     });
+    test('contains double', () {
+      final range = (2).rangeTo(-2);
+      expect(range.contains(3.0), isFalse);
+      expect(range.contains(2.9), isFalse);
+      expect(range.contains(2.1), isFalse);
+      expect(range.contains(2.0), isTrue);
+      expect(range.contains(1.0), isTrue);
+      expect(range.contains(0.5), isFalse);
+      expect(range.contains(0.0), isTrue);
+      expect(range.contains(-0.5), isFalse);
+      expect(range.contains(-1.0), isTrue);
+      expect(range.contains(-2.0), isTrue);
+      expect(range.contains(-2.1), isFalse);
+      expect(range.contains(-2.9), isFalse);
+      expect(range.contains(-3.0), isFalse);
+    });
+
+    test('contains double downwards', () {
+      final range = (-2).rangeTo(2);
+      expect(range.contains(-3.0), isFalse);
+      expect(range.contains(-2.9), isFalse);
+      expect(range.contains(-2.1), isFalse);
+      expect(range.contains(-2.0), isTrue);
+      expect(range.contains(-1.0), isTrue);
+      expect(range.contains(-0.5), isFalse);
+      expect(range.contains(0.0), isTrue);
+      expect(range.contains(0.5), isFalse);
+      expect(range.contains(1.0), isTrue);
+      expect(range.contains(2.0), isTrue);
+      expect(range.contains(2.1), isFalse);
+      expect(range.contains(2.9), isFalse);
+      expect(range.contains(3.0), isFalse);
+    });
+
+    test('contains double with step', () {
+      final range = (-4).rangeTo(4).step(3); // [-4, -1, 2]
+      expect(range.contains(-5.0), isFalse);
+      expect(range.contains(-4.9), isFalse);
+      expect(range.contains(-4.1), isFalse);
+      expect(range.contains(-4.0), isTrue);
+      expect(range.contains(-3.9), isFalse);
+      expect(range.contains(-2.1), isFalse);
+      expect(range.contains(-2.0), isFalse);
+      expect(range.contains(-1.9), isFalse);
+      expect(range.contains(-1.0), isTrue);
+      expect(range.contains(-0.9), isFalse);
+      expect(range.contains(0.0), isFalse);
+      expect(range.contains(1.9), isFalse);
+      expect(range.contains(2.0), isTrue);
+      expect(range.contains(2.1), isFalse);
+      expect(range.contains(3.0), isFalse);
+      expect(range.contains(4.0), isFalse);
+      expect(range.contains(5.0), isFalse);
+    });
+
+    test('contains double with step downwards', () {
+      final range = (5).rangeTo(-4).step(3); // [5, 2, -1, -4]
+      expect(range.contains(6.0), isFalse);
+      expect(range.contains(5.1), isFalse);
+      expect(range.contains(5.0), isTrue);
+      expect(range.contains(4.9), isFalse);
+      expect(range.contains(2.1), isFalse);
+      expect(range.contains(2.0), isTrue);
+      expect(range.contains(1.9), isFalse);
+      expect(range.contains(0.9), isFalse);
+      expect(range.contains(0.0), isFalse);
+      expect(range.contains(-0.9), isFalse);
+      expect(range.contains(-1.0), isTrue);
+      expect(range.contains(-1.1), isFalse);
+      expect(range.contains(-1.9), isFalse);
+      expect(range.contains(-2.0), isFalse);
+      expect(range.contains(-2.1), isFalse);
+      expect(range.contains(-3.0), isFalse);
+      expect(range.contains(-3.9), isFalse);
+      expect(range.contains(-4.0), isTrue);
+      expect(range.contains(-5.1), isFalse);
+      expect(range.contains(-5.0), isFalse);
+    });
+
     test('contains with step', () {
       final range = 10.rangeTo(19).step(2); // [10, 12, 14, 16, 18]
 

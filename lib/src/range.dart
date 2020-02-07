@@ -2,7 +2,7 @@ part of dartx;
 
 /// Represents a range of values (for example, numbers or characters)
 /// with a fixed [start] value and a fixed [endInclusive] value.
-abstract class ClosedRange<T extends Comparable<T>> {
+abstract class ClosedRange<T extends Comparable> {
   /// The first value in the range.
   T get start;
 
@@ -11,7 +11,13 @@ abstract class ClosedRange<T extends Comparable<T>> {
 
   /// Checks whether the specified [value] belongs to the range, is equal to
   /// [start] or [endInclusive] or lies between them
-  bool contains(T value);
+  bool contains(T value) {
+    if (start.compareTo(endInclusive) <= 0) {
+      return start.compareTo(value) <= 0 && value.compareTo(endInclusive) <= 0;
+    } else {
+      return endInclusive.compareTo(value) <= 0 && value.compareTo(start) <= 0;
+    }
+  }
 
   @override
   String toString() => '$start..$endInclusive';
@@ -29,47 +35,32 @@ abstract class ClosedRange<T extends Comparable<T>> {
 }
 
 /// Represents a range of [Comparable] values such as [String] or [DateTime]
-class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
+class _ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
   /// Create a range of [Comparable] values such as [String] or [DateTime]
   ///
-  /// The order of [first] and [endInclusive] doesn't matter.
-  ComparableRange(T first, T endInclusive)
-      : _first = first,
-        _last = endInclusive,
-        assert(() {
-          if (first == null) throw ArgumentError("start can't be null");
+  /// The order of [start] and [endInclusive] doesn't matter.
+  _ComparableRange(this.start, this.endInclusive)
+      : assert(() {
+          if (start == null) throw ArgumentError("start can't be null");
           if (endInclusive == null) {
             throw ArgumentError("endInclusive can't be null");
           }
           return true;
         }());
 
-  @override
-  T get start => _first;
-
   /// The first element in the range.
-  final T _first;
-
   @override
-  T get endInclusive => _last;
+  final T start;
 
   /// The last element in the range.
-  final T _last;
-
   @override
-  bool contains(T value) {
-    if (start <= endInclusive) {
-      return start <= value && value <= endInclusive;
-    } else {
-      return endInclusive <= value && value <= start;
-    }
-  }
+  final T endInclusive;
 }
 
 extension ComparableRangeX<T extends Comparable<T>> on T {
-  /// Creates a [ComparableRange] from this [Comparable] value
+  /// Creates a [ClosedRange] from this [Comparable] value
   /// to the specified [that] value.
-  ComparableRange<T> rangeTo(T that) => ComparableRange<T>(this, that);
+  ClosedRange<T> rangeTo(T that) => _ComparableRange<T>(this, that);
 }
 
 extension IntRangeExtension on int {
@@ -102,7 +93,7 @@ extension IntRangeExtension on int {
 /// size
 ///
 /// int doesn't extend Comparable<int>, uses ClosedRange<num> instead.
-class IntRange extends IterableBase<int> implements ClosedRange<num> {
+class IntRange extends IterableBase<int> implements ClosedRange<int> {
   /// Creates a range between two ints ([first], [endInclusive]) which can be
   /// iterated through.
   ///
@@ -152,16 +143,11 @@ class IntRange extends IterableBase<int> implements ClosedRange<num> {
 
   @override
   bool contains(Object element) {
-    if (element is! int) return false;
-    final value = element as int;
-    bool inRange;
-    if (start <= endInclusive) {
-      inRange = start <= value && value <= endInclusive;
-    } else {
-      inRange = endInclusive <= value && value <= start;
-    }
+    if (element is! num) return false;
+    final value = element as num;
+    final inRange = super.contains(value);
     if (!inRange) return false;
-    return _differenceModulo(value, start, stepSize) == 0;
+    return _differenceModulo(value.toInt(), start, stepSize) == 0;
   }
 
   @override
