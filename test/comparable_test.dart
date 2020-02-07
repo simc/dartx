@@ -90,21 +90,6 @@ void main() {
       expect(DateTime(1984, 11, 18).inRange(range), false);
     });
 
-    test('.inRange() with step', () {
-      final range = 10.rangeTo(19).step(2);
-
-      expect(range.start, 10);
-      expect(range.endInclusive, 18);
-      expect(range.stepSize, 2);
-
-      expect(range.contains(10), isTrue);
-      expect(range.contains(11), isFalse);
-
-      expect(range.contains(18), isTrue);
-      expect(range.contains(19), isFalse);
-      expect(range.contains(20), isFalse);
-    });
-
     test('comparable extension operators', () {
       final one = _WrappedInt(1);
       final ten = _WrappedInt(10);

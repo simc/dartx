@@ -3,10 +3,10 @@ part of dartx;
 /// Represents a range of values (for example, numbers or characters)
 /// with a fixed [start] value and a fixed [endInclusive] value.
 abstract class ClosedRange<T extends Comparable<T>> {
-  /// The minimum value in the range.
+  /// The first value in the range.
   T get start;
 
-  /// The maximum value in the range (inclusive).
+  /// The last value in the range (inclusive).
   T get endInclusive;
 
   /// Checks whether the specified [value] belongs to the range, is equal to
@@ -28,8 +28,11 @@ abstract class ClosedRange<T extends Comparable<T>> {
   int get hashCode => start.hashCode ^ endInclusive.hashCode;
 }
 
-/// Represents a range of [Comparable] values.
+/// Represents a range of [Comparable] values such as [String] or [DateTime]
 class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
+  /// Create a range of [Comparable] values such as [String] or [DateTime]
+  ///
+  /// The order of [first] and [endInclusive] doesn't matter.
   ComparableRange(T first, T endInclusive)
       : _first = first,
         _last = endInclusive,
@@ -41,8 +44,14 @@ class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
           return true;
         }());
 
+  @override
+  T get start => _first;
+
   /// The first element in the range.
   final T _first;
+
+  @override
+  T get endInclusive => _last;
 
   /// The last element in the range.
   final T _last;
@@ -55,12 +64,6 @@ class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
       return endInclusive <= value && value <= start;
     }
   }
-
-  @override
-  T get endInclusive => _last;
-
-  @override
-  T get start => _first;
 }
 
 extension ComparableRangeX<T extends Comparable<T>> on T {

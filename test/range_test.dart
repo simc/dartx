@@ -56,6 +56,12 @@ void main() {
       expect(intRange == comparableRange, isFalse);
     });
 
+    test('alphabetical range', () {
+      final alphabet = 'a'.rangeTo('z');
+      expect('d'.inRange(alphabet), isTrue);
+      expect('A'.inRange(alphabet), isFalse);
+    });
+
     test('isEmpty always returns false', () {
       var dateRange = DateTime(2020, 1, 1).rangeTo(DateTime(2020, 1, 1));
       expect(dateRange.contains(DateTime(2020, 1, 1)), isTrue);
@@ -182,9 +188,34 @@ void main() {
       });
     });
     test('contains with step', () {
-      expect(0.rangeTo(10).step(2).contains(1), isFalse);
-      expect(0.rangeTo(10).step(2).contains(0), isTrue);
-      expect(0.rangeTo(10).step(2).contains(10), isTrue);
+      final range = 10.rangeTo(19).step(2);
+
+      expect(range.start, 10);
+      expect(range.endInclusive, 18);
+      expect(range.stepSize, 2);
+
+      expect(range.contains(10), isTrue);
+      expect(range.contains(11), isFalse);
+
+      expect(range.contains(18), isTrue);
+      expect(range.contains(19), isFalse);
+      expect(range.contains(20), isFalse);
+    });
+
+    test('inRange()', () {
+      expect(5.inRange(0.rangeTo(10)), isTrue);
+      expect(10.inRange(0.rangeTo(10)), isTrue);
+      expect(0.inRange(0.rangeTo(10)), isTrue);
+      expect((-1).inRange(0.rangeTo(10)), isFalse);
+      expect(11.inRange(0.rangeTo(10)), isFalse);
+    });
+
+    test('between()', () {
+      expect(5.between(0, 10), isTrue);
+      expect(10.between(0, 10), isTrue);
+      expect(0.between(0, 10), isTrue);
+      expect((-1).between(0, 10), isFalse);
+      expect(11.between(0, 10), isFalse);
     });
 
     test('toString()', () {
