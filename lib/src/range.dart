@@ -1,24 +1,31 @@
 part of dartx;
 
-/// Represents a range of values (for example, numbers or characters).
+/// Represents a range of values (for example, numbers or characters)
+/// with a fixed [start] value and a fixed [endInclusive] value.
 abstract class ClosedRange<T extends Comparable<T>> {
+  /// The minimum value in the range.
   T get start;
+
+  /// The maximum value in the range (inclusive).
   T get endInclusive;
 
+  /// Checks whether the specified [value] belongs to the range, is equal to
+  /// [start] or [endInclusive] or lies between them
   bool contains(T value);
-  bool get isEmpty;
 
   @override
   String toString() => '$start..$endInclusive';
 
   @override
   bool operator ==(Object other) =>
-    (other is ClosedRange) && (isEmpty && other.isEmpty ||
-     start == other.start && endInclusive == other.endInclusive);
+      identical(this, other) ||
+      other is ClosedRange &&
+          runtimeType == other.runtimeType &&
+          start == other.start &&
+          endInclusive == other.endInclusive;
 
   @override
-  int get hashCode =>
-    isEmpty ? -1 : 31 * start.hashCode + endInclusive.hashCode;
+  int get hashCode => start.hashCode ^ endInclusive.hashCode;
 }
 
 /// Represents a range of [Comparable] values.
@@ -42,25 +49,23 @@ class ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
 
   @override
   bool contains(T value) {
-    return start <= value && value <= endInclusive;
+    if (start <= endInclusive) {
+      return start <= value && value <= endInclusive;
+    } else {
+      return endInclusive <= value && value <= start;
+    }
   }
 
   @override
   T get endInclusive => _last;
 
   @override
-  bool get isEmpty => !(start <= endInclusive);
-
-  @override
   T get start => _first;
-
 }
 
 extension ComparableRangeX<T extends Comparable<T>> on T {
   /// Creates a [ComparableRange] from this [Comparable] value
   /// to the specified [that] value.
-  /// This value needs to be smaller than [that] value,
-  /// otherwise the returned range will be empty.
   ComparableRange<T> rangeTo(T that) => ComparableRange<T>(this, that);
 }
 
@@ -134,16 +139,25 @@ class IntRange extends IterableBase<int> implements ClosedRange<num> {
   int get start => _first;
 
   @override
+  int get first => _first;
+
+  @override
+  int get last => _last;
+
+  @override
   String toString() => '$start..$endInclusive';
 
   @override
   bool operator ==(Object other) =>
-    (other is ClosedRange) && (isEmpty && other.isEmpty ||
-     start == other.start && endInclusive == other.endInclusive);
+      identical(this, other) ||
+      other is IntRange &&
+          runtimeType == other.runtimeType &&
+          _first == other._first &&
+          _last == other._last &&
+          stepSize == other.stepSize;
 
   @override
-  int get hashCode =>
-    isEmpty ? -1 : 31 * start.hashCode + endInclusive.hashCode;
+  int get hashCode => _first.hashCode ^ _last.hashCode ^ stepSize.hashCode;
 }
 
 extension IntRangeX on IntRange {
@@ -194,8 +208,9 @@ class _IntRangeIterator extends Iterator<int> {
     if (completed) return false;
 
     if (first == last) {
+      _current = first;
       completed = true;
-      return false;
+      return true;
     }
 
     final now = _current ?? first;
