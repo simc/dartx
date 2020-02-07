@@ -121,11 +121,14 @@ void main() {
   group('IntRange properties', () {
     test('first', () {
       expect(3.rangeTo(7).first, 3);
+      expect(3.rangeTo(7).toIterable().first, 3);
     });
 
     test('last', () {
       expect(3.rangeTo(6).last, 6);
+      expect(3.rangeTo(6).toIterable().last, 6);
       expect(3.rangeTo(6).step(2).last, 5);
+      expect(3.rangeTo(6).step(2).toIterable().last, 5);
     });
 
     test('stepSize', () {
@@ -141,16 +144,21 @@ void main() {
           'endInclusive and last are equivalent', () {
         expect(IntRange(0, 0).last, 0);
         expect(IntRange(0, 0).endInclusive, 0);
+        expect(IntRange(0, 0).toIterable().last, 0);
         expect(IntRange(2, 2).last, 2);
         expect(IntRange(2, 2).endInclusive, 2);
+        expect(IntRange(2, 2).toIterable().last, 2);
         expect(IntRange(-4, -4).last, -4);
         expect(IntRange(-4, -4).endInclusive, -4);
+        expect(IntRange(-4, -4).toIterable().last, -4);
       });
       test('last returns the endInclusive value', () {
         expect(IntRange(0, 10).last, 10);
+        expect(IntRange(0, 10).toIterable().last, 10);
       });
       test('step 2 returns the last value dividable by 2', () {
         expect(IntRange(0, 9, step: 2).last, 8);
+        expect(IntRange(0, 9, step: 2).toIterable().last, 8);
       });
 
       test('lastWhere', () {
@@ -166,18 +174,23 @@ void main() {
           () {
         expect(IntRange(0, 0).first, 0);
         expect(IntRange(0, 0).start, 0);
+        expect(IntRange(0, 0).toIterable().first, 0);
         expect(IntRange(2, 2).first, 2);
         expect(IntRange(2, 2).start, 2);
+        expect(IntRange(2, 2).toIterable().first, 2);
         expect(IntRange(-4, -4).first, -4);
         expect(IntRange(-4, -4).start, -4);
+        expect(IntRange(-4, -4).toIterable().first, -4);
       });
       test('first returns the endInclusive value', () {
         expect(IntRange(2, 10).first, 2);
+        expect(IntRange(2, 10).toIterable().first, 2);
       });
       test('step 2 returns the first value', () {
         // step 2 doesn't mean first needs to be dividable by 2.
         // It starts stepping at 2
         expect(IntRange(1, 9, step: 2).first, 1);
+        expect(IntRange(1, 9, step: 2).toIterable().first, 1);
       });
 
       test('firstWhere minds the predicate', () {
@@ -188,18 +201,46 @@ void main() {
       });
     });
     test('contains with step', () {
-      final range = 10.rangeTo(19).step(2);
+      final range = 10.rangeTo(19).step(2); // [10, 12, 14, 16, 18]
 
       expect(range.start, 10);
       expect(range.endInclusive, 18);
       expect(range.stepSize, 2);
 
+      expect(range.contains(9), isFalse);
       expect(range.contains(10), isTrue);
       expect(range.contains(11), isFalse);
-
+      expect(range.contains(12), isTrue);
+      expect(range.contains(13), isFalse);
+      expect(range.contains(14), isTrue);
+      expect(range.contains(15), isFalse);
+      expect(range.contains(16), isTrue);
+      expect(range.contains(17), isFalse);
       expect(range.contains(18), isTrue);
       expect(range.contains(19), isFalse);
       expect(range.contains(20), isFalse);
+    });
+
+    test('contains with step downwards and negative', () {
+      final range = 2.rangeTo(-10).step(3); // [2, -1, -4, -7, -10]
+      expect(range.start, 2);
+      expect(range.endInclusive, -10);
+      expect(range.stepSize, 3);
+
+      expect(range.contains(3), isFalse);
+      expect(range.contains(2), isTrue);
+      expect(range.contains(0), isFalse);
+      expect(range.contains(-1), isTrue);
+      expect(range.contains(-2), isFalse);
+      expect(range.contains(-3), isFalse);
+      expect(range.contains(-4), isTrue);
+      expect(range.contains(-5), isFalse);
+      expect(range.contains(-6), isFalse);
+      expect(range.contains(-7), isTrue);
+      expect(range.contains(-8), isFalse);
+      expect(range.contains(-9), isFalse);
+      expect(range.contains(-10), isTrue);
+      expect(range.contains(-11), isFalse);
     });
 
     test('inRange()', () {

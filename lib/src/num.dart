@@ -49,8 +49,6 @@ extension NumX<T extends num> on T {
   /// Returns true if between [first] and [endInclusive].
   ///
   /// Equivalent to `IntRange(first, endInclusive).contains(this)`
-  ///
-  /// Uncomment this if it's useful for everyone
   bool between(T first, T endInclusive) =>
       first <= this && this <= endInclusive;
 }
@@ -64,7 +62,6 @@ extension IntX<T extends int> on T {
   }
 
   /// Returns true if in the [range].
-  /// Uncomment this if it's useful for everyone
   bool inRange(IntRange range) => range.contains(this);
 }
 

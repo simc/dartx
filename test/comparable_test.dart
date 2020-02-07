@@ -57,31 +57,20 @@ void main() {
     });
 
     test('.between()', () {
-      expect(
-          DateTime(1984, 11, 19)
-              .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
-          true);
-      expect(
-          DateTime(2019, 11, 19)
-              .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
-          true);
-      expect(
-          DateTime(2020, 1, 1)
-              .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
-          true);
-      expect(
-          DateTime(2020, 1, 2)
-              .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
-          false);
-      expect(
-          DateTime(1984, 11, 18)
-              .between(DateTime(1984, 11, 19), DateTime(2020, 1, 1)),
-          false);
+      var start = DateTime(1984, 11, 19);
+      var end = DateTime(2020, 01, 01);
+      expect(DateTime(1984, 11, 19).between(start, end), true);
+      expect(DateTime(2019, 11, 19).between(start, end), true);
+      expect(DateTime(2020, 01, 01).between(start, end), true);
+      expect(DateTime(2020, 01, 02).between(start, end), false);
+      expect(DateTime(1984, 11, 18).between(start, end), false);
     });
 
     test('.inRange()', () {
-      final range =
-          ComparableRange(DateTime(1984, 11, 19), DateTime(2020, 1, 1));
+      final range = ComparableRange(
+        DateTime(1984, 11, 19),
+        DateTime(2020, 1, 1),
+      );
 
       expect(DateTime(1984, 11, 19).inRange(range), true);
       expect(DateTime(2019, 11, 19).inRange(range), true);

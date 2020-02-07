@@ -38,12 +38,9 @@ extension ComparableX<T extends Comparable<T>> on T {
   /// Returns true if between [first] and [endInclusive].
   ///
   /// Equivalent to `ComparableRange(first, endInclusive).contains(this)`
-  ///
-  /// Uncomment this if it's useful for everyone
   bool between(T first, T endInclusive) =>
       first <= this && this <= endInclusive;
 
   /// Returns true if in the [range].
-  /// Uncomment this if it's useful for everyone
   bool inRange(ComparableRange<T> range) => range.contains(this);
 }

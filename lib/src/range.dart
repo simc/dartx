@@ -151,6 +151,20 @@ class IntRange extends IterableBase<int> implements ClosedRange<num> {
   String toString() => '$start..$endInclusive';
 
   @override
+  bool contains(Object element) {
+    if (element is! int) return false;
+    final value = element as int;
+    bool inRange;
+    if (start <= endInclusive) {
+      inRange = start <= value && value <= endInclusive;
+    } else {
+      inRange = endInclusive <= value && value <= start;
+    }
+    if (!inRange) return false;
+    return _differenceModulo(value, start, stepSize) == 0;
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is IntRange &&
