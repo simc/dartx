@@ -788,5 +788,51 @@ void main() {
         [2, 4, 6]
       ]);
     });
+
+    group('cached', () {
+      test('does not re-evaluate elements when re-accessed', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        expect(accessCount, 0);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+      });
+      test('concurrent access', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        for (final _ in iterable) {
+          expect(iterable, [0, 1, 2]);
+        }
+
+        expect(accessCount, 3);
+      });
+      test('partial population', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        for (final item in iterable) {
+          if (item == 1) {
+            break;
+          }
+        }
+
+        expect(accessCount, 2);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+      });
+    });
   });
 }
