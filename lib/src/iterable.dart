@@ -1004,4 +1004,65 @@ extension IterableX<E> on Iterable<E> {
     }
     return [t, f];
   }
+
+  /// Returns a new lazy [Iterable] that caches the computation of the current
+  /// [Iterable].
+  ///
+  /// This is an alternative to [toList] to not recompute the collection
+  /// multiple times, without having to lose the lazy loading aspect of
+  /// [Iterable].
+  Iterable<E> get cached => _CachedIterable<E>(this);
+}
+
+class _CachedIterable<T> extends IterableBase<T> {
+  _CachedIterable(Iterable<T> iterable)
+      : uncomputedIterator = iterable.iterator;
+
+  Iterator<T> uncomputedIterator;
+  final cache = _IterableCache<T>(null);
+
+  @override
+  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
+}
+
+class _CachedIterator<T> extends Iterator<T> {
+  _CachedIterator(this.cache, this.uncomputedIterator)
+      : latestValidCache = cache;
+
+  _IterableCache<T> cache;
+
+  /// A reference to the latest non-null [cache].
+  ///
+  /// This allows adding new items to the cache
+  _IterableCache<T> latestValidCache;
+  final Iterator<T> uncomputedIterator;
+
+  @override
+  T current;
+
+  @override
+  bool moveNext() {
+    cache = cache?.next;
+    if (cache != null) {
+      current = cache.value;
+      latestValidCache = cache;
+      return true;
+    }
+    if (uncomputedIterator.moveNext()) {
+      current = uncomputedIterator.current;
+      assert(latestValidCache.next == null);
+      latestValidCache.next = _IterableCache(current);
+      latestValidCache = latestValidCache.next;
+      return true;
+    }
+    return false;
+  }
+}
+
+/// A LinkedList that does not throw concurrent modification errors.
+class _IterableCache<T> {
+  _IterableCache(this.value);
+
+  _IterableCache<T> next;
+  final T value;
 }
