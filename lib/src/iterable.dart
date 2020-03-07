@@ -727,15 +727,14 @@ extension IterableX<E> on Iterable<E> {
     for (final element in this) {
       if (!hasPrevious || predicate(previous, element)) {
         // keep element in current chunk
-        previous = element;
-        currentChunk.add(previous);
+        currentChunk.add(element);
       } else {
         // start a new chunk containing the new element
         yield currentChunk;
-        previous = element;
-        currentChunk = [previous];
+        currentChunk = [element];
       }
 
+      previous = element;
       hasPrevious = true;
     }
 
