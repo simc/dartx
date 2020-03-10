@@ -13,11 +13,11 @@ On this page you can find some of the extensions. Take a look at the docs to see
 
 ## Getting started 🎉
 
-Add the following to you `pubspec.yaml` and replace `[version]` with the latest version:
+Add the following to your `pubspec.yaml`:
 
 ```dart
 dependencies:
-  dartx: ^[version]
+  dartx:
 ```
 
 After you import the library, you can use the extensions.
