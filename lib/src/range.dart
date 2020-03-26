@@ -59,8 +59,9 @@ class _ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
 
 extension ComparableRangeX<T extends Comparable<T>> on T {
   /// Creates a [ClosedRange] from this [Comparable] value
-  /// to the specified [that] value.
-  ClosedRange<T> rangeTo(T that) => _ComparableRange<T>(this, that);
+  /// to the specified [endInclusive] value.
+  ClosedRange<T> rangeTo(T endInclusive) =>
+      _ComparableRange<T>(this, endInclusive);
 }
 
 extension IntRangeExtension on int {
@@ -91,8 +92,6 @@ extension IntRangeExtension on int {
 
 /// A iterable range between two ints which is iterable with a specific step
 /// size
-///
-/// int doesn't extend Comparable<int>, uses ClosedRange<num> instead.
 class IntRange extends IterableBase<int> implements ClosedRange<int> {
   /// Creates a range between two ints ([first], [endInclusive]) which can be
   /// iterated through.
