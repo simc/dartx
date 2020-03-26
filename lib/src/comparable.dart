@@ -35,11 +35,12 @@ extension ComparableX<T extends Comparable<T>> on T {
   /// or the [maximumValue] otherwise.
   T coerceAtMost(T maximumValue) => this > maximumValue ? maximumValue : this;
 
-  /// Returns true if between [first] and [endInclusive].
+  /// Returns true when between [first] and [endInclusive]. The order of the
+  /// arguments doesn't matter.
   ///
-  /// Equivalent to `ComparableRange(first, endInclusive).contains(this)`
+  /// Alias for `first.rangeTo(endInclusive).contains(this)`
   bool between(T first, T endInclusive) =>
-      first <= this && this <= endInclusive;
+      first.rangeTo(endInclusive).contains(this);
 
   /// Returns true if in the [range].
   bool inRange(ClosedRange<T> range) => range.contains(this);

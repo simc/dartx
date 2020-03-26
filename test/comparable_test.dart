@@ -64,6 +64,13 @@ void main() {
       expect(DateTime(2020, 01, 01).between(start, end), true);
       expect(DateTime(2020, 01, 02).between(start, end), false);
       expect(DateTime(1984, 11, 18).between(start, end), false);
+
+      // reverse order
+      expect(DateTime(1984, 11, 19).between(end, start), true);
+      expect(DateTime(2019, 11, 19).between(end, start), true);
+      expect(DateTime(2020, 01, 01).between(end, start), true);
+      expect(DateTime(2020, 01, 02).between(end, start), false);
+      expect(DateTime(1984, 11, 18).between(end, start), false);
     });
 
     test('.inRange()', () {

@@ -87,18 +87,38 @@ extension IntRangeExtension on int {
   /// ```
   ///
   ///
-  IntRange rangeTo(int endInclusive) => IntRange(this, endInclusive, step: 1);
+  IntRange rangeTo(int endInclusive) => IntRange(this, endInclusive);
 }
 
 /// A iterable range between two ints which is iterable with a specific step
 /// size
-class IntRange extends IterableBase<int> implements ClosedRange<int> {
-  /// Creates a range between two ints ([first], [endInclusive]) which can be
-  /// iterated through.
-  ///
-  /// [step] (optional, defaults to 1) has to be positive even when iterating
-  /// downwards.
-  IntRange(int first, int endInclusive, {int step = 1})
+class IntRange extends IntProgression implements ClosedRange<int> {
+  IntRange(int first, int endInclusive) : super(first, endInclusive);
+
+  @override
+  bool contains(covariant num element) {
+    if (start <= endInclusive) {
+      return start <= element && element <= endInclusive;
+    } else {
+      return endInclusive <= element && element <= start;
+    }
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IntRange &&
+          runtimeType == other.runtimeType &&
+          _first == other._first &&
+          _last == other._last &&
+          stepSize == other.stepSize;
+
+  @override
+  int get hashCode => _first.hashCode ^ _last.hashCode ^ stepSize.hashCode;
+}
+
+class IntProgression extends IterableBase<int> {
+  IntProgression(int first, int endInclusive, {int step = 1})
       : _first = first,
         // can't initialize directly du to naming conflict with step() method
         // ignore: prefer_initializing_formals
@@ -113,6 +133,9 @@ class IntRange extends IterableBase<int> implements ClosedRange<int> {
           return true;
         }());
 
+  @override
+  Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
+
   /// The first element in the range.
   final int _first;
 
@@ -121,9 +144,6 @@ class IntRange extends IterableBase<int> implements ClosedRange<int> {
 
   /// The step of the range.
   final int stepSize;
-
-  @override
-  Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
 
   @override
   int get endInclusive => _last;
@@ -141,23 +161,21 @@ class IntRange extends IterableBase<int> implements ClosedRange<int> {
   String toString() => '$start..$endInclusive';
 
   @override
-  bool contains(Object element) {
-    if (element is! num) return false;
-    final value = element as num;
+  bool contains(covariant int element) {
     bool inRange;
     if (start <= endInclusive) {
-      inRange = start <= value && value <= endInclusive;
+      inRange = start <= element && element <= endInclusive;
     } else {
-      inRange = endInclusive <= value && value <= start;
+      inRange = endInclusive <= element && element <= start;
     }
     if (!inRange) return false;
-    return _differenceModulo(value.toInt(), start, stepSize) == 0;
+    return _differenceModulo(element, start, stepSize) == 0;
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is IntRange &&
+      other is IntProgression &&
           runtimeType == other.runtimeType &&
           _first == other._first &&
           _last == other._last &&
@@ -170,7 +188,7 @@ class IntRange extends IterableBase<int> implements ClosedRange<int> {
 extension IntRangeX on IntRange {
   /// Creates a [IntRange] with a different [stepSize],
   /// keeps first and last value
-  IntRange step(int step) => IntRange(_first, _last, step: step);
+  IntProgression step(int step) => IntProgression(_first, _last, step: step);
 }
 
 int _getProgressionLastElement(int start, int end, int step) {

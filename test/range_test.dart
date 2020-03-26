@@ -144,12 +144,12 @@ void main() {
         expect(IntRange(0, 10).toIterable().last, 10);
       });
       test('step 2 returns the last value dividable by 2', () {
-        expect(IntRange(0, 9, step: 2).last, 8);
-        expect(IntRange(0, 9, step: 2).toIterable().last, 8);
+        expect(IntProgression(0, 9, step: 2).last, 8);
+        expect(IntProgression(0, 9, step: 2).toIterable().last, 8);
       });
 
       test('lastWhere', () {
-        final range = IntRange(0, 9, step: 3);
+        final range = IntProgression(0, 9, step: 3);
         bool isEven(it) => it % 2 == 0;
         expect(range.last, 9);
         expect(range.lastWhere(isEven), 6);
@@ -176,27 +176,27 @@ void main() {
       test('step 2 returns the first value', () {
         // step 2 doesn't mean first needs to be dividable by 2.
         // It starts stepping at 2
-        expect(IntRange(1, 9, step: 2).first, 1);
-        expect(IntRange(1, 9, step: 2).toIterable().first, 1);
+        expect(IntProgression(1, 9, step: 2).first, 1);
+        expect(IntProgression(1, 9, step: 2).toIterable().first, 1);
       });
 
       test('firstWhere minds the predicate', () {
-        final range = IntRange(1, 10, step: 3);
+        final range = IntProgression(1, 10, step: 3);
         bool isEven(it) => it % 2 == 0;
         expect(range.first, 1);
         expect(range.firstWhere(isEven), 4);
       });
     });
     test('contains double', () {
-      final range = (2).rangeTo(-2);
+      final range = 2.rangeTo(-2);
       expect(range.contains(3.0), isFalse);
       expect(range.contains(2.9), isFalse);
       expect(range.contains(2.1), isFalse);
       expect(range.contains(2.0), isTrue);
       expect(range.contains(1.0), isTrue);
-      expect(range.contains(0.5), isFalse);
+      expect(range.contains(0.5), isTrue);
       expect(range.contains(0.0), isTrue);
-      expect(range.contains(-0.5), isFalse);
+      expect(range.contains(-0.5), isTrue);
       expect(range.contains(-1.0), isTrue);
       expect(range.contains(-2.0), isTrue);
       expect(range.contains(-2.1), isFalse);
@@ -211,59 +211,14 @@ void main() {
       expect(range.contains(-2.1), isFalse);
       expect(range.contains(-2.0), isTrue);
       expect(range.contains(-1.0), isTrue);
-      expect(range.contains(-0.5), isFalse);
+      expect(range.contains(-0.5), isTrue);
       expect(range.contains(0.0), isTrue);
-      expect(range.contains(0.5), isFalse);
+      expect(range.contains(0.5), isTrue);
       expect(range.contains(1.0), isTrue);
       expect(range.contains(2.0), isTrue);
       expect(range.contains(2.1), isFalse);
       expect(range.contains(2.9), isFalse);
       expect(range.contains(3.0), isFalse);
-    });
-
-    test('contains double with step', () {
-      final range = (-4).rangeTo(4).step(3); // [-4, -1, 2]
-      expect(range.contains(-5.0), isFalse);
-      expect(range.contains(-4.9), isFalse);
-      expect(range.contains(-4.1), isFalse);
-      expect(range.contains(-4.0), isTrue);
-      expect(range.contains(-3.9), isFalse);
-      expect(range.contains(-2.1), isFalse);
-      expect(range.contains(-2.0), isFalse);
-      expect(range.contains(-1.9), isFalse);
-      expect(range.contains(-1.0), isTrue);
-      expect(range.contains(-0.9), isFalse);
-      expect(range.contains(0.0), isFalse);
-      expect(range.contains(1.9), isFalse);
-      expect(range.contains(2.0), isTrue);
-      expect(range.contains(2.1), isFalse);
-      expect(range.contains(3.0), isFalse);
-      expect(range.contains(4.0), isFalse);
-      expect(range.contains(5.0), isFalse);
-    });
-
-    test('contains double with step downwards', () {
-      final range = (5).rangeTo(-4).step(3); // [5, 2, -1, -4]
-      expect(range.contains(6.0), isFalse);
-      expect(range.contains(5.1), isFalse);
-      expect(range.contains(5.0), isTrue);
-      expect(range.contains(4.9), isFalse);
-      expect(range.contains(2.1), isFalse);
-      expect(range.contains(2.0), isTrue);
-      expect(range.contains(1.9), isFalse);
-      expect(range.contains(0.9), isFalse);
-      expect(range.contains(0.0), isFalse);
-      expect(range.contains(-0.9), isFalse);
-      expect(range.contains(-1.0), isTrue);
-      expect(range.contains(-1.1), isFalse);
-      expect(range.contains(-1.9), isFalse);
-      expect(range.contains(-2.0), isFalse);
-      expect(range.contains(-2.1), isFalse);
-      expect(range.contains(-3.0), isFalse);
-      expect(range.contains(-3.9), isFalse);
-      expect(range.contains(-4.0), isTrue);
-      expect(range.contains(-5.1), isFalse);
-      expect(range.contains(-5.0), isFalse);
     });
 
     test('contains with step', () {
@@ -322,6 +277,13 @@ void main() {
       expect(0.between(0, 10), isTrue);
       expect((-1).between(0, 10), isFalse);
       expect(11.between(0, 10), isFalse);
+
+      // reverse order
+      expect(5.between(10, 0), isTrue);
+      expect(10.between(10, 0), isTrue);
+      expect(0.between(10, 0), isTrue);
+      expect((-1).between(10, 0), isFalse);
+      expect(11.between(10, 0), isFalse);
     });
 
     test('toString()', () {
