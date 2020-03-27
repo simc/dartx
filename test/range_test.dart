@@ -2,6 +2,49 @@ import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('DoubleRangeExtension', () {
+    test('start', () {
+      expect(2.7.rangeTo(4.2).start, 2.7);
+      expect(2.7.rangeTo(4.2).start, isA<double>());
+    });
+    test('endInclusive', () {
+      expect(2.7.rangeTo(4.2).endInclusive, 4.2);
+      expect(2.7.rangeTo(4.2).endInclusive, isA<double>());
+    });
+    test('contains double (upwards)', () {
+      expect(2.7.rangeTo(4.2).contains(3.0), isTrue);
+      expect(2.7.rangeTo(4.2).contains(5.0), isFalse);
+    });
+    test('contains int (upwards)', () {
+      // compiler does the conversion from int to double
+      expect(2.7.rangeTo(4.2).contains(3), isTrue);
+      expect(2.7.rangeTo(4.2).contains(5), isFalse);
+
+      // makes sure contains accepts num
+      expect(2.7.rangeTo(4.2).contains(3.toInt()), isTrue);
+      expect(2.7.rangeTo(4.2).contains(5.toInt()), isFalse);
+    });
+    test('contains double (downwards)', () {
+      expect(4.2.rangeTo(2.7).contains(3.0), isTrue);
+      expect(4.2.rangeTo(2.7).contains(5.0), isFalse);
+    });
+    test('contains int (upwards)', () {
+      expect(4.2.rangeTo(2.7).contains(3), isTrue);
+      expect(4.2.rangeTo(2.7).contains(5), isFalse);
+    });
+    test('mix double and int', () {
+      expect(4.rangeTo(2), isA<IntRange>());
+      expect(4.2.rangeTo(2), isA<DoubleRange>());
+      expect(4.2.rangeTo(2.2), isA<DoubleRange>());
+
+      // This is impossible because dart doesn't support overrides
+      // expect(4.rangeTo(2.7), isA<DoubleRange>());
+    });
+    test('toString', () {
+      expect(4.2.rangeTo(2.7).contains(5), isFalse);
+    });
+  });
+
   group('rangeTo', () {
     test('upwards', () {
       expect(5.rangeTo(10).toList(), [5, 6, 7, 8, 9, 10]);

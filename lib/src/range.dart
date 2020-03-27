@@ -2,7 +2,12 @@ part of dartx;
 
 /// Represents a range of values (for example, numbers or characters)
 /// with a fixed [start] value and a fixed [endInclusive] value.
-abstract class ClosedRange<T extends Comparable> {
+///
+/// T extends `Comparable` and not `Comparable<T>` because `T` is [int] for
+/// [IntRange] but [int] implements `Comparable<num>` not `Comparable<int>`.
+///
+/// [ComparableRange] shows
+abstract class Range<T extends Comparable> {
   /// The first value in the range.
   T get start;
 
@@ -25,7 +30,7 @@ abstract class ClosedRange<T extends Comparable> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ClosedRange &&
+      other is Range &&
           runtimeType == other.runtimeType &&
           start == other.start &&
           endInclusive == other.endInclusive;
@@ -35,11 +40,14 @@ abstract class ClosedRange<T extends Comparable> {
 }
 
 /// Represents a range of [Comparable] values such as [String] or [DateTime]
-class _ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
+///
+/// Implementation of [Range] which tightens the type for `T` to
+/// `Comparable<T>` for ranges of the same type
+class ComparableRange<T extends Comparable<T>> extends Range<T> {
   /// Create a range of [Comparable] values such as [String] or [DateTime]
   ///
   /// The order of [start] and [endInclusive] doesn't matter.
-  _ComparableRange(this.start, this.endInclusive)
+  ComparableRange(this.start, this.endInclusive)
       : assert(() {
           if (start == null) throw ArgumentError("start can't be null");
           if (endInclusive == null) {
@@ -48,22 +56,21 @@ class _ComparableRange<T extends Comparable<T>> extends ClosedRange<T> {
           return true;
         }());
 
-  /// The first element in the range.
   @override
   final T start;
 
-  /// The last element in the range.
   @override
   final T endInclusive;
 }
 
 extension ComparableRangeX<T extends Comparable<T>> on T {
-  /// Creates a [ClosedRange] from this [Comparable] value
+  /// Creates a [Range] from this [Comparable] value
   /// to the specified [endInclusive] value.
-  ClosedRange<T> rangeTo(T endInclusive) =>
-      _ComparableRange<T>(this, endInclusive);
+  ComparableRange<T> rangeTo(T endInclusive) =>
+      ComparableRange<T>(this, endInclusive);
 }
 
+/// The equivalent for [double] is [DoubleRangeExtension]
 extension IntRangeExtension on int {
   /// Creates a [IntRange] with a step count of 1
   ///
@@ -85,36 +92,57 @@ extension IntRangeExtension on int {
   /// 10.rangeTo(5).step(2).forEach(print);
   /// // 10, 8, 6
   /// ```
-  ///
-  ///
   IntRange rangeTo(int endInclusive) => IntRange(this, endInclusive);
+}
+
+/// Special variant for [double] which implements `Comparable<num>` and
+/// therefore doesn't work for the `Comparable<T>.rangeTo(T)` extension
+///
+/// The equivalent for [int] is [IntRangeExtension]
+extension DoubleRangeExtension on double {
+  DoubleRange rangeTo(double endInclusive) => DoubleRange(this, endInclusive);
+}
+
+class DoubleRange extends Range<double> {
+  DoubleRange(this.start, this.endInclusive);
+
+  @override
+  final double endInclusive;
+
+  @override
+  final double start;
+
+  @override
+  bool contains(covariant num value) {
+    if (start <= endInclusive) {
+      return start <= value && value <= endInclusive;
+    } else {
+      return endInclusive <= value && value <= start;
+    }
+  }
 }
 
 /// A iterable range between two ints which is iterable with a specific step
 /// size
-class IntRange extends IntProgression implements ClosedRange<int> {
+///
+/// Difference to `ComparableRange<num>` that [IntRange] is also a
+/// [IntProgression] and  therefore can be used to iterate over the values
+/// in the range.
+///
+/// A special form of [IntProgression] where [stepSize] is `1` which also acts
+/// as [Range] for [int]
+class IntRange extends IntProgression implements Range<int> {
   IntRange(int first, int endInclusive) : super(first, endInclusive);
 
   @override
-  bool contains(covariant num element) {
+  bool contains(covariant num value) {
+    assert(stepSize == 1);
     if (start <= endInclusive) {
-      return start <= element && element <= endInclusive;
+      return start <= value && value <= endInclusive;
     } else {
-      return endInclusive <= element && element <= start;
+      return endInclusive <= value && value <= start;
     }
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IntRange &&
-          runtimeType == other.runtimeType &&
-          _first == other._first &&
-          _last == other._last &&
-          stepSize == other.stepSize;
-
-  @override
-  int get hashCode => _first.hashCode ^ _last.hashCode ^ stepSize.hashCode;
 }
 
 class IntProgression extends IterableBase<int> {
@@ -161,15 +189,15 @@ class IntProgression extends IterableBase<int> {
   String toString() => '$start..$endInclusive';
 
   @override
-  bool contains(covariant int element) {
+  bool contains(covariant int value) {
     bool inRange;
     if (start <= endInclusive) {
-      inRange = start <= element && element <= endInclusive;
+      inRange = start <= value && value <= endInclusive;
     } else {
-      inRange = endInclusive <= element && element <= start;
+      inRange = endInclusive <= value && value <= start;
     }
     if (!inRange) return false;
-    return _differenceModulo(element, start, stepSize) == 0;
+    return _differenceModulo(value, start, stepSize) == 0;
   }
 
   @override

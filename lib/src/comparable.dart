@@ -43,5 +43,5 @@ extension ComparableX<T extends Comparable<T>> on T {
       first.rangeTo(endInclusive).contains(this);
 
   /// Returns true if in the [range].
-  bool inRange(ClosedRange<T> range) => range.contains(this);
+  bool inRange(Range<T> range) => range.contains(this);
 }
