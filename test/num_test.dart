@@ -22,5 +22,28 @@ void main() {
     });
 
     test('.toBytes()', () {});
+
+    test('inRange()', () {
+      expect(5.inRange(0.rangeTo(10)), isTrue);
+      expect(10.inRange(0.rangeTo(10)), isTrue);
+      expect(0.inRange(0.rangeTo(10)), isTrue);
+      expect((-1).inRange(0.rangeTo(10)), isFalse);
+      expect(11.inRange(0.rangeTo(10)), isFalse);
+    });
+
+    test('between()', () {
+      expect(5.between(0, 10), isTrue);
+      expect(10.between(0, 10), isTrue);
+      expect(0.between(0, 10), isTrue);
+      expect((-1).between(0, 10), isFalse);
+      expect(11.between(0, 10), isFalse);
+
+      // reverse order
+      expect(5.between(10, 0), isTrue);
+      expect(10.between(10, 0), isTrue);
+      expect(0.between(10, 0), isTrue);
+      expect((-1).between(10, 0), isFalse);
+      expect(11.between(10, 0), isFalse);
+    });
   });
 }

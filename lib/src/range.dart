@@ -8,6 +8,8 @@ part of dartx;
 ///
 /// [ComparableRange] shows
 abstract class Range<T extends Comparable> {
+  const Range();
+
   /// The first value in the range.
   T get start;
 
@@ -104,8 +106,14 @@ extension DoubleRangeExtension on double {
 }
 
 class DoubleRange extends Range<double> {
-  DoubleRange(this.start, this.endInclusive);
-
+  DoubleRange(this.start, this.endInclusive)
+      : assert(() {
+          if (start == null) throw ArgumentError("start can't be null");
+          if (endInclusive == null) {
+            throw ArgumentError("endInclusive can't be null");
+          }
+          return true;
+        }());
   @override
   final double endInclusive;
 
@@ -147,19 +155,19 @@ class IntRange extends IntProgression implements Range<int> {
 
 class IntProgression extends IterableBase<int> {
   IntProgression(int first, int endInclusive, {int step = 1})
-      : _first = first,
-        // can't initialize directly du to naming conflict with step() method
-        // ignore: prefer_initializing_formals
-        stepSize = step,
-        _last = _getProgressionLastElement(first, endInclusive, step),
-        assert(() {
+      : assert(() {
           if (first == null) throw ArgumentError("start can't be null");
           if (endInclusive == null) {
             throw ArgumentError("endInclusive can't be null");
           }
           if (step == null) throw ArgumentError("step can't be null");
           return true;
-        }());
+        }()),
+        _first = first,
+        // can't initialize directly du to naming conflict with step() method
+        // ignore: prefer_initializing_formals
+        stepSize = step,
+        _last = _getProgressionLastElement(first, endInclusive, step);
 
   @override
   Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
@@ -225,9 +233,8 @@ int _getProgressionLastElement(int start, int end, int step) {
   }
   if (start >= end) {
     return end;
-  } else {
-    return end - _differenceModulo(end, start, step);
   }
+  return end - _differenceModulo(end, start, step);
 }
 
 // (a - b) mod c
@@ -237,11 +244,7 @@ int _differenceModulo(int a, int b, int c) {
 
 int _mod(int a, int b) {
   final mod = a % b;
-  if (mod >= 0) {
-    return mod;
-  } else {
-    return mod + b;
-  }
+  return mod >= 0 ? mod : mod + b;
 }
 
 class _IntRangeIterator extends Iterator<int> {
