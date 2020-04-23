@@ -138,6 +138,7 @@ extension StringX on String {
   /// ```
   String get md5 => crypto.md5.convert(toUtf8()).toString();
   
+  /// Returns `true` if the String is either null or empty.
   bool get isNullOrEmpty {
     if (this == null) {
       return true;
