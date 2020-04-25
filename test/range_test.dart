@@ -145,15 +145,15 @@ void main() {
     });
     test('alphabetical range', () {
       final alphabet = 'a'.rangeTo('z');
-      expect(alphabet.contains("a"), isTrue);
-      expect(alphabet.contains("b"), isTrue);
-      expect(alphabet.contains("y"), isTrue);
-      expect(alphabet.contains("z"), isTrue);
+      expect(alphabet.contains('a'), isTrue);
+      expect(alphabet.contains('b'), isTrue);
+      expect(alphabet.contains('y'), isTrue);
+      expect(alphabet.contains('z'), isTrue);
 
-      expect(alphabet.contains("A"), isFalse);
-      expect(alphabet.contains("B"), isFalse);
-      expect(alphabet.contains("Y"), isFalse);
-      expect(alphabet.contains("Z"), isFalse);
+      expect(alphabet.contains('A'), isFalse);
+      expect(alphabet.contains('B'), isFalse);
+      expect(alphabet.contains('Y'), isFalse);
+      expect(alphabet.contains('Z'), isFalse);
     });
   });
 

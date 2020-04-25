@@ -181,10 +181,8 @@ class IntProgression extends IterableBase<int> {
   /// The step of the range.
   final int stepSize;
 
-  @override
   int get endInclusive => _last;
 
-  @override
   int get start => _first;
 
   @override
@@ -197,6 +195,7 @@ class IntProgression extends IterableBase<int> {
   String toString() => '$start..$endInclusive';
 
   @override
+  // ignore: avoid_renaming_method_parameters
   bool contains(covariant int value) {
     bool inRange;
     if (start <= endInclusive) {
@@ -219,7 +218,6 @@ class IntProgression extends IterableBase<int> {
 
   @override
   int get hashCode => _first.hashCode ^ _last.hashCode ^ stepSize.hashCode;
-}
 
   /// Creates a [IntRange] with a different [stepSize],
   /// keeps first and last value
