@@ -23,27 +23,50 @@ void main() {
 
     test('.toBytes()', () {});
 
-    test('inRange()', () {
+    test('int.inRange()', () {
       expect(5.inRange(0.rangeTo(10)), isTrue);
-      expect(10.inRange(0.rangeTo(10)), isTrue);
+      expect(10.inRange(0.0.rangeTo(10.0)), isTrue);
       expect(0.inRange(0.rangeTo(10)), isTrue);
-      expect((-1).inRange(0.rangeTo(10)), isFalse);
+      expect((-1).inRange(0.0.rangeTo(10.0)), isFalse);
       expect(11.inRange(0.rangeTo(10)), isFalse);
     });
 
-    test('between()', () {
-      expect(5.between(0, 10), isTrue);
+    test('double.inRange()', () {
+      expect(5.0.inRange(0.rangeTo(10)), isTrue);
+      expect(10.0.inRange(0.0.rangeTo(10.0)), isTrue);
+      expect(0.0.inRange(0.rangeTo(10)), isTrue);
+      expect((-1.0).inRange(0.0.rangeTo(10.0)), isFalse);
+      expect(11.0.inRange(0.rangeTo(10)), isFalse);
+    });
+
+    test('int.between()', () {
+      expect(5.between(0.0, 10.0), isTrue);
       expect(10.between(0, 10), isTrue);
-      expect(0.between(0, 10), isTrue);
+      expect(0.between(0.0, 10.0), isTrue);
       expect((-1).between(0, 10), isFalse);
-      expect(11.between(0, 10), isFalse);
+      expect(11.between(0.0, 10.0), isFalse);
 
       // reverse order
       expect(5.between(10, 0), isTrue);
-      expect(10.between(10, 0), isTrue);
+      expect(10.between(10.0, 0.0), isTrue);
       expect(0.between(10, 0), isTrue);
-      expect((-1).between(10, 0), isFalse);
+      expect((-1).between(10.0, 0.0), isFalse);
       expect(11.between(10, 0), isFalse);
+    });
+
+    test('double.between()', () {
+      expect(5.0.between(0.0, 10.0), isTrue);
+      expect(10.0.between(0, 10), isTrue);
+      expect(0.0.between(0.0, 10.0), isTrue);
+      expect((-1.0).between(0, 10), isFalse);
+      expect(11.0.between(0.0, 10.0), isFalse);
+
+      // reverse order
+      expect(5.0.between(10, 0), isTrue);
+      expect(10.0.between(10.0, 0.0), isTrue);
+      expect(0.0.between(10, 0), isTrue);
+      expect((-1.0).between(10.0, 0.0), isFalse);
+      expect(11.0.between(10, 0), isFalse);
     });
   });
 }

@@ -45,6 +45,15 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtMost(20)) // 10
   /// ```
   T coerceAtMost(T maximumValue) => this > maximumValue ? maximumValue : this;
+
+  /// Returns true if in the [range].
+  bool inRange(Range<num> range) => range.contains(this);
+
+  /// Returns true if between [first] and [endInclusive].
+  ///
+  /// Alias for `first.rangeTo(endInclusive).contains(this)`
+  bool between(num first, num endInclusive) =>
+      first.rangeTo(endInclusive).contains(this);
 }
 
 extension IntX<T extends int> on T {
@@ -54,15 +63,6 @@ extension IntX<T extends int> on T {
     data.setInt64(0, this, endian);
     return data.buffer.asUint8List();
   }
-
-  /// Returns true if in the [range].
-  bool inRange(IntRange range) => range.contains(this);
-
-  /// Returns true if between [first] and [endInclusive].
-  ///
-  /// Alias for `first.rangeTo(endInclusive).contains(this)`
-  bool between(int first, int endInclusive) =>
-      first.rangeTo(endInclusive).contains(this);
 }
 
 extension DoubleX<T extends double> on T {
