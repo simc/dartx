@@ -66,9 +66,9 @@ extension FileSystemEntityX on FileSystemEntity {
   ///```
   FileSystemEntity withName(String newName) {
     return File('$dirName${Platform.pathSeparator}$newName');
-    }
+  }
 
-  ///Returns the file extension of the [path], the portion of the `name` 
+  ///Returns the file extension of the [path], the portion of the `name`
   ///from the last '.' to the end (including the '.' itself).
   ///```dart
   ///File('path/to/foo.dart').extension; // -> '.dart'
@@ -76,7 +76,7 @@ extension FileSystemEntityX on FileSystemEntity {
   ///File('path.to/foo').extension; // -> ''
   ///File('path/to/foo.dart.js').extension; // -> '.js'
   ///```
-  ///If the filename starts with a '.', then that is not considered an 
+  ///If the filename starts with a '.', then that is not considered an
   ///extension.
   ///```Dart
   ///File('~/.profile').extension;    // -> ''

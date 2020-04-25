@@ -548,6 +548,37 @@ void main() {
       expect(list.chunked(60), [list]);
     });
 
+    group('.chunkWhile()', () {
+      test('regular list', () {
+        var list = [1, 1, 1, 2, 2, 3, 4, 4];
+        expect(list.chunkWhile((a, b) => a == b), [
+          [1, 1, 1],
+          [2, 2],
+          [3],
+          [4, 4],
+        ]);
+      });
+
+      test('size 1', () {
+        expect(
+          [1].chunkWhile((a, b) => fail('Should not call predicate')),
+          [
+            [1]
+          ],
+        );
+      });
+    });
+
+    test('.splitWhen()', () {
+      var list = [1, 1, 1, 2, 2, 3, 4, 4];
+      expect(list.splitWhen((a, b) => a != b), [
+        [1, 1, 1],
+        [2, 2],
+        [3],
+        [4, 4],
+      ]);
+    });
+
     group('.windowed()', () {
       test('size 1', () {
         expect([].windowed(1), []);
