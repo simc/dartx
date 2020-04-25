@@ -11,6 +11,7 @@ import 'package:collection/collection.dart' hide DelegatingList;
 import 'package:crypto/crypto.dart' as crypto;
 
 export 'package:time/time.dart';
+export 'package:characters/characters.dart';
 
 part 'src/comparable.dart';
 part 'src/comparator.dart';
