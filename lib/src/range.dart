@@ -221,7 +221,6 @@ class IntProgression extends IterableBase<int> {
   int get hashCode => _first.hashCode ^ _last.hashCode ^ stepSize.hashCode;
 }
 
-extension IntRangeX on IntRange {
   /// Creates a [IntRange] with a different [stepSize],
   /// keeps first and last value
   IntProgression step(int step) => IntProgression(_first, _last, step: step);

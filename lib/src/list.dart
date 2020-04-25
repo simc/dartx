@@ -154,3 +154,23 @@ extension ListX<E> on List<E> {
     _mergeSort(this, start: start, end: end, compare: comparator);
   }
 }
+
+extension ListListX<E> on List<List<E>> {
+  /// Returns a new [List] of all elements from all lists in this
+  /// [List].
+  ///
+  /// ```dart
+  /// var nestedList = [[1, 2, 3], [4, 5, 6]];
+  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// ```
+  ///
+  ///
+  /// This is a specialization of [IterableIterableX].flatten() which allows
+  /// accessing elements by index afterwards
+  ///
+  /// ```dart
+  /// var flat = [['a', 'b'], ['c', 'd']].flatten();
+  /// print(flat[2]); // prints "c"
+  /// ```
+  List<E> flatten() => [for (var list in this) ...list];
+}

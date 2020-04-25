@@ -55,5 +55,18 @@ void main() {
       expect(list.dropLastWhile((it) => false), list);
       expect(list.dropLastWhile((it) => it > 3), [1, 2, 3]);
     });
+
+    test('.flatten()', () {
+      // ignore: omit_local_variable_types
+      List<List<int>> nestedList = [
+        [0, 0, 0],
+        [1, 1, 1],
+        [2, 2, 2],
+      ];
+
+      // ignore: omit_local_variable_types
+      List<int> flatten = nestedList.flatten();
+      expect(flatten, [0, 0, 0, 1, 1, 1, 2, 2, 2]);
+    });
   });
 }
