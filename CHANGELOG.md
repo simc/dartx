@@ -1,3 +1,7 @@
+## 0.3.0+1
+- Improve package scoring by upgrading dependencies and formatting files
+- Change README slightly
+ 
 ## 0.3.0
 - [PR-14](https://github.com/leisim/dartx/pull/14) New [`int.rangeTo(int)`](https://github.com/leisim/dartx#rangeto) extension
 - [PR-24](https://github.com/leisim/dartx/pull/24) Default implementations for `Comparable` `<`, `<=`, `>=` and `>` operators.
