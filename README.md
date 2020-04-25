@@ -13,11 +13,11 @@ On this page you can find some of the extensions. Take a look at the docs to see
 
 ## Getting started 🎉
 
-Add the following to you `pubspec.yaml` and replace `[version]` with the latest version:
+Add the following to your `pubspec.yaml`:
 
 ```dart
 dependencies:
-  dartx: ^[version]
+  dartx:
 ```
 
 After you import the library, you can use the extensions.
@@ -69,6 +69,19 @@ Get a new lazy `Iterable` of all elements from all collections in a collection.
 var nestedList = [[1, 2, 3], [4, 5, 6]];
 var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 ```
+
+### .chunkWhile() & .splitWhen()
+
+Chunk entries as long as long as two elements match a predicate:
+```dart
+final list = [1, 2, 4, 9, 10, 11, 12, 15, 16, 19, 20, 21];
+final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
+
+// increasingSubSequences = [[1, 2], [4], [9], [10, 11, 12], [15, 16], [19, 20, 21]]
+```
+
+`splitWhen` is the opposite of `chunkWhile` that starts a new chunk every time
+the predicate _didn't_ match.
 
 ## String
 

@@ -549,6 +549,37 @@ void main() {
       expect(list.chunked(60), [list]);
     });
 
+    group('.chunkWhile()', () {
+      test('regular list', () {
+        var list = [1, 1, 1, 2, 2, 3, 4, 4];
+        expect(list.chunkWhile((a, b) => a == b), [
+          [1, 1, 1],
+          [2, 2],
+          [3],
+          [4, 4],
+        ]);
+      });
+
+      test('size 1', () {
+        expect(
+          [1].chunkWhile((a, b) => fail('Should not call predicate')),
+          [
+            [1]
+          ],
+        );
+      });
+    });
+
+    test('.splitWhen()', () {
+      var list = [1, 1, 1, 2, 2, 3, 4, 4];
+      expect(list.splitWhen((a, b) => a != b), [
+        [1, 1, 1],
+        [2, 2],
+        [3],
+        [4, 4],
+      ]);
+    });
+
     group('.windowed()', () {
       test('size 1', () {
         expect([].windowed(1), []);
@@ -628,15 +659,33 @@ void main() {
       });
     });
 
-    test('.flatten()', () {
-      expect([].flatten(), []);
+    group('.flatten()', () {
+      test('for iterables of the same type', () {
+        // ignore: omit_local_variable_types
+        Iterable<Iterable<int>> iterableOfIterables =
+            Iterable.generate(3, (index) sync* {
+          yield index;
+          yield index + 1;
+          yield index + 2;
+        });
+        // ignore: omit_local_variable_types
+        Iterable<int> iterable = iterableOfIterables.flatten();
+        expect(iterable, [0, 1, 2, 1, 2, 3, 2, 3, 4]);
+        expect(iterable, isA<Iterable<int>>());
+        expect(iterable.toList(), isA<List<int>>());
+      });
 
-      var list = [
-        [0, 0, 0],
-        [1, 1, 1],
-        [2, 2, 2]
-      ];
-      expect(list.flatten(), [0, 0, 0, 1, 1, 1, 2, 2, 2]);
+      test('dynamic type', () {
+        // ignore: omit_local_variable_types
+        Iterable<Iterable<dynamic>> iterableOfIterables = () sync* {
+          yield [1, 2, 3];
+          yield ['a', 'b'];
+        }();
+        // ignore: omit_local_variable_types
+        Iterable<dynamic> iterable = iterableOfIterables.flatten();
+        expect(iterable, [1, 2, 3, 'a', 'b']);
+        expect(iterable, isA<Iterable<dynamic>>());
+      });
     });
 
     group('.cycle()', () {
@@ -801,6 +850,52 @@ void main() {
         [1, 3, 5],
         [2, 4, 6]
       ]);
+    });
+
+    group('cached', () {
+      test('does not re-evaluate elements when re-accessed', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        expect(accessCount, 0);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+      });
+      test('concurrent access', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        for (final _ in iterable) {
+          expect(iterable, [0, 1, 2]);
+        }
+
+        expect(accessCount, 3);
+      });
+      test('partial population', () {
+        var accessCount = 0;
+        final iterable = [0, 1, 2].map((e) {
+          accessCount++;
+          return e;
+        }).cached;
+
+        for (final item in iterable) {
+          if (item == 1) {
+            break;
+          }
+        }
+
+        expect(accessCount, 2);
+        expect(iterable, [0, 1, 2]);
+        expect(accessCount, 3);
+      });
     });
   });
 }

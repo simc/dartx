@@ -33,8 +33,7 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtLeast(5)) // 10
   /// print(10.coerceAtLeast(20)) // 20
   /// ```
-  T coerceAtLeast(T minimumValue) =>
-      this < minimumValue ? minimumValue : this;
+  T coerceAtLeast(T minimumValue) => this < minimumValue ? minimumValue : this;
 
   /// Ensures that this value is not greater than the specified [maximumValue].
   ///
@@ -45,8 +44,7 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtMost(5)) // 5
   /// print(10.coerceAtMost(20)) // 10
   /// ```
-  T coerceAtMost(T maximumValue) =>
-      this > maximumValue ? maximumValue : this;
+  T coerceAtMost(T maximumValue) => this > maximumValue ? maximumValue : this;
 }
 
 extension IntX<T extends int> on T {

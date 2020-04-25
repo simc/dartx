@@ -705,6 +705,60 @@ extension IterableX<E> on Iterable<E> {
     }
   }
 
+  /// Splits this collection into a lazy [Iterable] of chunks, where chunks are
+  /// created as long as [predicate] is true for a pair of entries.
+  ///
+  /// For example, one-by-one increasing subsequences can be chunked as follows:
+  /// ```dart
+  /// final list = [1, 2, 4, 9, 10, 11, 12, 15, 16, 19, 20, 21];
+  /// final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
+  /// ```
+  ///
+  /// Here, `increasingSubSequences` would consist of `[1, 2]`, `[4]`,
+  /// `[9, 10, 11]`, `[12]`, `[15, 16]` and finally `[19, 20, 21]`.
+  ///
+  /// See also:
+  ///  - [splitWhen], which works similarly but with a reverted [predicate].
+  Iterable<List<E>> chunkWhile(bool Function(E, E) predicate) sync* {
+    var currentChunk = <E>[];
+    var hasPrevious = false;
+    /*late*/ E previous;
+
+    for (final element in this) {
+      if (!hasPrevious || predicate(previous, element)) {
+        // keep element in current chunk
+        currentChunk.add(element);
+      } else {
+        // start a new chunk containing the new element
+        yield currentChunk;
+        currentChunk = [element];
+      }
+
+      previous = element;
+      hasPrevious = true;
+    }
+
+    if (currentChunk.isNotEmpty) yield currentChunk;
+  }
+
+  /// Splits this collection into a lazy [Iterable], where each split will be
+  /// make if [predicate] returns true for a pair of entries.
+  ///
+  /// For example, one could split the iterable at each changed value like this:
+  /// ```dart
+  /// final list = [1, 1, 1, 2, 2, 1, 4, 4];
+  /// final splitted = list.splitWhen((a, b) => a != b);
+  /// ```
+  ///
+  /// In that example, `splitted` would consist of `[1, 1, 1, 1]`, `[2, 2]`,
+  /// `[1]`, `[4, 4]`.
+  ///
+  /// See also:
+  ///  - [chunkWhile], which works similarly but with a reverted [predicate].
+  Iterable<List<E>> splitWhen(bool Function(E, E) predicate) {
+    return chunkWhile((a, b) => !predicate(a, b));
+  }
+
   /// Returns a new lazy [Iterable] of windows of the given [size] sliding along
   /// this collection with the given [step].
   ///
@@ -766,19 +820,6 @@ extension IterableX<E> on Iterable<E> {
   Iterable<R> flatMap<R>(Iterable<R> transform(E element)) sync* {
     for (var current in this) {
       yield* transform(current);
-    }
-  }
-
-  /// Returns a new lazy [Iterable] of all elements from all collections in this
-  /// collection.
-  ///
-  /// ```dart
-  /// var nestedList = List([[1, 2, 3], [4, 5, 6]]);
-  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
-  /// ```
-  Iterable<dynamic> flatten() sync* {
-    for (var current in this) {
-      yield* (current as Iterable);
     }
   }
 
@@ -1003,6 +1044,82 @@ extension IterableX<E> on Iterable<E> {
       }
     }
     return [t, f];
+  }
+
+  /// Returns a new lazy [Iterable] that caches the computation of the current
+  /// [Iterable].
+  ///
+  /// This is an alternative to [toList] to not recompute the collection
+  /// multiple times, without having to lose the lazy loading aspect of
+  /// [Iterable].
+  Iterable<E> get cached => _CachedIterable<E>(this);
+}
+
+class _CachedIterable<T> extends IterableBase<T> {
+  _CachedIterable(Iterable<T> iterable)
+      : uncomputedIterator = iterable.iterator;
+
+  Iterator<T> uncomputedIterator;
+  final cache = _IterableCache<T>(null);
+
+  @override
+  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
+}
+
+class _CachedIterator<T> extends Iterator<T> {
+  _CachedIterator(this.cache, this.uncomputedIterator)
+      : latestValidCache = cache;
+
+  _IterableCache<T> cache;
+
+  /// A reference to the latest non-null [cache].
+  ///
+  /// This allows adding new items to the cache
+  _IterableCache<T> latestValidCache;
+  final Iterator<T> uncomputedIterator;
+
+  @override
+  T current;
+
+  @override
+  bool moveNext() {
+    cache = cache?.next;
+    if (cache != null) {
+      current = cache.value;
+      latestValidCache = cache;
+      return true;
+    }
+    if (uncomputedIterator.moveNext()) {
+      current = uncomputedIterator.current;
+      assert(latestValidCache.next == null);
+      latestValidCache.next = _IterableCache(current);
+      latestValidCache = latestValidCache.next;
+      return true;
+    }
+    return false;
+  }
+}
+
+/// A LinkedList that does not throw concurrent modification errors.
+class _IterableCache<T> {
+  _IterableCache(this.value);
+
+  _IterableCache<T> next;
+  final T value;
+}
+
+extension IterableIterableX<E> on Iterable<Iterable<E>> {
+  /// Returns a new lazy [Iterable] of all elements from all collections in this
+  /// collection.
+  ///
+  /// ```dart
+  /// var nestedList = List([[1, 2, 3], [4, 5, 6]]);
+  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// ```
+  Iterable<E> flatten() sync* {
+    for (var current in this) {
+      yield* current;
+    }
   }
 }
 

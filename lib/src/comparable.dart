@@ -27,13 +27,11 @@ extension ComparableX<T extends Comparable<T>> on T {
   ///
   /// @return this value if it's greater than or equal to the [minimumValue]
   /// or the [minimumValue] otherwise.
-  T coerceAtLeast(T minimumValue) =>
-      this < minimumValue ? minimumValue : this;
+  T coerceAtLeast(T minimumValue) => this < minimumValue ? minimumValue : this;
 
   /// Ensures that this value is not greater than the specified [maximumValue].
   ///
   /// @return this value if it's less than or equal to the [maximumValue]
   /// or the [maximumValue] otherwise.
-  T coerceAtMost(T maximumValue) =>
-      this > maximumValue ? maximumValue : this;
+  T coerceAtMost(T maximumValue) => this > maximumValue ? maximumValue : this;
 }
