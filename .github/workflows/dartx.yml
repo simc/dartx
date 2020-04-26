@@ -28,3 +28,14 @@ jobs:
         run: pub get
       - name: Run tests
         run: pub run test
+
+  format:
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:dev
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Dartfmt
+        run: dartfmt --set-exit-if-changed -w --fix .
