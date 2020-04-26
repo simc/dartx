@@ -15,24 +15,31 @@ void main() {
     test('.coerceIn()', () {
       expect(DateTime(1984, 11, 19).coerceIn(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 19));
-      expect(DateTime(1984, 10, 28).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 1));
-      expect(DateTime(1984, 12, 1).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 20));
-      expect(() => 10.coerceIn(3, 2), throwsArgumentError);
-      expect(() =>
-          DateTime.now().coerceIn(
-            DateTime(1984, 11, 20),
+      expect(
+          DateTime(1984, 11, 19).coerceIn(
             DateTime(1984, 11, 1),
-          ), throwsArgumentError);
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 19));
+      expect(
+          DateTime(1984, 10, 28).coerceIn(
+            DateTime(1984, 11, 1),
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 1));
+      expect(
+          DateTime(1984, 12, 1).coerceIn(
+            DateTime(1984, 11, 1),
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 20));
+      expect(() => 10.coerceIn(3, 2), throwsArgumentError);
+      expect(
+          () => DateTime.now().coerceIn(
+                DateTime(1984, 11, 20),
+                DateTime(1984, 11, 1),
+              ),
+          throwsArgumentError);
     });
 
     test('.coerceAtLeast()', () {
