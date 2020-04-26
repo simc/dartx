@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
 import 'package:dartx/dartx.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -640,9 +642,29 @@ void main() {
       );
     });
 
-    test('.asStream()', () {
-      expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
-      expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+    group('.asStream()', () {
+      test('.asStream()', () {
+        expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
+        expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+      });
+
+      test('.asStreamAwaited()', () {
+        fakeAsync((async) {
+          final futures = [
+            Future.delayed(Duration(seconds: 1)).then((_) => 0),
+            Future.delayed(Duration(seconds: 2)).then((_) => 1),
+            Future.delayed(Duration(seconds: 100)).then((_) => 42),
+            Future.delayed(Duration(seconds: 3)).then((_) => 3),
+          ].asStreamAwaited();
+
+          final received = <int>[];
+          futures.listen(received.add);
+          async.elapse(Duration(seconds: 3));
+          expect(received, [0, 1, 3]);
+          async.elapse(Duration(seconds: 100));
+          expect(received, [0, 1, 3, 42]);
+        });
+      });
     });
 
     group('.flatten()', () {

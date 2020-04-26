@@ -1122,3 +1122,18 @@ extension IterableIterableX<E> on Iterable<Iterable<E>> {
     }
   }
 }
+
+extension IterableFutureX<E> on Iterable<Future<E>> {
+  /// Create a stream from a group of futures.
+  ///
+  /// The stream reports the results of the futures on the stream in the order
+  /// in which the futures complete.
+  /// Each future provides either a data event or an error event,
+  /// depending on how the future completes.
+  ///
+  /// If some futures have already completed when `Stream.fromFutures` is called,
+  /// their results will be emitted in some unspecified order.
+  ///
+  /// When all futures have completed, the stream is closed.
+  Stream<E> asStreamAwaited() => Stream.fromFutures(this);
+}
