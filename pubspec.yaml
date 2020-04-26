@@ -16,3 +16,4 @@ dependencies:
 dev_dependencies:
   test: ^1.9.2
   pedantic: ^1.8.0
+  fake_async: ^1.1.0
