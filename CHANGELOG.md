@@ -1,3 +1,28 @@
+### 0.4.0
+
+### Iterable
+- [PR-41](https://github.com/leisim/dartx/pull/41) New `Iterable<T>.containsAny(Iterable<T>)` extension
+- [PR-46](https://github.com/leisim/dartx/pull/46) New `Iterable<num>.median()` extension
+- [PR-53](https://github.com/leisim/dartx/pull/53) New `Iterable<T>.asStream()` extension converts any Iterable to a Stream
+- [PR-59](https://github.com/leisim/dartx/pull/59) New `Iterable<T>.cached` extension creates a cached `Iterable` preventing lazy operators such as `.map` to execute again 
+- [PR-56](https://github.com/leisim/dartx/pull/56) Make `Iterable<Iterable<T>>.flatten()` typesafe and return `Iterable<T>` instead of `Iterable<dynamic>`
+- [PR-62](https://github.com/leisim/dartx/pull/62) New `Iterable<T>.chunkWhile(bool Function(T, T) predicate): Iterable<List<E>>` extension splits a collection into a lazy Iterables of chunks, where chunks are created as long as `predicate` is true for a pair of entries.
+- [PR-62](https://github.com/leisim/dartx/pull/62) New `Iterable<T>.splitWhen(bool Function(E, E) predicate): Iterable<List<E>>` extension splits a collection into a lazy `Iterable`, where each split will be make if `predicate` returns `true` for a pair of entries.
+- [PR-54](https://github.com/leisim/dartx/pull/54) New `Iterable<Future<T>>.asStreamAwaited(): Stream<T>` extension to create a stream from a group of futures.
+
+
+### String
+- [PR-72](https://github.com/leisim/dartx/pull/72) New `String.isNullOrEmpty` extension
+- [PR-43](https://github.com/leisim/dartx/pull/43) New `String.toInt({int radix})` extension as alias for `int.parse(String, {int radix})` (also `String.toIntOrNull({int radix})`)
+- [PR-75](https://github.com/leisim/dartx/pull/75) Deprecate `String.chars` in favour of `String.characters` from the official `characters` package.
+
+### Ranges
+- [PR-74](https://github.com/leisim/dartx/pull/74) New `Comparable<T>.rangeTo(Comparable<T> end)` extension to create ranges of `DateTime` or `String`.
+- [PR-45](https://github.com/leisim/dartx/pull/45) New `num.between(num first, num endInclusive): bool` extension
+- [PR-45](https://github.com/leisim/dartx/pull/45) New `num.inRange(Range<num> range): bool` extension
+- [PR-45](https://github.com/leisim/dartx/pull/45) New `Comparable<T>.between(T first, T endInclusive): bool` extension
+- [PR-45](https://github.com/leisim/dartx/pull/45) New `Comparable<T>.inRange(ComparableRange<T> range): bool` extension
+
 ## 0.3.0+1
 - Improve package scoring by upgrading dependencies and formatting files
 - Change README slightly
