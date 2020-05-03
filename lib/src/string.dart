@@ -8,6 +8,10 @@ extension StringX on String {
   ///
   /// A character is a Unicode Grapheme cluster represented by a substring of
   /// the original string.
+  ///
+  /// Please use [StringCharacters].characters
+  /// https://github.com/dart-lang/characters/blob/10527437926f1b454edf9912fe700aa2506b1c3d/lib/src/extensions.dart#L9
+  @Deprecated("Use .characters from the official characters package")
   Iterable<String> get chars => Characters(this);
 
   /// Returns a copy of this string having its first letter uppercased, or the

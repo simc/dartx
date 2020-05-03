@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
+import 'package:test/test.dart';
 
 class _WrappedInt implements Comparable<_WrappedInt> {
   final int value;
@@ -54,6 +54,33 @@ void main() {
           DateTime(1984, 11, 19));
       expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 1));
+    });
+
+    test('.between()', () {
+      var start = DateTime(1984, 11, 19);
+      var end = DateTime(2020, 01, 01);
+      expect(DateTime(1984, 11, 19).between(start, end), true);
+      expect(DateTime(2019, 11, 19).between(start, end), true);
+      expect(DateTime(2020, 01, 01).between(start, end), true);
+      expect(DateTime(2020, 01, 02).between(start, end), false);
+      expect(DateTime(1984, 11, 18).between(start, end), false);
+
+      // reverse order
+      expect(DateTime(1984, 11, 19).between(end, start), true);
+      expect(DateTime(2019, 11, 19).between(end, start), true);
+      expect(DateTime(2020, 01, 01).between(end, start), true);
+      expect(DateTime(2020, 01, 02).between(end, start), false);
+      expect(DateTime(1984, 11, 18).between(end, start), false);
+    });
+
+    test('.inRange()', () {
+      final range = DateTime(1984, 11, 19).rangeTo(DateTime(2020, 1, 1));
+
+      expect(DateTime(1984, 11, 19).inRange(range), true);
+      expect(DateTime(2019, 11, 19).inRange(range), true);
+      expect(DateTime(2020, 1, 1).inRange(range), true);
+      expect(DateTime(2020, 1, 2).inRange(range), false);
+      expect(DateTime(1984, 11, 18).inRange(range), false);
     });
 
     test('comparable extension operators', () {
