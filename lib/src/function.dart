@@ -1,10 +1,10 @@
 part of dartx;
 
-typedef R Function0<R>();
-typedef R Function1<A, R>(A a);
-typedef R Function2<A, B, R>(A a, B b);
-typedef R Function3<A, B, C, R>(A a, B b, C c);
-typedef R Function4<A, B, C, D, R>(A a, B b, C c, D d);
+typedef Function0<R> = R Function();
+typedef Function1<A, R> = R Function(A a);
+typedef Function2<A, B, R> = R Function(A a, B b);
+typedef Function3<A, B, C, R> = R Function(A a, B b, C c);
+typedef Function4<A, B, C, D, R> = R Function(A a, B b, C c, D d);
 
 extension Function0X<R> on Function0<R> {
   /// Invokes this function and returns it's return value.
