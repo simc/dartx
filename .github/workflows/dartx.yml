@@ -16,6 +16,20 @@ jobs:
       - name: Run tests
         run: C:\tools\dart-sdk\bin\pub.bat run test
 
+  test-macos:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+
   test:
     runs-on: ubuntu-latest
 
