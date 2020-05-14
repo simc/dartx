@@ -3,7 +3,26 @@ name: Dart CI
 on: [push, pull_request]
 
 jobs:
+  test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version: ["2.6", "2.7", "2.8", "dev"]
+
+    container:
+      image:  google/dart:${{ matrix.version }}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+
   test-windows:
+    timeout-minutes: 5
     runs-on: windows-latest
 
     steps:
@@ -17,6 +36,7 @@ jobs:
         run: C:\tools\dart-sdk\bin\pub.bat run test
 
   test-macos:
+    timeout-minutes: 5
     runs-on: macos-latest
 
     steps:
@@ -30,20 +50,8 @@ jobs:
       - name: Run tests
         run: pub run test
 
-  test:
-    runs-on: ubuntu-latest
-
-    container:
-      image:  google/dart:dev
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: pub get
-      - name: Run tests
-        run: pub run test
-
   format:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
 
     container:
