@@ -1,4 +1,9 @@
-### 0.4.0
+## 0.4.1
+
+- [PR-84](https://github.com/leisim/dartx/pull/84) Increase `path` version range to be compatible with Flutter 1.17
+- [PR-83](https://github.com/leisim/dartx/pull/83) Run tests on macOS
+
+## 0.4.0
 
 ### Iterable
 - [PR-41](https://github.com/leisim/dartx/pull/41) New `Iterable<T>.containsAny(Iterable<T>)` extension
