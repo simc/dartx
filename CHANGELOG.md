@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Increase dependency range of `characters` to include `1.0.0`
+
 ## 0.4.1
 
 - [PR-84](https://github.com/leisim/dartx/pull/84) Increase `path` version range to be compatible with Flutter 1.17
