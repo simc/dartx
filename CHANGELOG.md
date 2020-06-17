@@ -1,6 +1,7 @@
 ## 0.4.2
 
 - Increase dependency range of `characters` to include `1.0.0`
+- Raise min sdk version to `2.6.0` to prevent pub publishing warning for pre-release versions
 
 ## 0.4.1
 
