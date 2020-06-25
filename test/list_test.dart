@@ -56,6 +56,12 @@ void main() {
       expect(list.dropLastWhile((it) => it > 3), [1, 2, 3]);
     });
 
+    test('.swap()', () {
+      var list = [1, 2, 3, 4, 5];
+      expect(list..swap(0, 0), [1, 2, 3, 4, 5]);
+      expect(list..swap(1, 2), [1, 3, 2, 4, 5]);
+    });
+
     test('.flatten()', () {
       // ignore: omit_local_variable_types
       List<List<int>> nestedList = [
