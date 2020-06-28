@@ -149,5 +149,16 @@ void main() {
               .md5,
           '57edf4a22be3c955ac49da2e2107b67a');
     });
+
+    test('.removePrefix()', () {
+      expect('abc def ghi'.removePrefix('abc'), ' def ghi');
+      expect(' abc def ghi'.removePrefix('abc'), ' abc def ghi');
+      expect('12345'.removePrefix('123456'), '12345');
+      expect('text'.removePrefix(''), 'text');
+      expect('🎉🌟'.removePrefix('🎉'), '🌟');
+
+      final expected = 'sameInstance';
+      expect(expected.removePrefix(''), same(expected));
+    });
   });
 }

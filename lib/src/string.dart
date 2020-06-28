@@ -152,4 +152,14 @@ extension StringX on String {
   }
 
   bool get isNotNullOrEmpty => !this.isNullOrEmpty;
+
+  /// TODO: docs
+  String removePrefix(String prefix) {
+    if (startsWith(prefix)) {
+      return substring(prefix.length, length);
+    } else {
+      return this;
+    }
+  }
+
 }
