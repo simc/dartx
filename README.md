@@ -5,6 +5,7 @@
 *If you miss an extension, please open an issue or pull request*
 
 ### Resources:
+
 - [Documentation](https://pub.dev/documentation/dartx/latest/dartx/dartx-library.html)
 - [Pub Package](https://pub.dev/packages/dartx)
 - [GitHub Repository](https://github.com/leisim/dartx)
@@ -31,7 +32,9 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 ## Iterable
 
 ### .slice()
+
 Returns elements at indices between `start` (inclusive) and `end` (inclusive).
+
 ```dart
 var list = [0, 1, 2, 3, 4, 5];
 var last = list.slice(-1); // [5]
@@ -40,7 +43,9 @@ var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
 ### .sortedBy() & .thenBy()
+
 Sort lists by multiple properties.
+
 ```dart
 var dogs = [
   Dog(name: "Tom", age: 3),
@@ -57,14 +62,18 @@ var sorted = dogs
 ```
 
 ### .distinctBy()
+
 Get distinct elements from a list.
+
 ```dart
 var list = ['this', 'is', 'a', 'test'];
 var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
 ```
 
 ### .flatten()
+
 Get a new lazy `Iterable` of all elements from all collections in a collection.
+
 ```dart
 var nestedList = [[1, 2, 3], [4, 5, 6]];
 var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
@@ -73,6 +82,7 @@ var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 ### .chunkWhile() & .splitWhen()
 
 Chunk entries as long as long as two elements match a predicate:
+
 ```dart
 final list = [1, 2, 4, 9, 10, 11, 12, 15, 16, 19, 20, 21];
 final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
@@ -86,20 +96,26 @@ the predicate _didn't_ match.
 ## String
 
 ### .chars
+
 Get a list of single character strings from a string. Supports emojis.
+
 ```dart
 var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
 ### .isBlank
+
 Returns `true` if this string is empty or consists solely of whitespace characters.
+
 ```dart
 var notBlank = '   .'.isBlank; // false
 var blank = '  '.isBlank; // true
 ```
 
 ### .toIntOrNull()
+
 Parses the string as an integer or returns `null` if it is not a number.
+
 ```dart
 var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
@@ -117,6 +133,7 @@ var text = '<p>Some HTML</p>'
 ```
 
 ## Time utils
+
 Dartx exports [@jogboms](https://github.com/jogboms) great [⏰ time.dart](https://github.com/jogboms/time.dart) package so you can do the following:
 
 ```dart
@@ -132,13 +149,16 @@ Check out [⏰ time.dart](https://github.com/jogboms/time.dart) for more informa
 ## num
 
 ### .coerceIn()
+
 Ensures that this value lies in the specified range.
+
 ```dart
 var numberInRange = 123.coerceIn(0, 1000); // 123
 var numberOutOfRange = -123.coerceIn(0, 1000); // 0
 ```
 
 ### .toBytes()
+
 Converts this value to binary form.
 
 ## range
@@ -146,6 +166,7 @@ Converts this value to binary form.
 ### rangeTo
 
 Creates a range between two ints (upwards, downwards and with custom steps)
+
 ```dart
 // upwards with default step size 1
 for (var i in 1.rangeTo(5)) {
@@ -160,7 +181,9 @@ for (var i in 10.rangeTo(2).step(2)) {
 ## Function
 
 ### .invoke() - DEPRECATED
+
 Use `call()` instead. This is very useful for `null` checks.
+
 ```dart
 var func = (String value) {
   print(value);
@@ -170,7 +193,9 @@ func?.call('hello world');
 ```
 
 ### .partial(), .partial2() ...
+
 Applies some of the required arguments to a function and returns a function which takes the remaining arguments.
+
 ```dart
 void greet(String firstName, String lastName) {
   print('Hi $firstName $lastName!');
@@ -184,7 +209,9 @@ greetStark('Tony'); // Hi Tony Stark!
 ## File
 
 ### .name
+
 Get the name and extension of a file.
+
 ```dart
 var file = File('some/path/testFile.dart');
 print(file.name); // testFile.dart
@@ -192,21 +219,25 @@ print(file.nameWithoutExtension); // testFile
 ```
 
 ### .appendText()
+
 Append text to a file.
+
 ```dart
 await File('someFile.json').appendText('{test: true}');
 ```
 
 ### .isWithin()
+
 Checks if a file is inside a directory.
+
 ```dart
 var dir = Directory('some/path');
 File('some/path/file.dart').isWithin(dir); // true
 ```
 
-
 ## License
-```
+
+```plain
 Copyright 2019 Simon Leier
 
 Licensed under the Apache License, Version 2.0 (the "License");
