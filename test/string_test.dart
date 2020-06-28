@@ -132,7 +132,7 @@ void main() {
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.toUtf16(), 'ഐ⌛酪Б👨‍👨‍👧‍👦'.codeUnits);
     });
 
-    test('.md5)', () {
+    test('.md5()', () {
       expect(''.md5, 'd41d8cd98f00b204e9800998ecf8427e');
       expect('a'.md5, '0cc175b9c0f1b6a831c399e269772661');
       expect('abc'.md5, '900150983cd24fb0d6963f7d28e17f72');
