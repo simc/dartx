@@ -99,7 +99,7 @@ var blank = '  '.isBlank; // true
 ```
 
 ### .toIntOrNull()
-Parses the string as an ineger or returns `null` if it is not a number.
+Parses the string as an integer or returns `null` if it is not a number.
 ```dart
 var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
