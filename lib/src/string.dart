@@ -170,4 +170,16 @@ extension StringX on String {
       return this;
     }
   }
+
+  /// TODO: docs
+  String removeSurrounding({
+    String prefix,
+    String suffix,
+  }) {
+    if (startsWith(prefix) && endsWith(suffix)) {
+      return substring(prefix.length, length - suffix.length);
+    } else {
+      return this;
+    }
+  }
 }

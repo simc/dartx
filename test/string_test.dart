@@ -171,5 +171,28 @@ void main() {
       final expected = 'sameInstance';
       expect(expected.removeSuffix(''), same(expected));
     });
+
+    test('.removeSurrounding()', () {
+      expect(
+        'abc def ghi'.removeSurrounding(prefix: 'abc', suffix: 'ghi'),
+        ' def ',
+      );
+      expect(
+        'abc def ghi '.removeSurrounding(prefix: 'abc', suffix: 'ghi'),
+        'abc def ghi ',
+      );
+      expect('12345'.removeSurrounding(prefix: '12', suffix: '45'), '3');
+      expect(
+        '<p>This is HTML</p>'.removeSurrounding(prefix: '<p>', suffix: '</p>'),
+        'This is HTML',
+      );
+      expect('🎉😊🌟'.removeSurrounding(prefix: '🎉', suffix: '🌟'), '😊');
+
+      final expected = 'sameInstance';
+      expect(
+        expected.removeSurrounding(prefix: '', suffix: ''),
+        same(expected),
+      );
+    });
   });
 }
