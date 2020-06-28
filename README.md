@@ -105,6 +105,17 @@ var number = '12345'.toIntOrNull(); // 12345
 var notANumber = '123-45'.toIntOrNull(); // null
 ```
 
+### .removePrefix(), .removeSuffix() and .removeSurrounding()
+
+Remove a prefix, a suffix, or both from a given string:
+
+```dart
+var name = 'James Bond'.removePrefix('James '); // Bond
+var milliseconds = '100ms'.removeSuffix('ms'); // 100
+var text = '<p>Some HTML</p>'
+  .removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
+```
+
 ## Time utils
 Dartx exports [@jogboms](https://github.com/jogboms) great [⏰ time.dart](https://github.com/jogboms/time.dart) package so you can do the following:
 
