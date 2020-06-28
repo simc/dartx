@@ -162,4 +162,12 @@ extension StringX on String {
     }
   }
 
+  /// TODO: docs
+  String removeSuffix(String suffix) {
+    if (endsWith(suffix)) {
+      return substring(0, length - suffix.length);
+    } else {
+      return this;
+    }
+  }
 }

@@ -160,5 +160,16 @@ void main() {
       final expected = 'sameInstance';
       expect(expected.removePrefix(''), same(expected));
     });
+
+    test('.removeSuffix()', () {
+      expect('abc def ghi'.removeSuffix('ghi'), 'abc def ');
+      expect('abc def ghi '.removeSuffix('ghi'), 'abc def ghi ');
+      expect('12345'.removeSuffix('012345'), '12345');
+      expect('text'.removeSuffix(''), 'text');
+      expect('🎉🌟'.removeSuffix('🌟'), '🎉');
+
+      final expected = 'sameInstance';
+      expect(expected.removeSuffix(''), same(expected));
+    });
   });
 }
