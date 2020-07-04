@@ -948,6 +948,17 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// Using the provided [transform] function applied to each pair of elements.
   /// The returned list has length of the shortest collection.
+  ///
+  /// Example (with added type definitions for [transform] parameters):
+  ///
+  /// ```dart
+  ///final amounts = [2, 3, 4];
+  ///final animals = ['dogs', 'birds', 'cats'];
+  ///final all = amounts.zip(
+  ///  animals,
+  ///  (int amount, String animal) => '$amount $animal'
+  ///);  // returns: ['2 dogs', '3 birds', '4 cats']
+  /// ```
   Iterable<V> zip<R, V>(
     Iterable<R> other,
     V Function(E a, R b) transform,
