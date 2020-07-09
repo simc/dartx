@@ -180,6 +180,8 @@ extension StringX on String {
     String prefix,
     String suffix,
   }) {
+    assert(prefix != null);
+    assert(suffix != null);
     if (startsWith(prefix) && endsWith(suffix)) {
       return substring(prefix.length, length - suffix.length);
     } else {
