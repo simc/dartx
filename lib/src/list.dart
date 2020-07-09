@@ -153,6 +153,18 @@ extension ListX<E> on List<E> {
   void mergeSort({int start = 0, int end, Comparator<E> comparator}) {
     _mergeSort(this, start: start, end: end, compare: comparator);
   }
+
+  /// Swaps the elements in the indices provided.
+  ///
+  /// ```dart
+  /// var list = [1, 2, 3, 4];
+  /// list.swap(0, 2); // [3, 2, 1, 4]
+  /// ```
+  void swap(int i, int j) {
+    final temp = this[i];
+    this[i] = this[j];
+    this[j] = temp;
+  }
 }
 
 extension ListListX<E> on List<List<E>> {
