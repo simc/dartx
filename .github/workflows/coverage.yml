@@ -19,4 +19,4 @@ jobs:
           pub global run test_coverage
       - uses: codecov/codecov-action@v1
         with:
-          file: dartx/coverage/lcov.info
+          file: coverage/lcov.info
