@@ -60,6 +60,7 @@ void main() {
       var list = [1, 2, 3, 4, 5];
       expect(list..swap(0, 0), [1, 2, 3, 4, 5]);
       expect(list..swap(1, 2), [1, 3, 2, 4, 5]);
+      expect(() => list.swap(3, 9), throwsA(isA<RangeError>()));
     });
 
     test('.flatten()', () {
