@@ -948,9 +948,23 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// Using the provided [transform] function applied to each pair of elements.
   /// The returned list has length of the shortest collection.
-  Iterable<R> zip<R>(Iterable<E> other, R transform(E a, E b)) sync* {
-    var it1 = iterator;
-    var it2 = other.iterator;
+  ///
+  /// Example (with added type definitions for [transform] parameters):
+  ///
+  /// ```dart
+  ///final amounts = [2, 3, 4];
+  ///final animals = ['dogs', 'birds', 'cats'];
+  ///final all = amounts.zip(
+  ///  animals,
+  ///  (int amount, String animal) => '$amount $animal'
+  ///);  // returns: ['2 dogs', '3 birds', '4 cats']
+  /// ```
+  Iterable<V> zip<R, V>(
+    Iterable<R> other,
+    V Function(E a, R b) transform,
+  ) sync* {
+    final it1 = iterator;
+    final it2 = other.iterator;
     while (it1.moveNext() && it2.moveNext()) {
       yield transform(it1.current, it2.current);
     }

@@ -793,10 +793,47 @@ void main() {
       expect([3, 4, 5].union([4, 10, 20]), [3, 4, 5, 10, 20]);
     });
 
-    test('.zip()', () {
-      expect([].zip([], (e1, e2) => null), []);
-      expect([1, 2, 3].zip([2, 4, 6], (e1, e2) => e1 / e2), [0.5, 0.5, 0.5]);
-      expect([2, 4, 6].zip([1, 2, 3], (e1, e2) => e1 / e2), [2.0, 2.0, 2.0]);
+    group('.zip()', () {
+      test('with same types', () {
+        expect([].zip([], (e1, e2) => null), []);
+        expect(
+          [1, 2, 3].zip([2, 4, 6], (e1, int e2) => e1 / e2),
+          [0.5, 0.5, 0.5],
+        );
+        expect(
+          [2, 4, 6].zip([1, 2, 3], (e1, int e2) => e1 / e2),
+          [2.0, 2.0, 2.0],
+        );
+
+        // with type definitions
+        expect(
+          [1, 2, 3].zip([2, 4, 6], (int e1, int e2) => e1 / e2),
+          [0.5, 0.5, 0.5],
+        );
+      });
+
+      test('with same types and different length', () {
+        expect([1, 2, 3].zip([2, 4], (e1, int e2) => e1 / e2), [0.5, 0.5]);
+        expect([2, 4].zip([2, 2, 2], (e1, int e2) => e1 / e2), [1.0, 2.0]);
+      });
+
+      test('with different types', () {
+        final amounts = [2, 3, 4];
+        final animals = ['dogs', 'birds', 'cats'];
+        expect(
+          amounts.zip(animals, (amount, String animal) => '$amount $animal'),
+          ['2 dogs', '3 birds', '4 cats'],
+        );
+      });
+
+      test('with different types and different lengths', () {
+        final amounts = [2, 3];
+        final animals = ['dogs', 'birds', 'cats'];
+        expect(
+          amounts.zip(animals, (amount, String animal) => '$amount $animal'),
+          ['2 dogs', '3 birds'],
+        );
+      });
     });
 
     test('.toIterable()', () {
