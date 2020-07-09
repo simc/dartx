@@ -152,4 +152,37 @@ extension StringX on String {
   }
 
   bool get isNotNullOrEmpty => !this.isNullOrEmpty;
+
+  /// If this [String] starts with the given [prefix], returns a copy of this
+  /// string with the prefix removed. Otherwise, returns this [String].
+  String removePrefix(String prefix) {
+    if (startsWith(prefix)) {
+      return substring(prefix.length, length);
+    } else {
+      return this;
+    }
+  }
+
+  /// If this [String] ends with the given [suffix], returns a copy of this
+  /// [String] with the suffix removed. Otherwise, returns this [String].
+  String removeSuffix(String suffix) {
+    if (endsWith(suffix)) {
+      return substring(0, length - suffix.length);
+    } else {
+      return this;
+    }
+  }
+
+  /// Removes from a [String] both the given [prefix] and [suffix] if and only
+  /// if it starts with the [prefix] and ends with the [suffix].
+  /// Otherwise returns this [String] unchanged.
+  String removeSurrounding({String prefix, String suffix}) {
+    assert(prefix != null);
+    assert(suffix != null);
+    if (startsWith(prefix) && endsWith(suffix)) {
+      return substring(prefix.length, length - suffix.length);
+    } else {
+      return this;
+    }
+  }
 }
