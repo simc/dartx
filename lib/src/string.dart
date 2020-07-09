@@ -153,8 +153,8 @@ extension StringX on String {
 
   bool get isNotNullOrEmpty => !this.isNullOrEmpty;
 
-  /// If this string starts with the given [prefix], returns a copy of this
-  /// string with the prefix removed. Otherwise, returns this string.
+  /// If this [String] starts with the given [prefix], returns a copy of this
+  /// string with the prefix removed. Otherwise, returns this [String].
   String removePrefix(String prefix) {
     if (startsWith(prefix)) {
       return substring(prefix.length, length);
@@ -163,8 +163,8 @@ extension StringX on String {
     }
   }
 
-  /// If this string ends with the given [suffix], returns a copy of this
-  /// string with the suffix removed. Otherwise, returns this string.
+  /// If this [String] ends with the given [suffix], returns a copy of this
+  /// [String] with the suffix removed. Otherwise, returns this [String].
   String removeSuffix(String suffix) {
     if (endsWith(suffix)) {
       return substring(0, length - suffix.length);
@@ -173,13 +173,10 @@ extension StringX on String {
     }
   }
 
-  /// Removes from a string both the given [prefix] and [suffix] if and only if
-  /// it starts with the prefix and ends with the suffix. Otherwise returns this
-  /// string unchanged.
-  String removeSurrounding({
-    String prefix,
-    String suffix,
-  }) {
+  /// Removes from a [String] both the given [prefix] and [suffix] if and only
+  /// if it starts with the [prefix] and ends with the [suffix].
+  /// Otherwise returns this [String] unchanged.
+  String removeSurrounding({String prefix, String suffix}) {
     assert(prefix != null);
     assert(suffix != null);
     if (startsWith(prefix) && endsWith(suffix)) {
