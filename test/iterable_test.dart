@@ -889,6 +889,18 @@ void main() {
       );
     });
 
+    test("groupBy", () {
+      expect(
+        ['foo', 'bar', 'baz', 'bop', 'qux']
+            .groupBy((dynamic string) => string[1]),
+        equals({
+          'o': ['foo', 'bop'],
+          'a': ['bar', 'baz'],
+          'u': ['qux']
+        }),
+      );
+    });
+
     test('.partition()', () {
       expect([].partition((it) => false), <List<int>>[[], []]);
       expect([1, 2, 3, 4, 5, 6].partition((it) => it % 2 == 1), [
