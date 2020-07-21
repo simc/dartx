@@ -1,3 +1,7 @@
+## 0.4.2+1
+
+- Support the `package:collection` `^1.14.11`.
+
 ## 0.4.2
 
 - Increase dependency range of `characters` to include `1.0.0`
