@@ -9,6 +9,7 @@ import 'dart:typed_data';
 import 'package:characters/characters.dart';
 import 'package:collection/collection.dart' hide DelegatingList;
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:meta/meta.dart';
 
 export 'package:time/time.dart';
 export 'package:characters/characters.dart';

@@ -176,7 +176,7 @@ extension StringX on String {
   /// Removes from a [String] both the given [prefix] and [suffix] if and only
   /// if it starts with the [prefix] and ends with the [suffix].
   /// Otherwise returns this [String] unchanged.
-  String removeSurrounding({String prefix, String suffix}) {
+  String removeSurrounding({@required String prefix, @required String suffix}) {
     assert(prefix != null);
     assert(suffix != null);
     if (startsWith(prefix) && endsWith(suffix)) {

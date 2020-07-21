@@ -12,6 +12,7 @@ dependencies:
   crypto: ^2.1.0
   characters: ">=0.4.0 <2.0.0"
   time: ^1.2.0
+  meta: ^1.1.6
 
 dev_dependencies:
   test: ^1.9.2
