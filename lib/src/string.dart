@@ -11,7 +11,7 @@ extension StringX on String {
   ///
   /// Please use [StringCharacters].characters
   /// https://github.com/dart-lang/characters/blob/10527437926f1b454edf9912fe700aa2506b1c3d/lib/src/extensions.dart#L9
-  @Deprecated("Use .characters from the official characters package")
+  @Deprecated('Use .characters from the official characters package')
   Iterable<String> get chars => Characters(this);
 
   /// Returns a copy of this string having its first letter uppercased, or the
@@ -148,10 +148,10 @@ extension StringX on String {
       return true;
     }
 
-    return this.isEmpty;
+    return isEmpty;
   }
 
-  bool get isNotNullOrEmpty => !this.isNullOrEmpty;
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
 
   /// If this [String] starts with the given [prefix], returns a copy of this
   /// string with the prefix removed. Otherwise, returns this [String].
@@ -176,7 +176,7 @@ extension StringX on String {
   /// Removes from a [String] both the given [prefix] and [suffix] if and only
   /// if it starts with the [prefix] and ends with the [suffix].
   /// Otherwise returns this [String] unchanged.
-  String removeSurrounding({String prefix, String suffix}) {
+  String removeSurrounding({@required String prefix, @required String suffix}) {
     assert(prefix != null);
     assert(suffix != null);
     if (startsWith(prefix) && endsWith(suffix)) {

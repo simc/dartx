@@ -6,8 +6,10 @@ import 'package:test/test.dart';
 void main() {
   group('StringX', () {
     test('.chars', () {
+      // ignore: deprecated_member_use_from_same_package
       expect('test12'.chars, ['t', 'e', 's', 't', '1', '2']);
       expect('test12'.characters, ['t', 'e', 's', 't', '1', '2']);
+      // ignore: deprecated_member_use_from_same_package
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.chars, ['ഐ', '⌛', '酪', 'Б', '👨‍👨‍👧‍👦']);
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.characters, ['ഐ', '⌛', '酪', 'Б', '👨‍👨‍👧‍👦']);
     });

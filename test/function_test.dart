@@ -7,6 +7,7 @@ void main() {
       final func = () => 5;
 
       test('.invoke', () {
+        // ignore: deprecated_member_use_from_same_package
         expect(func.invoke(), 5);
       });
     });
