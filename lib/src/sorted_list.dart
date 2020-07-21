@@ -1,6 +1,7 @@
 part of dartx;
 
-Comparator<E> _getComparator<E>(int order, Comparable selector(E element),
+Comparator<E> _getComparator<E>(
+    int order, Comparable Function(E element) selector,
     {Comparator<E> parent}) {
   final newComparator = (E a, E b) {
     return order * selector(a).compareTo(selector(b));
@@ -20,7 +21,7 @@ class _SortedList<E> extends _DelegatingList<E> {
 
   _SortedList._withSelector(
     this._source,
-    Comparable selector(E element),
+    Comparable Function(E element) selector,
     int order,
     Comparator<E> parentComparator,
   ) : _comparator = _getComparator(order, selector, parent: parentComparator);
@@ -40,7 +41,7 @@ class _SortedList<E> extends _DelegatingList<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> thenBy(Comparable selector(E element)) {
+  _SortedList<E> thenBy(Comparable Function(E element) selector) {
     return _SortedList<E>._withSelector(this, selector, 1, _comparator);
   }
 
@@ -50,7 +51,7 @@ class _SortedList<E> extends _DelegatingList<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> thenByDescending(Comparable selector(E element)) {
+  _SortedList<E> thenByDescending(Comparable Function(E element) selector) {
     return _SortedList<E>._withSelector(this, selector, -1, _comparator);
   }
 
@@ -129,7 +130,7 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   int indexOf(E element, [int start = 0]) => delegate.indexOf(element, start);
 
   @override
-  int indexWhere(bool test(E element), [int start = 0]) =>
+  int indexWhere(bool Function(E element) test, [int start = 0]) =>
       delegate.indexWhere(test, start);
 
   @override
@@ -150,7 +151,7 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
       delegate.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool test(E element), [int start]) =>
+  int lastIndexWhere(bool Function(E element) test, [int start]) =>
       delegate.lastIndexWhere(test, start);
 
   @override
@@ -171,14 +172,14 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   void removeRange(int start, int end) => delegate.removeRange(start, end);
 
   @override
-  void removeWhere(bool test(E element)) => delegate.removeWhere(test);
+  void removeWhere(bool Function(E element) test) => delegate.removeWhere(test);
 
   @override
   void replaceRange(int start, int end, Iterable<E> iterable) =>
       delegate.replaceRange(start, end, iterable);
 
   @override
-  void retainWhere(bool test(E element)) => delegate.retainWhere(test);
+  void retainWhere(bool Function(E element) test) => delegate.retainWhere(test);
 
   @override
   Iterable<E> get reversed => delegate.reversed;
@@ -196,7 +197,7 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   void shuffle([Random random]) => delegate.shuffle(random);
 
   @override
-  void sort([int compare(E a, E b)]) => delegate.sort(compare);
+  void sort([int Function(E a, E b) compare]) => delegate.sort(compare);
 
   @override
   List<E> sublist(int start, [int end]) => delegate.sublist(start, end);
@@ -220,7 +221,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   Iterable<E> get delegate;
 
   @override
-  bool any(bool test(E element)) => delegate.any(test);
+  bool any(bool Function(E element) test) => delegate.any(test);
 
   @override
   Iterable<T> cast<T>() => delegate.cast<T>();
@@ -232,27 +233,28 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   E elementAt(int index) => delegate.elementAt(index);
 
   @override
-  bool every(bool test(E element)) => delegate.every(test);
+  bool every(bool Function(E element) test) => delegate.every(test);
 
   @override
-  Iterable<T> expand<T>(Iterable<T> f(E element)) => delegate.expand(f);
+  Iterable<T> expand<T>(Iterable<T> Function(E element) f) =>
+      delegate.expand(f);
 
   @override
   E get first => delegate.first;
 
   @override
-  E firstWhere(bool test(E element), {E orElse()}) =>
+  E firstWhere(bool Function(E element) test, {E Function() orElse}) =>
       delegate.firstWhere(test, orElse: orElse);
 
   @override
-  T fold<T>(T initialValue, T combine(T previousValue, E element)) =>
+  T fold<T>(T initialValue, T Function(T previousValue, E element) combine) =>
       delegate.fold(initialValue, combine);
 
   @override
   Iterable<E> followedBy(Iterable<E> other) => delegate.followedBy(other);
 
   @override
-  void forEach(void f(E element)) => delegate.forEach(f);
+  void forEach(void Function(E element) f) => delegate.forEach(f);
 
   @override
   bool get isEmpty => delegate.isEmpty;
@@ -270,36 +272,38 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   E get last => delegate.last;
 
   @override
-  E lastWhere(bool test(E element), {E orElse()}) =>
+  E lastWhere(bool Function(E element) test, {E Function() orElse}) =>
       delegate.lastWhere(test, orElse: orElse);
 
   @override
   int get length => delegate.length;
 
   @override
-  Iterable<T> map<T>(T f(E e)) => delegate.map(f);
+  Iterable<T> map<T>(T Function(E e) f) => delegate.map(f);
 
   @override
-  E reduce(E combine(E value, E element)) => delegate.reduce(combine);
+  E reduce(E Function(E value, E element) combine) => delegate.reduce(combine);
 
   @override
   E get single => delegate.single;
 
   @override
-  E singleWhere(bool test(E element), {E orElse()}) =>
+  E singleWhere(bool Function(E element) test, {E Function() orElse}) =>
       delegate.singleWhere(test, orElse: orElse);
 
   @override
   Iterable<E> skip(int n) => delegate.skip(n);
 
   @override
-  Iterable<E> skipWhile(bool test(E value)) => delegate.skipWhile(test);
+  Iterable<E> skipWhile(bool Function(E value) test) =>
+      delegate.skipWhile(test);
 
   @override
   Iterable<E> take(int n) => delegate.take(n);
 
   @override
-  Iterable<E> takeWhile(bool test(E value)) => delegate.takeWhile(test);
+  Iterable<E> takeWhile(bool Function(E value) test) =>
+      delegate.takeWhile(test);
 
   @override
   List<E> toList({bool growable = true}) => delegate.toList(growable: growable);
@@ -308,7 +312,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   Set<E> toSet() => delegate.toSet();
 
   @override
-  Iterable<E> where(bool test(E element)) => delegate.where(test);
+  Iterable<E> where(bool Function(E element) test) => delegate.where(test);
 
   @override
   Iterable<T> whereType<T>() => delegate.whereType<T>();

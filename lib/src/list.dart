@@ -46,7 +46,7 @@ extension ListX<E> on List<E> {
 
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
-  List<E> dropWhile(bool predicate(E element)) {
+  List<E> dropWhile(bool Function(E element) predicate) {
     int startIndex;
     for (var i = 0; i < length; i++) {
       if (!predicate(this[i])) {
@@ -73,7 +73,7 @@ extension ListX<E> on List<E> {
 
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
-  List<E> dropLastWhile(bool predicate(E element)) {
+  List<E> dropLastWhile(bool Function(E element) predicate) {
     int endIndex;
     for (var i = lastIndex; i >= 0; i--) {
       if (!predicate(this[i])) {
@@ -96,7 +96,7 @@ extension ListX<E> on List<E> {
   /// [CastError].
   ///
   /// Returns [length] if all the items in this list compare less than [value].
-  int lowerBound(E value, {int compare(E a, E b)}) {
+  int lowerBound(E value, {int Function(E a, E b) compare}) {
     return _lowerBound(this, value, compare: compare);
   }
 
@@ -110,7 +110,7 @@ extension ListX<E> on List<E> {
   /// [CastError].
   ///
   /// Returns -1 if [value] is not in the list by default.
-  int binarySearch(E value, {int compare(E a, E b)}) {
+  int binarySearch(E value, {int Function(E a, E b) compare}) {
     return _binarySearch(this, value, compare: compare);
   }
 
