@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.6.0-dev.5.0 <3.0.0"
 
 dependencies:
-  collection: ">=1.14.11 <1.15.0"
+  collection:
   path: ^1.6.0
   crypto: ">=2.1.0 <2.2.0"
   characters:
