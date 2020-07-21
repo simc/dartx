@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
 
@@ -67,6 +69,24 @@ void main() {
       expect(0.0.between(10, 0), isTrue);
       expect((-1.0).between(10.0, 0.0), isFalse);
       expect(11.0.between(10, 0), isFalse);
+    });
+  });
+
+  group('IntX', () {
+    test('toBytes', () {
+      expect(123456789.toBytes(),
+          Uint8List.fromList([0, 0, 0, 0, 7, 91, 205, 21]));
+      expect(123456789.toBytes(Endian.little),
+          Uint8List.fromList([21, 205, 91, 7, 0, 0, 0, 0]));
+    });
+  });
+
+  group('DoubleX', () {
+    test('toBytes', () {
+      expect(123.456.toBytes(),
+          Uint8List.fromList([64, 94, 221, 47, 26, 159, 190, 119]));
+      expect(123.455.toBytes(Endian.little),
+          Uint8List.fromList([133, 235, 81, 184, 30, 221, 94, 64]));
     });
   });
 }
