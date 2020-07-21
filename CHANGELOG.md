@@ -1,6 +1,29 @@
-## 0.4.2+1
+## 0.5.0
 
-- Support the `package:collection` `^1.14.11`.
+- [PR-94](https://github.com/leisim/dartx/pull/94) Breaking: `Iterable<T>.zip(other, transform)` now support zipping iterables of other types the `T`. This is a breaking change because it is now required to add types in the transform function.
+  ```dart
+  final amounts = [2, 3, 4];
+  final animals = ['dogs', 'birds', 'cats'];
+  final all = amounts.zip(animals, (int amount, String animal) => '$amount $animal');
+  // lambda types are now required:  ⇧           ⇧
+  // all: ['2 dogs', '3 birds', '4 cats']
+  ```
+- [PR-90](https://github.com/leisim/dartx/pull/90) New `String` extensions 
+  - `String removePrefix(String prefix)`
+  - `String removeSuffix(String suffix)`
+  - `String removeSurrounding({String prefix, String suffix})`
+  ```dart
+  final name = 'James Bond'.removePrefix('James '); // Bond
+  final milliseconds = '100ms'.removeSuffix('ms'); // 100
+  final text = '<p>Some HTML</p>'.removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
+  ```
+- [PR-88](https://github.com/leisim/dartx/pull/88) New `List` extension `void swap(int, int)` which swaps the elements in the indices provided.
+  ```dart
+  final list = [1, 2, 3, 4];
+  list.swap(0, 2); // [3, 2, 1, 4]
+  ```
+- [PR-100](https://github.com/leisim/dartx/pull/100) Relax the upper version constraint of `collection` to support Flutter 1.20 (which uses `collection: 1.3.0-nullsafety`)
+- [PR-101](https://github.com/leisim/dartx/pull/101) Relax the upper version constraint of `crypto`
 
 ## 0.4.2
 
