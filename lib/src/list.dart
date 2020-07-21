@@ -160,10 +160,10 @@ extension ListX<E> on List<E> {
   /// var list = [1, 2, 3, 4];
   /// list.swap(0, 2); // [3, 2, 1, 4]
   /// ```
-  void swap(int i, int j) {
-    final temp = this[i];
-    this[i] = this[j];
-    this[j] = temp;
+  void swap(int indexA, int indexB) {
+    final temp = this[indexA];
+    this[indexA] = this[indexB];
+    this[indexB] = temp;
   }
 }
 
