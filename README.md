@@ -235,6 +235,32 @@ var dir = Directory('some/path');
 File('some/path/file.dart').isWithin(dir); // true
 ```
 
+## Directory
+
+### .contains(FileSystemEntity entity, {bool recursive = false})
+
+Checks if a `Directory` contains a `FileSystemEntity`. This can be a `File` or a `Directory`.
+
+Use the `recursive` argument to include the subdirectories.
+
+```dart
+final File someFile = File('someFile.txt');
+final Directory someDir = Directory('some/dir');
+
+final Directory parentDir = Directory('parent/dir');
+
+parentDir.contains(someFile);
+parentDir.contains(someDir);
+parentDir.contains(someFile, recursive: true);
+parentDir.contains(someDir, recursive: true);
+```
+
+This is the `async` method, which returns a `Future<bool>`.
+
+### .containsSync(FileSystemEntity entity, {bool recursive = false})
+
+Same as `.contains(FileSystemEntity entity, {bool recursive = false})` but synchronous. Returns a `bool`.
+
 ## License
 
 ```plain
