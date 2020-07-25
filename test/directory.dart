@@ -1,16 +1,22 @@
 import 'dart:io';
 
+import 'package:path/path.dart';
 import 'package:test/test.dart';
 import 'package:dartx/dartx_io.dart';
 
 void main() {
   group('Directory', () {
     test('contains', () async {
-      final thisDir = Directory.current;
-      final parentDir = thisDir.parent;
-      final parentParentDir = parentDir.parent;
-      File('foo.txt').createSync();
-      final file = File('foo.txt');
+      final parentParentDir = Directory.current;
+      final parentDir = parentParentDir.createTempSync('dartxDirTempDir');
+      final thisDir = parentDir.createTempSync('dartxDirSubTempDir');
+
+      final filePath = join(thisDir.path, 'foo.txt');
+      final file = File(filePath);
+      file.createSync();
+      addTearDown(() {
+        parentDir.delete(recursive: true);
+      });
 
       expect(await parentDir.contains(thisDir), true);
       expect(await parentDir.contains(thisDir, recursive: true), true);
@@ -23,15 +29,18 @@ void main() {
       expect(await thisDir.contains(file, recursive: true), true);
       expect(await parentDir.contains(file), false);
       expect(await parentDir.contains(file, recursive: true), true);
-
-      file.deleteSync();
     });
     test('containsSync', () {
-      final thisDir = Directory.current;
-      final parentDir = thisDir.parent;
-      final parentParentDir = parentDir.parent;
-      File('foo.txt').createSync();
-      final file = File('foo.txt');
+      final parentParentDir = Directory.current;
+      final parentDir = parentParentDir.createTempSync('dartxDirTempDir');
+      final thisDir = parentDir.createTempSync('dartxDirSubTempDir');
+
+      final filePath = join(thisDir.path, 'foo.txt');
+      final file = File(filePath);
+      file.createSync();
+      addTearDown(() {
+        parentDir.delete(recursive: true);
+      });
 
       expect(parentDir.containsSync(thisDir), true);
       expect(parentDir.containsSync(thisDir, recursive: true), true);
@@ -44,8 +53,6 @@ void main() {
       expect(thisDir.containsSync(file, recursive: true), true);
       expect(parentDir.containsSync(file), false);
       expect(parentDir.containsSync(file, recursive: true), true);
-
-      file.deleteSync();
     });
   });
 }
