@@ -18,6 +18,13 @@ void main() {
         parentDir.delete(recursive: true);
       });
 
+      // the created directory strcuture:
+      //
+      // parentParentDir
+      //  -> parentDir
+      //      -> thisDir
+      //          -> foo.txt
+
       expect(await parentDir.contains(thisDir), true);
       expect(await parentDir.contains(thisDir, recursive: true), true);
       expect(await thisDir.contains(parentDir), false);
@@ -41,6 +48,13 @@ void main() {
       addTearDown(() {
         parentDir.delete(recursive: true);
       });
+
+      // the created directory strcuture:
+      //
+      // parentParentDir
+      //  -> parentDir
+      //      -> thisDir
+      //          -> foo.txt
 
       expect(parentDir.containsSync(thisDir), true);
       expect(parentDir.containsSync(thisDir, recursive: true), true);
