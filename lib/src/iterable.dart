@@ -361,6 +361,8 @@ extension IterableX<E> on Iterable<E> {
   E maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
 
   E _minMax(int order) {
+    if (isEmpty) return null;
+
     var it = iterator;
     it.moveNext();
     var currentMin = it.current;
@@ -375,6 +377,8 @@ extension IterableX<E> on Iterable<E> {
   }
 
   E _minMaxBy(int order, Comparable Function(E element) selector) {
+    if (isEmpty) return null;
+
     var it = iterator;
     it.moveNext();
 
@@ -392,6 +396,8 @@ extension IterableX<E> on Iterable<E> {
   }
 
   E _minMaxWith(int order, Comparator<E> comparator) {
+    if (isEmpty) return null;
+
     var it = iterator;
     it.moveNext();
     var currentMin = it.current;
