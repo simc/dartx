@@ -25,6 +25,28 @@ extension IterableX<E> on Iterable<E> {
   /// ```
   E get fourth => elementAt(3);
 
+  /// Returns the element at the given [index].
+  /// 
+  /// ```dart
+  /// var list = [1, 2, 3, 4];
+  /// var first = list.get(0); // 1
+  /// ```
+  /// 
+  /// Support negative indexing.
+  /// 
+  /// ```dart
+  /// var list = [1, 2, 3, 4];
+  /// var last = list.get(-1); // 4
+  /// var thirdLast = list.get(-3); // 2
+  /// ```
+  E get(int index) {
+    var positiveIndex = index;
+    if (index < 0) {
+      positiveIndex = length + index;
+    }
+    return elementAt(positiveIndex);
+  }
+
   /// Returns an element at the given [index] or `null` if the [index] is out of
   /// bounds of this collection.
   ///

@@ -38,6 +38,28 @@ void main() {
       });
     });
 
+    test('.get()', () {
+      expect([1, 2, 3].get(0), 1);
+      expect([1, 2, 3].get(1), 2);
+      expect([1, 2, 3].get(2), 3);
+      try {
+        [1, 2, 3].get(4);
+        fail('Expected RangeError');
+      } catch (e) {
+        expect(e.runtimeType, RangeError);
+      }
+
+      expect([1, 2, 3].get(-1), 3);
+      expect([1, 2, 3].get(-2), 2);
+      expect([1, 2, 3].get(-3), 1);
+      try {
+        [1, 2, 3].get(-4);
+        fail('Expected RangeError');
+      } catch (e) {
+        expect(e.runtimeType, RangeError);
+      }
+    });
+
     test('.elementAtOrNull()', () {
       expect([1, 2, 3].elementAtOrNull(-1), null);
       expect([1, 2, 3].elementAtOrNull(0), 1);
