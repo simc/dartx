@@ -189,7 +189,7 @@ extension StringX on String {
   /// Returns a new substring containing all characters between [start]
   /// (inclusive) and [end] (inclusive).
   /// If [end] is omitted, it is being set to `lastIndex`.
-  /// 
+  ///
   ///  ```dart
   /// print('awesomeString'.slice(0,6)); // awesome
   /// print('awesomeString'.slice(7)); // String
