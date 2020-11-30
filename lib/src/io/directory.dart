@@ -43,4 +43,33 @@ extension DirectoryX on Directory {
       }
     }
   }
+
+  /// Checks if this directory contains the [entity].
+  ///
+  /// The [entity] can be a [File] or a [Directory].
+  /// If [recursive] is `true`, it checks the subdirectories too.
+  ///
+  /// Returns a [Future<bool>] holding the value.
+  ///
+  /// For the sync method, see [containsSync()].
+  Future<bool> contains(FileSystemEntity entity,
+      {bool recursive = false}) async {
+    final entities = list(recursive: recursive);
+    return await entities.any(
+        (element) => FileSystemEntity.identicalSync(entity.path, element.path));
+  }
+
+  /// Checks if this directory contains the [entity].
+  ///
+  /// The [entity] can be a [File] or a [Directory].
+  /// If [recursive] is `true`, it checks the subdirectories too.
+  ///
+  /// Returns a [bool].
+  ///
+  /// For the async method, see [contains()].
+  bool containsSync(FileSystemEntity entity, {bool recursive = false}) {
+    final entities = listSync(recursive: recursive);
+    return entities.any(
+        (element) => FileSystemEntity.identicalSync(entity.path, element.path));
+  }
 }
