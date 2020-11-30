@@ -185,4 +185,21 @@ extension StringX on String {
       return this;
     }
   }
+
+  /// Returns a new substring containing all characters between [start]
+  /// (inclusive) and [end] (inclusive).
+  /// If [end] is omitted, it is being set to `lastIndex`.
+  ///
+  ///  ```dart
+  /// print('awesomeString'.slice(0,6)); // awesome
+  /// print('awesomeString'.slice(7)); // String
+  /// ```
+  String slice(int start, [int end = -1]) {
+    start = start < 0 ? start + length : start;
+    end = end < 0 ? end + length : end;
+
+    RangeError.checkValidRange(start, end, length);
+
+    return substring(start, end + 1);
+  }
 }

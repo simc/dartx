@@ -196,5 +196,25 @@ void main() {
         same(expected),
       );
     });
+
+    test('.slice()', () {
+      expect('awesomeString'.slice(0, 6), 'awesome');
+      expect('awesomeString'.slice(0, -7), 'awesome');
+      expect('awesomeString'.slice(7), 'String');
+      expect('awesomeString'.slice(-6), 'String');
+      expect('awesomeString'.slice(-6, -1), 'String');
+      expect('awesomeString'.slice(-6, 8), 'St');
+      expect('awesomeString'.slice(0), 'awesomeString');
+
+      expect(() => ''.slice(0), throwsRangeError);
+      expect(() => ''.slice(0, 1), throwsRangeError);
+      expect(() => ''.slice(-1), throwsRangeError);
+      expect(() => ''.slice(0, -1), throwsRangeError);
+      expect(() => 'awesomeString'.slice(1, 13), throwsRangeError);
+      expect(() => 'awesomeString'.slice(2, 1), throwsRangeError);
+      expect(() => 'awesomeString'.slice(13), throwsRangeError);
+      expect(() => 'awesomeString'.slice(-14), throwsRangeError);
+      expect(() => 'awesomeString'.slice(-1, -2), throwsRangeError);
+    });
   });
 }
