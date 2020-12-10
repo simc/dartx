@@ -9,7 +9,7 @@ extension IterableX<E> on Iterable<E> {
   /// ```dart
   /// [1, 2, 3].second; // 2
   /// ```
-  E get second => elementAt(1);
+  E? get second => elementAt(1);
 
   /// Third element.
   ///
@@ -33,8 +33,13 @@ extension IterableX<E> on Iterable<E> {
   /// var first = list.elementAtOrNull(0); // 1
   /// var fifth = list.elementAtOrNull(4); // null
   /// ```
-  E elementAtOrNull(int index) {
-    return elementAtOrElse(index, (_) => null);
+  E? elementAtOrNull(int index) {
+    if (index < 0) return null;
+    var count = 0;
+    for (var element in this) {
+      if (index == count++) return element;
+    }
+    return null;
   }
 
   /// Returns an element at the given [index] or [defaultValue] if the [index]
@@ -73,7 +78,7 @@ extension IterableX<E> on Iterable<E> {
   /// var first = [1, 2, 3, 4].firstOrNull; // 1
   /// var emptyFirst = [].firstOrNull; // null
   /// ```
-  E get firstOrNull => elementAtOrNull(0);
+  E? get firstOrNull => isNotEmpty ? first : null;
 
   /// First element or `defaultValue` if the collection is empty.
   ///
@@ -81,19 +86,7 @@ extension IterableX<E> on Iterable<E> {
   /// var first = [1, 2, 3, 4].firstOrDefault(-1); // 1
   /// var emptyFirst = [].firstOrDefault(-1); // -1
   /// ```
-  E firstOrDefault(E defaultValue) => firstOrNull ?? defaultValue;
-
-  /// Returns the first element matching the given [predicate], or `null` if no
-  /// such element was found.
-  ///
-  /// ```dart
-  /// var list = ['a', 'Test'];
-  /// var firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
-  /// var firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
-  /// ```
-  E firstOrNullWhere(bool Function(E element) predicate) {
-    return firstWhere(predicate, orElse: () => null);
-  }
+  E firstOrDefault(E defaultValue) => isNotEmpty ? first : defaultValue;
 
   /// Last element or `null` if the collection is empty.
   ///
@@ -101,23 +94,21 @@ extension IterableX<E> on Iterable<E> {
   /// var last = [1, 2, 3, 4].lastOrNull; // 4
   /// var emptyLast = [].firstOrNull; // null
   /// ```
-  E get lastOrNull => isNotEmpty ? last : null;
+  E? get lastOrNull => isNotEmpty ? last : null;
 
   /// Last element or `defaultValue` if the collection is empty.
   E lastOrElse(E defaultValue) => lastOrNull ?? defaultValue;
 
   /// Returns the last element matching the given [predicate], or `null` if no
   /// such element was found.
-  E lastOrNullWhere(bool Function(E element) predicate) {
-    return lastWhere(predicate, orElse: () => null);
-  }
-
-  /// Returns an original collection containing all the non-null elements,
-  /// throwing an [StateError] if there are any null elements.
-  void requireNoNulls() {
-    if (any((element) => element == null)) {
-      throw StateError('At least one element is null.');
+  E? lastOrNullWhere(bool Function(E element) predicate) {
+    E? match;
+    for (var e in this) {
+      if (predicate(e)) {
+        match = e;
+      }
     }
+    return match;
   }
 
   /// Returns true if all elements match the given [predicate] or if the
@@ -188,7 +179,7 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If [checkEqual] is provided, it is used to check if two elements are the
   /// same.
-  bool contentEquals(Iterable<E> other, [bool Function(E a, E b) checkEqual]) {
+  bool contentEquals(Iterable<E> other, [bool Function(E a, E b)? checkEqual]) {
     var it1 = iterator;
     var it2 = other.iterator;
     if (checkEqual != null) {
@@ -268,10 +259,10 @@ extension IterableX<E> on Iterable<E> {
   /// followed by the [truncated] string (which defaults to `'...'`).
   String joinToString({
     String separator = ', ',
-    String Function(E element) transform,
+    String Function(E element)? transform,
     String prefix = '',
     String postfix = '',
-    int limit,
+    int? limit,
     String truncated = '...',
   }) {
     var buffer = StringBuffer();
@@ -301,29 +292,22 @@ extension IterableX<E> on Iterable<E> {
 
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
-  ///
-  /// `null` values are not counted.
   double sumBy(num Function(E element) selector) {
     var sum = 0.0;
     for (var current in this) {
-      sum += selector(current) ?? 0;
+      sum += selector(current);
     }
     return sum;
   }
 
   /// Returns the average of values returned by [selector] for all elements in
   /// the collection.
-  ///
-  /// `null` values are counted as 0. Empty collections return `null`.
   double averageBy(num Function(E element) selector) {
     var count = 0;
     num sum = 0;
 
     for (var current in this) {
-      var value = selector(current);
-      if (value != null) {
-        sum += value;
-      }
+      sum += selector(current);
       count++;
     }
 
@@ -337,32 +321,34 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the smallest element or `null` if there are no elements.
   ///
   /// All elements must be of type [Comparable].
-  E min() => _minMax(-1);
+  E? min() => _minMax(-1);
 
   /// Returns the first element yielding the smallest value of the given
   /// [selector] or `null` if there are no elements.
-  E minBy(Comparable Function(E element) selector) => _minMaxBy(-1, selector);
+  E? minBy(Comparable Function(E element) selector) => _minMaxBy(-1, selector);
 
   /// Returns the first element having the smallest value according to the
   /// provided [comparator] or `null` if there are no elements.
-  E minWith(Comparator<E> comparator) => _minMaxWith(-1, comparator);
+  E? minWith(Comparator<E> comparator) => _minMaxWith(-1, comparator);
 
   /// Returns the largest element or `null` if there are no elements.
   ///
   /// All elements must be of type [Comparable].
-  E max() => _minMax(1);
+  E? max() => _minMax(1);
 
   /// Returns the first element yielding the largest value of the given
   /// [selector] or `null` if there are no elements.
-  E maxBy(Comparable Function(E element) selector) => _minMaxBy(1, selector);
+  E? maxBy(Comparable Function(E element) selector) => _minMaxBy(1, selector);
 
   /// Returns the first element having the largest value according to the
   /// provided [comparator] or `null` if there are no elements.
-  E maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
+  E? maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
 
-  E _minMax(int order) {
+  E? _minMax(int order) {
     var it = iterator;
-    it.moveNext();
+    if (!it.moveNext()) {
+      return null;
+    }
     var currentMin = it.current;
 
     while (it.moveNext()) {
@@ -374,9 +360,11 @@ extension IterableX<E> on Iterable<E> {
     return currentMin;
   }
 
-  E _minMaxBy(int order, Comparable Function(E element) selector) {
+  E? _minMaxBy(int order, Comparable Function(E element) selector) {
     var it = iterator;
-    it.moveNext();
+    if (!it.moveNext()) {
+      return null;
+    }
 
     var currentMin = it.current;
     var currentMinValue = selector(it.current);
@@ -391,9 +379,11 @@ extension IterableX<E> on Iterable<E> {
     return currentMin;
   }
 
-  E _minMaxWith(int order, Comparator<E> comparator) {
+  E? _minMaxWith(int order, Comparator<E> comparator) {
     var it = iterator;
-    it.moveNext();
+    if (!it.moveNext()) {
+      return null;
+    }
     var currentMin = it.current;
 
     while (it.moveNext()) {
@@ -408,7 +398,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the number of elements matching the given [predicate].
   ///
   /// If no [predicate] is given, this equals to [length].
-  int count([bool Function(E element) predicate]) {
+  int count([bool Function(E element)? predicate]) {
     var count = 0;
     if (predicate == null) {
       return length;
@@ -613,7 +603,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element in the original
   /// collection.
-  Iterable<R> mapNotNull<R>(R Function(E element) transform) sync* {
+  Iterable<R> mapNotNull<R>(R? Function(E element) transform) sync* {
     for (var element in this) {
       var result = transform(element);
       if (result != null) {
@@ -635,7 +625,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element and its index
   /// in the original collection.
-  Iterable<R> mapIndexedNotNull<R>(R Function(int index, E) transform) sync* {
+  Iterable<R> mapIndexedNotNull<R>(R? Function(int index, E) transform) sync* {
     var index = 0;
     for (var element in this) {
       final result = transform(index++, element);
@@ -725,8 +715,7 @@ extension IterableX<E> on Iterable<E> {
   Iterable<List<E>> chunkWhile(bool Function(E, E) predicate) sync* {
     var currentChunk = <E>[];
     var hasPrevious = false;
-    /*late*/
-    E previous;
+    late E previous;
 
     for (final element in this) {
       if (!hasPrevious || predicate(previous, element)) {
@@ -834,7 +823,7 @@ extension IterableX<E> on Iterable<E> {
   /// [n] times if the collection is empty.
   ///
   /// If [n] is omitted, the Iterable cycles forever.
-  Iterable<E> cycle([int n]) sync* {
+  Iterable<E> cycle([int? n]) sync* {
     var it = iterator;
     if (!it.moveNext()) {
       return;
@@ -993,7 +982,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new, randomly shuffled list.
   ///
   /// If [random] is given, it is being used for random number generation.
-  List<E> shuffled([Random random]) => toList()..shuffle(random);
+  List<E> shuffled([Random? random]) => toList()..shuffle(random);
 
   /// Returns a Map containing key-value pairs provided by [transform] function
   /// applied to elements of this collection.
@@ -1070,48 +1059,42 @@ extension IterableX<E> on Iterable<E> {
   /// This is an alternative to [toList] to not recompute the collection
   /// multiple times, without having to lose the lazy loading aspect of
   /// [Iterable].
-  Iterable<E> get cached => _CachedIterable<E>(this);
+  Iterable<E?> get cached => _CachedIterable<E>(this);
 }
 
-class _CachedIterable<T> extends IterableBase<T> {
+class _CachedIterable<T> extends IterableBase<T?> {
   _CachedIterable(Iterable<T> iterable)
       : uncomputedIterator = iterable.iterator;
 
-  Iterator<T> uncomputedIterator;
+  final Iterator<T> uncomputedIterator;
   final cache = _IterableCache<T>(null);
 
   @override
-  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
+  Iterator<T?> get iterator => _CachedIterator<T?>(cache, uncomputedIterator);
 }
 
 class _CachedIterator<T> extends Iterator<T> {
-  _CachedIterator(this.cache, this.uncomputedIterator)
-      : latestValidCache = cache;
+  _CachedIterator(this.root, this.uncomputedIterator);
 
-  _IterableCache<T> cache;
+  _IterableCache<T> root;
 
-  /// A reference to the latest non-null [cache].
-  ///
-  /// This allows adding new items to the cache
-  _IterableCache<T> latestValidCache;
+  _IterableCache<T>? cache;
+
   final Iterator<T> uncomputedIterator;
 
   @override
-  T current;
+  T get current => cache!.value as T;
 
   @override
   bool moveNext() {
-    cache = cache?.next;
-    if (cache != null) {
-      current = cache.value;
-      latestValidCache = cache;
+    final currentCache = cache ?? root;
+    final nextCache = currentCache.next;
+    if (nextCache != null) {
+      cache = nextCache;
       return true;
     }
     if (uncomputedIterator.moveNext()) {
-      current = uncomputedIterator.current;
-      assert(latestValidCache.next == null);
-      latestValidCache.next = _IterableCache(current);
-      latestValidCache = latestValidCache.next;
+      currentCache.next = _IterableCache(uncomputedIterator.current);
       return true;
     }
     return false;
@@ -1122,8 +1105,8 @@ class _CachedIterator<T> extends Iterator<T> {
 class _IterableCache<T> {
   _IterableCache(this.value);
 
-  _IterableCache<T> next;
-  final T value;
+  _IterableCache<T>? next;
+  final T? value;
 }
 
 extension IterableIterableX<E> on Iterable<Iterable<E>> {

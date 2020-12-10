@@ -2,7 +2,7 @@ part of dartx;
 
 Comparator<E> _getComparator<E>(
     int order, Comparable Function(E element) selector,
-    {Comparator<E> parent}) {
+    {Comparator<E>? parent}) {
   final newComparator = (E a, E b) {
     return order * selector(a).compareTo(selector(b));
   };
@@ -12,7 +12,7 @@ Comparator<E> _getComparator<E>(
 class _SortedList<E> extends _DelegatingList<E> {
   final Iterable<E> _source;
   final Comparator<E> _comparator;
-  List<E> _sortedResults;
+  List<E>? _sortedResults;
 
   _SortedList._(
     this._source,
@@ -23,16 +23,16 @@ class _SortedList<E> extends _DelegatingList<E> {
     this._source,
     Comparable Function(E element) selector,
     int order,
-    Comparator<E> parentComparator,
+    Comparator<E>? parentComparator,
   ) : _comparator = _getComparator(order, selector, parent: parentComparator);
 
   @override
   List<E> get delegate {
     if (_sortedResults == null) {
       _sortedResults = _source.toList();
-      _sortedResults.sort(_compare);
+      _sortedResults!.sort(_compare);
     }
-    return _sortedResults;
+    return _sortedResults!;
   }
 
   /// Returns a new list with all elements sorted according to previously
@@ -114,7 +114,7 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   void clear() => delegate.clear();
 
   @override
-  void fillRange(int start, int end, [E fillValue]) =>
+  void fillRange(int start, int end, [E? fillValue]) =>
       delegate.fillRange(start, end, fillValue);
 
   @override
@@ -147,11 +147,11 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   }
 
   @override
-  int lastIndexOf(E element, [int start]) =>
+  int lastIndexOf(E element, [int? start]) =>
       delegate.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool Function(E element) test, [int start]) =>
+  int lastIndexWhere(bool Function(E element) test, [int? start]) =>
       delegate.lastIndexWhere(test, start);
 
   @override
@@ -160,7 +160,7 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   }
 
   @override
-  bool remove(Object value) => delegate.remove(value);
+  bool remove(Object? value) => delegate.remove(value);
 
   @override
   E removeAt(int index) => delegate.removeAt(index);
@@ -194,13 +194,13 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
       delegate.setRange(start, end, iterable, skipCount);
 
   @override
-  void shuffle([Random random]) => delegate.shuffle(random);
+  void shuffle([Random? random]) => delegate.shuffle(random);
 
   @override
-  void sort([int Function(E a, E b) compare]) => delegate.sort(compare);
+  void sort([int Function(E a, E b)? compare]) => delegate.sort(compare);
 
   @override
-  List<E> sublist(int start, [int end]) => delegate.sublist(start, end);
+  List<E> sublist(int start, [int? end]) => delegate.sublist(start, end);
 }
 
 /// An implementation of [Iterable] that delegates all methods to another
@@ -227,7 +227,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   Iterable<T> cast<T>() => delegate.cast<T>();
 
   @override
-  bool contains(Object element) => delegate.contains(element);
+  bool contains(Object? element) => delegate.contains(element);
 
   @override
   E elementAt(int index) => delegate.elementAt(index);
@@ -243,7 +243,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   E get first => delegate.first;
 
   @override
-  E firstWhere(bool Function(E element) test, {E Function() orElse}) =>
+  E firstWhere(bool Function(E element) test, {E Function()? orElse}) =>
       delegate.firstWhere(test, orElse: orElse);
 
   @override
@@ -272,7 +272,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   E get last => delegate.last;
 
   @override
-  E lastWhere(bool Function(E element) test, {E Function() orElse}) =>
+  E lastWhere(bool Function(E element) test, {E Function()? orElse}) =>
       delegate.lastWhere(test, orElse: orElse);
 
   @override
@@ -288,7 +288,7 @@ abstract class _DelegatingIterable<E> implements Iterable<E> {
   E get single => delegate.single;
 
   @override
-  E singleWhere(bool Function(E element) test, {E Function() orElse}) =>
+  E singleWhere(bool Function(E element) test, {E Function()? orElse}) =>
       delegate.singleWhere(test, orElse: orElse);
 
   @override

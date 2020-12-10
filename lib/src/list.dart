@@ -40,14 +40,14 @@ extension ListX<E> on List<E> {
 
     var resultSize = length - n;
     if (resultSize <= 0) return [];
-    if (resultSize == 1) return [last];
+    if (resultSize == 1) return [last!];
     return sublist(n);
   }
 
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
   List<E> dropWhile(bool Function(E element) predicate) {
-    int startIndex;
+    int? startIndex;
     for (var i = 0; i < length; i++) {
       if (!predicate(this[i])) {
         startIndex = i;
@@ -74,7 +74,7 @@ extension ListX<E> on List<E> {
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
   List<E> dropLastWhile(bool Function(E element) predicate) {
-    int endIndex;
+    int? endIndex;
     for (var i = lastIndex; i >= 0; i--) {
       if (!predicate(this[i])) {
         endIndex = i;
@@ -93,10 +93,10 @@ extension ListX<E> on List<E> {
   ///
   /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
   /// on the objects. If any object is not [Comparable], this throws a
-  /// [CastError].
+  /// [TypeError].
   ///
   /// Returns [length] if all the items in this list compare less than [value].
-  int lowerBound(E value, {int Function(E a, E b) compare}) {
+  int lowerBound(E value, {int Function(E a, E b)? compare}) {
     return _lowerBound(this, value, compare: compare);
   }
 
@@ -107,10 +107,10 @@ extension ListX<E> on List<E> {
   ///
   /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
   /// on the objects. If any object is not [Comparable], this throws a
-  /// [CastError].
+  /// [TypeError].
   ///
   /// Returns -1 if [value] is not in the list by default.
-  int binarySearch(E value, {int Function(E a, E b) compare}) {
+  int binarySearch(E value, {int Function(E a, E b)? compare}) {
     return _binarySearch(this, value, compare: compare);
   }
 
@@ -119,7 +119,7 @@ extension ListX<E> on List<E> {
   ///
   /// If [comparator] is omitted, this defaults to calling
   /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
-  /// this throws a [CastError].
+  /// this throws a [TypeError].
   ///
   /// Insertion sort is a simple sorting algorithm. For `n` elements it does on
   /// the order of `n * log(n)` comparisons but up to `n` squared moves. The
@@ -130,7 +130,7 @@ extension ListX<E> on List<E> {
   ///
   /// This insertion sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void insertionSort({Comparator<E> comparator, int start = 0, int end}) {
+  void insertionSort({Comparator<E>? comparator, int start = 0, int? end}) {
     _insertionSort(this, compare: comparator, start: start, end: end);
   }
 
@@ -139,7 +139,7 @@ extension ListX<E> on List<E> {
   ///
   /// If [comparator] is omitted, this defaults to calling
   /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
-  /// this throws a  [CastError].
+  /// this throws a  [TypeError].
   ///
   /// Merge-sorting works by splitting the job into two parts, sorting each
   /// recursively, and then merging the two sorted parts.
@@ -150,7 +150,7 @@ extension ListX<E> on List<E> {
   ///
   /// This merge sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void mergeSort({int start = 0, int end, Comparator<E> comparator}) {
+  void mergeSort({int start = 0, int? end, Comparator<E>? comparator}) {
     _mergeSort(this, start: start, end: end, compare: comparator);
   }
 

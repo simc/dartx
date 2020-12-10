@@ -2,12 +2,12 @@ part of dartx_io;
 
 extension DirectoryX on Directory {
   Directory subdir(String part1,
-      [String part2,
-      String part3,
-      String part4,
-      String part5,
-      String part6,
-      String part7]) {
+      [String? part2,
+      String? part3,
+      String? part4,
+      String? part5,
+      String? part6,
+      String? part7]) {
     return Directory(
       path_helper.join(path, part1, part2, part3, part4, part5, part6, part7),
     );
@@ -22,7 +22,7 @@ extension DirectoryX on Directory {
   /// * If `this` and [target] are canonically the same, no operation occurs.
   ///
   /// Returns a future that completes when complete.
-  Future<Null> copyRecursively(Directory target) async {
+  Future<void> copyRecursively(Directory target) async {
     if (path_helper.canonicalize(path) ==
         path_helper.canonicalize(target.path)) {
       return;

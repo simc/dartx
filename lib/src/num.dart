@@ -14,7 +14,7 @@ extension NumX<T extends num> on T {
   /// print(500.coerceIn(1, 100)) // 100
   /// 10.coerceIn(100, 0) // will fail with ArgumentError
   /// ````
-  T coerceIn(T minimumValue, [T maximumValue]) {
+  T coerceIn(T minimumValue, [T? maximumValue]) {
     if (maximumValue != null && minimumValue > maximumValue) {
       throw ArgumentError('Cannot coerce value to an empty range: '
           'maximum $maximumValue is less than minimum $minimumValue.');

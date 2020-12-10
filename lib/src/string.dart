@@ -107,7 +107,7 @@ extension StringX on String {
   /// values as the lower-case ones.
   ///
   /// If no [radix] is given then it defaults to 10.
-  int toInt({int radix}) => int.parse(this, radix: radix);
+  int toInt({int? radix}) => int.parse(this, radix: radix);
 
   /// Parses the string as an [int] number and returns the result or `null` if
   /// the string is not a valid representation of a number.
@@ -118,7 +118,7 @@ extension StringX on String {
   /// values as the lower-case ones.
   ///
   /// If no [radix] is given then it defaults to 10.
-  int toIntOrNull({int radix}) => int.tryParse(this, radix: radix);
+  int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
 
   bool get isDouble => toDoubleOrNull() != null;
 
@@ -127,7 +127,7 @@ extension StringX on String {
 
   /// Parses the string as an [double] number and returns the result or `null`
   /// if the string is not a valid representation of a number.
-  double toDoubleOrNull() => double.tryParse(this);
+  double? toDoubleOrNull() => double.tryParse(this);
 
   List<int> toUtf8() => utf8.encode(this);
 
@@ -141,17 +141,6 @@ extension StringX on String {
   /// print('message digest'.md5); //f96b697d7cb7938d525a2f31aaf161d0
   /// ```
   String get md5 => crypto.md5.convert(toUtf8()).toString();
-
-  /// Returns `true` if the String is either null or empty.
-  bool get isNullOrEmpty {
-    if (this == null) {
-      return true;
-    }
-
-    return isEmpty;
-  }
-
-  bool get isNotNullOrEmpty => !isNullOrEmpty;
 
   /// If this [String] starts with the given [prefix], returns a copy of this
   /// string with the prefix removed. Otherwise, returns this [String].
@@ -176,9 +165,7 @@ extension StringX on String {
   /// Removes from a [String] both the given [prefix] and [suffix] if and only
   /// if it starts with the [prefix] and ends with the [suffix].
   /// Otherwise returns this [String] unchanged.
-  String removeSurrounding({@required String prefix, @required String suffix}) {
-    assert(prefix != null);
-    assert(suffix != null);
+  String removeSurrounding({required String prefix, required String suffix}) {
     if (startsWith(prefix) && endsWith(suffix)) {
       return substring(prefix.length, length - suffix.length);
     } else {
@@ -202,4 +189,17 @@ extension StringX on String {
 
     return substring(start, end + 1);
   }
+}
+
+extension StringXN on String? {
+  /// Returns `true` if the String is either null or empty.
+  bool get isNullOrEmpty {
+    if (this == null) {
+      return true;
+    }
+
+    return this!.isEmpty;
+  }
+
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
 }

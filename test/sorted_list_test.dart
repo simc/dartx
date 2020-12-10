@@ -41,7 +41,7 @@ void main() {
       expect(_sortedList.firstWhere((it) => it.isEven), 2);
     });
     test('fold', () {
-      expect(_sortedList.fold(0, (a, b) => a + b), 10);
+      expect(_sortedList.fold(0, (dynamic a, b) => a + b), 10);
     });
     test('followedBy', () {
       expect(_sortedList.followedBy([2]), [1, 2, 3, 4, 2]);
