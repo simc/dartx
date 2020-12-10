@@ -3,13 +3,17 @@ part of dartx;
 /// Extensions for iterables
 extension IterableNumX<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.
-  /*T sum() {
-    var sum = (T == int ? 0 : 0.0) as T;
+  T sum() {
+    num sum = 0.0;
     for (var current in this) {
       sum += current;
     }
-    return sum;
-  }*/
+    if (T == int) {
+      return sum.toInt() as T;
+    } else {
+      return sum.toDouble() as T;
+    }
+  }
 
   /// Returns the average of all elements in the collection.
   double average() {

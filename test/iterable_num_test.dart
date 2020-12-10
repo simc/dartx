@@ -3,7 +3,7 @@ import 'package:dartx/dartx.dart';
 
 void main() {
   group('IterableNumX', () {
-    /*group('.sum()', () {
+    group('.sum()', () {
       test('int', () {
         expect(<int>[].sum(), 0);
         expect([1, 2, 3, 4, 5].sum(), 15);
@@ -13,7 +13,7 @@ void main() {
         expect(<double>[].sum(), 0);
         expect([1.0, 2.5, 3.0, 4.0, 5.0].sum(), 15.5);
       });
-    });*/
+    });
 
     test('.average()', () {
       expect(() => <int>[].average(), throwsStateError);

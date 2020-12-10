@@ -225,19 +225,13 @@ void main() {
     test('.sumBy()', () {
       expect([].sumBy((it) => 0.0), 0);
       expect(['t', 'te', 'tes'].sumBy((it) => it.length), 6);
-      expect(
-          ['t', null, '', 'tes', null]
-              .sumBy(((it) => it?.length) as num Function(String?)),
-          4);
+      expect(['t', null, '', 'tes', null].sumBy(((it) => it?.length ?? 0)), 4);
     });
 
     test('.averageBy()', () {
       expect(() => [].averageBy((it) => 0.0), throwsStateError);
       expect(['t', 'te', 'tes'].averageBy((it) => it.length), 2.0);
-      expect(
-          ['te', null, 'test']
-              .averageBy(((it) => it?.length) as num Function(String?)),
-          2.0);
+      expect(['te', null, 'test'].averageBy(((it) => it?.length ?? 0)), 2.0);
     });
 
     test('.min()', () {
