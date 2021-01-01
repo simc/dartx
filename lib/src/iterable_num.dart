@@ -41,10 +41,8 @@ extension IterableNumX<T extends num> on Iterable<T> {
   /// Empty collections throw an error.
   /// `null` values are ignored.
   double median() {
-    if (length == 0) throw StateError('No elements in collection');
-    final values = toList()
-      ..removeWhere((item) => item == null)
-      ..sort();
+    if (isEmpty) throw StateError('No elements in collection');
+    final values = whereNotNull().toList()..sort();
     final size = values.length;
     if (size.isOdd) {
       return values[(size / 2).floor()].toDouble();
@@ -64,7 +62,7 @@ extension IterableNumX<T extends num> on Iterable<T> {
   /// Collections with multiple modes (or multiple elements tied for the highest
   /// number of occurrences) return one of those modes.
   num mode() {
-    if (length == 0) throw StateError('No elements in collection');
+    if (isEmpty) throw StateError('No elements in collection');
     final values = toList();
     var occurrences = <num, int>{};
     num bestElem;
@@ -78,5 +76,36 @@ extension IterableNumX<T extends num> on Iterable<T> {
       }
     }
     return bestElem;
+  }
+
+  /// Returns the variance of this collection. The formula for variance changes
+  /// slightly based on whether this collection represents a population
+  /// or a sample of a population. By default, this method assumes that this
+  /// collection is a sample, but you can tweak that behavior with the [sample]
+  /// parameter.
+  ///
+  /// `null` values are ignored, and empty collections return 0.
+  double variance({bool sample = true}) {
+    if (isEmpty || length == 1) {
+      return 0.0;
+    }
+    var data = whereNotNull();
+    var varianceSum = 0.0;
+    var avg = data.average();
+    for (var elem in data) {
+      varianceSum += pow(elem - avg, 2);
+    }
+    return varianceSum / (data.length - (sample == true ? 1 : 0));
+  }
+
+  /// Returns the standard deviation of this collection. The formula for
+  /// standard deviation changes slightly based on whether this collection
+  /// represents a population or a sample of a population. By default, this
+  /// method assumes that this collection is a sample, but you can tweak that
+  /// behavior with the [sample] parameter.
+  ///
+  /// `null` values are ignored, and empty collections return 0.
+  double stdDev({bool sample = true}) {
+    return sqrt(variance(sample: sample));
   }
 }

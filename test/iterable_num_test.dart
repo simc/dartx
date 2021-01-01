@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
 
@@ -18,13 +20,13 @@ void main() {
     });
 
     test('.average()', () {
-      expect(() => <int>[].average(), throwsStateError);
+      expect(<int>[].average, throwsStateError);
       expect([1, 2, 3, 4, 5].average(), 3.0);
       expect([1, 2, 0, 3, 4, null, 5, 6, null, 9].average(), 3.0);
     });
 
     test('.median()', () {
-      expect(() => <int>[].median(), throwsStateError);
+      expect(<int>[].median, throwsStateError);
       // odd
       expect([1, 2, 3, 4, 5].median(), 3);
       expect([5, 3, 2, 4, 1].median(), 3);
@@ -40,11 +42,27 @@ void main() {
     });
 
     test('.mode()', () {
-      expect(() => <int>[].mode(), throwsStateError);
+      expect(<int>[].mode, throwsStateError);
       expect([1, 2, 2, 4, 5].mode(), 2);
       expect([5, 3, 2, 4, 6, 1, 5].mode(), 5);
       expect([5, 3, 2, 4, 1, 1, null, null, null].mode(), 1);
       expect([2.5, 2, 2.5, 4, 5].mode(), 2.5);
+    });
+
+    test('.variance()', () {
+      expect(<int>[].variance(), 0);
+      expect([1].variance(), 0);
+      expect([2, 4, 6, 8, 10].variance(), 10);
+      expect([2, 4, 6, 8, 10].variance(sample: false), 8);
+      expect([2, 4, 6, 8, 10, null, null, null].variance(), 10);
+    });
+
+    test('.stdDev()', () {
+      expect(<int>[].stdDev(), 0);
+      expect([1].stdDev(), 0);
+      expect([2, 4, 6, 8, 10].stdDev(), sqrt(10));
+      expect([2, 4, 6, 8, 10].stdDev(sample: false), sqrt(8));
+      expect([2, 4, 6, 8, 10, null, null, null].stdDev(), sqrt(10));
     });
   });
 }
