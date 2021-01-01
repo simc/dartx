@@ -54,4 +54,29 @@ extension IterableNumX<T extends num> on Iterable<T> {
       return (x + y) / 2;
     }
   }
+
+  /// Returns the "mode" of the elements in this collection, or the element
+  /// which appears most often.
+  ///
+  /// Empty collections throw an error.
+  /// `null` values are ignored.
+  ///
+  /// Collections with multiple modes (or multiple elements tied for the highest
+  /// number of occurrences) return one of those modes.
+  num mode() {
+    if (length == 0) throw StateError('No elements in collection');
+    final values = toList();
+    var occurrences = <num, int>{};
+    num bestElem;
+    for (num value in values) {
+      if (value == null) continue;
+      bestElem ??= value;
+      occurrences[value] ??= 0;
+      occurrences[value]++;
+      if (occurrences[value] > occurrences[bestElem]) {
+        bestElem = value;
+      }
+    }
+    return bestElem;
+  }
 }

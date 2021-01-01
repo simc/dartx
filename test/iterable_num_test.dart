@@ -38,5 +38,13 @@ void main() {
       // handles double values
       expect([1.5, 2, 2.5, 4, 5].median(), 2.5);
     });
+
+    test('.mode()', () {
+      expect(() => <int>[].mode(), throwsStateError);
+      expect([1, 2, 2, 4, 5].mode(), 2);
+      expect([5, 3, 2, 4, 6, 1, 5].mode(), 5);
+      expect([5, 3, 2, 4, 1, 1, null, null, null].mode(), 1);
+      expect([2.5, 2, 2.5, 4, 5].mode(), 2.5);
+    });
   });
 }
