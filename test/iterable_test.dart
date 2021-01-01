@@ -335,6 +335,13 @@ void main() {
       expect([1, 2, 3].takeLast(2), [2, 3]);
     });
 
+    test('.indexIntervals()', () {
+      expect([].indexIntervals(2), []);
+      expect([1, 2, 3, 4, 5, 6].indexIntervals(3), [1, 4]);
+      expect([2, 3, 4, 5, 6, 7, 8].indexIntervals(2, offset: 1), [3, 5, 7]);
+      expect([2, 3, 4].indexIntervals(4), [2]);
+    });
+
     test('.firstWhile()', () {
       expect([].firstWhile((e) => true), []);
       expect([1, 2, 3].firstWhile((e) => false), []);

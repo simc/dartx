@@ -433,7 +433,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a list containing first [n] elements.
   ///
   /// ```dart
-  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// var chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   /// print(chars.take(3)) // [1, 2, 3]
   /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
   /// print(chars.takeLast(2)) // [8, 9]
@@ -447,7 +447,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a list containing last [n] elements.
   ///
   /// ```dart
-  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// var chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   /// print(chars.take(3)) // [1, 2, 3]
   /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
   /// print(chars.takeLast(2)) // [8, 9]
@@ -458,10 +458,29 @@ extension IterableX<E> on Iterable<E> {
     return list.sublist(length - n);
   }
 
+  /// Returns a list containing the elements at every [n]th index, starting
+  /// from the index [offset].
+  ///
+  /// ```dart
+  /// var chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// print(chars.takeIndexInterval(2)); // [1, 3, 5, 7, 9]
+  /// print(chars.takeIndexInterval(2, offset: 1)); // [2, 4, 6, 8]
+  /// ```
+  List<E> indexIntervals(int n, {int offset = 0}) {
+    var origList = this is List<E> ? this as List<E> : toList();
+    if (n < 1) throw ArgumentError('interval must be >= 1.');
+    if (offset < 0) throw ArgumentError('offset must be >= 0');
+    var returnList = <E>[];
+    for (var i = offset; i< origList.length; i+= n) {
+      returnList.add(origList[i]);
+    }
+    return returnList;
+  }
+
   //// Returns the first elements satisfying the given [predicate].
   ///
   /// ```dart
-  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// var chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   /// print(chars.take(3)) // [1, 2, 3]
   /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
   /// print(chars.takeLast(2)) // [8, 9]
@@ -477,7 +496,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the last elements satisfying the given [predicate].
   ///
   /// ```dart
-  /// val chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  /// var chars = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   /// print(chars.take(3)) // [1, 2, 3]
   /// print(chars.takeWhile((it) => it < 5) // [1, 2, 3, 4]
   /// print(chars.takeLast(2)) // [8, 9]
