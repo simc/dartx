@@ -471,7 +471,7 @@ extension IterableX<E> on Iterable<E> {
     if (n < 1) throw ArgumentError('interval must be >= 1.');
     if (offset < 0) throw ArgumentError('offset must be >= 0');
     var returnList = <E>[];
-    for (var i = offset; i< origList.length; i+= n) {
+    for (var i = offset; i < origList.length; i += n) {
       returnList.add(origList[i]);
     }
     return returnList;
