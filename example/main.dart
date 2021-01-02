@@ -7,11 +7,11 @@ void main() {
   var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 
   var dogs = [
-    Dog(name: "Tom", age: 3),
-    Dog(name: "Charlie", age: 7),
-    Dog(name: "Bark", age: 1),
-    Dog(name: "Cookie", age: 4),
-    Dog(name: "Charlie", age: 2),
+    Dog(name: 'Tom', age: 3),
+    Dog(name: 'Charlie', age: 7),
+    Dog(name: 'Bark', age: 1),
+    Dog(name: 'Cookie', age: 4),
+    Dog(name: 'Charlie', age: 2),
   ];
 
   var sorted =

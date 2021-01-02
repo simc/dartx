@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 part of dartx;
 
 const _binarySearch = binarySearch;
@@ -139,7 +141,7 @@ extension ListX<E> on List<E> {
   ///
   /// If [comparator] is omitted, this defaults to calling
   /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
-  /// this throws a  [CastError].
+  /// this throws a [CastError].
   ///
   /// Merge-sorting works by splitting the job into two parts, sorting each
   /// recursively, and then merging the two sorted parts.

@@ -889,7 +889,7 @@ void main() {
       );
     });
 
-    test("groupBy", () {
+    test('groupBy', () {
       expect(
         ['foo', 'bar', 'baz', 'bop', 'qux']
             .groupBy((dynamic string) => string[1]),
