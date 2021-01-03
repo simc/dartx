@@ -911,7 +911,7 @@ void main() {
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;
-        }).cached as Iterable<int>;
+        }).cached;
 
         expect(accessCount, 0);
         expect(iterable, [0, 1, 2]);
@@ -924,7 +924,7 @@ void main() {
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;
-        }).cached as Iterable<int>;
+        }).cached;
 
         for (final _ in iterable) {
           expect(iterable, [0, 1, 2]);
@@ -937,7 +937,7 @@ void main() {
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;
-        }).cached as Iterable<int>;
+        }).cached;
 
         for (final item in iterable) {
           if (item == 1) {

@@ -1075,33 +1075,33 @@ extension IterableX<E> on Iterable<E> {
   /// This is an alternative to [toList] to not recompute the collection
   /// multiple times, without having to lose the lazy loading aspect of
   /// [Iterable].
-  Iterable<E?> get cached => _CachedIterable<E>(this);
+  Iterable<E> get cached => _CachedIterable<E>(this);
 }
 
 class _CachedIterable<T> extends IterableBase<T> {
   _CachedIterable(Iterable<T> iterable)
-      : uncomputedIterator = iterable.iterator;
+      : _uncomputedIterator = iterable.iterator;
 
-  final Iterator<T> uncomputedIterator;
-  final cache = _IterableCache<T>(null);
+  final Iterator<T> _uncomputedIterator;
+  final _cache = _IterableCache<T>(null);
 
   @override
-  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
+  Iterator<T> get iterator => _CachedIterator<T>(_cache, _uncomputedIterator);
 }
 
 class _CachedIterator<T> extends Iterator<T> {
-  _CachedIterator(_IterableCache<T> cache, this.uncomputedIterator)
+  _CachedIterator(_IterableCache<T> cache, this._uncomputedIterator)
       // ignore: prefer_initializing_formals
-      : cache = cache,
-        latestValidCache = cache;
+      : _cache = cache,
+        _latestValidCache = cache;
 
-  _IterableCache<T>? cache;
+  _IterableCache<T>? _cache;
 
-  /// A reference to the latest non-null [cache].
+  /// A reference to the latest non-null [_cache].
   ///
   /// This allows adding new items to the cache
-  _IterableCache<T> latestValidCache;
-  final Iterator<T> uncomputedIterator;
+  _IterableCache<T> _latestValidCache;
+  final Iterator<T> _uncomputedIterator;
 
   @override
   T get current => _current as T;
@@ -1109,18 +1109,18 @@ class _CachedIterator<T> extends Iterator<T> {
 
   @override
   bool moveNext() {
-    final next = cache?.next;
-    cache = next;
+    final next = _cache?.next;
+    _cache = next;
     if (next != null) {
       _current = next.value;
-      latestValidCache = next;
+      _latestValidCache = next;
       return true;
     }
-    if (uncomputedIterator.moveNext()) {
-      _current = uncomputedIterator.current;
-      assert(latestValidCache.next == null);
-      latestValidCache.next = _IterableCache(current);
-      latestValidCache = latestValidCache.next!;
+    if (_uncomputedIterator.moveNext()) {
+      _current = _uncomputedIterator.current;
+      assert(_latestValidCache.next == null);
+      _latestValidCache.next = _IterableCache(current);
+      _latestValidCache = _latestValidCache.next!;
       return true;
     }
     return false;

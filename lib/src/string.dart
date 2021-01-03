@@ -193,9 +193,7 @@ extension StringX on String {
 
 extension StringXN on String? {
   /// Returns `true` if the String is either null or empty.
-  bool get isNullOrEmpty {
-    return this?.isEmpty ?? true;
-  }
+  bool get isNullOrEmpty => this?.isEmpty ?? true;
 
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }

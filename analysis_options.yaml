@@ -7,9 +7,7 @@ analyzer:
     implicit-casts: false
   errors:
     invalid_use_of_protected_member: error
-    always_declare_return_types: error 
-  enable-experiment:
-    - non-nullable
+    always_declare_return_types: error
 linter:
   rules:
     - always_declare_return_types
