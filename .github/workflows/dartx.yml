@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Install dart
         run: |
-          choco install dart-sdk
+          choco install dart-sdk-dev
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: C:\tools\dart-sdk\bin\pub.bat get
@@ -44,7 +44,7 @@ jobs:
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
-        run: brew install dart
+        run: brew install dart-beta
       - name: Install dependencies
         run: pub get
       - name: Run tests
