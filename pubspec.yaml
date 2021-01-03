@@ -4,12 +4,12 @@ version: 0.5.0
 homepage: https://github.com/leisim/dartx
 
 environment:
-  sdk: '>=2.12.0-29.10.beta <3.0.0'
+  sdk: '>=2.12.0-0 <3.0.0'
 
 dependencies:
   collection: ^1.15.0-nullsafety.5
   path: ^1.8.0-nullsafety.3
-  crypto: 
+  crypto: ^3.0.0-nullsafety.0
   characters: ^1.1.0-nullsafety.5 
   time: ^1.5.0-nullsafety.0
   meta: ^1.3.0-nullsafety.6
@@ -18,3 +18,13 @@ dev_dependencies:
   test: ^1.16.0-nullsafety.13
   pedantic: ^1.10.0-nullsafety.3
   fake_async: ^1.2.0-nullsafety.3
+
+dependency_overrides:
+  # 1.2.0 not yet on pub
+  web_socket_channel: #^1.2.0
+    git:
+      url: https://github.com/dart-lang/web_socket_channel.git
+      ref: 680358915e331fda823908234f80beba1ed4ec83
+
+  # Fix analyzer deps problem https://github.com/dart-lang/sdk/issues/44577
+  crypto: ^3.0.0-nullsafety.0
