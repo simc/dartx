@@ -4,6 +4,8 @@ import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
 List<int> get _sortedList => [4, 2, 1, 3].sortedBy((it) => it);
+List<int?> get _sortedNullableList =>
+    <int?>[4, 2, 1, 3].sortedBy((it) => it ?? 0);
 
 void main() {
   test('sort', () {
@@ -183,7 +185,7 @@ void main() {
       expect(_sortedList.lastIndexWhere((it) => it == 3), 2);
     });
     test('set length', () {
-      final list = _sortedList;
+      final List<int?> list = _sortedNullableList;
       list.length = 5;
       expect(list, [1, 2, 3, 4, null]);
     });
