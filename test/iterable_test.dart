@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
@@ -70,6 +72,13 @@ void main() {
     test('.firstOrDefault()', () {
       expect([1, 2, 3].firstOrDefault(999), 1);
       expect([].firstOrDefault(999), 999);
+    });
+
+    test('.firstOrNullWhere()', () {
+      expect([1, 2, 3, 4, 5].firstOrNullWhere((e) => e < 6), 1);
+      expect([1, 2, 3, 4, 5].firstOrNullWhere((e) => e > 3), 4);
+      expect([1, 2, 3, 4, 5].firstOrNullWhere((e) => e > 5), null);
+      expect([].firstOrNullWhere((e) => true), null);
     });
 
     test('.lastOrNull', () {

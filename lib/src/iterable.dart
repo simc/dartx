@@ -88,6 +88,22 @@ extension IterableX<E> on Iterable<E> {
   /// ```
   E firstOrDefault(E defaultValue) => isNotEmpty ? first : defaultValue;
 
+  /// Returns the first element matching the given [predicate], or `null` if no
+  /// such element was found.
+  ///
+  /// ```dart
+  /// var list = ['a', 'Test'];
+  /// var firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
+  /// var firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
+  /// ```
+  @Deprecated('Use firstWhereOrNull from package:collection')
+  E? firstOrNullWhere(bool Function(E element) predicate) {
+    for (var element in this) {
+      if (predicate(element)) return element;
+    }
+    return null;
+  }
+
   /// Last element or `null` if the collection is empty.
   ///
   /// ```dart
