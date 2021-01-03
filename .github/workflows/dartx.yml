@@ -22,13 +22,17 @@ jobs:
         run: pub run test
 
   test-windows:
+
+    # No nullsafety dev sdk available on windows
+    if: ${{ false }}
+
     timeout-minutes: 5
     runs-on: windows-latest
 
     steps:
       - name: Install dart
         run: |
-          choco install dart-sdk-dev
+          choco install dart-sdk
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: C:\tools\dart-sdk\bin\pub.bat get
