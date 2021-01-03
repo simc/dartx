@@ -185,7 +185,7 @@ void main() {
       expect(_sortedList.lastIndexWhere((it) => it == 3), 2);
     });
     test('set length', () {
-      final List<int?> list = _sortedNullableList;
+      final list = _sortedNullableList;
       list.length = 5;
       expect(list, [1, 2, 3, 4, null]);
     });

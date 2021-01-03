@@ -1078,7 +1078,7 @@ extension IterableX<E> on Iterable<E> {
   Iterable<E?> get cached => _CachedIterable<E>(this);
 }
 
-class _CachedIterable<T> extends IterableBase<T?> {
+class _CachedIterable<T> extends IterableBase<T> {
   _CachedIterable(Iterable<T> iterable)
       : uncomputedIterator = iterable.iterator;
 
@@ -1086,31 +1086,41 @@ class _CachedIterable<T> extends IterableBase<T?> {
   final cache = _IterableCache<T>(null);
 
   @override
-  Iterator<T?> get iterator => _CachedIterator<T?>(cache, uncomputedIterator);
+  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
 }
 
 class _CachedIterator<T> extends Iterator<T> {
-  _CachedIterator(this.root, this.uncomputedIterator);
-
-  _IterableCache<T> root;
+  _CachedIterator(_IterableCache<T> cache, this.uncomputedIterator)
+      // ignore: prefer_initializing_formals
+      : cache = cache,
+        latestValidCache = cache;
 
   _IterableCache<T>? cache;
 
+  /// A reference to the latest non-null [cache].
+  ///
+  /// This allows adding new items to the cache
+  _IterableCache<T> latestValidCache;
   final Iterator<T> uncomputedIterator;
 
   @override
-  T get current => cache!.value as T;
+  T get current => _current as T;
+  T? _current;
 
   @override
   bool moveNext() {
-    final currentCache = cache ?? root;
-    final nextCache = currentCache.next;
-    if (nextCache != null) {
-      cache = nextCache;
+    final next = cache?.next;
+    cache = next;
+    if (next != null) {
+      _current = next.value;
+      latestValidCache = next;
       return true;
     }
     if (uncomputedIterator.moveNext()) {
-      currentCache.next = _IterableCache(uncomputedIterator.current);
+      _current = uncomputedIterator.current;
+      assert(latestValidCache.next == null);
+      latestValidCache.next = _IterableCache(current);
+      latestValidCache = latestValidCache.next!;
       return true;
     }
     return false;
