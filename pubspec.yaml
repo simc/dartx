@@ -1,10 +1,10 @@
 name: dartx
 description: Superpowers for Dart. Collection of useful static extension methods.
-version: 0.5.0
+version: 0.6.0-nullsaftety.0
 homepage: https://github.com/leisim/dartx
 
 environment:
-  sdk: '>=2.12.0-133.7.beta <3.0.0'
+  sdk: '>=2.12.0-29.10.beta <3.0.0'
 
 dependencies:
   collection: ^1.15.0-nullsafety.4
