@@ -41,7 +41,7 @@ void main() {
       expect(_sortedList.firstWhere((it) => it.isEven), 2);
     });
     test('fold', () {
-      expect(_sortedList.fold(0, (a, b) => a + b), 10);
+      expect(_sortedList.fold(0, (dynamic a, b) => a + b), 10);
     });
     test('followedBy', () {
       expect(_sortedList.followedBy([2]), [1, 2, 3, 4, 2]);
@@ -183,7 +183,7 @@ void main() {
       expect(_sortedList.lastIndexWhere((it) => it == 3), 2);
     });
     test('set length', () {
-      final list = _sortedList;
+      final list = <int?>[ 1, 2, 3, 4].toList();
       list.length = 5;
       expect(list, [1, 2, 3, 4, null]);
     });

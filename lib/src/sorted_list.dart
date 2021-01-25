@@ -2,7 +2,7 @@ part of dartx;
 
 Comparator<E> _getComparator<E>(
     int order, Comparable Function(E element) selector,
-    {Comparator<E> parent}) {
+    {Comparator<E>? parent}) {
   final newComparator = (E a, E b) {
     return order * selector(a).compareTo(selector(b));
   };
@@ -12,7 +12,7 @@ Comparator<E> _getComparator<E>(
 class _SortedList<E> extends _DelegatingList<E> {
   final Iterable<E> _source;
   final Comparator<E> _comparator;
-  List<E> _sortedResults;
+  List<E>? _sortedResults;
 
   _SortedList._(
     this._source,
@@ -23,14 +23,14 @@ class _SortedList<E> extends _DelegatingList<E> {
     this._source,
     Comparable Function(E element) selector,
     int order,
-    Comparator<E> parentComparator,
+    Comparator<E>? parentComparator,
   ) : _comparator = _getComparator(order, selector, parent: parentComparator);
 
   @override
-  List<E> get delegate {
+  List<E>? get delegate {
     if (_sortedResults == null) {
       _sortedResults = _source.toList();
-      _sortedResults.sort(_compare);
+      _sortedResults!.sort(_compare);
     }
     return _sortedResults;
   }
@@ -65,7 +65,7 @@ class _SortedList<E> extends _DelegatingList<E> {
   }
 
   @override
-  List<T> cast<T>() => delegate.cast<T>();
+  List<T> cast<T>() => delegate!.cast<T>();
 
   int _compare(E element1, E element2) {
     return _comparator(element1, element2);
@@ -88,34 +88,34 @@ class _SortedList<E> extends _DelegatingList<E> {
 abstract class _DelegatingList<E> extends _DelegatingIterable<E>
     implements List<E> {
   @override
-  List<E> get delegate;
+  List<E>? get delegate;
 
   @override
-  E operator [](int index) => delegate[index];
+  E operator [](int index) => delegate![index];
 
   @override
   void operator []=(int index, E value) {
-    delegate[index] = value;
+    delegate![index] = value;
   }
 
   @override
-  List<E> operator +(List<E> other) => delegate + other;
+  List<E> operator +(List<E> other) => delegate! + other;
 
   @override
-  void add(E value) => delegate.add(value);
+  void add(E value) => delegate!.add(value);
 
   @override
-  void addAll(Iterable<E> iterable) => delegate.addAll(iterable);
+  void addAll(Iterable<E> iterable) => delegate!.addAll(iterable);
 
   @override
-  Map<int, E> asMap() => delegate.asMap();
+  Map<int, E> asMap() => delegate!.asMap();
 
   @override
-  void clear() => delegate.clear();
+  void clear() => delegate!.clear();
 
   @override
-  void fillRange(int start, int end, [E fillValue]) =>
-      delegate.fillRange(start, end, fillValue);
+  void fillRange(int start, int end, [E? fillValue]) =>
+      delegate!.fillRange(start, end, fillValue);
 
   @override
   set first(E element) {
@@ -124,21 +124,21 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   }
 
   @override
-  Iterable<E> getRange(int start, int end) => delegate.getRange(start, end);
+  Iterable<E> getRange(int start, int end) => delegate!.getRange(start, end);
 
   @override
-  int indexOf(E element, [int start = 0]) => delegate.indexOf(element, start);
+  int indexOf(E element, [int start = 0]) => delegate!.indexOf(element, start);
 
   @override
   int indexWhere(bool Function(E element) test, [int start = 0]) =>
-      delegate.indexWhere(test, start);
+      delegate!.indexWhere(test, start);
 
   @override
-  void insert(int index, E element) => delegate.insert(index, element);
+  void insert(int index, E element) => delegate!.insert(index, element);
 
   @override
   void insertAll(int index, Iterable<E> iterable) =>
-      delegate.insertAll(index, iterable);
+      delegate!.insertAll(index, iterable);
 
   @override
   set last(E element) {
@@ -147,60 +147,60 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
   }
 
   @override
-  int lastIndexOf(E element, [int start]) =>
-      delegate.lastIndexOf(element, start);
+  int lastIndexOf(E element, [int? start]) =>
+      delegate!.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool Function(E element) test, [int start]) =>
-      delegate.lastIndexWhere(test, start);
+  int lastIndexWhere(bool Function(E element) test, [int? start]) =>
+      delegate!.lastIndexWhere(test, start);
 
   @override
   set length(int newLength) {
-    delegate.length = newLength;
+    delegate!.length = newLength;
   }
 
   @override
-  bool remove(Object value) => delegate.remove(value);
+  bool remove(Object? value) => delegate!.remove(value);
 
   @override
-  E removeAt(int index) => delegate.removeAt(index);
+  E removeAt(int index) => delegate!.removeAt(index);
 
   @override
-  E removeLast() => delegate.removeLast();
+  E removeLast() => delegate!.removeLast();
 
   @override
-  void removeRange(int start, int end) => delegate.removeRange(start, end);
+  void removeRange(int start, int end) => delegate!.removeRange(start, end);
 
   @override
-  void removeWhere(bool Function(E element) test) => delegate.removeWhere(test);
+  void removeWhere(bool Function(E element) test) => delegate!.removeWhere(test);
 
   @override
   void replaceRange(int start, int end, Iterable<E> iterable) =>
-      delegate.replaceRange(start, end, iterable);
+      delegate!.replaceRange(start, end, iterable);
 
   @override
-  void retainWhere(bool Function(E element) test) => delegate.retainWhere(test);
+  void retainWhere(bool Function(E element) test) => delegate!.retainWhere(test);
 
   @override
-  Iterable<E> get reversed => delegate.reversed;
+  Iterable<E> get reversed => delegate!.reversed;
 
   @override
   void setAll(int index, Iterable<E> iterable) =>
-      delegate.setAll(index, iterable);
+      delegate!.setAll(index, iterable);
 
   @override
   void setRange(int start, int end, Iterable<E> iterable,
           [int skipCount = 0]) =>
-      delegate.setRange(start, end, iterable, skipCount);
+      delegate!.setRange(start, end, iterable, skipCount);
 
   @override
-  void shuffle([Random random]) => delegate.shuffle(random);
+  void shuffle([Random? random]) => delegate!.shuffle(random);
 
   @override
-  void sort([int Function(E a, E b) compare]) => delegate.sort(compare);
+  void sort([int Function(E a, E b)? compare]) => delegate!.sort(compare);
 
   @override
-  List<E> sublist(int start, [int end]) => delegate.sublist(start, end);
+  List<E> sublist(int start, [int? end]) => delegate!.sublist(start, end);
 }
 
 /// An implementation of [Iterable] that delegates all methods to another
@@ -218,102 +218,102 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
 ///       // custom methods
 ///     }
 abstract class _DelegatingIterable<E> implements Iterable<E> {
-  Iterable<E> get delegate;
+  Iterable<E>? get delegate;
 
   @override
-  bool any(bool Function(E element) test) => delegate.any(test);
+  bool any(bool Function(E element) test) => delegate!.any(test);
 
   @override
-  Iterable<T> cast<T>() => delegate.cast<T>();
+  Iterable<T> cast<T>() => delegate!.cast<T>();
 
   @override
-  bool contains(Object element) => delegate.contains(element);
+  bool contains(Object? element) => delegate!.contains(element);
 
   @override
-  E elementAt(int index) => delegate.elementAt(index);
+  E elementAt(int index) => delegate!.elementAt(index);
 
   @override
-  bool every(bool Function(E element) test) => delegate.every(test);
+  bool every(bool Function(E element) test) => delegate!.every(test);
 
   @override
   Iterable<T> expand<T>(Iterable<T> Function(E element) f) =>
-      delegate.expand(f);
+      delegate!.expand(f);
 
   @override
-  E get first => delegate.first;
+  E get first => delegate!.first;
 
   @override
-  E firstWhere(bool Function(E element) test, {E Function() orElse}) =>
-      delegate.firstWhere(test, orElse: orElse);
+  E firstWhere(bool Function(E element) test, {E Function()? orElse}) =>
+      delegate!.firstWhere(test, orElse: orElse);
 
   @override
   T fold<T>(T initialValue, T Function(T previousValue, E element) combine) =>
-      delegate.fold(initialValue, combine);
+      delegate!.fold(initialValue, combine);
 
   @override
-  Iterable<E> followedBy(Iterable<E> other) => delegate.followedBy(other);
+  Iterable<E> followedBy(Iterable<E> other) => delegate!.followedBy(other);
 
   @override
-  void forEach(void Function(E element) f) => delegate.forEach(f);
+  void forEach(void Function(E element) f) => delegate!.forEach(f);
 
   @override
-  bool get isEmpty => delegate.isEmpty;
+  bool get isEmpty => delegate!.isEmpty;
 
   @override
-  bool get isNotEmpty => delegate.isNotEmpty;
+  bool get isNotEmpty => delegate!.isNotEmpty;
 
   @override
-  Iterator<E> get iterator => delegate.iterator;
+  Iterator<E> get iterator => delegate!.iterator;
 
   @override
-  String join([String separator = '']) => delegate.join(separator);
+  String join([String separator = '']) => delegate!.join(separator);
 
   @override
-  E get last => delegate.last;
+  E get last => delegate!.last;
 
   @override
-  E lastWhere(bool Function(E element) test, {E Function() orElse}) =>
-      delegate.lastWhere(test, orElse: orElse);
+  E lastWhere(bool Function(E element) test, {E Function()? orElse}) =>
+      delegate!.lastWhere(test, orElse: orElse);
 
   @override
-  int get length => delegate.length;
+  int get length => delegate!.length;
 
   @override
-  Iterable<T> map<T>(T Function(E e) f) => delegate.map(f);
+  Iterable<T> map<T>(T Function(E e) f) => delegate!.map(f);
 
   @override
-  E reduce(E Function(E value, E element) combine) => delegate.reduce(combine);
+  E reduce(E Function(E value, E element) combine) => delegate!.reduce(combine);
 
   @override
-  E get single => delegate.single;
+  E get single => delegate!.single;
 
   @override
-  E singleWhere(bool Function(E element) test, {E Function() orElse}) =>
-      delegate.singleWhere(test, orElse: orElse);
+  E singleWhere(bool Function(E element) test, {E Function()? orElse}) =>
+      delegate!.singleWhere(test, orElse: orElse);
 
   @override
-  Iterable<E> skip(int n) => delegate.skip(n);
+  Iterable<E> skip(int n) => delegate!.skip(n);
 
   @override
   Iterable<E> skipWhile(bool Function(E value) test) =>
-      delegate.skipWhile(test);
+      delegate!.skipWhile(test);
 
   @override
-  Iterable<E> take(int n) => delegate.take(n);
+  Iterable<E> take(int n) => delegate!.take(n);
 
   @override
   Iterable<E> takeWhile(bool Function(E value) test) =>
-      delegate.takeWhile(test);
+      delegate!.takeWhile(test);
 
   @override
-  List<E> toList({bool growable = true}) => delegate.toList(growable: growable);
+  List<E> toList({bool growable = true}) => delegate!.toList(growable: growable);
 
   @override
-  Set<E> toSet() => delegate.toSet();
+  Set<E> toSet() => delegate!.toSet();
 
   @override
-  Iterable<E> where(bool Function(E element) test) => delegate.where(test);
+  Iterable<E> where(bool Function(E element) test) => delegate!.where(test);
 
   @override
-  Iterable<T> whereType<T>() => delegate.whereType<T>();
+  Iterable<T> whereType<T>() => delegate!.whereType<T>();
 }

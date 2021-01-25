@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 part of dartx;
 
 const _groupBy = groupBy;
@@ -33,8 +34,8 @@ extension IterableX<E> on Iterable<E> {
   /// var first = list.elementAtOrNull(0); // 1
   /// var fifth = list.elementAtOrNull(4); // null
   /// ```
-  E elementAtOrNull(int index) {
-    return elementAtOrElse(index, (_) => null);
+  E? elementAtOrNull(int index) {
+    return elementAtOrElseNullable(index, (_) => null);
   }
 
   /// Returns an element at the given [index] or [defaultValue] if the [index]
@@ -47,6 +48,24 @@ extension IterableX<E> on Iterable<E> {
   /// ```
   E elementAtOrDefault(int index, E defaultValue) {
     return elementAtOrElse(index, (_) => defaultValue);
+  }
+
+  /// Returns an element at the given [index] or the result of calling the
+  /// [defaultValue] function if the [index] is out of bounds of this
+  /// collection.
+  ///
+  /// ```dart
+  /// var list = [1, 2, 3, 4];
+  /// var first = list.elementAtOrElse(0); // 1
+  /// var fifth = list.elementAtOrElse(4, -1); // -1
+  /// ```
+  E? elementAtOrElseNullable(int index, E? Function(int index) defaultValue) {
+    if (index < 0) return defaultValue(index);
+    var count = 0;
+    for (var element in this) {
+      if (index == count++) return element;
+    }
+    return defaultValue(index);
   }
 
   /// Returns an element at the given [index] or the result of calling the
@@ -73,7 +92,7 @@ extension IterableX<E> on Iterable<E> {
   /// var first = [1, 2, 3, 4].firstOrNull; // 1
   /// var emptyFirst = [].firstOrNull; // null
   /// ```
-  E get firstOrNull => elementAtOrNull(0);
+  E? get firstOrNull => elementAtOrNull(0);
 
   /// First element or `defaultValue` if the collection is empty.
   ///
@@ -81,7 +100,7 @@ extension IterableX<E> on Iterable<E> {
   /// var first = [1, 2, 3, 4].firstOrDefault(-1); // 1
   /// var emptyFirst = [].firstOrDefault(-1); // -1
   /// ```
-  E firstOrDefault(E defaultValue) => firstOrNull ?? defaultValue;
+  E firstOrDefault(E defaultValue) => elementAtOrElse(0, (_) => defaultValue);
 
   /// Returns the first element matching the given [predicate], or `null` if no
   /// such element was found.
@@ -91,8 +110,8 @@ extension IterableX<E> on Iterable<E> {
   /// var firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
   /// var firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
   /// ```
-  E firstOrNullWhere(bool Function(E element) predicate) {
-    return firstWhere(predicate, orElse: () => null);
+  E? firstOrNullWhere(bool Function(E element) predicate) {
+    return firstWhereOrNull(predicate);
   }
 
   /// Last element or `null` if the collection is empty.
@@ -101,15 +120,15 @@ extension IterableX<E> on Iterable<E> {
   /// var last = [1, 2, 3, 4].lastOrNull; // 4
   /// var emptyLast = [].firstOrNull; // null
   /// ```
-  E get lastOrNull => isNotEmpty ? last : null;
+  E? get lastOrNull => isNotEmpty ? last : null;
 
   /// Last element or `defaultValue` if the collection is empty.
-  E lastOrElse(E defaultValue) => lastOrNull ?? defaultValue;
+  E lastOrElse(E defaultValue) => isNotEmpty ? last : defaultValue;
 
   /// Returns the last element matching the given [predicate], or `null` if no
   /// such element was found.
-  E lastOrNullWhere(bool Function(E element) predicate) {
-    return lastWhere(predicate, orElse: () => null);
+  E? lastOrNullWhere(bool Function(E element) predicate) {
+    return lastWhereOrNull(predicate);
   }
 
   /// Returns an original collection containing all the non-null elements,
@@ -188,7 +207,7 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If [checkEqual] is provided, it is used to check if two elements are the
   /// same.
-  bool contentEquals(Iterable<E> other, [bool Function(E a, E b) checkEqual]) {
+  bool contentEquals(Iterable<E> other, [bool Function(E a, E b)? checkEqual]) {
     var it1 = iterator;
     var it2 = other.iterator;
     if (checkEqual != null) {
@@ -268,10 +287,10 @@ extension IterableX<E> on Iterable<E> {
   /// followed by the [truncated] string (which defaults to `'...'`).
   String joinToString({
     String separator = ', ',
-    String Function(E element) transform,
+    String Function(E element)? transform,
     String prefix = '',
     String postfix = '',
-    int limit,
+    int? limit,
     String truncated = '...',
   }) {
     var buffer = StringBuffer();
@@ -303,7 +322,7 @@ extension IterableX<E> on Iterable<E> {
   /// each element in the collection.
   ///
   /// `null` values are not counted.
-  double sumBy(num Function(E element) selector) {
+  double sumBy(num? Function(E element) selector) {
     var sum = 0.0;
     for (var current in this) {
       sum += selector(current) ?? 0;
@@ -408,7 +427,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the number of elements matching the given [predicate].
   ///
   /// If no [predicate] is given, this equals to [length].
-  int count([bool Function(E element) predicate]) {
+  int count([bool Function(E element)? predicate]) {
     var count = 0;
     if (predicate == null) {
       return length;
@@ -725,8 +744,7 @@ extension IterableX<E> on Iterable<E> {
   Iterable<List<E>> chunkWhile(bool Function(E, E) predicate) sync* {
     var currentChunk = <E>[];
     var hasPrevious = false;
-    /*late*/
-    E previous;
+    late E previous;
 
     for (final element in this) {
       if (!hasPrevious || predicate(previous, element)) {
@@ -834,7 +852,7 @@ extension IterableX<E> on Iterable<E> {
   /// [n] times if the collection is empty.
   ///
   /// If [n] is omitted, the Iterable cycles forever.
-  Iterable<E> cycle([int n]) sync* {
+  Iterable<E> cycle([int? n]) sync* {
     var it = iterator;
     if (!it.moveNext()) {
       return;
@@ -993,7 +1011,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new, randomly shuffled list.
   ///
   /// If [random] is given, it is being used for random number generation.
-  List<E> shuffled([Random random]) => toList()..shuffle(random);
+  List<E> shuffled([Random? random]) => toList()..shuffle(random);
 
   /// Returns a Map containing key-value pairs provided by [transform] function
   /// applied to elements of this collection.
@@ -1078,32 +1096,31 @@ class _CachedIterable<T> extends IterableBase<T> {
       : uncomputedIterator = iterable.iterator;
 
   Iterator<T> uncomputedIterator;
-  final cache = _IterableCache<T>(null);
+  _IterableCache<T> cache = _IterableCache<T>(null);
 
   @override
-  Iterator<T> get iterator => _CachedIterator<T>(cache, uncomputedIterator);
+  Iterator<T> get iterator => _CachedIterator<T>(uncomputedIterator, cache);
 }
 
 class _CachedIterator<T> extends Iterator<T> {
-  _CachedIterator(this.cache, this.uncomputedIterator)
-      : latestValidCache = cache;
+  _CachedIterator(this.uncomputedIterator, this.cache) : latestValidCache = cache;
 
   _IterableCache<T> cache;
-
+    
   /// A reference to the latest non-null [cache].
   ///
   /// This allows adding new items to the cache
-  _IterableCache<T> latestValidCache;
+  late _IterableCache<T> latestValidCache;
   final Iterator<T> uncomputedIterator;
 
   @override
-  T current;
+  late T current;
 
   @override
   bool moveNext() {
-    cache = cache?.next;
-    if (cache != null) {
-      current = cache.value;
+    if (cache.next != null) {
+      cache = cache.next!;
+      current = cache.value as T;
       latestValidCache = cache;
       return true;
     }
@@ -1111,7 +1128,8 @@ class _CachedIterator<T> extends Iterator<T> {
       current = uncomputedIterator.current;
       assert(latestValidCache.next == null);
       latestValidCache.next = _IterableCache(current);
-      latestValidCache = latestValidCache.next;
+      latestValidCache = latestValidCache.next!;
+      cache = latestValidCache;
       return true;
     }
     return false;
@@ -1122,8 +1140,8 @@ class _CachedIterator<T> extends Iterator<T> {
 class _IterableCache<T> {
   _IterableCache(this.value);
 
-  _IterableCache<T> next;
-  final T value;
+  _IterableCache<T>? next;
+  final T? value;
 }
 
 extension IterableIterableX<E> on Iterable<Iterable<E>> {

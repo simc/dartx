@@ -53,28 +53,6 @@ void main() {
     test('not equals when items swapped', () {
       expect(4.2.rangeTo(2.7), isNot(2.7.rangeTo(4.2)));
     });
-    test('start has to be non-null', () {
-      try {
-        DoubleRange(null, 1.0);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>()
-                .having((it) => it.message, 'message', 'start can\'t be null'));
-      }
-    });
-    test('endInclusive has to be non-null', () {
-      try {
-        DoubleRange(1.0, null);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>().having(
-                (it) => it.message, 'message', 'endInclusive can\'t be null'));
-      }
-    });
   });
 
   group('ComparableRange', () {
@@ -120,28 +98,6 @@ void main() {
     test('toString', () {
       expect(DateTime(1995).rangeTo(DateTime(2020)).toString(),
           '1995-01-01 00:00:00.000..2020-01-01 00:00:00.000');
-    });
-    test('start has to be non-null', () {
-      try {
-        ComparableRange(null, DateTime(1));
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>()
-                .having((it) => it.message, 'message', 'start can\'t be null'));
-      }
-    });
-    test('endInclusive has to be non-null', () {
-      try {
-        ComparableRange(DateTime(1), null);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>().having(
-                (it) => it.message, 'message', 'endInclusive can\'t be null'));
-      }
     });
     test('alphabetical range', () {
       final alphabet = 'a'.rangeTo('z');
@@ -198,28 +154,6 @@ void main() {
     test('toString', () {
       expect(3.rangeTo(9).toString(), '3..9');
     });
-    test('start has to be non-null', () {
-      try {
-        IntRange(null, 1);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>()
-                .having((it) => it.message, 'message', 'start can\'t be null'));
-      }
-    });
-    test('endInclusive has to be non-null', () {
-      try {
-        IntRange(1, null);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>().having(
-                (it) => it.message, 'message', 'endInclusive can\'t be null'));
-      }
-    });
   });
 
   group('IntProgression', () {
@@ -258,39 +192,6 @@ void main() {
       expect(6.rangeTo(19).isNotEmpty, isTrue);
       expect(0.rangeTo(0).isNotEmpty, isTrue);
       expect(0.rangeTo(-1).isNotEmpty, isTrue);
-    });
-    test('start has to be non-null', () {
-      try {
-        IntProgression(null, 1);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>()
-                .having((it) => it.message, 'message', 'start can\'t be null'));
-      }
-    });
-    test('endInclusive has to be non-null', () {
-      try {
-        IntProgression(1, null);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>().having(
-                (it) => it.message, 'message', 'endInclusive can\'t be null'));
-      }
-    });
-    test('endInclusive has to be non-null', () {
-      try {
-        IntProgression(1, 2, step: null);
-        fail('did not throw');
-      } catch (e) {
-        expect(
-            e,
-            isA<ArgumentError>()
-                .having((it) => it.message, 'message', 'step can\'t be null'));
-      }
     });
     group('contains', () {
       test('contains double', () {

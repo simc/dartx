@@ -153,14 +153,9 @@ class IntRange extends IntProgression implements Range<int> {
   }
 }
 
-class IntProgression extends IterableBase<int> {
+class IntProgression extends IterableBase<int?> {
   IntProgression(int first, int endInclusive, {int step = 1})
       : assert(() {
-          if (first == null) throw ArgumentError("start can't be null");
-          if (endInclusive == null) {
-            throw ArgumentError("endInclusive can't be null");
-          }
-          if (step == null) throw ArgumentError("step can't be null");
           return true;
         }()),
         _first = first,
@@ -170,7 +165,7 @@ class IntProgression extends IterableBase<int> {
         _last = _getProgressionLastElement(first, endInclusive, step);
 
   @override
-  Iterator<int> get iterator => _IntRangeIterator(_first, _last, stepSize);
+  Iterator<int?> get iterator => _IntRangeIterator(_first, _last, stepSize);
 
   /// The first element in the range.
   final int _first;
@@ -244,7 +239,7 @@ int _mod(int a, int b) {
   return mod >= 0 ? mod : mod + b;
 }
 
-class _IntRangeIterator extends Iterator<int> {
+class _IntRangeIterator extends Iterator<int?> {
   _IntRangeIterator(this.first, this.last, this.step);
 
   final int first;
@@ -252,8 +247,8 @@ class _IntRangeIterator extends Iterator<int> {
   final int last;
 
   @override
-  int get current => _current;
-  int _current;
+  int? get current => _current;
+  int? _current;
   bool completed = false;
 
   @override

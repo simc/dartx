@@ -107,7 +107,7 @@ extension StringX on String {
   /// values as the lower-case ones.
   ///
   /// If no [radix] is given then it defaults to 10.
-  int toInt({int radix}) => int.parse(this, radix: radix);
+  int toInt({int? radix}) => int.parse(this, radix: radix);
 
   /// Parses the string as an [int] number and returns the result or `null` if
   /// the string is not a valid representation of a number.
@@ -118,7 +118,7 @@ extension StringX on String {
   /// values as the lower-case ones.
   ///
   /// If no [radix] is given then it defaults to 10.
-  int toIntOrNull({int radix}) => int.tryParse(this, radix: radix);
+  int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
 
   bool get isDouble => toDoubleOrNull() != null;
 
@@ -127,7 +127,7 @@ extension StringX on String {
 
   /// Parses the string as an [double] number and returns the result or `null`
   /// if the string is not a valid representation of a number.
-  double toDoubleOrNull() => double.tryParse(this);
+  double? toDoubleOrNull() => double.tryParse(this);
 
   List<int> toUtf8() => utf8.encode(this);
 
@@ -176,7 +176,7 @@ extension StringX on String {
   /// Removes from a [String] both the given [prefix] and [suffix] if and only
   /// if it starts with the [prefix] and ends with the [suffix].
   /// Otherwise returns this [String] unchanged.
-  String removeSurrounding({@required String prefix, @required String suffix}) {
+  String removeSurrounding({required String prefix, required String suffix}) {
     assert(prefix != null);
     assert(suffix != null);
     if (startsWith(prefix) && endsWith(suffix)) {
