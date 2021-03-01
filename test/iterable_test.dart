@@ -145,7 +145,7 @@ void main() {
     });
 
     test('.forEachIndexed()', () {
-      int index = 0;
+      var index = 0;
       [6, 5, 4, 3, 2, 1, 0].forEachIndexed((it, i) {
         expect(it, 6 - index);
         expect(i, index);
@@ -352,7 +352,7 @@ void main() {
     });
 
     test('.filterIndexed()', () {
-      int index = 0;
+      var index = 0;
       final result = [6, 5, 4, 3, 2, 1, 0].filterIndexed((it, i) {
         expect(it, 6 - index);
         expect(i, index);
@@ -369,7 +369,7 @@ void main() {
     });
 
     test('.filterToIndexed()', () {
-      int index = 0;
+      var index = 0;
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterIndexedTo(list, (e, i) {
         expect(index++, i);
@@ -383,7 +383,7 @@ void main() {
     });
 
     test('.filterNotIndexed()', () {
-      int index = 0;
+      var index = 0;
       expect(
         [1, 2, 3, 4, 3, 2, 1].filterNotIndexed((e, i) {
           expect(index++, i);
@@ -400,7 +400,7 @@ void main() {
     });
 
     test('.filterToIndexed()', () {
-      int index = 0;
+      var index = 0;
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterNotToIndexed(list, (e, i) {
         expect(index++, i);
@@ -414,7 +414,7 @@ void main() {
     });
 
     test('.whereIndexed()', () {
-      int index = 0;
+      var index = 0;
       final result = [6, 5, 4, 3, 2, 1, 0].whereIndexed((it, i) {
         expect(it, 6 - index);
         expect(i, index);
@@ -431,7 +431,7 @@ void main() {
     });
 
     test('.whereToIndexed()', () {
-      int index = 0;
+      var index = 0;
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereIndexedTo(list, (e, i) {
         expect(index++, i);
@@ -445,7 +445,7 @@ void main() {
     });
 
     test('.whereNotIndexed()', () {
-      int index = 0;
+      var index = 0;
       expect(
         [1, 2, 3, 4, 3, 2, 1].whereNotIndexed((e, i) {
           expect(index++, i);
@@ -462,7 +462,7 @@ void main() {
     });
 
     test('.whereToIndexed()', () {
-      int index = 0;
+      var index = 0;
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereNotToIndexed(list, (e, i) {
         expect(index++, i);
@@ -908,7 +908,7 @@ void main() {
 
     group('cached', () {
       test('does not re-evaluate elements when re-accessed', () {
-        int accessCount = 0;
+        var accessCount = 0;
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;
@@ -921,7 +921,7 @@ void main() {
         expect(accessCount, 3);
       });
       test('concurrent access', () {
-        int accessCount = 0;
+        var accessCount = 0;
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;
@@ -934,7 +934,7 @@ void main() {
         expect(accessCount, 3);
       });
       test('partial population', () {
-        int accessCount = 0;
+        var accessCount = 0;
         final iterable = [0, 1, 2].map((e) {
           accessCount++;
           return e;

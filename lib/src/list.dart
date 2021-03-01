@@ -27,7 +27,7 @@ extension ListX<E> on List<E> {
   int get lastIndex => length - 1;
 
   Iterable<int> get indices sync* {
-    int index = 0;
+    var index = 0;
     while (index <= lastIndex) {
       yield index++;
     }
@@ -50,7 +50,7 @@ extension ListX<E> on List<E> {
   /// satisfy the given [predicate].
   List<E> dropWhile(bool Function(E element) predicate) {
     int? startIndex;
-    for (int i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       if (!predicate(this[i])) {
         startIndex = i;
         break;
@@ -77,7 +77,7 @@ extension ListX<E> on List<E> {
   /// satisfy the given [predicate].
   List<E> dropLastWhile(bool Function(E element) predicate) {
     int? endIndex;
-    for (int i = lastIndex; i >= 0; i--) {
+    for (var i = lastIndex; i >= 0; i--) {
       if (!predicate(this[i])) {
         endIndex = i;
         break;

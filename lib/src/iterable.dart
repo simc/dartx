@@ -35,7 +35,7 @@ extension IterableX<E> on Iterable<E> {
   /// ```
   E? elementAtOrNull(int index) {
     if (index < 0) return null;
-    int count = 0;
+    var count = 0;
     for (final element in this) {
       if (index == count++) return element;
     }
@@ -65,7 +65,7 @@ extension IterableX<E> on Iterable<E> {
   /// ```
   E elementAtOrElse(int index, E Function(int index) defaultValue) {
     if (index < 0) return defaultValue(index);
-    int count = 0;
+    var count = 0;
     for (final element in this) {
       if (index == count++) return element;
     }
@@ -148,8 +148,8 @@ extension IterableX<E> on Iterable<E> {
   /// If [end] is omitted, it is being set to `lastIndex`.
   List<E> slice(int start, [int end = -1]) {
     final list = this is List ? this as List<E> : toList();
-    int _start = start;
-    int _end = end;
+    var _start = start;
+    var _end = end;
 
     if (_start < 0) {
       _start = _start + list.length;
@@ -166,7 +166,7 @@ extension IterableX<E> on Iterable<E> {
   /// Performs the given [action] on each element, providing sequential index
   /// with the element.
   void forEachIndexed(void Function(E element, int index) action) {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       action(element, index++);
     }
@@ -284,7 +284,7 @@ extension IterableX<E> on Iterable<E> {
     String truncated = '...',
   }) {
     final buffer = StringBuffer();
-    int count = 0;
+    var count = 0;
     for (final element in this) {
       if (limit != null && count >= limit) {
         buffer.write(truncated);
@@ -311,7 +311,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
   double sumBy(num Function(E element) selector) {
-    double sum = 0.0;
+    var sum = 0.0;
     for (final current in this) {
       sum += selector(current);
     }
@@ -321,7 +321,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the average of values returned by [selector] for all elements in
   /// the collection.
   double averageBy(num Function(E element) selector) {
-    int count = 0;
+    var count = 0;
     num sum = 0;
 
     for (final current in this) {
@@ -367,7 +367,7 @@ extension IterableX<E> on Iterable<E> {
     if (!it.moveNext()) {
       return null;
     }
-    E currentMin = it.current;
+    var currentMin = it.current;
 
     while (it.moveNext()) {
       if ((it.current as Comparable).compareTo(currentMin) == order) {
@@ -384,8 +384,8 @@ extension IterableX<E> on Iterable<E> {
       return null;
     }
 
-    E currentMin = it.current;
-    Comparable currentMinValue = selector(it.current);
+    var currentMin = it.current;
+    var currentMinValue = selector(it.current);
     while (it.moveNext()) {
       final comp = selector(it.current);
       if (comp.compareTo(currentMinValue) == order) {
@@ -402,7 +402,7 @@ extension IterableX<E> on Iterable<E> {
     if (!it.moveNext()) {
       return null;
     }
-    E currentMin = it.current;
+    var currentMin = it.current;
 
     while (it.moveNext()) {
       if (comparator(it.current, currentMin) == order) {
@@ -417,7 +417,7 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If no [predicate] is given, this equals to [length].
   int count([bool Function(E element)? predicate]) {
-    int count = 0;
+    var count = 0;
     if (predicate == null) {
       return length;
     } else {
@@ -543,7 +543,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(
       bool Function(E element, int index) predicate) sync* {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       if (predicate(element, index++)) {
         yield element;
@@ -565,7 +565,7 @@ extension IterableX<E> on Iterable<E> {
   /// [destination].
   void whereIndexedTo(
       List<E> destination, bool Function(E element, int index) predicate) {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       if (predicate(element, index++)) {
         destination.add(element);
@@ -585,7 +585,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNotIndexed(
       bool Function(E element, int index) predicate) sync* {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       if (!predicate(element, index++)) {
         yield element;
@@ -607,7 +607,7 @@ extension IterableX<E> on Iterable<E> {
   /// [destination].
   void whereNotToIndexed(
       List<E> destination, bool Function(E element, int index) predicate) {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       if (!predicate(element, index++)) {
         destination.add(element);
@@ -634,7 +634,7 @@ extension IterableX<E> on Iterable<E> {
   /// given [transform] function to each element and its index in the original
   /// collection.
   Iterable<R> mapIndexed<R>(R Function(int index, E) transform) sync* {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       yield transform(index++, element);
     }
@@ -644,7 +644,7 @@ extension IterableX<E> on Iterable<E> {
   /// applying the given [transform] function to each element and its index
   /// in the original collection.
   Iterable<R> mapIndexedNotNull<R>(R? Function(int index, E) transform) sync* {
-    int index = 0;
+    var index = 0;
     for (final element in this) {
       final result = transform(index++, element);
       if (result != null) {
@@ -703,7 +703,7 @@ extension IterableX<E> on Iterable<E> {
       throw ArgumentError('Requested chunk size $size is less than one.');
     }
 
-    List<E> currentChunk = [];
+    var currentChunk = <E>[];
     for (final current in this) {
       currentChunk.add(current);
       if (currentChunk.length >= size) {
@@ -731,8 +731,8 @@ extension IterableX<E> on Iterable<E> {
   /// See also:
   ///  - [splitWhen], which works similarly but with a reverted [predicate].
   Iterable<List<E>> chunkWhile(bool Function(E, E) predicate) sync* {
-    List<E> currentChunk = [];
-    bool hasPrevious = false;
+    var currentChunk = <E>[];
+    var hasPrevious = false;
     late E previous;
 
     for (final element in this) {
@@ -784,8 +784,8 @@ extension IterableX<E> on Iterable<E> {
   }) sync* {
     final gap = step - size;
     if (gap >= 0) {
-      List<E> buffer = [];
-      int skip = 0;
+      var buffer = <E>[];
+      var skip = 0;
       for (final element in this) {
         if (skip > 0) {
           skip -= 1;
@@ -794,7 +794,7 @@ extension IterableX<E> on Iterable<E> {
         buffer.add(element);
         if (buffer.length == size) {
           yield buffer;
-          buffer = [];
+          buffer = <E>[];
           skip = gap;
         }
       }
@@ -842,7 +842,7 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If [n] is omitted, the Iterable cycles forever.
   Iterable<E> cycle([int? n]) sync* {
-    Iterator<E> it = iterator;
+    var it = iterator;
     if (!it.moveNext()) {
       return;
     }
@@ -855,7 +855,7 @@ extension IterableX<E> on Iterable<E> {
         it = iterator;
       }
     } else {
-      int count = 0;
+      var count = 0;
       yield it.current;
       while (count++ < n) {
         while (it.moveNext()) {

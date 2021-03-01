@@ -246,7 +246,7 @@ class _IntRangeIterator extends Iterator<int> {
     }
 
     final now = _current ?? first;
-    int next = now;
+    var next = now;
     if (_current != null) {
       assert(first != last);
       if (first <= last) {
