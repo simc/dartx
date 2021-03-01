@@ -257,6 +257,7 @@ void main() {
 
     test('.minBy()', () {
       expect([].minBy((it) => 0), null);
+      expect(<String>[].minBy((it) => it.length), null);
       expect(['test'].minBy((it) => it.length), 'test');
       expect(['t', 'te', 'tes'].minBy((it) => it.length), 't');
     });
