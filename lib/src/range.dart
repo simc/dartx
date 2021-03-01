@@ -49,14 +49,7 @@ class ComparableRange<T extends Comparable<T>> extends Range<T> {
   /// Create a range of [Comparable] values such as [String] or [DateTime]
   ///
   /// The order of [start] and [endInclusive] doesn't matter.
-  ComparableRange(this.start, this.endInclusive)
-      : assert(() {
-          if (start == null) throw ArgumentError("start can't be null");
-          if (endInclusive == null) {
-            throw ArgumentError("endInclusive can't be null");
-          }
-          return true;
-        }());
+  ComparableRange(this.start, this.endInclusive);
 
   @override
   final T start;
@@ -106,14 +99,7 @@ extension DoubleRangeExtension on double {
 }
 
 class DoubleRange extends Range<double> {
-  DoubleRange(this.start, this.endInclusive)
-      : assert(() {
-          if (start == null) throw ArgumentError("start can't be null");
-          if (endInclusive == null) {
-            throw ArgumentError("endInclusive can't be null");
-          }
-          return true;
-        }());
+  DoubleRange(this.start, this.endInclusive);
   @override
   final double endInclusive;
 
@@ -155,15 +141,7 @@ class IntRange extends IntProgression implements Range<int> {
 
 class IntProgression extends IterableBase<int> {
   IntProgression(int first, int endInclusive, {int step = 1})
-      : assert(() {
-          if (first == null) throw ArgumentError("start can't be null");
-          if (endInclusive == null) {
-            throw ArgumentError("endInclusive can't be null");
-          }
-          if (step == null) throw ArgumentError("step can't be null");
-          return true;
-        }()),
-        _first = first,
+      : _first = first,
         // can't initialize directly du to naming conflict with step() method
         // ignore: prefer_initializing_formals
         stepSize = step,
@@ -252,8 +230,8 @@ class _IntRangeIterator extends Iterator<int> {
   final int last;
 
   @override
-  int get current => _current;
-  int _current;
+  int get current => _current!;
+  int? _current;
   bool completed = false;
 
   @override

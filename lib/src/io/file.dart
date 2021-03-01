@@ -21,7 +21,7 @@ extension FileX on File {
   /// This functions passes the byte buffer to the [action] function.
   ///
   /// You can use this function for huge files.
-  Future<Null> forEachBlock(
+  Future<void> forEachBlock(
       int blockSize, void Function(Uint8List buffer) action) async {
     var raf = await open(mode: FileMode.read);
     while (true) {

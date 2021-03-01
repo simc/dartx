@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
@@ -94,12 +96,6 @@ void main() {
       expect([1, 2, 3, 4, 5].lastOrNullWhere((e) => e < 3), 2);
       expect([1, 2, 3, 4, 5].lastOrNullWhere((e) => e > 5), null);
       expect([].lastOrNullWhere((e) => true), null);
-    });
-
-    test('.requireNoNulls()', () {
-      [].requireNoNulls();
-      [1, 2, 3].requireNoNulls();
-      expect(() => [1, 2, null, 3].requireNoNulls(), throwsStateError);
     });
 
     test('.all()', () {
@@ -238,13 +234,13 @@ void main() {
     test('.sumBy()', () {
       expect([].sumBy((it) => 0.0), 0);
       expect(['t', 'te', 'tes'].sumBy((it) => it.length), 6);
-      expect(['t', null, '', 'tes', null].sumBy((it) => it?.length), 4);
+      expect(['t', null, '', 'tes', null].sumBy(((it) => it?.length ?? 0)), 4);
     });
 
     test('.averageBy()', () {
       expect(() => [].averageBy((it) => 0.0), throwsStateError);
       expect(['t', 'te', 'tes'].averageBy((it) => it.length), 2.0);
-      expect(['te', null, 'test'].averageBy((it) => it?.length), 2.0);
+      expect(['te', null, 'test'].averageBy(((it) => it?.length ?? 0)), 2.0);
     });
 
     test('.min()', () {
@@ -261,6 +257,7 @@ void main() {
 
     test('.minBy()', () {
       expect([].minBy((it) => 0), null);
+      expect(<String>[].minBy((it) => it.length), null);
       expect(['test'].minBy((it) => it.length), 'test');
       expect(['t', 'te', 'tes'].minBy((it) => it.length), 't');
     });
@@ -489,7 +486,7 @@ void main() {
       expect([].mapIndexed((index, it) => 1), []);
       expect([1, 2, 3, 4].mapIndexed((index, it) => null),
           [null, null, null, null]);
-      expect([5, 4, null, 2].mapIndexed((index, it) => index), [0, 1, 2, 3]);
+      expect([5, 4, null, 2].mapIndexed(((index, it) => index)), [0, 1, 2, 3]);
       expect(
           [1, 2, 3, 4].mapIndexed((index, it) => it % 2 == 0 ? it * 2 : null),
           [null, 4, null, 8]);
@@ -498,7 +495,7 @@ void main() {
     test('.mapIndexedNotNull()', () {
       expect([].mapIndexedNotNull((index, it) => 1), []);
       expect([1, 2, 3, 4].mapIndexedNotNull((index, it) => null), []);
-      expect([5, 4, null, 2].mapIndexedNotNull((index, it) => index),
+      expect([5, 4, null, 2].mapIndexedNotNull(((index, it) => index)),
           [0, 1, 2, 3]);
       expect(
           [1, 2, 3, 4]
@@ -563,7 +560,7 @@ void main() {
 
       test('size 1', () {
         expect(
-          [1].chunkWhile((a, b) => fail('Should not call predicate')),
+          [1].chunkWhile(((a, b) => fail('Should not call predicate'))),
           [
             [1]
           ],
@@ -795,7 +792,7 @@ void main() {
 
     group('.zip()', () {
       test('with same types', () {
-        expect([].zip([], (e1, e2) => null), []);
+        expect([].zip([], (e1, dynamic e2) => null), []);
         expect(
           [1, 2, 3].zip([2, 4, 6], (e1, int e2) => e1 / e2),
           [0.5, 0.5, 0.5],

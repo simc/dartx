@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        version: ["2.7", "2.8", "2.9", "2.10", "dev"]
+        version: ["2.12-beta", "dev"]
 
     container:
       image:  google/dart:${{ matrix.version }}
@@ -22,6 +22,10 @@ jobs:
         run: pub run test
 
   test-windows:
+
+    # No nullsafety dev sdk available on windows
+    if: ${{ false }}
+
     timeout-minutes: 5
     runs-on: windows-latest
 
@@ -44,7 +48,7 @@ jobs:
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
-        run: brew install dart
+        run: brew install dart-beta
       - name: Install dependencies
         run: pub get
       - name: Run tests

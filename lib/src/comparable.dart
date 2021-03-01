@@ -13,7 +13,7 @@ extension ComparableX<T extends Comparable<T>> on T {
   /// @return this value if it's in the range, or [minimumValue]
   /// if this value is less than [minimumValue],
   /// or [maximumValue] if this value is greater than [maximumValue].
-  T coerceIn(T minimumValue, [T maximumValue]) {
+  T coerceIn(T minimumValue, [T? maximumValue]) {
     if (maximumValue != null && minimumValue > maximumValue) {
       throw ArgumentError('Cannot coerce value to an empty range: '
           'maximum $maximumValue is less than minimum $minimumValue.');
