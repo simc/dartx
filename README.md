@@ -18,7 +18,7 @@ Add the following to your `pubspec.yaml`:
 
 ```dart
 dependencies:
-  dartx:
+  dartx: any
 ```
 
 After you import the library, you can use the extensions.
