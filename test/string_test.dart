@@ -159,7 +159,7 @@ void main() {
       expect('text'.removePrefix(''), 'text');
       expect('🎉🌟'.removePrefix('🎉'), '🌟');
 
-      final expected = 'sameInstance';
+      const expected = 'sameInstance';
       expect(expected.removePrefix(''), same(expected));
     });
 
@@ -170,7 +170,7 @@ void main() {
       expect('text'.removeSuffix(''), 'text');
       expect('🎉🌟'.removeSuffix('🌟'), '🎉');
 
-      final expected = 'sameInstance';
+      const expected = 'sameInstance';
       expect(expected.removeSuffix(''), same(expected));
     });
 
@@ -190,7 +190,7 @@ void main() {
       );
       expect('🎉😊🌟'.removeSurrounding(prefix: '🎉', suffix: '🌟'), '😊');
 
-      final expected = 'sameInstance';
+      const expected = 'sameInstance';
       expect(
         expected.removeSurrounding(prefix: '', suffix: ''),
         same(expected),
@@ -202,6 +202,7 @@ void main() {
       expect('awesomeString'.slice(0, -7), 'awesome');
       expect('awesomeString'.slice(7), 'String');
       expect('awesomeString'.slice(-6), 'String');
+      // ignore: avoid_redundant_argument_values
       expect('awesomeString'.slice(-6, -1), 'String');
       expect('awesomeString'.slice(-6, 8), 'St');
       expect('awesomeString'.slice(0), 'awesomeString');
@@ -209,6 +210,7 @@ void main() {
       expect(() => ''.slice(0), throwsRangeError);
       expect(() => ''.slice(0, 1), throwsRangeError);
       expect(() => ''.slice(-1), throwsRangeError);
+      // ignore: avoid_redundant_argument_values
       expect(() => ''.slice(0, -1), throwsRangeError);
       expect(() => 'awesomeString'.slice(1, 13), throwsRangeError);
       expect(() => 'awesomeString'.slice(2, 1), throwsRangeError);

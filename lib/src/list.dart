@@ -27,7 +27,7 @@ extension ListX<E> on List<E> {
   int get lastIndex => length - 1;
 
   Iterable<int> get indices sync* {
-    var index = 0;
+    int index = 0;
     while (index <= lastIndex) {
       yield index++;
     }
@@ -40,7 +40,7 @@ extension ListX<E> on List<E> {
     }
     if (n == 0) toList();
 
-    var resultSize = length - n;
+    final resultSize = length - n;
     if (resultSize <= 0) return [];
     if (resultSize == 1) return [last!];
     return sublist(n);
@@ -50,7 +50,7 @@ extension ListX<E> on List<E> {
   /// satisfy the given [predicate].
   List<E> dropWhile(bool Function(E element) predicate) {
     int? startIndex;
-    for (var i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++) {
       if (!predicate(this[i])) {
         startIndex = i;
         break;
@@ -67,7 +67,7 @@ extension ListX<E> on List<E> {
     }
     if (n == 0) toList();
 
-    var resultSize = length - n;
+    final resultSize = length - n;
     if (resultSize <= 0) return [];
     if (resultSize == 1) return [first];
     return sublist(0, length - n);
@@ -77,7 +77,7 @@ extension ListX<E> on List<E> {
   /// satisfy the given [predicate].
   List<E> dropLastWhile(bool Function(E element) predicate) {
     int? endIndex;
-    for (var i = lastIndex; i >= 0; i--) {
+    for (int i = lastIndex; i >= 0; i--) {
       if (!predicate(this[i])) {
         endIndex = i;
         break;
@@ -159,7 +159,7 @@ extension ListX<E> on List<E> {
   /// Swaps the elements in the indices provided.
   ///
   /// ```dart
-  /// var list = [1, 2, 3, 4];
+  /// final list = [1, 2, 3, 4];
   /// list.swap(0, 2); // [3, 2, 1, 4]
   /// ```
   void swap(int indexA, int indexB) {
@@ -174,8 +174,8 @@ extension ListListX<E> on List<List<E>> {
   /// [List].
   ///
   /// ```dart
-  /// var nestedList = [[1, 2, 3], [4, 5, 6]];
-  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// final nestedList = [[1, 2, 3], [4, 5, 6]];
+  /// final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
   /// ```
   ///
   ///
@@ -183,8 +183,8 @@ extension ListListX<E> on List<List<E>> {
   /// accessing elements by index afterwards
   ///
   /// ```dart
-  /// var flat = [['a', 'b'], ['c', 'd']].flatten();
+  /// final flat = [['a', 'b'], ['c', 'd']].flatten();
   /// print(flat[2]); // prints "c"
   /// ```
-  List<E> flatten() => [for (var list in this) ...list];
+  List<E> flatten() => [for (final list in this) ...list];
 }

@@ -72,14 +72,14 @@ extension StringX on String {
   bool get isDecapitalized => isNotEmpty && this[0].isLowerCase;
 
   bool get isAscii {
-    for (var codeUnit in codeUnits) {
+    for (final codeUnit in codeUnits) {
       if (codeUnit > _ascii) return false;
     }
     return true;
   }
 
   bool get isLatin1 {
-    for (var codeUnit in codeUnits) {
+    for (final codeUnit in codeUnits) {
       if (codeUnit > _latin1) return false;
     }
     return true;
@@ -87,9 +87,9 @@ extension StringX on String {
 
   /// Returns a new string with characters in reversed order.
   String get reversed {
-    var range = Characters(this).iteratorAtEnd;
+    final range = Characters(this).iteratorAtEnd;
 
-    var buffer = StringBuffer();
+    final buffer = StringBuffer();
     while (range.moveBack()) {
       buffer.write(range.current);
     }
@@ -182,12 +182,12 @@ extension StringX on String {
   /// print('awesomeString'.slice(7)); // String
   /// ```
   String slice(int start, [int end = -1]) {
-    start = start < 0 ? start + length : start;
-    end = end < 0 ? end + length : end;
+    final _start = start < 0 ? start + length : start;
+    final _end = end < 0 ? end + length : end;
 
-    RangeError.checkValidRange(start, end, length);
+    RangeError.checkValidRange(_start, _end, length);
 
-    return substring(start, end + 1);
+    return substring(_start, _end + 1);
   }
 }
 

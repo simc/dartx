@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_redundant_argument_values
 import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
@@ -57,8 +58,8 @@ void main() {
     });
 
     test('.between()', () {
-      var start = DateTime(1984, 11, 19);
-      var end = DateTime(2020, 01, 01);
+      final start = DateTime(1984, 11, 19);
+      final end = DateTime(2020, 01, 01);
       expect(DateTime(1984, 11, 19).between(start, end), true);
       expect(DateTime(2019, 11, 19).between(start, end), true);
       expect(DateTime(2020, 01, 01).between(start, end), true);

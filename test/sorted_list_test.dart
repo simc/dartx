@@ -61,7 +61,7 @@ void main() {
     });
     test('iterator', () {
       expect(_sortedList.iterator, isA<Iterator<int>>());
-      var iterator = _sortedList.iterator;
+      final iterator = _sortedList.iterator;
       expect(iterator.moveNext(), isTrue);
       expect(iterator.current, 1);
     });

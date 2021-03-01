@@ -5,7 +5,7 @@ extension IterableNumX<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.
   T sum() {
     num sum = 0.0;
-    for (var current in this) {
+    for (final current in this) {
       sum += current;
     }
     if (T == int) {
@@ -19,7 +19,7 @@ extension IterableNumX<T extends num> on Iterable<T> {
   double average() {
     var count = 0;
     num sum = 0;
-    for (var current in this) {
+    for (final current in this) {
       sum += current;
       count++;
     }

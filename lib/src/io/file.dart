@@ -3,7 +3,7 @@ part of dartx_io;
 extension FileX on File {
   /// Appends an array of [bytes] to the content of this file.
   Future<void> appendBytes(List<int> bytes) async {
-    var raf = await open(mode: FileMode.writeOnlyAppend);
+    final raf = await open(mode: FileMode.writeOnlyAppend);
     await raf.writeFrom(bytes);
     await raf.close();
   }
@@ -11,7 +11,7 @@ extension FileX on File {
   /// Appends a [string] to the content of this file using UTF-8 or the
   /// specified [encoding].
   Future<void> appendString(String string, {Encoding encoding = utf8}) async {
-    var raf = await open(mode: FileMode.writeOnlyAppend);
+    final raf = await open(mode: FileMode.writeOnlyAppend);
     await raf.writeString(string);
     await raf.close();
   }
@@ -23,9 +23,9 @@ extension FileX on File {
   /// You can use this function for huge files.
   Future<void> forEachBlock(
       int blockSize, void Function(Uint8List buffer) action) async {
-    var raf = await open(mode: FileMode.read);
+    final raf = await open();
     while (true) {
-      var buffer = await raf.read(blockSize);
+      final buffer = await raf.read(blockSize);
       if (buffer.length == blockSize) {
         action(buffer);
       } else if (buffer.isNotEmpty) {

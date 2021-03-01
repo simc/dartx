@@ -29,14 +29,14 @@ extension IterableX<E> on Iterable<E> {
   /// bounds of this collection.
   ///
   /// ```dart
-  /// var list = [1, 2, 3, 4];
-  /// var first = list.elementAtOrNull(0); // 1
-  /// var fifth = list.elementAtOrNull(4); // null
+  /// final list = [1, 2, 3, 4];
+  /// final first = list.elementAtOrNull(0); // 1
+  /// final fifth = list.elementAtOrNull(4); // null
   /// ```
   E? elementAtOrNull(int index) {
     if (index < 0) return null;
-    var count = 0;
-    for (var element in this) {
+    int count = 0;
+    for (final element in this) {
       if (index == count++) return element;
     }
     return null;
@@ -46,9 +46,9 @@ extension IterableX<E> on Iterable<E> {
   /// is out of bounds of this collection.
   ///
   /// ```dart
-  /// var list = [1, 2, 3, 4];
-  /// var first = list.elementAtOrDefault(0, -1); // 1
-  /// var fifth = list.elementAtOrDefault(4, -1); // -1
+  /// final list = [1, 2, 3, 4];
+  /// final first = list.elementAtOrDefault(0, -1); // 1
+  /// final fifth = list.elementAtOrDefault(4, -1); // -1
   /// ```
   E elementAtOrDefault(int index, E defaultValue) {
     return elementAtOrElse(index, (_) => defaultValue);
@@ -59,14 +59,14 @@ extension IterableX<E> on Iterable<E> {
   /// collection.
   ///
   /// ```dart
-  /// var list = [1, 2, 3, 4];
-  /// var first = list.elementAtOrElse(0); // 1
-  /// var fifth = list.elementAtOrElse(4, -1); // -1
+  /// final list = [1, 2, 3, 4];
+  /// final first = list.elementAtOrElse(0); // 1
+  /// final fifth = list.elementAtOrElse(4, -1); // -1
   /// ```
   E elementAtOrElse(int index, E Function(int index) defaultValue) {
     if (index < 0) return defaultValue(index);
-    var count = 0;
-    for (var element in this) {
+    int count = 0;
+    for (final element in this) {
       if (index == count++) return element;
     }
     return defaultValue(index);
@@ -75,16 +75,16 @@ extension IterableX<E> on Iterable<E> {
   /// First element or `null` if the collection is empty.
   ///
   /// ```dart
-  /// var first = [1, 2, 3, 4].firstOrNull; // 1
-  /// var emptyFirst = [].firstOrNull; // null
+  /// final first = [1, 2, 3, 4].firstOrNull; // 1
+  /// final emptyFirst = [].firstOrNull; // null
   /// ```
   E? get firstOrNull => isNotEmpty ? first : null;
 
   /// First element or `defaultValue` if the collection is empty.
   ///
   /// ```dart
-  /// var first = [1, 2, 3, 4].firstOrDefault(-1); // 1
-  /// var emptyFirst = [].firstOrDefault(-1); // -1
+  /// final first = [1, 2, 3, 4].firstOrDefault(-1); // 1
+  /// final emptyFirst = [].firstOrDefault(-1); // -1
   /// ```
   E firstOrDefault(E defaultValue) => isNotEmpty ? first : defaultValue;
 
@@ -92,13 +92,13 @@ extension IterableX<E> on Iterable<E> {
   /// such element was found.
   ///
   /// ```dart
-  /// var list = ['a', 'Test'];
-  /// var firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
-  /// var firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
+  /// final list = ['a', 'Test'];
+  /// final firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
+  /// final firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
   /// ```
   @Deprecated('Use firstWhereOrNull from package:collection')
   E? firstOrNullWhere(bool Function(E element) predicate) {
-    for (var element in this) {
+    for (final element in this) {
       if (predicate(element)) return element;
     }
     return null;
@@ -107,8 +107,8 @@ extension IterableX<E> on Iterable<E> {
   /// Last element or `null` if the collection is empty.
   ///
   /// ```dart
-  /// var last = [1, 2, 3, 4].lastOrNull; // 4
-  /// var emptyLast = [].firstOrNull; // null
+  /// final last = [1, 2, 3, 4].lastOrNull; // 4
+  /// final emptyLast = [].firstOrNull; // null
   /// ```
   E? get lastOrNull => isNotEmpty ? last : null;
 
@@ -119,7 +119,7 @@ extension IterableX<E> on Iterable<E> {
   /// such element was found.
   E? lastOrNullWhere(bool Function(E element) predicate) {
     E? match;
-    for (var e in this) {
+    for (final e in this) {
       if (predicate(e)) {
         match = e;
       }
@@ -130,7 +130,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns true if all elements match the given [predicate] or if the
   /// collection is empty.
   bool all(bool Function(E element) predicate) {
-    for (var element in this) {
+    for (final element in this) {
       if (!predicate(element)) {
         return false;
       }
@@ -147,25 +147,27 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If [end] is omitted, it is being set to `lastIndex`.
   List<E> slice(int start, [int end = -1]) {
-    var list = this is List ? this as List<E> : toList();
+    final list = this is List ? this as List<E> : toList();
+    int _start = start;
+    int _end = end;
 
-    if (start < 0) {
-      start = start + list.length;
+    if (_start < 0) {
+      _start = _start + list.length;
     }
-    if (end < 0) {
-      end = end + list.length;
+    if (_end < 0) {
+      _end = _end + list.length;
     }
 
-    RangeError.checkValidRange(start, end, list.length);
+    RangeError.checkValidRange(_start, _end, list.length);
 
-    return list.sublist(start, end + 1);
+    return list.sublist(_start, _end + 1);
   }
 
   /// Performs the given [action] on each element, providing sequential index
   /// with the element.
   void forEachIndexed(void Function(E element, int index) action) {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       action(element, index++);
     }
   }
@@ -173,7 +175,7 @@ extension IterableX<E> on Iterable<E> {
   /// Checks if all elements in the specified [collection] are contained in
   /// this collection.
   bool containsAll(Iterable<E> collection) {
-    for (var element in collection) {
+    for (final element in collection) {
       if (!contains(element)) return false;
     }
     return true;
@@ -182,7 +184,7 @@ extension IterableX<E> on Iterable<E> {
   /// Checks if any elements in the specified [collection] are contained in
   /// this collection.
   bool containsAny(Iterable<E> collection) {
-    for (var element in collection) {
+    for (final element in collection) {
       if (contains(element)) return true;
     }
     return false;
@@ -196,8 +198,8 @@ extension IterableX<E> on Iterable<E> {
   /// If [checkEqual] is provided, it is used to check if two elements are the
   /// same.
   bool contentEquals(Iterable<E> other, [bool Function(E a, E b)? checkEqual]) {
-    var it1 = iterator;
-    var it2 = other.iterator;
+    final it1 = iterator;
+    final it2 = other.iterator;
     if (checkEqual != null) {
       while (it1.moveNext()) {
         if (!it2.moveNext()) return false;
@@ -217,7 +219,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to natural sort
   /// order.
   List<E> sorted() {
-    var list = toList();
+    final list = toList();
     list.sort();
     return list;
   }
@@ -225,7 +227,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to descending
   /// natural sort order.
   List<E> sortedDescending() {
-    var list = toList();
+    final list = toList();
     list.sort((a, b) => -(a as Comparable).compareTo(b));
     return list;
   }
@@ -281,9 +283,9 @@ extension IterableX<E> on Iterable<E> {
     int? limit,
     String truncated = '...',
   }) {
-    var buffer = StringBuffer();
-    var count = 0;
-    for (var element in this) {
+    final buffer = StringBuffer();
+    int count = 0;
+    for (final element in this) {
       if (limit != null && count >= limit) {
         buffer.write(truncated);
         return buffer.toString();
@@ -309,8 +311,8 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
   double sumBy(num Function(E element) selector) {
-    var sum = 0.0;
-    for (var current in this) {
+    double sum = 0.0;
+    for (final current in this) {
       sum += selector(current);
     }
     return sum;
@@ -319,10 +321,10 @@ extension IterableX<E> on Iterable<E> {
   /// Returns the average of values returned by [selector] for all elements in
   /// the collection.
   double averageBy(num Function(E element) selector) {
-    var count = 0;
+    int count = 0;
     num sum = 0;
 
-    for (var current in this) {
+    for (final current in this) {
       sum += selector(current);
       count++;
     }
@@ -361,11 +363,11 @@ extension IterableX<E> on Iterable<E> {
   E? maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
 
   E? _minMax(int order) {
-    var it = iterator;
+    final it = iterator;
     if (!it.moveNext()) {
       return null;
     }
-    var currentMin = it.current;
+    E currentMin = it.current;
 
     while (it.moveNext()) {
       if ((it.current as Comparable).compareTo(currentMin) == order) {
@@ -377,15 +379,15 @@ extension IterableX<E> on Iterable<E> {
   }
 
   E? _minMaxBy(int order, Comparable Function(E element) selector) {
-    var it = iterator;
+    final it = iterator;
     if (!it.moveNext()) {
       return null;
     }
 
-    var currentMin = it.current;
-    var currentMinValue = selector(it.current);
+    E currentMin = it.current;
+    Comparable currentMinValue = selector(it.current);
     while (it.moveNext()) {
-      var comp = selector(it.current);
+      final comp = selector(it.current);
       if (comp.compareTo(currentMinValue) == order) {
         currentMin = it.current;
         currentMinValue = comp;
@@ -396,11 +398,11 @@ extension IterableX<E> on Iterable<E> {
   }
 
   E? _minMaxWith(int order, Comparator<E> comparator) {
-    var it = iterator;
+    final it = iterator;
     if (!it.moveNext()) {
       return null;
     }
-    var currentMin = it.current;
+    E currentMin = it.current;
 
     while (it.moveNext()) {
       if (comparator(it.current, currentMin) == order) {
@@ -415,11 +417,11 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If no [predicate] is given, this equals to [length].
   int count([bool Function(E element)? predicate]) {
-    var count = 0;
+    int count = 0;
     if (predicate == null) {
       return length;
     } else {
-      for (var current in this) {
+      for (final current in this) {
         if (predicate(current)) {
           count++;
         }
@@ -446,7 +448,7 @@ extension IterableX<E> on Iterable<E> {
   /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
   /// ```
   List<E> takeFirst(int n) {
-    var list = this is List<E> ? this as List<E> : toList();
+    final list = this is List<E> ? this as List<E> : toList();
     return list.sublist(0, n);
   }
 
@@ -460,7 +462,7 @@ extension IterableX<E> on Iterable<E> {
   /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
   /// ```
   List<E> takeLast(int n) {
-    var list = this is List<E> ? this as List<E> : toList();
+    final list = this is List<E> ? this as List<E> : toList();
     return list.sublist(length - n);
   }
 
@@ -474,7 +476,7 @@ extension IterableX<E> on Iterable<E> {
   /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
   /// ```
   Iterable<E> firstWhile(bool Function(E element) predicate) sync* {
-    for (var element in this) {
+    for (final element in this) {
       if (!predicate(element)) break;
       yield element;
     }
@@ -490,8 +492,8 @@ extension IterableX<E> on Iterable<E> {
   /// print(chars.takeLastWhile((it) => it > 5 }) // [6, 7, 8, 9]
   /// ```
   Iterable<E> lastWhile(bool Function(E element) predicate) {
-    var list = ListQueue<E>();
-    for (var element in reversed) {
+    final list = ListQueue<E>();
+    for (final element in reversed) {
       if (!predicate(element)) break;
       list.addFirst(element);
     }
@@ -541,8 +543,8 @@ extension IterableX<E> on Iterable<E> {
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(
       bool Function(E element, int index) predicate) sync* {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       if (predicate(element, index++)) {
         yield element;
       }
@@ -552,7 +554,7 @@ extension IterableX<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void whereTo(List<E> destination, bool Function(E element) predicate) {
-    for (var element in this) {
+    for (final element in this) {
       if (predicate(element)) {
         destination.add(element);
       }
@@ -563,8 +565,8 @@ extension IterableX<E> on Iterable<E> {
   /// [destination].
   void whereIndexedTo(
       List<E> destination, bool Function(E element, int index) predicate) {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       if (predicate(element, index++)) {
         destination.add(element);
       }
@@ -573,7 +575,7 @@ extension IterableX<E> on Iterable<E> {
 
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNot(bool Function(E element) predicate) sync* {
-    for (var element in this) {
+    for (final element in this) {
       if (!predicate(element)) {
         yield element;
       }
@@ -583,8 +585,8 @@ extension IterableX<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNotIndexed(
       bool Function(E element, int index) predicate) sync* {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       if (!predicate(element, index++)) {
         yield element;
       }
@@ -594,7 +596,7 @@ extension IterableX<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void whereNotTo(List<E> destination, bool Function(E element) predicate) {
-    for (var element in this) {
+    for (final element in this) {
       if (!predicate(element)) {
         destination.add(element);
       }
@@ -605,8 +607,8 @@ extension IterableX<E> on Iterable<E> {
   /// [destination].
   void whereNotToIndexed(
       List<E> destination, bool Function(E element, int index) predicate) {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       if (!predicate(element, index++)) {
         destination.add(element);
       }
@@ -620,8 +622,8 @@ extension IterableX<E> on Iterable<E> {
   /// applying the given [transform] function to each element in the original
   /// collection.
   Iterable<R> mapNotNull<R>(R? Function(E element) transform) sync* {
-    for (var element in this) {
-      var result = transform(element);
+    for (final element in this) {
+      final result = transform(element);
       if (result != null) {
         yield result;
       }
@@ -632,8 +634,8 @@ extension IterableX<E> on Iterable<E> {
   /// given [transform] function to each element and its index in the original
   /// collection.
   Iterable<R> mapIndexed<R>(R Function(int index, E) transform) sync* {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       yield transform(index++, element);
     }
   }
@@ -642,8 +644,8 @@ extension IterableX<E> on Iterable<E> {
   /// applying the given [transform] function to each element and its index
   /// in the original collection.
   Iterable<R> mapIndexedNotNull<R>(R? Function(int index, E) transform) sync* {
-    var index = 0;
-    for (var element in this) {
+    int index = 0;
+    for (final element in this) {
       final result = transform(index++, element);
       if (result != null) {
         yield result;
@@ -654,7 +656,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] which performs the given action on each
   /// element.
   Iterable<E> onEach(void Function(E element) action) sync* {
-    for (var element in this) {
+    for (final element in this) {
       action(element);
       yield element;
     }
@@ -666,8 +668,8 @@ extension IterableX<E> on Iterable<E> {
   /// The elements in the resulting list are in the same order as they were in
   /// the source collection.
   Iterable<E> distinct() sync* {
-    var existing = HashSet<E>();
-    for (var current in this) {
+    final existing = HashSet<E>();
+    for (final current in this) {
       if (existing.add(current)) {
         yield current;
       }
@@ -680,8 +682,8 @@ extension IterableX<E> on Iterable<E> {
   /// The elements in the resulting list are in the same order as they were in
   /// the source collection.
   Iterable<E> distinctBy<R>(R Function(E element) selector) sync* {
-    var existing = HashSet<R>();
-    for (var current in this) {
+    final existing = HashSet<R>();
+    for (final current in this) {
       if (existing.add(selector(current))) {
         yield current;
       }
@@ -701,8 +703,8 @@ extension IterableX<E> on Iterable<E> {
       throw ArgumentError('Requested chunk size $size is less than one.');
     }
 
-    var currentChunk = <E>[];
-    for (var current in this) {
+    List<E> currentChunk = [];
+    for (final current in this) {
       currentChunk.add(current);
       if (currentChunk.length >= size) {
         yield currentChunk;
@@ -729,8 +731,8 @@ extension IterableX<E> on Iterable<E> {
   /// See also:
   ///  - [splitWhen], which works similarly but with a reverted [predicate].
   Iterable<List<E>> chunkWhile(bool Function(E, E) predicate) sync* {
-    var currentChunk = <E>[];
-    var hasPrevious = false;
+    List<E> currentChunk = [];
+    bool hasPrevious = false;
     late E previous;
 
     for (final element in this) {
@@ -780,11 +782,11 @@ extension IterableX<E> on Iterable<E> {
     int step = 1,
     bool partialWindows = false,
   }) sync* {
-    var gap = step - size;
+    final gap = step - size;
     if (gap >= 0) {
-      var buffer = <E>[];
-      var skip = 0;
-      for (var element in this) {
+      List<E> buffer = [];
+      int skip = 0;
+      for (final element in this) {
         if (skip > 0) {
           skip -= 1;
           continue;
@@ -792,7 +794,7 @@ extension IterableX<E> on Iterable<E> {
         buffer.add(element);
         if (buffer.length == size) {
           yield buffer;
-          buffer = <E>[];
+          buffer = [];
           skip = gap;
         }
       }
@@ -800,8 +802,8 @@ extension IterableX<E> on Iterable<E> {
         yield buffer;
       }
     } else {
-      var buffer = ListQueue<E>(size);
-      for (var element in this) {
+      final buffer = ListQueue<E>(size);
+      for (final element in this) {
         buffer.add(element);
         if (buffer.length == size) {
           yield buffer.toList();
@@ -827,7 +829,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] of all elements yielded from results of
   /// [transform] function being invoked on each element of this collection.
   Iterable<R> flatMap<R>(Iterable<R> Function(E element) transform) sync* {
-    for (var current in this) {
+    for (final current in this) {
       yield* transform(current);
     }
   }
@@ -840,7 +842,7 @@ extension IterableX<E> on Iterable<E> {
   ///
   /// If [n] is omitted, the Iterable cycles forever.
   Iterable<E> cycle([int? n]) sync* {
-    var it = iterator;
+    Iterator<E> it = iterator;
     if (!it.moveNext()) {
       return;
     }
@@ -853,7 +855,7 @@ extension IterableX<E> on Iterable<E> {
         it = iterator;
       }
     } else {
-      var count = 0;
+      int count = 0;
       yield it.current;
       while (count++ < n) {
         while (it.moveNext()) {
@@ -872,9 +874,9 @@ extension IterableX<E> on Iterable<E> {
   /// The returned collection preserves the element iteration order of the
   /// this collection.
   Iterable<E> intersect(Iterable<E> other) sync* {
-    var second = HashSet<E>.from(other);
-    var output = HashSet<E>();
-    for (var current in this) {
+    final second = HashSet<E>.from(other);
+    final output = HashSet<E>();
+    for (final current in this) {
       if (second.contains(current)) {
         if (output.add(current)) {
           yield current;
@@ -886,7 +888,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// except the elements contained in the given [elements] collection.
   Iterable<E> except(Iterable<E> elements) sync* {
-    for (var current in this) {
+    for (final current in this) {
       if (!elements.contains(current)) yield current;
     }
   }
@@ -898,7 +900,7 @@ extension IterableX<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// except the given [element].
   Iterable<E> exceptElement(E element) sync* {
-    for (var current in this) {
+    for (final current in this) {
       if (element != current) yield current;
     }
   }
@@ -942,12 +944,12 @@ extension IterableX<E> on Iterable<E> {
   /// Those elements of the [other] collection that are unique are iterated in
   /// the end in the order of the [other] collection.
   Iterable<E> union(Iterable<E> other) sync* {
-    var existing = HashSet<E>();
-    for (var element in this) {
+    final existing = HashSet<E>();
+    for (final element in this) {
       if (existing.add(element)) yield element;
     }
 
-    for (var element in other) {
+    for (final element in other) {
       if (existing.add(element)) yield element;
     }
   }
@@ -1006,9 +1008,9 @@ extension IterableX<E> on Iterable<E> {
   /// If any of two pairs would have the same key the last one gets added to the
   /// map.
   Map<K, V> associate<K, V>(MapEntry<K, V> Function(E element) transform) {
-    var map = <K, V>{};
-    for (var element in this) {
-      var entry = transform(element);
+    final map = <K, V>{};
+    for (final element in this) {
+      final entry = transform(element);
       map[entry.key] = entry.value;
     }
     return map;
@@ -1020,8 +1022,8 @@ extension IterableX<E> on Iterable<E> {
   /// If any two elements would have the same key returned by [keySelector] the
   /// last one gets added to the map.
   Map<K, E> associateBy<K>(K Function(E element) keySelector) {
-    var map = <K, E>{};
-    for (var current in this) {
+    final map = <K, E>{};
+    for (final current in this) {
       map[keySelector(current)] = current;
     }
     return map;
@@ -1033,8 +1035,8 @@ extension IterableX<E> on Iterable<E> {
   /// If any of elements (-> keys) would be the same the last one gets added
   /// to the map.
   Map<E, V> associateWith<V>(V Function(E element) valueSelector) {
-    var map = <E, V>{};
-    for (var current in this) {
+    final map = <E, V>{};
+    for (final current in this) {
       map[current] = valueSelector(current);
     }
     return map;
@@ -1057,9 +1059,9 @@ extension IterableX<E> on Iterable<E> {
   /// while the second list contains elements for which [predicate] yielded
   /// false.
   List<List<E>> partition(bool Function(E element) predicate) {
-    var t = <E>[];
-    var f = <E>[];
-    for (var element in this) {
+    final t = <E>[];
+    final f = <E>[];
+    for (final element in this) {
       if (predicate(element)) {
         t.add(element);
       } else {
@@ -1140,11 +1142,11 @@ extension IterableIterableX<E> on Iterable<Iterable<E>> {
   /// collection.
   ///
   /// ```dart
-  /// var nestedList = List([[1, 2, 3], [4, 5, 6]]);
-  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// final nestedList = List([[1, 2, 3], [4, 5, 6]]);
+  /// final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
   /// ```
   Iterable<E> flatten() sync* {
-    for (var current in this) {
+    for (final current in this) {
       yield* current;
     }
   }

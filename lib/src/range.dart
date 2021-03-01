@@ -125,6 +125,7 @@ class DoubleRange extends Range<double> {
 ///
 /// A special form of [IntProgression] where [stepSize] is `1` which also acts
 /// as [Range] for [int]
+// ignore: avoid_implementing_value_types
 class IntRange extends IntProgression implements Range<int> {
   IntRange(int first, int endInclusive) : super(first, endInclusive);
 
@@ -245,7 +246,7 @@ class _IntRangeIterator extends Iterator<int> {
     }
 
     final now = _current ?? first;
-    var next = now;
+    int next = now;
     if (_current != null) {
       assert(first != last);
       if (first <= last) {
