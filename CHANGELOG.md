@@ -1,3 +1,10 @@
+## 0.6.0
+
+- [PR-120](https://github.com/leisim/dartx/pull/120)  Migrate to nullsafety
+- Fix `minBy`, `maxBy` NPE for empty lists
+- [PR-69](https://github.com/leisim/dartx/pull/69) New `Dictionary.contains`
+- [PR-57](https://github.com/leisim/dartx/pull/57) New `Iterable.slice`
+
 ## 0.5.0
 
 - [PR-94](https://github.com/leisim/dartx/pull/94) Breaking: `Iterable<T>.zip(other, transform)` now support zipping iterables of other types the `T`. This is a breaking change because it is now required to add types in the transform function.
