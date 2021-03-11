@@ -96,7 +96,6 @@ extension IterableX<E> on Iterable<E> {
   /// final firstLong= list.firstOrNullWhere((e) => e.length > 1); // 'Test'
   /// final firstVeryLong = list.firstOrNullWhere((e) => e.length > 5); // null
   /// ```
-  @Deprecated('Use firstWhereOrNull from package:collection')
   E? firstOrNullWhere(bool Function(E element) predicate) {
     for (final element in this) {
       if (predicate(element)) return element;
