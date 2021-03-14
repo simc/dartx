@@ -79,3 +79,57 @@ extension DirectoryContainsSyncExtension on Directory {
         (element) => FileSystemEntity.identicalSync(entity.path, element.path));
   }
 }
+
+extension DirectoryFileExtension on Directory {
+  /// Returns a [File] within the [Directory]
+  ///
+  /// ```dart
+  /// Directory androidDir = Directory('flutter-app/android');
+  /// File manifestFile = androidDir.file("app/src/main/AndroidManifest.xml");
+  /// ```
+  File file(String filePath) {
+    final sb = StringBuffer(absolute.path);
+    final path = sb.toString();
+    if (!path.endsWith(Platform.pathSeparator) &&
+        !filePath.startsWith(Platform.pathSeparator)) {
+      // no separator between dir and filePath
+      sb.write(Platform.pathSeparator);
+    }
+    if (path.startsWith(Platform.pathSeparator) &&
+        filePath.startsWith(Platform.pathSeparator)) {
+      // joining would cause a double //
+      final path = filePath.replaceFirst(Platform.pathSeparator, '');
+      sb.write(path);
+    } else {
+      sb.write(filePath);
+    }
+    return File(sb.toString());
+  }
+}
+
+extension DirectoryDirectoryExtension on Directory {
+  /// Returns a directory within the [Directory]
+  ///
+  /// ```dart
+  /// Directory androidDir = Directory('flutter-app/android');
+  /// Directory mainSrc = androidDir.directory("app/src/main");
+  /// ```
+  Directory directory(String dirPath) {
+    final sb = StringBuffer(absolute.path);
+    final path = sb.toString();
+    if (!path.endsWith(Platform.pathSeparator) &&
+        !dirPath.startsWith(Platform.pathSeparator)) {
+      // no separator between dir and filePath
+      sb.write(Platform.pathSeparator);
+    }
+    if (path.startsWith(Platform.pathSeparator) &&
+        dirPath.startsWith(Platform.pathSeparator)) {
+      // joining would cause a double //
+      final path = dirPath.replaceFirst(Platform.pathSeparator, '');
+      sb.write(path);
+    } else {
+      sb.write(dirPath);
+    }
+    return Directory(sb.toString());
+  }
+}
