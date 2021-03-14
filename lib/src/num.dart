@@ -1,6 +1,6 @@
 part of dartx;
 
-extension NumX<T extends num> on T {
+extension NumCoerceInExtension<T extends num> on T {
   /// Ensures that this value lies in the specified range
   /// [minimumValue]..[maximumValue].
   ///
@@ -23,7 +23,9 @@ extension NumX<T extends num> on T {
     if (maximumValue != null && this > maximumValue) return maximumValue;
     return this;
   }
+}
 
+extension NumCoerceAtLeastExtension<T extends num> on T {
   /// Ensures that this value is not less than the specified [minimumValue].
   ///
   /// Return this value if it's greater than or equal to the [minimumValue]
@@ -34,7 +36,9 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtLeast(20)) // 20
   /// ```
   T coerceAtLeast(T minimumValue) => this < minimumValue ? minimumValue : this;
+}
 
+extension NumCoerceAtMostExtension<T extends num> on T {
   /// Ensures that this value is not greater than the specified [maximumValue].
   ///
   /// Return this value if it's less than or equal to the [maximumValue] or the
@@ -45,10 +49,14 @@ extension NumX<T extends num> on T {
   /// print(10.coerceAtMost(20)) // 10
   /// ```
   T coerceAtMost(T maximumValue) => this > maximumValue ? maximumValue : this;
+}
 
+extension NumCoerceInRangeExtension<T extends num> on T {
   /// Returns true if in the [range].
   bool inRange(Range<num> range) => range.contains(this);
+}
 
+extension NumBetweenExtension<T extends num> on T {
   /// Returns true if between [first] and [endInclusive].
   ///
   /// Alias for `first.rangeTo(endInclusive).contains(this)`
@@ -56,7 +64,7 @@ extension NumX<T extends num> on T {
       first.rangeTo(endInclusive).contains(this);
 }
 
-extension IntX<T extends int> on T {
+extension IntToBytesExtension<T extends int> on T {
   /// Converts this value to binary form.
   Uint8List toBytes([Endian endian = Endian.big]) {
     final data = ByteData(8);
@@ -65,7 +73,7 @@ extension IntX<T extends int> on T {
   }
 }
 
-extension DoubleX<T extends double> on T {
+extension DoubleToBytesExtension<T extends double> on T {
   /// Converts this value to binary form.
   Uint8List toBytes([Endian endian = Endian.big]) {
     final data = ByteData(8);

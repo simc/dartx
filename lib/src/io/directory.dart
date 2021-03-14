@@ -1,6 +1,6 @@
 part of dartx_io;
 
-extension DirectoryX on Directory {
+extension DirectorySubDirExtension on Directory {
   Directory subdir(String part1,
       [String? part2,
       String? part3,
@@ -12,7 +12,9 @@ extension DirectoryX on Directory {
       path_helper.join(path, part1, part2, part3, part4, part5, part6, part7),
     );
   }
+}
 
+extension DirectoryCopyRecursivelyExtension on Directory {
   /// Copies all of the files in this directory to [target].
   ///
   /// This is similar to `cp -R <from> <to>`:
@@ -43,7 +45,9 @@ extension DirectoryX on Directory {
       }
     }
   }
+}
 
+extension DirectoryContainsExtension on Directory {
   /// Checks if this directory contains the [entity].
   ///
   /// The [entity] can be a [File] or a [Directory].
@@ -58,7 +62,9 @@ extension DirectoryX on Directory {
     return entities.any(
         (element) => FileSystemEntity.identicalSync(entity.path, element.path));
   }
+}
 
+extension DirectoryContainsSyncExtension on Directory {
   /// Checks if this directory contains the [entity].
   ///
   /// The [entity] can be a [File] or a [Directory].

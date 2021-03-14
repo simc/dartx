@@ -1,6 +1,6 @@
 part of dartx_io;
 
-extension FileSystemEntityX on FileSystemEntity {
+extension FileSystemEntityNameExtension on FileSystemEntity {
   /// Gets the part of [path] after the last separator.
   /// ```dart
   /// File('path/to/foo.dart').name; // -> 'foo.dart'
@@ -12,7 +12,9 @@ extension FileSystemEntityX on FileSystemEntity {
   /// Directory('path/to/').name; // -> 'to'
   /// ```
   String get name => path_helper.basename(path);
+}
 
+extension FileSystemEntityNameWithoutExtensionExtension on FileSystemEntity {
   /// Gets the part of [path] after the last separator, and without any trailing
   /// file extension.
   /// ```dart
@@ -24,7 +26,9 @@ extension FileSystemEntityX on FileSystemEntity {
   /// File('path/to/foo.dart/').nameWithoutExtension; // -> 'foo'
   /// ```
   String get nameWithoutExtension => path_helper.basenameWithoutExtension(path);
+}
 
+extension FileSystemEntityDirNameExtension on FileSystemEntity {
   /// Gets the part of [path] before the last separator.
   /// ```dart
   /// File().dirname('path/to/foo.dart'); // -> 'path/to'
@@ -49,7 +53,9 @@ extension FileSystemEntityX on FileSystemEntity {
   /// Directory('').dirName;  // -> '.'
   /// ```
   String get dirName => path_helper.dirname(path);
+}
 
+extension FileSystemEntityIsWithinExtension on FileSystemEntity {
   /// Returns `true` if this entity is a path beneath `parent`, and `false`
   /// otherwise.
   /// ```dart
@@ -58,7 +64,9 @@ extension FileSystemEntityX on FileSystemEntity {
   /// Directory('/root/path').isWithin(Directory('/root/path')) // -> false
   /// ```
   bool isWithin(Directory parent) => path_helper.isWithin(parent.path, path);
+}
 
+extension FileSystemEntityWithNameExtension on FileSystemEntity {
   ///Returns a new [File] with the `name` part changed
   ///```dart
   ///File('path/to/foo.dart').withName('bar.txt'); // -> File('path/to/bar.txt')
@@ -67,7 +75,9 @@ extension FileSystemEntityX on FileSystemEntity {
   FileSystemEntity withName(String newName) {
     return File('$dirName${Platform.pathSeparator}$newName');
   }
+}
 
+extension FileSystemEntityExtensionExtension on FileSystemEntity {
   ///Returns the file extension of the [path], the portion of the `name`
   ///from the last '.' to the end (including the '.' itself).
   ///```dart
