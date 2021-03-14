@@ -2,11 +2,6 @@
 
 part of dartx;
 
-const _binarySearch = binarySearch;
-const _lowerBound = lowerBound;
-const _insertionSort = insertionSort;
-const _mergeSort = mergeSort;
-
 extension ListX<E> on List<E> {
   /// Index of the first element or -1 if the collection is empty.
   ///
@@ -99,7 +94,7 @@ extension ListX<E> on List<E> {
   ///
   /// Returns [length] if all the items in this list compare less than [value].
   int lowerBound(E value, {int Function(E a, E b)? compare}) {
-    return _lowerBound(this, value, compare: compare);
+    return collection.lowerBound(this, value, compare: compare);
   }
 
   /// Returns a position of the [value] in this list, if it is there.
@@ -113,7 +108,7 @@ extension ListX<E> on List<E> {
   ///
   /// Returns -1 if [value] is not in the list by default.
   int binarySearch(E value, {int Function(E a, E b)? compare}) {
-    return _binarySearch(this, value, compare: compare);
+    return collection.binarySearch(this, value, compare: compare);
   }
 
   /// Sort this list between [start] (inclusive) and [end] (exclusive) using
@@ -133,7 +128,7 @@ extension ListX<E> on List<E> {
   /// This insertion sort is stable: Equal elements end up in the same order
   /// as they started in.
   void insertionSort({Comparator<E>? comparator, int start = 0, int? end}) {
-    _insertionSort(this, compare: comparator, start: start, end: end);
+    collection.insertionSort(this, compare: comparator, start: start, end: end);
   }
 
   /// Sorts this list between [start] (inclusive) and [end] (exclusive) using
@@ -153,7 +148,7 @@ extension ListX<E> on List<E> {
   /// This merge sort is stable: Equal elements end up in the same order
   /// as they started in.
   void mergeSort({int start = 0, int? end, Comparator<E>? comparator}) {
-    _mergeSort(this, start: start, end: end, compare: comparator);
+    collection.mergeSort(this, start: start, end: end, compare: comparator);
   }
 
   /// Swaps the elements in the indices provided.

@@ -12,7 +12,7 @@ extension StringX on String {
   /// Please use [StringCharacters].characters
   /// https://github.com/dart-lang/characters/blob/10527437926f1b454edf9912fe700aa2506b1c3d/lib/src/extensions.dart#L9
   @Deprecated('Use .characters from the official characters package')
-  Iterable<String> get chars => Characters(this);
+  Iterable<String> get chars => characters.Characters(this);
 
   /// Returns a copy of this string having its first letter uppercased, or the
   /// original string, if it's empty or already starts with an upper case
@@ -87,7 +87,7 @@ extension StringX on String {
 
   /// Returns a new string with characters in reversed order.
   String get reversed {
-    final range = Characters(this).iteratorAtEnd;
+    final range = characters.Characters(this).iteratorAtEnd;
 
     final buffer = StringBuffer();
     while (range.moveBack()) {
