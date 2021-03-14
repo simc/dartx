@@ -22,10 +22,6 @@ jobs:
         run: pub run test
 
   test-windows:
-
-    # No nullsafety dev sdk available on windows
-    if: ${{ false }}
-
     timeout-minutes: 5
     runs-on: windows-latest
 
@@ -48,7 +44,7 @@ jobs:
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
-        run: brew install dart-beta
+        run: brew install dart
       - name: Install dependencies
         run: pub get
       - name: Run tests
