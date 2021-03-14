@@ -1,3 +1,10 @@
+## 0.7.0
+
+- All extensions methods now have their own extension which can be imported explicitly with `show`/`hide`. This allows the usage of `package:collection` and `dartx` in the same file.
+- Undeprecate `firstOrNullWhere` until `dartx` can export `package:collection` itself
+- New `Directory.file` and `Directory.directory` extensions to quickly create file/directory references
+- Update `time` package
+
 ## 0.6.0
 
 - [PR-120](https://github.com/leisim/dartx/pull/120)  Migrate to nullsafety
