@@ -66,7 +66,7 @@ extension ComparableRangeX<T extends Comparable<T>> on T {
 }
 
 /// The equivalent for [double] is [DoubleRangeExtension]
-extension IntRangeExtension on int {
+extension IntRangeToExtension on int {
   /// Creates a [IntRange] with a step count of 1
   ///
   /// ```
@@ -94,7 +94,7 @@ extension IntRangeExtension on int {
 /// therefore doesn't work for the `Comparable<T>.rangeTo(T)` extension
 ///
 /// The equivalent for [int] is [IntRangeExtension]
-extension DoubleRangeExtension on double {
+extension DoubleRangeToExtension on double {
   DoubleRange rangeTo(double endInclusive) => DoubleRange(this, endInclusive);
 }
 

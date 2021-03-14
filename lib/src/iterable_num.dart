@@ -1,7 +1,7 @@
 part of dartx;
 
 /// Extensions for iterables
-extension IterableNumX<T extends num> on Iterable<T> {
+extension IterableNumSumExtension<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.
   T sum() {
     num sum = 0.0;
@@ -14,7 +14,9 @@ extension IterableNumX<T extends num> on Iterable<T> {
       return sum.toDouble() as T;
     }
   }
+}
 
+extension IterableNumAverageExtension<T extends num> on Iterable<T> {
   /// Returns the average of all elements in the collection.
   double average() {
     var count = 0;
@@ -30,7 +32,9 @@ extension IterableNumX<T extends num> on Iterable<T> {
       return sum / count;
     }
   }
+}
 
+extension IterableNumMedianExtension<T extends num> on Iterable<T> {
   /// Returns the median of the elements in this collection.
   ///
   /// Empty collections throw an error.

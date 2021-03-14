@@ -1,30 +1,33 @@
 part of dartx;
 
-const _groupBy = groupBy;
-
-/// Extensions for iterables
-extension IterableX<E> on Iterable<E> {
+extension IterableSecondItem<E> on Iterable<E> {
   /// Second element.
   ///
   /// ```dart
   /// [1, 2, 3].second; // 2
   /// ```
   E? get second => elementAt(1);
+}
 
+extension IterableThirdItem<E> on Iterable<E> {
   /// Third element.
   ///
   /// ```dart
   /// [1, 2, 3].third; // 3
   /// ```
   E get third => elementAt(2);
+}
 
+extension IterableForthItem<E> on Iterable<E> {
   /// Fourth element.
   ///
   /// ```dart
   /// [1, 2, 3, 4].fourth; // 4
   /// ```
   E get fourth => elementAt(3);
+}
 
+extension IterableElementAtOrNull<E> on Iterable<E> {
   /// Returns an element at the given [index] or `null` if the [index] is out of
   /// bounds of this collection.
   ///
@@ -41,7 +44,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return null;
   }
+}
 
+extension IterableElementAtOrDefault<E> on Iterable<E> {
   /// Returns an element at the given [index] or [defaultValue] if the [index]
   /// is out of bounds of this collection.
   ///
@@ -53,7 +58,9 @@ extension IterableX<E> on Iterable<E> {
   E elementAtOrDefault(int index, E defaultValue) {
     return elementAtOrElse(index, (_) => defaultValue);
   }
+}
 
+extension IterableElementAtOrElse<E> on Iterable<E> {
   /// Returns an element at the given [index] or the result of calling the
   /// [defaultValue] function if the [index] is out of bounds of this
   /// collection.
@@ -71,7 +78,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return defaultValue(index);
   }
+}
 
+extension IterableFirstOrNull<E> on Iterable<E> {
   /// First element or `null` if the collection is empty.
   ///
   /// ```dart
@@ -79,7 +88,9 @@ extension IterableX<E> on Iterable<E> {
   /// final emptyFirst = [].firstOrNull; // null
   /// ```
   E? get firstOrNull => isNotEmpty ? first : null;
+}
 
+extension IterableFirstOrDefault<E> on Iterable<E> {
   /// First element or `defaultValue` if the collection is empty.
   ///
   /// ```dart
@@ -87,7 +98,9 @@ extension IterableX<E> on Iterable<E> {
   /// final emptyFirst = [].firstOrDefault(-1); // -1
   /// ```
   E firstOrDefault(E defaultValue) => isNotEmpty ? first : defaultValue;
+}
 
+extension IterableFirstOrNullWhere<E> on Iterable<E> {
   /// Returns the first element matching the given [predicate], or `null` if no
   /// such element was found.
   ///
@@ -102,7 +115,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return null;
   }
+}
 
+extension IterableLastOrNull<E> on Iterable<E> {
   /// Last element or `null` if the collection is empty.
   ///
   /// ```dart
@@ -110,10 +125,15 @@ extension IterableX<E> on Iterable<E> {
   /// final emptyLast = [].firstOrNull; // null
   /// ```
   E? get lastOrNull => isNotEmpty ? last : null;
+}
 
+extension IterableLastOrElse<E> on Iterable<E> {
   /// Last element or `defaultValue` if the collection is empty.
-  E lastOrElse(E defaultValue) => lastOrNull ?? defaultValue;
+  E lastOrElse(E defaultValue) =>
+      IterableLastOrNull(this).lastOrNull ?? defaultValue;
+}
 
+extension IterableLastOrNullWhere<E> on Iterable<E> {
   /// Returns the last element matching the given [predicate], or `null` if no
   /// such element was found.
   E? lastOrNullWhere(bool Function(E element) predicate) {
@@ -125,7 +145,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return match;
   }
+}
 
+extension IterableAll<E> on Iterable<E> {
   /// Returns true if all elements match the given [predicate] or if the
   /// collection is empty.
   bool all(bool Function(E element) predicate) {
@@ -136,11 +158,15 @@ extension IterableX<E> on Iterable<E> {
     }
     return true;
   }
+}
 
+extension IterableNone<E> on Iterable<E> {
   /// Returns true if no entries match the given [predicate] or if the
   /// collection is empty.
   bool none(bool Function(E element) predicate) => !any(predicate);
+}
 
+extension IterableSlice<E> on Iterable<E> {
   /// Returns a new list containing elements at indices between [start]
   /// (inclusive) and [end] (inclusive).
   ///
@@ -161,7 +187,9 @@ extension IterableX<E> on Iterable<E> {
 
     return list.sublist(_start, _end + 1);
   }
+}
 
+extension IterableForEachIndexed<E> on Iterable<E> {
   /// Performs the given [action] on each element, providing sequential index
   /// with the element.
   void forEachIndexed(void Function(E element, int index) action) {
@@ -170,7 +198,9 @@ extension IterableX<E> on Iterable<E> {
       action(element, index++);
     }
   }
+}
 
+extension IterableContainsAll<E> on Iterable<E> {
   /// Checks if all elements in the specified [collection] are contained in
   /// this collection.
   bool containsAll(Iterable<E> collection) {
@@ -179,7 +209,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return true;
   }
+}
 
+extension IterableContainsAny<E> on Iterable<E> {
   /// Checks if any elements in the specified [collection] are contained in
   /// this collection.
   bool containsAny(Iterable<E> collection) {
@@ -188,7 +220,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return false;
   }
+}
 
+extension IterableContentEquals<E> on Iterable<E> {
   /// Returns true if this collection is structurally equal to the [other]
   /// collection.
   ///
@@ -212,9 +246,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return !it2.moveNext();
   }
+}
 
-  //Soting operations
-
+extension IterableSorted<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to natural sort
   /// order.
   List<E> sorted() {
@@ -222,7 +256,9 @@ extension IterableX<E> on Iterable<E> {
     list.sort();
     return list;
   }
+}
 
+extension IterableSortedDescending<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to descending
   /// natural sort order.
   List<E> sortedDescending() {
@@ -230,7 +266,9 @@ extension IterableX<E> on Iterable<E> {
     list.sort((a, b) => -(a as Comparable).compareTo(b));
     return list;
   }
+}
 
+extension IterableSortedBy<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to natural sort
   /// order of the values returned by specified [selector] function.
   ///
@@ -242,7 +280,9 @@ extension IterableX<E> on Iterable<E> {
   _SortedList<E> sortedBy(Comparable Function(E element) selector) {
     return _SortedList<E>._withSelector(this, selector, 1, null);
   }
+}
 
+extension IterableSortedByDescending<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to descending
   /// natural sort order of the values returned by specified [selector]
   /// function.
@@ -255,7 +295,9 @@ extension IterableX<E> on Iterable<E> {
   _SortedList<E> sortedByDescending(Comparable Function(E element) selector) {
     return _SortedList<E>._withSelector(this, selector, -1, null);
   }
+}
 
+extension IterableSortedWith<E> on Iterable<E> {
   /// Returns a new list with all elements sorted according to specified
   /// [comparator].
   ///
@@ -267,7 +309,9 @@ extension IterableX<E> on Iterable<E> {
   _SortedList<E> sortedWith(Comparator<E> comparator) {
     return _SortedList<E>._(this, comparator);
   }
+}
 
+extension IterableJoinToString<E> on Iterable<E> {
   /// Creates a string from all the elements separated using [separator] and
   /// using the given [prefix] and [postfix] if supplied.
   ///
@@ -304,9 +348,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return buffer.toString();
   }
+}
 
-  //Math operations
-
+extension IterableSumBy<E> on Iterable<E> {
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
   double sumBy(num Function(E element) selector) {
@@ -316,7 +360,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return sum;
   }
+}
 
+extension IterableAverageBy<E> on Iterable<E> {
   /// Returns the average of values returned by [selector] for all elements in
   /// the collection.
   double averageBy(num Function(E element) selector) {
@@ -334,33 +380,16 @@ extension IterableX<E> on Iterable<E> {
       return sum / count;
     }
   }
+}
 
+extension InterableMin<E> on Iterable<E> {
   /// Returns the smallest element or `null` if there are no elements.
   ///
   /// All elements must be of type [Comparable].
   E? min() => _minMax(-1);
+}
 
-  /// Returns the first element yielding the smallest value of the given
-  /// [selector] or `null` if there are no elements.
-  E? minBy(Comparable Function(E element) selector) => _minMaxBy(-1, selector);
-
-  /// Returns the first element having the smallest value according to the
-  /// provided [comparator] or `null` if there are no elements.
-  E? minWith(Comparator<E> comparator) => _minMaxWith(-1, comparator);
-
-  /// Returns the largest element or `null` if there are no elements.
-  ///
-  /// All elements must be of type [Comparable].
-  E? max() => _minMax(1);
-
-  /// Returns the first element yielding the largest value of the given
-  /// [selector] or `null` if there are no elements.
-  E? maxBy(Comparable Function(E element) selector) => _minMaxBy(1, selector);
-
-  /// Returns the first element having the largest value according to the
-  /// provided [comparator] or `null` if there are no elements.
-  E? maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
-
+extension _MinMaxHelper<E> on Iterable<E> {
   E? _minMax(int order) {
     final it = iterator;
     if (!it.moveNext()) {
@@ -411,7 +440,40 @@ extension IterableX<E> on Iterable<E> {
 
     return currentMin;
   }
+}
 
+extension IterableMinBy<E> on Iterable<E> {
+  /// Returns the first element yielding the smallest value of the given
+  /// [selector] or `null` if there are no elements.
+  E? minBy(Comparable Function(E element) selector) => _minMaxBy(-1, selector);
+}
+
+extension IterableMinWith<E> on Iterable<E> {
+  /// Returns the first element having the smallest value according to the
+  /// provided [comparator] or `null` if there are no elements.
+  E? minWith(Comparator<E> comparator) => _minMaxWith(-1, comparator);
+}
+
+extension IterableMax<E> on Iterable<E> {
+  /// Returns the largest element or `null` if there are no elements.
+  ///
+  /// All elements must be of type [Comparable].
+  E? max() => _minMax(1);
+}
+
+extension IterableMaxBy<E> on Iterable<E> {
+  /// Returns the first element yielding the largest value of the given
+  /// [selector] or `null` if there are no elements.
+  E? maxBy(Comparable Function(E element) selector) => _minMaxBy(1, selector);
+}
+
+extension IterableMaxWith<E> on Iterable<E> {
+  /// Returns the first element having the largest value according to the
+  /// provided [comparator] or `null` if there are no elements.
+  E? maxWith(Comparator<E> comparator) => _minMaxWith(1, comparator);
+}
+
+extension IterableCount<E> on Iterable<E> {
   /// Returns the number of elements matching the given [predicate].
   ///
   /// If no [predicate] is given, this equals to [length].
@@ -429,14 +491,16 @@ extension IterableX<E> on Iterable<E> {
 
     return count;
   }
+}
 
-  // Transformations
-
+extension IterableReversed<E> on Iterable<E> {
   /// Returns an [Iterable] of the objects in this list in reverse order.
   Iterable<E> get reversed {
     return this is List<E> ? (this as List<E>).reversed : toList().reversed;
   }
+}
 
+extension IterableTakeFirst<E> on Iterable<E> {
   /// Returns a list containing first [n] elements.
   ///
   /// ```dart
@@ -450,7 +514,9 @@ extension IterableX<E> on Iterable<E> {
     final list = this is List<E> ? this as List<E> : toList();
     return list.sublist(0, n);
   }
+}
 
+extension IterableTakeLast<E> on Iterable<E> {
   /// Returns a list containing last [n] elements.
   ///
   /// ```dart
@@ -464,7 +530,9 @@ extension IterableX<E> on Iterable<E> {
     final list = this is List<E> ? this as List<E> : toList();
     return list.sublist(length - n);
   }
+}
 
+extension IterableFirstWhile<E> on Iterable<E> {
   //// Returns the first elements satisfying the given [predicate].
   ///
   /// ```dart
@@ -480,7 +548,9 @@ extension IterableX<E> on Iterable<E> {
       yield element;
     }
   }
+}
 
+extension IterableLastWhile<E> on Iterable<E> {
   /// Returns the last elements satisfying the given [predicate].
   ///
   /// ```dart
@@ -498,47 +568,67 @@ extension IterableX<E> on Iterable<E> {
     }
     return list;
   }
+}
 
+extension IterableFilter<E> on Iterable<E> {
   /// Returns all elements matching the given [predicate].
   Iterable<E> filter(bool Function(E element) predicate) => where(predicate);
+}
 
+extension IterableFilterIndexed<E> on Iterable<E> {
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> filterIndexed(bool Function(E element, int index) predicate) =>
-      whereIndexed(predicate);
+      IterableWhereIndexed(this).whereIndexed(predicate);
+}
 
+extension IterableFilterTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void filterTo(List<E> destination, bool Function(E element) predicate) =>
       whereTo(destination, predicate);
+}
 
+extension IterableFilterIndexedTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void filterIndexedTo(
           List<E> destination, bool Function(E element, int index) predicate) =>
       whereIndexedTo(destination, predicate);
+}
 
+extension IterableFilterNot<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> filterNot(bool Function(E element) predicate) =>
-      whereNot(predicate);
+      IterableWhereNot(this).whereNot(predicate);
+}
 
+extension IterableFilterNotIndexed<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> filterNotIndexed(bool Function(E element, int index) predicate) =>
-      whereNotIndexed(predicate);
+      IterableWhereNotIndexed(this).whereNotIndexed(predicate);
+}
 
+extension IterableFilterNotTo<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void filterNotTo(List<E> destination, bool Function(E element) predicate) =>
       whereNotTo(destination, predicate);
+}
 
+extension IterableFilterNotToIndexed<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void filterNotToIndexed(
           List<E> destination, bool Function(E element, int index) predicate) =>
       whereNotToIndexed(destination, predicate);
+}
 
+extension IterableFilterNotNull<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] with all elements which are not null.
   Iterable<E> filterNotNull() => where((element) => element != null);
+}
 
+extension IterableWhereIndexed<E> on Iterable<E> {
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(
       bool Function(E element, int index) predicate) sync* {
@@ -549,7 +639,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void whereTo(List<E> destination, bool Function(E element) predicate) {
@@ -559,7 +651,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereIndexedTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void whereIndexedTo(
@@ -571,7 +665,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereNot<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNot(bool Function(E element) predicate) sync* {
     for (final element in this) {
@@ -580,7 +676,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereNotIndexed<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNotIndexed(
       bool Function(E element, int index) predicate) sync* {
@@ -591,7 +689,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereNotTo<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void whereNotTo(List<E> destination, bool Function(E element) predicate) {
@@ -601,7 +701,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereNotToIndexed<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void whereNotToIndexed(
@@ -613,10 +715,14 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableWhereNotNull<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] with all elements which are not null.
   Iterable<E> whereNotNull() => where((element) => element != null);
+}
 
+extension IterableMapNotNull<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element in the original
   /// collection.
@@ -628,7 +734,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableMapIndexed<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing the results of applying the
   /// given [transform] function to each element and its index in the original
   /// collection.
@@ -638,7 +746,9 @@ extension IterableX<E> on Iterable<E> {
       yield transform(index++, element);
     }
   }
+}
 
+extension IterableMapIndexedNotNull<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only the non-null results of
   /// applying the given [transform] function to each element and its index
   /// in the original collection.
@@ -651,7 +761,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableOnEach<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] which performs the given action on each
   /// element.
   Iterable<E> onEach(void Function(E element) action) sync* {
@@ -660,7 +772,9 @@ extension IterableX<E> on Iterable<E> {
       yield element;
     }
   }
+}
 
+extension IterableDistinct<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only distinct elements from the
   /// collection.
   ///
@@ -674,7 +788,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableDistinctBy<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing only elements from the collection
   /// having distinct keys returned by the given [selector] function.
   ///
@@ -688,7 +804,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableChunked<E> on Iterable<E> {
   /// Splits this collection into a new lazy [Iterable] of lists each not
   /// exceeding the given [size].
   ///
@@ -714,7 +832,9 @@ extension IterableX<E> on Iterable<E> {
       yield currentChunk;
     }
   }
+}
 
+extension IterableChunkWhile<E> on Iterable<E> {
   /// Splits this collection into a lazy [Iterable] of chunks, where chunks are
   /// created as long as [predicate] is true for a pair of entries.
   ///
@@ -750,7 +870,9 @@ extension IterableX<E> on Iterable<E> {
 
     if (currentChunk.isNotEmpty) yield currentChunk;
   }
+}
 
+extension IterableSplitWhen<E> on Iterable<E> {
   /// Splits this collection into a lazy [Iterable], where each split will be
   /// make if [predicate] returns true for a pair of entries.
   ///
@@ -768,7 +890,9 @@ extension IterableX<E> on Iterable<E> {
   Iterable<List<E>> splitWhen(bool Function(E, E) predicate) {
     return chunkWhile((a, b) => !predicate(a, b));
   }
+}
 
+extension IterableWindowed<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] of windows of the given [size] sliding along
   /// this collection with the given [step].
   ///
@@ -824,7 +948,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableFlatMap<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] of all elements yielded from results of
   /// [transform] function being invoked on each element of this collection.
   Iterable<R> flatMap<R>(Iterable<R> Function(E element) transform) sync* {
@@ -832,7 +958,9 @@ extension IterableX<E> on Iterable<E> {
       yield* transform(current);
     }
   }
+}
 
+extension IterableCycle<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] which iterates over this collection [n]
   /// times.
   ///
@@ -847,6 +975,7 @@ extension IterableX<E> on Iterable<E> {
     }
     if (n == null) {
       yield it.current;
+      // ignore: literal_only_boolean_expressions
       while (true) {
         while (it.moveNext()) {
           yield it.current;
@@ -864,9 +993,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
-  // Operations with other iterables
-
+extension IterableIntersect<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements that are contained
   /// by both this collection and the [other] collection.
   ///
@@ -883,7 +1012,9 @@ extension IterableX<E> on Iterable<E> {
       }
     }
   }
+}
 
+extension IterableExcept<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// except the elements contained in the given [elements] collection.
   Iterable<E> except(Iterable<E> elements) sync* {
@@ -891,11 +1022,15 @@ extension IterableX<E> on Iterable<E> {
       if (!elements.contains(current)) yield current;
     }
   }
+}
 
+extension IterableMinus<E> on Iterable<E> {
   /// Returns a new list containing all elements of this collection except the
   /// elements contained in the given [elements] collection.
   List<E> operator -(Iterable<E> elements) => except(elements).toList();
+}
 
+extension IterableExceptElement<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// except the given [element].
   Iterable<E> exceptElement(E element) sync* {
@@ -903,39 +1038,51 @@ extension IterableX<E> on Iterable<E> {
       if (element != current) yield current;
     }
   }
+}
 
+extension IterablePrepend<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// and then all elements of the given [elements] collection.
   Iterable<E> prepend(Iterable<E> elements) sync* {
     yield* elements;
     yield* this;
   }
+}
 
+extension IterablePrependElement<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of this collection
   /// and then the given [element].
   Iterable<E> prependElement(E element) sync* {
     yield element;
     yield* this;
   }
+}
 
+extension IterableAppend<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all elements of the given
   /// [elements] collection and then all elements of this collection.
   Iterable<E> append(Iterable<E> elements) sync* {
     yield* this;
     yield* elements;
   }
+}
 
+extension IterablePlus<E> on Iterable<E> {
   /// Returns a new list containing all elements of the given [elements]
   /// collection and then all elements of this collection.
   List<E> operator +(Iterable<E> elements) => append(elements).toList();
+}
 
+extension IterableAppendElement<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing the given [element] and then all
   /// elements of this collection.
   Iterable<E> appendElement(E element) sync* {
     yield* this;
     yield element;
   }
+}
 
+extension IterableUnion<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] containing all distinct elements from
   /// both collections.
   ///
@@ -952,7 +1099,9 @@ extension IterableX<E> on Iterable<E> {
       if (existing.add(element)) yield element;
     }
   }
+}
 
+extension IterableZip<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] of values built from the elements of this
   /// collection and the [other] collection with the same index.
   ///
@@ -979,28 +1128,38 @@ extension IterableX<E> on Iterable<E> {
       yield transform(it1.current, it2.current);
     }
   }
+}
 
-  ///Tranformations to other structures
-
+extension IterableToIterable<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] with all elements of this collection.
   Iterable<E> toIterable() sync* {
     yield* this;
   }
+}
 
+extension IterableAsStream<E> on Iterable<E> {
   /// Returns a new [Stream] with all elements of this collection.
   Stream<E> asStream() => Stream.fromIterable(this);
+}
 
+extension IterableToHashSet<E> on Iterable<E> {
   /// Returns a new [HashSet] with all distinct elements of this collection.
   HashSet<E> toHashSet() => HashSet.from(this);
+}
 
+extension IterableToUnmodifiable<E> on Iterable<E> {
   /// Returns an unmodifiable List view of this collection.
-  List<E> toUnmodifiable() => UnmodifiableListView(this);
+  List<E> toUnmodifiable() => collection.UnmodifiableListView(this);
+}
 
+extension IterableShuffled<E> on Iterable<E> {
   /// Returns a new, randomly shuffled list.
   ///
   /// If [random] is given, it is being used for random number generation.
   List<E> shuffled([Random? random]) => toList()..shuffle(random);
+}
 
+extension IterableAssociate<E> on Iterable<E> {
   /// Returns a Map containing key-value pairs provided by [transform] function
   /// applied to elements of this collection.
   ///
@@ -1014,7 +1173,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return map;
   }
+}
 
+extension IterableAssociateBy<E> on Iterable<E> {
   /// Returns a Map containing the elements from the collection indexed by
   /// the key returned from [keySelector] function applied to each element.
   ///
@@ -1027,7 +1188,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return map;
   }
+}
 
+extension IterableAssociateWith<E> on Iterable<E> {
   /// Returns a Map containing the values returned from [valueSelector] function
   /// applied to each element indexed by the elements from the collection.
   ///
@@ -1040,7 +1203,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return map;
   }
+}
 
+extension IterableGroupBy<E> on Iterable<E> {
   /// Groups elements of the original collection by the key returned by the
   /// given [keySelector] function applied to each element and returns a map.
   ///
@@ -1049,9 +1214,11 @@ extension IterableX<E> on Iterable<E> {
   /// The returned map preserves the entry iteration order of the keys produced
   /// from the original collection.
   Map<K, List<E>> groupBy<K>(K Function(E element) keySelector) {
-    return _groupBy(this, keySelector);
+    return collection.groupBy(this, keySelector);
   }
+}
 
+extension IterablePartition<E> on Iterable<E> {
   /// Splits the collection into two lists according to [predicate].
   ///
   /// The first list contains elements for which [predicate] yielded true,
@@ -1069,7 +1236,9 @@ extension IterableX<E> on Iterable<E> {
     }
     return [t, f];
   }
+}
 
+extension IterableCached<E> on Iterable<E> {
   /// Returns a new lazy [Iterable] that caches the computation of the current
   /// [Iterable].
   ///

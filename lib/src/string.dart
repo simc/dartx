@@ -3,7 +3,7 @@ part of dartx;
 const _ascii = 0x007f;
 const _latin1 = 0x00ff;
 
-extension StringX on String {
+extension StringCharsExtension on String {
   /// The characters of a string.
   ///
   /// A character is a Unicode Grapheme cluster represented by a substring of
@@ -12,8 +12,10 @@ extension StringX on String {
   /// Please use [StringCharacters].characters
   /// https://github.com/dart-lang/characters/blob/10527437926f1b454edf9912fe700aa2506b1c3d/lib/src/extensions.dart#L9
   @Deprecated('Use .characters from the official characters package')
-  Iterable<String> get chars => Characters(this);
+  Iterable<String> get chars => characters.Characters(this);
+}
 
+extension StringCapitalizeExtension on String {
   /// Returns a copy of this string having its first letter uppercased, or the
   /// original string, if it's empty or already starts with an upper case
   /// letter.
@@ -32,7 +34,9 @@ extension StringX on String {
         return substring(0, 1).toUpperCase() + substring(1);
     }
   }
+}
 
+extension StringDecapitalizeExtension on String {
   /// Returns a copy of this string having its first letter lowercased, or the
   /// original string, if it's empty or already starts with a lower case letter.
   ///
@@ -50,44 +54,62 @@ extension StringX on String {
         return substring(0, 1).toLowerCase() + substring(1);
     }
   }
+}
 
+extension StringIsBlankExtension on String {
   /// Returns `true` if this string is empty or consists solely of whitespace
   /// characters.
   bool get isBlank => trimLeft().isEmpty;
+}
 
+extension StringIsNotBlankExtension on String {
   /// Returns `true` if this char sequence is not empty and contains some
   /// characters except of whitespace characters.
   bool get isNotBlank => !isBlank;
+}
 
+extension StringIsUpperCaseExtension on String {
   /// Returns `true` if the whole string is upper case.
   bool get isUpperCase => isNotEmpty && this == toUpperCase();
+}
 
+extension StringIsLowerCaseExtension on String {
   /// Returns `true` if the whole string is lower case.
   bool get isLowerCase => isNotEmpty && this == toLowerCase();
+}
 
+extension StringIsCapitalizedExtension on String {
   /// Returns `true` if the first character is upper case.
   bool get isCapitalized => isNotEmpty && this[0].isUpperCase;
+}
 
+extension StringIsDecapitalizedExtension on String {
   /// Returns `true` if the first character is lower case.
   bool get isDecapitalized => isNotEmpty && this[0].isLowerCase;
+}
 
+extension StringIsAsciiExtension on String {
   bool get isAscii {
     for (final codeUnit in codeUnits) {
       if (codeUnit > _ascii) return false;
     }
     return true;
   }
+}
 
+extension StringIsLatin1Extension on String {
   bool get isLatin1 {
     for (final codeUnit in codeUnits) {
       if (codeUnit > _latin1) return false;
     }
     return true;
   }
+}
 
+extension StringReversedExtension on String {
   /// Returns a new string with characters in reversed order.
   String get reversed {
-    final range = Characters(this).iteratorAtEnd;
+    final range = characters.Characters(this).iteratorAtEnd;
 
     final buffer = StringBuffer();
     while (range.moveBack()) {
@@ -96,9 +118,13 @@ extension StringX on String {
 
     return buffer.toString();
   }
+}
 
+extension StringIsIntExtension on String {
   bool get isInt => toIntOrNull() != null;
+}
 
+extension StringToIntExtension on String {
   /// Parses the string as an [int] number and returns the result.
   ///
   /// The [radix] must be in the range 2..36. The digits used are
@@ -108,7 +134,9 @@ extension StringX on String {
   ///
   /// If no [radix] is given then it defaults to 10.
   int toInt({int? radix}) => int.parse(this, radix: radix);
+}
 
+extension StringToIntOrNullExtension on String {
   /// Parses the string as an [int] number and returns the result or `null` if
   /// the string is not a valid representation of a number.
   ///
@@ -119,20 +147,32 @@ extension StringX on String {
   ///
   /// If no [radix] is given then it defaults to 10.
   int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
+}
 
+extension StringIsDoubleExtension on String {
   bool get isDouble => toDoubleOrNull() != null;
+}
 
+extension StringToDoubleExtension on String {
   /// Parses the string as a [double] number and returns the result.
   double toDouble() => double.parse(this);
+}
 
+extension StringToDoubleOrNullExtension on String {
   /// Parses the string as an [double] number and returns the result or `null`
   /// if the string is not a valid representation of a number.
   double? toDoubleOrNull() => double.tryParse(this);
+}
 
+extension StringToUtf8Extension on String {
   List<int> toUtf8() => utf8.encode(this);
+}
 
+extension StringToUtf16Extension on String {
   List<int> toUtf16() => codeUnits;
+}
 
+extension StringMd5Extension on String {
   /// Calculates the MD5 digest and returns the value as a [String] of
   /// hexadecimal digits.
   ///
@@ -141,7 +181,9 @@ extension StringX on String {
   /// print('message digest'.md5); //f96b697d7cb7938d525a2f31aaf161d0
   /// ```
   String get md5 => crypto.md5.convert(toUtf8()).toString();
+}
 
+extension StringRemovePrefixExtension on String {
   /// If this [String] starts with the given [prefix], returns a copy of this
   /// string with the prefix removed. Otherwise, returns this [String].
   String removePrefix(String prefix) {
@@ -151,7 +193,9 @@ extension StringX on String {
       return this;
     }
   }
+}
 
+extension StringRemoveSuffixExtension on String {
   /// If this [String] ends with the given [suffix], returns a copy of this
   /// [String] with the suffix removed. Otherwise, returns this [String].
   String removeSuffix(String suffix) {
@@ -161,7 +205,9 @@ extension StringX on String {
       return this;
     }
   }
+}
 
+extension StringRemoveSurroundingExtension on String {
   /// Removes from a [String] both the given [prefix] and [suffix] if and only
   /// if it starts with the [prefix] and ends with the [suffix].
   /// Otherwise returns this [String] unchanged.
@@ -172,7 +218,9 @@ extension StringX on String {
       return this;
     }
   }
+}
 
+extension StringSliceExtension on String {
   /// Returns a new substring containing all characters between [start]
   /// (inclusive) and [end] (inclusive).
   /// If [end] is omitted, it is being set to `lastIndex`.
@@ -191,9 +239,11 @@ extension StringX on String {
   }
 }
 
-extension StringXN on String? {
+extension NullableStringIsNullOrEmptyExtension on String? {
   /// Returns `true` if the String is either null or empty.
   bool get isNullOrEmpty => this?.isEmpty ?? true;
+}
 
+extension NullableStringIsNotNullOrEmptyExtension on String? {
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
