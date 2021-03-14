@@ -237,6 +237,25 @@ File('some/path/file.dart').isWithin(dir); // true
 
 ## Directory
 
+### .file(String)
+
+References a file within a `Directory`
+
+```dart
+Directory androidDir = Directory('flutter-app/android');
+File manifestFile = androidDir.file("app/src/main/AndroidManifest.xml");
+```
+
+References a directory within a `Directory`
+
+### .directory(String)
+
+```dart
+Directory androidDir = Directory('flutter-app/android');
+Directory mainSrc = androidDir.directory("app/src/main");
+```
+
+
 ### .contains(FileSystemEntity entity, {bool recursive = false})
 
 Checks if a `Directory` contains a `FileSystemEntity`. This can be a `File` or a `Directory`.
