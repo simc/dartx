@@ -623,9 +623,9 @@ extension IterableFilterNotToIndexed<E> on Iterable<E> {
       whereNotToIndexed(destination, predicate);
 }
 
-extension IterableFilterNotNull<E> on Iterable<E> {
+extension IterableFilterNotNull<E> on Iterable<E?> {
   /// Returns a new lazy [Iterable] with all elements which are not null.
-  Iterable<E> filterNotNull() => where((element) => element != null);
+  Iterable<E> filterNotNull() => whereNotNull();
 }
 
 extension IterableWhereIndexed<E> on Iterable<E> {
@@ -717,9 +717,9 @@ extension IterableWhereNotToIndexed<E> on Iterable<E> {
   }
 }
 
-extension IterableWhereNotNull<E> on Iterable<E> {
+extension IterableWhereNotNull<E> on Iterable<E?> {
   /// Returns a new lazy [Iterable] with all elements which are not null.
-  Iterable<E> whereNotNull() => where((element) => element != null);
+  Iterable<E> whereNotNull() => where((element) => element != null).cast<E>();
 }
 
 extension IterableMapNotNull<E> on Iterable<E> {

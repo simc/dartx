@@ -475,6 +475,10 @@ void main() {
       expect([0, null, 1, null, null, 2].whereNotNull(), [0, 1, 2]);
     });
 
+    test('.whereNotNull()', () {
+      expect([0, null, 1, null, 2].whereNotNull().map((e) => e + 1), [1, 2, 3]);
+    });
+
     test('.mapNotNull()', () {
       expect([].mapNotNull((it) => 1), []);
       expect([1, 2, 3, 4].mapNotNull((it) => null), []);
