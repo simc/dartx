@@ -1,3 +1,8 @@
+## 0.7.1
+
+- [PR-126](https://github.com/leisim/dartx/pull/126) Improve runtime of `elementAtOrNull` for `List`
+- [PR-125](https://github.com/leisim/dartx/pull/125) Fix `whereNotNull` to actually return non-null elements
+
 ## 0.7.0
 
 - All extensions methods now have their own extension which can be imported explicitly with `show`/`hide`. This allows the usage of `package:collection` and `dartx` in the same file.
