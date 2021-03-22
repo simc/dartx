@@ -13,6 +13,14 @@ void main() {
       expect([1, 2, 3].lastIndex, 2);
     });
 
+    test('.elementAtOrNull()', () {
+      expect([1, 2, 3].elementAtOrNull(-1), null);
+      expect([1, 2, 3].elementAtOrNull(0), 1);
+      expect([1, 2, 3].elementAtOrNull(1), 2);
+      expect([1, 2, 3].elementAtOrNull(2), 3);
+      expect([1, 2, 3].elementAtOrNull(3), null);
+    });
+
     test('.indices', () {
       expect([].indices, []);
       expect([1, 2, 3].indices, [0, 1, 2]);

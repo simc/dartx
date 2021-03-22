@@ -24,6 +24,22 @@ extension ListLastIndexExtension<E> on List<E> {
   int get lastIndex => length - 1;
 }
 
+extension ListElementAtOrNull<E> on List<E> {
+  /// Returns an element at the given [index] or `null` if the [index] is out of
+  /// bounds of this list.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3, 4];
+  /// final first = list.elementAtOrNull(0); // 1
+  /// final fifth = list.elementAtOrNull(4); // null
+  /// ```
+  E? elementAtOrNull(int index) {
+    if (index < 0) return null;
+    if (index >= length) return null;
+    return this[index];
+  }
+}
+
 extension ListIndicesExtension<E> on List<E> {
   Iterable<int> get indices sync* {
     var index = 0;
