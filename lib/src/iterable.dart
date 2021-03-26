@@ -353,12 +353,12 @@ extension IterableJoinToString<E> on Iterable<E> {
 extension IterableSumBy<E> on Iterable<E> {
   /// Returns the sum of all values produced by [selector] function applied to
   /// each element in the collection.
-  double sumBy(num Function(E element) selector) {
-    var sum = 0.0;
+  T sumBy<T extends num>(T Function(E element) selector) {
+    var sum = T == double ? 0.0 : 0;
     for (final current in this) {
       sum += selector(current);
     }
-    return sum;
+    return sum as T;
   }
 }
 
