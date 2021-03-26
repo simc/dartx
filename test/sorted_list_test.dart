@@ -4,6 +4,8 @@ import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
 List<int> get _sortedList => [4, 2, 1, 3].sortedBy((it) => it);
+List<int?> get _sortedNullableList =>
+    <int?>[4, 2, 1, 3].sortedBy((it) => it ?? 0);
 
 void main() {
   test('sort', () {
@@ -41,7 +43,7 @@ void main() {
       expect(_sortedList.firstWhere((it) => it.isEven), 2);
     });
     test('fold', () {
-      expect(_sortedList.fold(0, (a, b) => a + b), 10);
+      expect(_sortedList.fold(0, (dynamic a, b) => a + b), 10);
     });
     test('followedBy', () {
       expect(_sortedList.followedBy([2]), [1, 2, 3, 4, 2]);
@@ -59,7 +61,7 @@ void main() {
     });
     test('iterator', () {
       expect(_sortedList.iterator, isA<Iterator<int>>());
-      var iterator = _sortedList.iterator;
+      final iterator = _sortedList.iterator;
       expect(iterator.moveNext(), isTrue);
       expect(iterator.current, 1);
     });
@@ -183,7 +185,7 @@ void main() {
       expect(_sortedList.lastIndexWhere((it) => it == 3), 2);
     });
     test('set length', () {
-      final list = _sortedList;
+      final list = _sortedNullableList;
       list.length = 5;
       expect(list, [1, 2, 3, 4, null]);
     });

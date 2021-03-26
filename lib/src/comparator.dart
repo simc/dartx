@@ -1,6 +1,6 @@
 part of dartx;
 
-extension CompararatorX<T> on Comparator<T> {
+extension CompararatorComposeExtensions<T> on Comparator<T> {
   /// return a new comparator,
   /// that sorts the items first by the criteria of this comparator,
   /// then by the criteria of the given comparator
@@ -13,7 +13,9 @@ extension CompararatorX<T> on Comparator<T> {
       return then(a, b);
     };
   }
+}
 
+extension CompararatorReverseExtensions<T> on Comparator<T> {
   /// reverse the sort order of this comparator
   Comparator<T> reverse() => (a, b) => this(b, a);
 }

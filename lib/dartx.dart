@@ -6,11 +6,12 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:characters/characters.dart';
-import 'package:collection/collection.dart' hide DelegatingList;
+import 'package:characters/characters.dart' as characters;
+import 'package:collection/collection.dart' as collection;
 import 'package:crypto/crypto.dart' as crypto;
 
 export 'package:time/time.dart';
+export 'package:characters/characters.dart';
 
 part 'src/comparable.dart';
 part 'src/comparator.dart';

@@ -3,7 +3,26 @@ name: Dart CI
 on: [push, pull_request]
 
 jobs:
+  test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        version: ["2.12", "dev"]
+
+    container:
+      image:  google/dart:${{ matrix.version }}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+
   test-windows:
+    timeout-minutes: 5
     runs-on: windows-latest
 
     steps:
@@ -16,7 +35,23 @@ jobs:
       - name: Run tests
         run: C:\tools\dart-sdk\bin\pub.bat run test
 
-  test:
+  test-macos:
+    timeout-minutes: 5
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+
+  format:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
 
     container:
@@ -24,7 +59,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: pub get
-      - name: Run tests
-        run: pub run test
+      - name: Dartfmt
+        run: dartfmt --set-exit-if-changed -w --fix .

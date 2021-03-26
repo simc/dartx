@@ -1,18 +1,20 @@
 name: dartx
 description: Superpowers for Dart. Collection of useful static extension methods.
-version: 0.4.1
+version: 0.7.1
 homepage: https://github.com/leisim/dartx
 
 environment:
-  sdk: ">=2.6.0-dev.5.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  collection:
-  path: ^1.6.0
-  crypto: ">=2.1.0 <2.2.0"
-  characters:
-  time: ^1.2.0
+  characters: ^1.1.0
+  collection: ^1.15.0
+  crypto: ^3.0.0
+  meta: ^1.3.0
+  path: ^1.8.0
+  time: ^2.0.0
 
 dev_dependencies:
-  test: ^1.9.2
-  pedantic: ^1.8.0
+  fake_async: ^1.2.0
+  lint: ^1.5.0
+  test: ^1.16.4

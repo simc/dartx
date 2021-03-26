@@ -1,5 +1,6 @@
-import 'package:test/test.dart';
+// ignore_for_file: avoid_redundant_argument_values
 import 'package:dartx/dartx.dart';
+import 'package:test/test.dart';
 
 class _WrappedInt implements Comparable<_WrappedInt> {
   final int value;
@@ -15,24 +16,31 @@ void main() {
     test('.coerceIn()', () {
       expect(DateTime(1984, 11, 19).coerceIn(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 19));
-      expect(DateTime(1984, 10, 28).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 1));
-      expect(DateTime(1984, 12, 1).coerceIn(
-        DateTime(1984, 11, 1),
-        DateTime(1984, 11, 20),
-      ), DateTime(1984, 11, 20));
-      expect(() => 10.coerceIn(3, 2), throwsArgumentError);
-      expect(() =>
-          DateTime.now().coerceIn(
-            DateTime(1984, 11, 20),
+      expect(
+          DateTime(1984, 11, 19).coerceIn(
             DateTime(1984, 11, 1),
-          ), throwsArgumentError);
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 19));
+      expect(
+          DateTime(1984, 10, 28).coerceIn(
+            DateTime(1984, 11, 1),
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 1));
+      expect(
+          DateTime(1984, 12, 1).coerceIn(
+            DateTime(1984, 11, 1),
+            DateTime(1984, 11, 20),
+          ),
+          DateTime(1984, 11, 20));
+      expect(() => 10.coerceIn(3, 2), throwsArgumentError);
+      expect(
+          () => DateTime.now().coerceIn(
+                DateTime(1984, 11, 20),
+                DateTime(1984, 11, 1),
+              ),
+          throwsArgumentError);
     });
 
     test('.coerceAtLeast()', () {
@@ -47,6 +55,33 @@ void main() {
           DateTime(1984, 11, 19));
       expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
           DateTime(1984, 11, 1));
+    });
+
+    test('.between()', () {
+      final start = DateTime(1984, 11, 19);
+      final end = DateTime(2020, 01, 01);
+      expect(DateTime(1984, 11, 19).between(start, end), true);
+      expect(DateTime(2019, 11, 19).between(start, end), true);
+      expect(DateTime(2020, 01, 01).between(start, end), true);
+      expect(DateTime(2020, 01, 02).between(start, end), false);
+      expect(DateTime(1984, 11, 18).between(start, end), false);
+
+      // reverse order
+      expect(DateTime(1984, 11, 19).between(end, start), true);
+      expect(DateTime(2019, 11, 19).between(end, start), true);
+      expect(DateTime(2020, 01, 01).between(end, start), true);
+      expect(DateTime(2020, 01, 02).between(end, start), false);
+      expect(DateTime(1984, 11, 18).between(end, start), false);
+    });
+
+    test('.inRange()', () {
+      final range = DateTime(1984, 11, 19).rangeTo(DateTime(2020, 1, 1));
+
+      expect(DateTime(1984, 11, 19).inRange(range), true);
+      expect(DateTime(2019, 11, 19).inRange(range), true);
+      expect(DateTime(2020, 1, 1).inRange(range), true);
+      expect(DateTime(2020, 1, 2).inRange(range), false);
+      expect(DateTime(1984, 11, 18).inRange(range), false);
     });
 
     test('comparable extension operators', () {

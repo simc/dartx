@@ -1,7 +1,11 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
 import 'package:dartx/dartx.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -37,11 +41,11 @@ void main() {
     });
 
     test('.elementAtOrNull()', () {
-      expect([1, 2, 3].elementAtOrNull(-1), null);
-      expect([1, 2, 3].elementAtOrNull(0), 1);
-      expect([1, 2, 3].elementAtOrNull(1), 2);
-      expect([1, 2, 3].elementAtOrNull(2), 3);
-      expect([1, 2, 3].elementAtOrNull(3), null);
+      expect([1, 2, 3].toIterable().elementAtOrNull(-1), null);
+      expect([1, 2, 3].toIterable().elementAtOrNull(0), 1);
+      expect([1, 2, 3].toIterable().elementAtOrNull(1), 2);
+      expect([1, 2, 3].toIterable().elementAtOrNull(2), 3);
+      expect([1, 2, 3].toIterable().elementAtOrNull(3), null);
     });
 
     test('.elementAtOrDefault()', () {
@@ -94,12 +98,6 @@ void main() {
       expect([].lastOrNullWhere((e) => true), null);
     });
 
-    test('.requireNoNulls()', () {
-      [].requireNoNulls();
-      [1, 2, 3].requireNoNulls();
-      expect(() => [1, 2, null, 3].requireNoNulls(), throwsStateError);
-    });
-
     test('.all()', () {
       expect([1, 2, 3].all((e) => e != 4), true);
       expect([1, 2, 3].all((e) => e != 3), false);
@@ -117,7 +115,7 @@ void main() {
     });
 
     group('.slice()', () {
-      var elements = const [0, 1, 2, 3, 4, 5, 6];
+      const elements = [0, 1, 2, 3, 4, 5, 6];
       test('index in range', () {
         expect(elements.slice(0), elements);
         expect(elements.slice(4), [4, 5, 6]);
@@ -156,8 +154,8 @@ void main() {
     });
 
     test('.containsAll()', () {
-      var list1 = const ['test', 'test', 'tes', 't'];
-      var list2 = const ['test', 't', 'test', 'tes'];
+      const list1 = ['test', 'test', 'tes', 't'];
+      const list2 = ['test', 't', 'test', 'tes'];
 
       expect(['a', ...list1].containsAll(list2.toList()), true);
       expect(list1.containsAll(['a', ...list2]), false);
@@ -165,23 +163,23 @@ void main() {
     });
 
     test('.containsAny()', () {
-      var list1 = const [1, 2, 3, 4, 5];
-      var list2 = const [1, 3, 6];
+      const list1 = [1, 2, 3, 4, 5];
+      const list2 = [1, 3, 6];
 
       expect(list1.containsAny(list2), true);
       expect(list2.containsAny([2, 4, 7]), false);
     });
 
     test('.contentEquals()', () {
-      var list1 = const ['test', 'test', 'tom', 'true'];
-      var list2 = const ['test', 't', 'te', 'tes'];
-      var list3 = const [0, 1, 2, 3, 4, 5];
-      var list4 = const [0, 1, 2, 3, 4, 5, 6];
+      const list1 = ['test', 'test', 'tom', 'true'];
+      const list2 = ['test', 't', 'te', 'tes'];
+      const list3 = [0, 1, 2, 3, 4, 5];
+      const list4 = [0, 1, 2, 3, 4, 5, 6];
 
       expect(list1.contentEquals(list2.toList()), false);
       expect(list1.contentEquals(list2), false);
-      var compare = (e1, e2) => e1.codeUnitAt(0) == e2.codeUnitAt(0);
-      expect(list1.contentEquals(list2, compare), true);
+      bool compareCodeUnits(e1, e2) => e1.codeUnitAt(0) == e2.codeUnitAt(0);
+      expect(list1.contentEquals(list2, compareCodeUnits), true);
       expect(list3.contentEquals(list4), false);
       expect(list4.contentEquals(list3), false);
     });
@@ -236,13 +234,13 @@ void main() {
     test('.sumBy()', () {
       expect([].sumBy((it) => 0.0), 0);
       expect(['t', 'te', 'tes'].sumBy((it) => it.length), 6);
-      expect(['t', null, '', 'tes', null].sumBy((it) => it?.length), 4);
+      expect(['t', null, '', 'tes', null].sumBy((it) => it?.length ?? 0), 4);
     });
 
     test('.averageBy()', () {
       expect(() => [].averageBy((it) => 0.0), throwsStateError);
       expect(['t', 'te', 'tes'].averageBy((it) => it.length), 2.0);
-      expect(['te', null, 'test'].averageBy((it) => it?.length), 2.0);
+      expect(['te', null, 'test'].averageBy((it) => it?.length ?? 0), 2.0);
     });
 
     test('.min()', () {
@@ -259,6 +257,7 @@ void main() {
 
     test('.minBy()', () {
       expect([].minBy((it) => 0), null);
+      expect(<String>[].minBy((it) => it.length), null);
       expect(['test'].minBy((it) => it.length), 'test');
       expect(['t', 'te', 'tes'].minBy((it) => it.length), 't');
     });
@@ -316,7 +315,7 @@ void main() {
 
       test('Iterable', () {
         expect([].toIterable().reversed, []);
-        var iterable = ['t', 'te', 'tes'].toIterable();
+        final iterable = ['t', 'te', 'tes'].toIterable();
         expect(iterable.reversed, ['t', 'te', 'tes'].reversed);
       });
     });
@@ -348,13 +347,13 @@ void main() {
     });
 
     test('.filterIndexed()', () {
-      var result = [6, 5, 4, 3, 2, 1, 0].filter((it) => it % 2 == 0);
+      final result = [6, 5, 4, 3, 2, 1, 0].filter((it) => it % 2 == 0);
       expect(result, [6, 4, 2, 0]);
     });
 
     test('.filterIndexed()', () {
       var index = 0;
-      var result = [6, 5, 4, 3, 2, 1, 0].filterIndexed((it, i) {
+      final result = [6, 5, 4, 3, 2, 1, 0].filterIndexed((it, i) {
         expect(it, 6 - index);
         expect(i, index);
         index++;
@@ -364,14 +363,14 @@ void main() {
     });
 
     test('.filterTo()', () {
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterTo(list, (e) => e % 2 == 0);
       expect(list, [2, 4, 2]);
     });
 
     test('.filterToIndexed()', () {
       var index = 0;
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterIndexedTo(list, (e, i) {
         expect(index++, i);
         return e % 2 == 0;
@@ -395,14 +394,14 @@ void main() {
     });
 
     test('.filterNotTo()', () {
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterNotTo(list, (e) => e % 2 == 0);
       expect(list, [1, 3, 3, 1]);
     });
 
     test('.filterToIndexed()', () {
       var index = 0;
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterNotToIndexed(list, (e, i) {
         expect(index++, i);
         return e % 2 == 0;
@@ -416,7 +415,7 @@ void main() {
 
     test('.whereIndexed()', () {
       var index = 0;
-      var result = [6, 5, 4, 3, 2, 1, 0].whereIndexed((it, i) {
+      final result = [6, 5, 4, 3, 2, 1, 0].whereIndexed((it, i) {
         expect(it, 6 - index);
         expect(i, index);
         index++;
@@ -426,14 +425,14 @@ void main() {
     });
 
     test('.whereTo()', () {
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereTo(list, (e) => e % 2 == 0);
       expect(list, [2, 4, 2]);
     });
 
     test('.whereToIndexed()', () {
       var index = 0;
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereIndexedTo(list, (e, i) {
         expect(index++, i);
         return e % 2 == 0;
@@ -457,14 +456,14 @@ void main() {
     });
 
     test('.whereNotTo()', () {
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereNotTo(list, (e) => e % 2 == 0);
       expect(list, [1, 3, 3, 1]);
     });
 
     test('.whereToIndexed()', () {
       var index = 0;
-      var list = <int>[];
+      final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereNotToIndexed(list, (e, i) {
         expect(index++, i);
         return e % 2 == 0;
@@ -474,6 +473,10 @@ void main() {
 
     test('.whereNotNull()', () {
       expect([0, null, 1, null, null, 2].whereNotNull(), [0, 1, 2]);
+    });
+
+    test('.whereNotNull()', () {
+      expect([0, null, 1, null, 2].whereNotNull().map((e) => e + 1), [1, 2, 3]);
     });
 
     test('.mapNotNull()', () {
@@ -522,18 +525,18 @@ void main() {
 
     test('.distinct()', () {
       expect([].distinct(), []);
-      var list = ['h', 'hi', 'h', 'test', 'hi', 'test', 'hi', 'h', 'hello'];
+      final list = ['h', 'hi', 'h', 'test', 'hi', 'test', 'hi', 'h', 'hello'];
       expect(list.distinct(), ['h', 'hi', 'test', 'hello']);
     });
 
     test('.distinctBy()', () {
       expect([].distinctBy((it) => 1), []);
-      var list = ['oh', 'hi', 'oh', 'test1', 'hi', 'test1', 'hi', 'hello'];
+      final list = ['oh', 'hi', 'oh', 'test1', 'hi', 'test1', 'hi', 'hello'];
       expect(list.distinctBy((it) => it.length), ['oh', 'test1']);
     });
 
     test('.chunked()', () {
-      var list = List.generate(50, (i) => i);
+      final list = List.generate(50, (i) => i);
       expect(() => list.chunked(0), throwsArgumentError);
       expect([].chunked(1), <List<int>>[]);
       expect(list.chunked(1), list.map((it) => [it]));
@@ -546,6 +549,37 @@ void main() {
       expect(list.chunked(11).elementAt(4), [44, 45, 46, 47, 48, 49]);
 
       expect(list.chunked(60), [list]);
+    });
+
+    group('.chunkWhile()', () {
+      test('regular list', () {
+        final list = [1, 1, 1, 2, 2, 3, 4, 4];
+        expect(list.chunkWhile((a, b) => a == b), [
+          [1, 1, 1],
+          [2, 2],
+          [3],
+          [4, 4],
+        ]);
+      });
+
+      test('size 1', () {
+        expect(
+          [1].chunkWhile((a, b) => fail('Should not call predicate')),
+          [
+            [1]
+          ],
+        );
+      });
+    });
+
+    test('.splitWhen()', () {
+      final list = [1, 1, 1, 2, 2, 3, 4, 4];
+      expect(list.splitWhen((a, b) => a != b), [
+        [1, 1, 1],
+        [2, 2],
+        [3],
+        [4, 4],
+      ]);
     });
 
     group('.windowed()', () {
@@ -562,7 +596,7 @@ void main() {
       });
 
       test('size 4', () {
-        var result = [0, 1, 2, 3, 4, 5].windowed(4);
+        final result = [0, 1, 2, 3, 4, 5].windowed(4);
         expect(result, [
           [0, 1, 2, 3],
           [1, 2, 3, 4],
@@ -571,7 +605,7 @@ void main() {
       });
 
       test('partialWindows', () {
-        var result = [0, 1, 2, 3, 4, 5].windowed(4, partialWindows: true);
+        final result = [0, 1, 2, 3, 4, 5].windowed(4, partialWindows: true);
         expect(result, [
           [0, 1, 2, 3],
           [1, 2, 3, 4],
@@ -583,7 +617,7 @@ void main() {
       });
 
       test('steps', () {
-        var result = [0, 1, 2, 3, 4, 5].windowed(3, step: 2);
+        final result = [0, 1, 2, 3, 4, 5].windowed(3, step: 2);
         expect(result, [
           [0, 1, 2],
           [2, 3, 4]
@@ -591,7 +625,7 @@ void main() {
       });
 
       test('steps & partialWindows', () {
-        var result =
+        final result =
             [0, 1, 2, 3, 4, 5].windowed(3, step: 2, partialWindows: true);
         expect(result, [
           [0, 1, 2],
@@ -609,22 +643,42 @@ void main() {
       );
     });
 
-    test('.asStream()', () {
-      expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
-      expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+    group('.asStream()', () {
+      test('.asStream()', () {
+        expect([0, 1, 2, 3, 4, 5].asStream(), emitsInOrder([0, 1, 2, 3, 4, 5]));
+        expect([100, 99, 98, 95].asStream(), emitsInOrder([100, 99, 98, 95]));
+      });
+
+      test('.asStreamAwaited()', () {
+        fakeAsync((async) {
+          final futures = [
+            Future.delayed(const Duration(seconds: 1)).then((_) => 0),
+            Future.delayed(const Duration(seconds: 2)).then((_) => 1),
+            Future.delayed(const Duration(seconds: 100)).then((_) => 42),
+            Future.delayed(const Duration(seconds: 3)).then((_) => 3),
+          ].asStreamAwaited();
+
+          final received = <int>[];
+          futures.listen(received.add);
+          async.elapse(const Duration(seconds: 3));
+          expect(received, [0, 1, 3]);
+          async.elapse(const Duration(seconds: 100));
+          expect(received, [0, 1, 3, 42]);
+        });
+      });
     });
 
     group('.flatten()', () {
       test('for iterables of the same type', () {
         // ignore: omit_local_variable_types
-        Iterable<Iterable<int>> iterableOfIterables =
+        final Iterable<Iterable<int>> iterableOfIterables =
             Iterable.generate(3, (index) sync* {
           yield index;
           yield index + 1;
           yield index + 2;
         });
         // ignore: omit_local_variable_types
-        Iterable<int> iterable = iterableOfIterables.flatten();
+        final Iterable<int> iterable = iterableOfIterables.flatten();
         expect(iterable, [0, 1, 2, 1, 2, 3, 2, 3, 4]);
         expect(iterable, isA<Iterable<int>>());
         expect(iterable.toList(), isA<List<int>>());
@@ -632,12 +686,12 @@ void main() {
 
       test('dynamic type', () {
         // ignore: omit_local_variable_types
-        Iterable<Iterable<dynamic>> iterableOfIterables = () sync* {
+        final Iterable<Iterable<dynamic>> iterableOfIterables = () sync* {
           yield [1, 2, 3];
           yield ['a', 'b'];
         }();
         // ignore: omit_local_variable_types
-        Iterable<dynamic> iterable = iterableOfIterables.flatten();
+        final Iterable<dynamic> iterable = iterableOfIterables.flatten();
         expect(iterable, [1, 2, 3, 'a', 'b']);
         expect(iterable, isA<Iterable<dynamic>>());
       });
@@ -647,7 +701,7 @@ void main() {
       test('with count', () {
         expect(() => [].cycle(3).elementAt(0), throwsRangeError);
 
-        var result = [0, 1, 2].cycle(2);
+        final result = [0, 1, 2].cycle(2);
         expect(result.elementAt(0), 0);
         expect(result.elementAt(1), 1);
         expect(result.elementAt(2), 2);
@@ -660,7 +714,7 @@ void main() {
       test('infinite', () {
         expect(() => [].cycle().elementAt(0), throwsRangeError);
 
-        var result = [0, 1, 2].cycle();
+        final result = [0, 1, 2].cycle();
         expect(result.elementAt(0), 0);
         expect(result.elementAt(1), 1);
         expect(result.elementAt(2), 2);
@@ -740,10 +794,47 @@ void main() {
       expect([3, 4, 5].union([4, 10, 20]), [3, 4, 5, 10, 20]);
     });
 
-    test('.zip()', () {
-      expect([].zip([], (e1, e2) => null), []);
-      expect([1, 2, 3].zip([2, 4, 6], (e1, e2) => e1 / e2), [0.5, 0.5, 0.5]);
-      expect([2, 4, 6].zip([1, 2, 3], (e1, e2) => e1 / e2), [2.0, 2.0, 2.0]);
+    group('.zip()', () {
+      test('with same types', () {
+        expect([].zip([], (e1, dynamic e2) => null), []);
+        expect(
+          [1, 2, 3].zip([2, 4, 6], (e1, int e2) => e1 / e2),
+          [0.5, 0.5, 0.5],
+        );
+        expect(
+          [2, 4, 6].zip([1, 2, 3], (e1, int e2) => e1 / e2),
+          [2.0, 2.0, 2.0],
+        );
+
+        // with type definitions
+        expect(
+          [1, 2, 3].zip([2, 4, 6], (int e1, int e2) => e1 / e2),
+          [0.5, 0.5, 0.5],
+        );
+      });
+
+      test('with same types and different length', () {
+        expect([1, 2, 3].zip([2, 4], (e1, int e2) => e1 / e2), [0.5, 0.5]);
+        expect([2, 4].zip([2, 2, 2], (e1, int e2) => e1 / e2), [1.0, 2.0]);
+      });
+
+      test('with different types', () {
+        final amounts = [2, 3, 4];
+        final animals = ['dogs', 'birds', 'cats'];
+        expect(
+          amounts.zip(animals, (amount, String animal) => '$amount $animal'),
+          ['2 dogs', '3 birds', '4 cats'],
+        );
+      });
+
+      test('with different types and different lengths', () {
+        final amounts = [2, 3];
+        final animals = ['dogs', 'birds', 'cats'];
+        expect(
+          amounts.zip(animals, (amount, String animal) => '$amount $animal'),
+          ['2 dogs', '3 birds'],
+        );
+      });
     });
 
     test('.toIterable()', () {
@@ -758,7 +849,7 @@ void main() {
     });
 
     test('.toUnmodifiable()', () {
-      var result = [1, 2, 3].toUnmodifiable();
+      final result = [1, 2, 3].toUnmodifiable();
       expect(() => result[0] = 2, throwsUnsupportedError);
       expect(() => result.length = 4, throwsUnsupportedError);
       expect(() => result.clear(), throwsUnsupportedError);
@@ -773,7 +864,7 @@ void main() {
     });
 
     test('.associate()', () {
-      expect([].associate((it) => MapEntry(0, 0)), <int, int>{});
+      expect([].associate((it) => const MapEntry(0, 0)), <int, int>{});
 
       expect(
         [1, 2, 3].associate((it) => MapEntry('$it', it)),
@@ -796,6 +887,18 @@ void main() {
       expect(
         [1, 2, 3].associateWith((it) => '$it'),
         {1: '1', 2: '2', 3: '3'},
+      );
+    });
+
+    test('groupBy', () {
+      expect(
+        ['foo', 'bar', 'baz', 'bop', 'qux']
+            .groupBy((dynamic string) => string[1]),
+        equals({
+          'o': ['foo', 'bop'],
+          'a': ['bar', 'baz'],
+          'u': ['qux']
+        }),
       );
     });
 

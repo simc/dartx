@@ -1,11 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 part of dartx;
 
-const _binarySearch = binarySearch;
-const _lowerBound = lowerBound;
-const _insertionSort = insertionSort;
-const _mergeSort = mergeSort;
-
-extension ListX<E> on List<E> {
+extension ListExtension<E> on List<E> {
   /// Index of the first element or -1 if the collection is empty.
   ///
   /// ```dart
@@ -14,7 +11,9 @@ extension ListX<E> on List<E> {
   /// [].firstIndex; // -1
   /// ```
   int get firstIndex => isNotEmpty ? 0 : -1;
+}
 
+extension ListLastIndexExtension<E> on List<E> {
   /// Index of the last element or -1 if the collection is empty.
   ///
   /// ```dart
@@ -23,14 +22,34 @@ extension ListX<E> on List<E> {
   /// [].lastIndex; // -1
   /// ```
   int get lastIndex => length - 1;
+}
 
+extension ListElementAtOrNull<E> on List<E> {
+  /// Returns an element at the given [index] or `null` if the [index] is out of
+  /// bounds of this list.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3, 4];
+  /// final first = list.elementAtOrNull(0); // 1
+  /// final fifth = list.elementAtOrNull(4); // null
+  /// ```
+  E? elementAtOrNull(int index) {
+    if (index < 0) return null;
+    if (index >= length) return null;
+    return this[index];
+  }
+}
+
+extension ListIndicesExtension<E> on List<E> {
   Iterable<int> get indices sync* {
     var index = 0;
     while (index <= lastIndex) {
       yield index++;
     }
   }
+}
 
+extension ListDropExtension<E> on List<E> {
   /// Returns a new list containing all elements except first [n] elements.
   List<E> drop(int n) {
     if (n < 0) {
@@ -38,16 +57,18 @@ extension ListX<E> on List<E> {
     }
     if (n == 0) toList();
 
-    var resultSize = length - n;
+    final resultSize = length - n;
     if (resultSize <= 0) return [];
-    if (resultSize == 1) return [last];
+    if (resultSize == 1) return [last!];
     return sublist(n);
   }
+}
 
+extension ListDropWhileExtension<E> on List<E> {
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
-  List<E> dropWhile(bool predicate(E element)) {
-    int startIndex;
+  List<E> dropWhile(bool Function(E element) predicate) {
+    int? startIndex;
     for (var i = 0; i < length; i++) {
       if (!predicate(this[i])) {
         startIndex = i;
@@ -57,7 +78,9 @@ extension ListX<E> on List<E> {
     if (startIndex == null) return [];
     return sublist(startIndex);
   }
+}
 
+extension ListDropLastExtension<E> on List<E> {
   /// Returns a new list containing all elements except last [n] elements.
   List<E> dropLast(int n) {
     if (n < 0) {
@@ -65,16 +88,18 @@ extension ListX<E> on List<E> {
     }
     if (n == 0) toList();
 
-    var resultSize = length - n;
+    final resultSize = length - n;
     if (resultSize <= 0) return [];
     if (resultSize == 1) return [first];
     return sublist(0, length - n);
   }
+}
 
+extension ListDropLastWhileExtension<E> on List<E> {
   /// Returns a new list containing all elements except last elements that
   /// satisfy the given [predicate].
-  List<E> dropLastWhile(bool predicate(E element)) {
-    int endIndex;
+  List<E> dropLastWhile(bool Function(E element) predicate) {
+    int? endIndex;
     for (var i = lastIndex; i >= 0; i--) {
       if (!predicate(this[i])) {
         endIndex = i;
@@ -84,7 +109,9 @@ extension ListX<E> on List<E> {
     if (endIndex == null) return [];
     return sublist(0, endIndex + 1);
   }
+}
 
+extension ListLowerBoundExtension<E> on List<E> {
   /// Returns the first position in this list that does not compare less than
   /// [value].
   ///
@@ -93,13 +120,15 @@ extension ListX<E> on List<E> {
   ///
   /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
   /// on the objects. If any object is not [Comparable], this throws a
-  /// [CastError].
+  /// [TypeError].
   ///
   /// Returns [length] if all the items in this list compare less than [value].
-  int lowerBound(E value, {int compare(E a, E b)}) {
-    return _lowerBound(this, value, compare: compare);
+  int lowerBound(E value, {int Function(E a, E b)? compare}) {
+    return collection.lowerBound(this, value, compare: compare);
   }
+}
 
+extension ListBinarySearchExtension<E> on List<E> {
   /// Returns a position of the [value] in this list, if it is there.
   ///
   /// If the list isn't sorted according to the [compare] function, the result
@@ -107,19 +136,21 @@ extension ListX<E> on List<E> {
   ///
   /// If [compare] is omitted, this defaults to calling [Comparable.compareTo]
   /// on the objects. If any object is not [Comparable], this throws a
-  /// [CastError].
+  /// [TypeError].
   ///
   /// Returns -1 if [value] is not in the list by default.
-  int binarySearch(E value, {int compare(E a, E b)}) {
-    return _binarySearch(this, value, compare: compare);
+  int binarySearch(E value, {int Function(E a, E b)? compare}) {
+    return collection.binarySearch(this, value, compare: compare);
   }
+}
 
+extension ListInsertionSortExtension<E> on List<E> {
   /// Sort this list between [start] (inclusive) and [end] (exclusive) using
   /// insertion sort.
   ///
   /// If [comparator] is omitted, this defaults to calling
   /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
-  /// this throws a [CastError].
+  /// this throws a [TypeError].
   ///
   /// Insertion sort is a simple sorting algorithm. For `n` elements it does on
   /// the order of `n * log(n)` comparisons but up to `n` squared moves. The
@@ -130,16 +161,18 @@ extension ListX<E> on List<E> {
   ///
   /// This insertion sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void insertionSort({Comparator<E> comparator, int start = 0, int end}) {
-    _insertionSort(this, compare: comparator, start: start, end: end);
+  void insertionSort({Comparator<E>? comparator, int start = 0, int? end}) {
+    collection.insertionSort(this, compare: comparator, start: start, end: end);
   }
+}
 
+extension ListMergeSortExtension<E> on List<E> {
   /// Sorts this list between [start] (inclusive) and [end] (exclusive) using
   /// the merge sort algorithm.
   ///
   /// If [comparator] is omitted, this defaults to calling
   /// [Comparable.compareTo] on the objects. If any object is not [Comparable],
-  /// this throws a  [CastError].
+  /// this throws a [CastError].
   ///
   /// Merge-sorting works by splitting the job into two parts, sorting each
   /// recursively, and then merging the two sorted parts.
@@ -150,18 +183,32 @@ extension ListX<E> on List<E> {
   ///
   /// This merge sort is stable: Equal elements end up in the same order
   /// as they started in.
-  void mergeSort({int start = 0, int end, Comparator<E> comparator}) {
-    _mergeSort(this, start: start, end: end, compare: comparator);
+  void mergeSort({int start = 0, int? end, Comparator<E>? comparator}) {
+    collection.mergeSort(this, start: start, end: end, compare: comparator);
   }
 }
 
-extension ListListX<E> on List<List<E>> {
+extension ListSwapExtension<E> on List<E> {
+  /// Swaps the elements in the indices provided.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3, 4];
+  /// list.swap(0, 2); // [3, 2, 1, 4]
+  /// ```
+  void swap(int indexA, int indexB) {
+    final temp = this[indexA];
+    this[indexA] = this[indexB];
+    this[indexB] = temp;
+  }
+}
+
+extension ListFlattenExtension<E> on List<List<E>> {
   /// Returns a new [List] of all elements from all lists in this
   /// [List].
   ///
   /// ```dart
-  /// var nestedList = [[1, 2, 3], [4, 5, 6]];
-  /// var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+  /// final nestedList = [[1, 2, 3], [4, 5, 6]];
+  /// final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
   /// ```
   ///
   ///
@@ -169,8 +216,8 @@ extension ListListX<E> on List<List<E>> {
   /// accessing elements by index afterwards
   ///
   /// ```dart
-  /// var flat = [['a', 'b'], ['c', 'd']].flatten();
+  /// final flat = [['a', 'b'], ['c', 'd']].flatten();
   /// print(flat[2]); // prints "c"
   /// ```
-  List<E> flatten() => [for (var list in this) ...list];
+  List<E> flatten() => [for (final list in this) ...list];
 }
