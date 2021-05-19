@@ -1334,3 +1334,32 @@ extension IterableFutureX<E> on Iterable<Future<E>> {
   /// When all futures have completed, the stream is closed.
   Stream<E> asStreamAwaited() => Stream.fromFutures(this);
 }
+
+extension IterableStartsWithExtension<E> on Iterable<E> {
+  /// Returns if this [Iterable] starts with the elements of [otherIterable].
+  ///
+  /// If [otherIterable] is empty, `true` is returned. If [otherIterable] has
+  /// more elements than this [Iterable], `false` is returned.
+  ///
+  /// ```dart
+  /// [1, 2, 3].startsWith([]); // -> true
+  /// [1, 2, 3].startsWith([1]); // -> true
+  /// [1, 2, 3].startsWith([1, 2]); // -> true
+  /// [1, 2, 3].startsWith([1, 2, 3]); // -> true
+  /// [1, 2, 3].startsWith([1, 2, 3, 4]); // -> false
+  /// [1, 2, 3].startsWith([2, 3]); // -> false
+  /// ```
+  bool startsWith(Iterable<E> otherIterable) {
+    final thisIterator = iterator;
+    final otherIterator = otherIterable.iterator;
+    if (!otherIterator.moveNext()) return true;
+    do {
+      // this iterator is empty or the current elements are different
+      if (!thisIterator.moveNext() ||
+          otherIterator.current != thisIterator.current) {
+        return false;
+      }
+    } while (otherIterator.moveNext());
+    return true;
+  }
+}
