@@ -1,11 +1,5 @@
 include: package:lint/analysis_options_package.yaml
 
-analyzer:
-  strong-mode:
-    implicit-casts: false
-
 linter:
   rules:
-    # Make pana happy
     prefer_single_quotes: true
-    omit_local_variable_types: true
