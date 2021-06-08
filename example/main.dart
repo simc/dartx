@@ -28,6 +28,8 @@ void main() {
     [4, 5, 6]
   ];
   final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+
+  123.0.minus(null); // 123.0
 }
 
 class Dog {
