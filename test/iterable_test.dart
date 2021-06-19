@@ -955,5 +955,20 @@ void main() {
         expect(accessCount, 3);
       });
     });
+
+    test('.startsWith()', () {
+      expect([].startsWith([]), true);
+      expect([1, 2, 3].startsWith([]), true);
+      expect([1, 2, 3].startsWith([1]), true);
+      expect([1, 2, 3].startsWith([1, 2]), true);
+      expect([1, 2, 3].startsWith([1, 2, 3]), true);
+      expect([1, 2, 3].startsWith([1, 2, 3, 4]), false);
+      expect([1, 2, 3].startsWith([2, 3, 4]), false);
+      expect([1, 2, 3].startsWith([2, 3]), false);
+      expect([1, 2, 3].startsWith([2]), false);
+      expect([].startsWith([1, 2, 3]), false);
+      expect([null, 1, 2, 3].startsWith([null, 1]), true);
+      expect([1, null, 3].startsWith([1, null]), true);
+    });
   });
 }
