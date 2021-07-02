@@ -262,6 +262,24 @@ void main() {
       expect(['t', 'te', 'tes'].minBy((it) => it.length), 't');
     });
 
+    test('min max', () {
+      final List<int> intList = [3, 1, 2];
+      expect(intList.min(), 1);
+      expect(intList.max(), 3);
+
+      final List<double> doubleList = [3.1, 1.2, 2.3];
+      expect(doubleList.min(), 1.2);
+      expect(doubleList.max(), 3.1);
+
+      final List<BigInt> bigintList = [
+        BigInt.from(3),
+        BigInt.from(1),
+        BigInt.from(2)
+      ];
+      expect(bigintList.min(), BigInt.from(1));
+      expect(bigintList.max(), BigInt.from(3));
+    });
+
     test('.maxBy()', () {
       expect([].maxBy((it) => 0), null);
       expect(['test'].maxBy((it) => it.length), 'test');

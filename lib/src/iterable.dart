@@ -397,9 +397,17 @@ extension _MinMaxHelper<E> on Iterable<E> {
     }
     var currentMin = it.current;
 
-    while (it.moveNext()) {
-      if ((it.current as Comparable).compareTo(currentMin) == order) {
-        currentMin = it.current;
+    if (order < 0) {
+      while (it.moveNext()) {
+        if ((it.current as Comparable).compareTo(currentMin) <= order) {
+          currentMin = it.current;
+        }
+      }
+    } else {
+      while (it.moveNext()) {
+        if ((it.current as Comparable).compareTo(currentMin) >= order) {
+          currentMin = it.current;
+        }
       }
     }
 
