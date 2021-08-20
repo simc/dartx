@@ -43,6 +43,21 @@ void main() {
       });
     });
 
+    group('count', () {
+      test('empty', () {
+        expect(<String, int>{}.count(), 0);
+      });
+
+      test('count elements', () {
+        expect({1: 'a', 2: 'b'}.count(), 2);
+      });
+
+      test('count even', () {
+        final map = {1: 'a', 2: 'b', 3: 'c'};
+        expect(map.count((it) => it.key % 2 == 0), 1);
+      });
+    });
+
     group('filter', () {
       test('filter', () {
         final pokemon = {
@@ -85,6 +100,23 @@ void main() {
         final filtered =
             pokemon.filterNot((entry) => entry.value.startsWith('I'));
         expect(filtered, {1: 'Bulbasaur'});
+      });
+    });
+
+    group('getOrElse', () {
+      test('get', () {
+        final pokemon = {
+          1: 'Bulbasaur',
+          2: 'Ivysaur',
+        };
+        expect(pokemon.getOrElse(1, () => 'None'), 'Bulbasaur');
+      });
+      test('else', () {
+        final pokemon = {
+          1: 'Bulbasaur',
+          2: 'Ivysaur',
+        };
+        expect(pokemon.getOrElse(10, () => 'None'), 'None');
       });
     });
 
