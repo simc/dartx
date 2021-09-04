@@ -19,6 +19,7 @@ part 'src/function.dart';
 part 'src/iterable_num.dart';
 part 'src/iterable.dart';
 part 'src/list.dart';
+part 'src/map.dart';
 part 'src/num.dart';
 part 'src/sorted_list.dart';
 part 'src/string.dart';
