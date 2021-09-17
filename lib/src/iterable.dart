@@ -6,7 +6,7 @@ extension IterableSecondItem<E> on Iterable<E> {
   /// ```dart
   /// [1, 2, 3].second; // 2
   /// ```
-  E? get second => elementAt(1);
+  E get second => elementAt(1);
 }
 
 extension IterableThirdItem<E> on Iterable<E> {
