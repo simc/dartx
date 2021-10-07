@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
@@ -344,27 +346,25 @@ void main() {
     });
 
     test('equals based on items', () {
-      // ignore: prefer_const_constructors
       final p1 = Pair('a', 'b');
-      // ignore: prefer_const_constructors
       final p2 = Pair('a', 'b');
       expect(identical(p1, p2), isFalse);
       expect(p1, p2);
 
-      expect(const Pair('a', 'b').hashCode, const Pair('a', 'b').hashCode);
-      expect(const Pair('a', 'b'), isNot(equals(const Pair('a', 'c'))));
+      expect(Pair('a', 'b').hashCode, Pair('a', 'b').hashCode);
+      expect(Pair('a', 'b'), isNot(equals(Pair('a', 'c'))));
       expect(
-        const Pair('a', 'b').hashCode,
-        isNot(equals(const Pair('a', 'c').hashCode)),
+        Pair('a', 'b').hashCode,
+        isNot(equals(Pair('a', 'c').hashCode)),
       );
-      expect(const Pair('a', 'b'), isNot(equals(const Pair('c', 'b'))));
+      expect(Pair('a', 'b'), isNot(equals(Pair('c', 'b'))));
       expect(
-        const Pair('a', 'b').hashCode,
-        isNot(equals(const Pair('c', 'b').hashCode)),
+        Pair('a', 'b').hashCode,
+        isNot(equals(Pair('c', 'b').hashCode)),
       );
 
-      expect(const Pair(null, null), const Pair(null, null));
-      expect(const Pair(null, null).hashCode, const Pair(null, null).hashCode);
+      expect(Pair(null, null), Pair(null, null));
+      expect(Pair(null, null).hashCode, Pair(null, null).hashCode);
     });
 
     test('toString', () {
