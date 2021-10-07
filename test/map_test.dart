@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('MapX', () {
@@ -18,7 +18,9 @@ void main() {
       test('all() empty map', () {
         final map = {};
         expect(
-            map.none((key, value) => key == 1 && value == 'Bulbasaur'), true);
+          map.none((key, value) => key == 1 && value == 'Bulbasaur'),
+          true,
+        );
         expect(map.none((key, value) => false), true);
       });
     });
@@ -37,7 +39,9 @@ void main() {
       test('any() empty map', () {
         final map = {};
         expect(
-            map.any((key, value) => key == 1 && value == 'Bulbasaur'), false);
+          map.any((key, value) => key == 1 && value == 'Bulbasaur'),
+          false,
+        );
         expect(map.any((key, value) => true), false);
         expect(map.any((key, value) => false), false);
       });
@@ -178,7 +182,9 @@ void main() {
 
     group('maxWith', () {
       int _numKeyComparison(
-          MapEntry<num, dynamic> value, MapEntry<num, dynamic> other) {
+        MapEntry<num, dynamic> value,
+        MapEntry<num, dynamic> other,
+      ) {
         return value.key.compareTo(other.key);
       }
 
@@ -212,7 +218,9 @@ void main() {
 
     group('minWith', () {
       int _numKeyComparison(
-          MapEntry<num, dynamic> value, MapEntry<num, dynamic> other) {
+        MapEntry<num, dynamic> value,
+        MapEntry<num, dynamic> other,
+      ) {
         return value.key.compareTo(other.key);
       }
 
@@ -305,14 +313,18 @@ void main() {
           3: 'Stegosaur',
         };
         expect(
-            map.none((key, value) => key == 1 && value == 'Bulbasaur'), false);
+          map.none((key, value) => key == 1 && value == 'Bulbasaur'),
+          false,
+        );
         expect(map.none((_, value) => value == 'Random text'), true);
       });
 
       test('none() empty map', () {
         final map = {};
         expect(
-            map.none((key, value) => key == 1 && value == 'Bulbasaur'), true);
+          map.none((key, value) => key == 1 && value == 'Bulbasaur'),
+          true,
+        );
         expect(map.none((key, value) => false), true);
       });
     });
@@ -326,40 +338,46 @@ void main() {
     });
 
     test('returns values put inside', () {
-      final pair = Pair('a', 'b');
+      const pair = Pair('a', 'b');
       expect(pair.first, 'a');
       expect(pair.second, 'b');
     });
 
     test('equals based on items', () {
-      final p1 = Pair('a', 'b');
-      final p2 = Pair('a', 'b');
+      const p1 = Pair('a', 'b');
+      const p2 = Pair('a', 'b');
       expect(identical(p1, p2), isFalse);
       expect(p1, p2);
 
-      expect(Pair('a', 'b').hashCode, Pair('a', 'b').hashCode);
-      expect(Pair('a', 'b'), isNot(equals(Pair('a', 'c'))));
-      expect(Pair('a', 'b').hashCode, isNot(equals(Pair('a', 'c').hashCode)));
-      expect(Pair('a', 'b'), isNot(equals(Pair('c', 'b'))));
-      expect(Pair('a', 'b').hashCode, isNot(equals(Pair('c', 'b').hashCode)));
+      expect(const Pair('a', 'b').hashCode, const Pair('a', 'b').hashCode);
+      expect(const Pair('a', 'b'), isNot(equals(const Pair('a', 'c'))));
+      expect(
+        const Pair('a', 'b').hashCode,
+        isNot(equals(const Pair('a', 'c').hashCode)),
+      );
+      expect(const Pair('a', 'b'), isNot(equals(const Pair('c', 'b'))));
+      expect(
+        const Pair('a', 'b').hashCode,
+        isNot(equals(const Pair('c', 'b').hashCode)),
+      );
 
-      expect(Pair(null, null), Pair(null, null));
-      expect(Pair(null, null).hashCode, Pair(null, null).hashCode);
+      expect(const Pair(null, null), const Pair(null, null));
+      expect(const Pair(null, null).hashCode, const Pair(null, null).hashCode);
     });
 
     test('toString', () {
-      expect(Pair('a', 'b').toString(), '(a, b)');
-      expect(Pair(null, null).toString(), '(null, null)');
+      expect(const Pair('a', 'b').toString(), '(a, b)');
+      expect(const Pair(null, null).toString(), '(null, null)');
     });
 
     test('construct pair with T1.to(T2)', () {
-      final Pair<String, int> pair = Pair('foo', 42);
+      const Pair<String, int> pair = Pair('foo', 42);
       expect(pair.first, 'foo');
       expect(pair.second, 42);
     });
 
     test('toList', () {
-      final pair = Pair('a', 'b');
+      const pair = Pair('a', 'b');
       expect(pair.toList(), ['a', 'b']);
     });
   });

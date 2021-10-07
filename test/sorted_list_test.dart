@@ -265,12 +265,13 @@ void main() {
           .thenBy((item) => item.c);
 
       expect(
-          sorted.toList(),
-          equals(const [
-            Item(0, 1, 2),
-            Item(1, 2, 0),
-            Item(2, 1, 0),
-          ]));
+        sorted.toList(),
+        equals(const [
+          Item(0, 1, 2),
+          Item(1, 2, 0),
+          Item(2, 1, 0),
+        ]),
+      );
     });
   });
 }

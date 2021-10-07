@@ -26,8 +26,10 @@ extension ComparableCoerceInExtension<T extends Comparable<T>> on T {
   /// or [maximumValue] if this value is greater than [maximumValue].
   T coerceIn(T minimumValue, [T? maximumValue]) {
     if (maximumValue != null && minimumValue > maximumValue) {
-      throw ArgumentError('Cannot coerce value to an empty range: '
-          'maximum $maximumValue is less than minimum $minimumValue.');
+      throw ArgumentError(
+        'Cannot coerce value to an empty range: '
+        'maximum $maximumValue is less than minimum $minimumValue.',
+      );
     }
     if (this < minimumValue) return minimumValue;
     if (maximumValue != null && this > maximumValue) return maximumValue;

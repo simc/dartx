@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_function_declarations_over_variables
-import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Function', () {

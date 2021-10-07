@@ -62,42 +62,64 @@ void main() {
     });
     test('endInclusive', () {
       expect(
-          DateTime(1995).rangeTo(DateTime(2020)).endInclusive, DateTime(2020));
+        DateTime(1995).rangeTo(DateTime(2020)).endInclusive,
+        DateTime(2020),
+      );
       expect(
-          DateTime(1995).rangeTo(DateTime(2020)).endInclusive, isA<DateTime>());
+        DateTime(1995).rangeTo(DateTime(2020)).endInclusive,
+        isA<DateTime>(),
+      );
     });
     test('contains (upwards)', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)).contains(DateTime(2016)),
-          isTrue);
-      expect(DateTime(1995).rangeTo(DateTime(2020)).contains(DateTime(1988)),
-          isFalse);
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)).contains(DateTime(2016)),
+        isTrue,
+      );
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)).contains(DateTime(1988)),
+        isFalse,
+      );
     });
     test('contains (downwards)', () {
-      expect(DateTime(2020).rangeTo(DateTime(1995)).contains(DateTime(2016)),
-          isTrue);
-      expect(DateTime(2020).rangeTo(DateTime(1995)).contains(DateTime(1988)),
-          isFalse);
+      expect(
+        DateTime(2020).rangeTo(DateTime(1995)).contains(DateTime(2016)),
+        isTrue,
+      );
+      expect(
+        DateTime(2020).rangeTo(DateTime(1995)).contains(DateTime(1988)),
+        isFalse,
+      );
     });
     test('rangeTo returns ComparableRange<DateTime>', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)),
-          isA<ComparableRange<DateTime>>());
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)),
+        isA<ComparableRange<DateTime>>(),
+      );
     });
     test('hashcode equal no matter the order', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)).hashCode,
-          DateTime(2020).rangeTo(DateTime(1995)).hashCode);
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)).hashCode,
+        DateTime(2020).rangeTo(DateTime(1995)).hashCode,
+      );
     });
     test('equal', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)),
-          DateTime(1995).rangeTo(DateTime(2020)));
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)),
+        DateTime(1995).rangeTo(DateTime(2020)),
+      );
       expect('a'.rangeTo('b'), 'a'.rangeTo('b'));
     });
     test('not equals when items swapped', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)),
-          isNot(DateTime(2020).rangeTo(DateTime(1995))));
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)),
+        isNot(DateTime(2020).rangeTo(DateTime(1995))),
+      );
     });
     test('toString', () {
-      expect(DateTime(1995).rangeTo(DateTime(2020)).toString(),
-          '1995-01-01 00:00:00.000..2020-01-01 00:00:00.000');
+      expect(
+        DateTime(1995).rangeTo(DateTime(2020)).toString(),
+        '1995-01-01 00:00:00.000..2020-01-01 00:00:00.000',
+      );
     });
     test('alphabetical range', () {
       final alphabet = 'a'.rangeTo('z');

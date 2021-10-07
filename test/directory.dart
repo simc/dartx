@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:dartx/dartx_io.dart';
 import 'package:path/path.dart';
 import 'package:test/test.dart';
-import 'package:dartx/dartx_io.dart';
 
 void main() {
   group('Directory', () {

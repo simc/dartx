@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:test/test.dart';
 import 'package:dartx/dartx_io.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('FileSystemEntity', () {
