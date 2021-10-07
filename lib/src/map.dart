@@ -40,7 +40,8 @@ extension MapCount<K, V> on Map<K, V> {
       return length;
     }
     var count = 0;
-    final i = this.entries.iterator;
+
+    final i = entries.iterator;
     while (i.moveNext()) {
       if (predicate(i.current)) {
         count++;

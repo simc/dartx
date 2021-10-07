@@ -30,7 +30,7 @@ void main() {
     });
 
     test('every', () {
-      expect(_sortedList.every((it) => it is num), isTrue);
+      expect(_sortedList.every((it) => it is! String), isTrue);
       expect(_sortedList.every((it) => it is String), isFalse);
     });
     test('expand', () {

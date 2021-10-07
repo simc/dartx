@@ -23,9 +23,9 @@ void main() {
       expect(2.7.rangeTo(4.2).contains(3), isTrue);
       expect(2.7.rangeTo(4.2).contains(5), isFalse);
 
-      // makes sure contains accepts num
-      expect(2.7.rangeTo(4.2).contains(3.toInt()), isTrue);
-      expect(2.7.rangeTo(4.2).contains(5.toInt()), isFalse);
+      // makes sure contains accepts int
+      expect(2.7.rangeTo(4.2).contains(3.0.toInt()), isTrue);
+      expect(2.7.rangeTo(4.2).contains(5.0.toInt()), isFalse);
     });
     test('contains double (downwards)', () {
       expect(4.2.rangeTo(2.7).contains(3.1), isTrue);
