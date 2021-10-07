@@ -40,7 +40,8 @@ extension MapCount<K, V> on Map<K, V> {
       return length;
     }
     var count = 0;
-    final i = this.entries.iterator;
+
+    final i = entries.iterator;
     while (i.moveNext()) {
       if (predicate(i.current)) {
         count++;
@@ -156,7 +157,8 @@ extension MapMapValues<K, V> on Map<K, V> {
 extension MapMaxBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the largest value of the given function or `null` if there are no entries.
   MapEntry<K, V>? maxBy<R extends Comparable>(
-      R Function(MapEntry<K, V>) selector) {
+    R Function(MapEntry<K, V>) selector,
+  ) {
     final i = entries.iterator;
     if (!i.moveNext()) return null;
     MapEntry<K, V> maxElement = i.current;
@@ -192,7 +194,8 @@ extension MapMaxWith<K, V> on Map<K, V> {
 extension MapMinBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the smallest value of the given function or `null` if there are no entries.
   MapEntry<K, V>? minBy<R extends Comparable>(
-      R Function(MapEntry<K, V>) selector) {
+    R Function(MapEntry<K, V>) selector,
+  ) {
     final i = entries.iterator;
     if (!i.moveNext()) return null;
     MapEntry<K, V> minElement = i.current;
@@ -278,7 +281,7 @@ class Pair<A, B> {
   final B second;
 
   @override
-  String toString() => "($first, $second)";
+  String toString() => '($first, $second)';
 
   @override
   bool operator ==(Object other) =>

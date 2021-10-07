@@ -141,15 +141,19 @@ void main() {
       expect('message digest'.md5, 'f96b697d7cb7938d525a2f31aaf161d0');
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.md5, 'c7834eff7c967101cfb65b8f6d15ad46');
       expect(
-          'abcdefghijklmnopqrstuvwxyz'.md5, 'c3fcd3d76192e4007dfb496cca67e13b');
+        'abcdefghijklmnopqrstuvwxyz'.md5,
+        'c3fcd3d76192e4007dfb496cca67e13b',
+      );
       expect(
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.md5,
-          'd174ab98d277d9f5a5611c2c9f419d9f');
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.md5,
+        'd174ab98d277d9f5a5611c2c9f419d9f',
+      );
       expect(
-          '12345678901234567890123456789012345678901234567890123456789012'
-                  '345678901234567890'
-              .md5,
-          '57edf4a22be3c955ac49da2e2107b67a');
+        '12345678901234567890123456789012345678901234567890123456789012'
+                '345678901234567890'
+            .md5,
+        '57edf4a22be3c955ac49da2e2107b67a',
+      );
     });
 
     test('.removePrefix()', () {

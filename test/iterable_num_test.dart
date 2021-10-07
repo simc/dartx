@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:dartx/dartx.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('IterableNumX', () {

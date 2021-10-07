@@ -26,7 +26,9 @@ extension FileForEachBlockExtension on File {
   ///
   /// You can use this function for huge files.
   Future<void> forEachBlock(
-      int blockSize, void Function(Uint8List buffer) action) async {
+    int blockSize,
+    void Function(Uint8List buffer) action,
+  ) async {
     final raf = await open();
     // ignore: literal_only_boolean_expressions
     while (true) {
