@@ -1,8 +1,10 @@
 part of dartx;
 
 Comparator<E> _getComparator<E>(
-    int order, Comparable Function(E element) selector,
-    {Comparator<E>? parent}) {
+  int order,
+  Comparable Function(E element) selector, {
+  Comparator<E>? parent,
+}) {
   int newComparator(E a, E b) {
     return order * selector(a).compareTo(selector(b));
   }
@@ -190,8 +192,12 @@ abstract class _DelegatingList<E> extends _DelegatingIterable<E>
       delegate.setAll(index, iterable);
 
   @override
-  void setRange(int start, int end, Iterable<E> iterable,
-          [int skipCount = 0]) =>
+  void setRange(
+    int start,
+    int end,
+    Iterable<E> iterable, [
+    int skipCount = 0,
+  ]) =>
       delegate.setRange(start, end, iterable, skipCount);
 
   @override

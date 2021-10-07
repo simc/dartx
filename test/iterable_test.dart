@@ -196,22 +196,27 @@ void main() {
 
     test('.sortedBy()', () {
       expect([].sortedBy((it) => 1), []);
-      expect(['this', 'is', 'a', 'abcde'].sortedBy((it) => it.length),
-          ['a', 'is', 'this', 'abcde']);
+      expect(
+        ['this', 'is', 'a', 'abcde'].sortedBy((it) => it.length),
+        ['a', 'is', 'this', 'abcde'],
+      );
     });
 
     test('.sortedWith()', () {
       expect([].sortedWith((a, b) => 0), []);
       expect(
-          ['this', 'is', 'a', 'abcde']
-              .sortedWith((a, b) => a.length.compareTo(b.length)),
-          ['a', 'is', 'this', 'abcde']);
+        ['this', 'is', 'a', 'abcde']
+            .sortedWith((a, b) => a.length.compareTo(b.length)),
+        ['a', 'is', 'this', 'abcde'],
+      );
     });
 
     test('.sortedByDescending()', () {
       expect([].sortedByDescending((it) => 1), []);
-      expect(['this', 'is', 'a', 'abcde'].sortedByDescending((it) => it.length),
-          ['abcde', 'this', 'is', 'a']);
+      expect(
+        ['this', 'is', 'a', 'abcde'].sortedByDescending((it) => it.length),
+        ['abcde', 'this', 'is', 'a'],
+      );
     });
 
     test('.joinToString()', () {
@@ -501,28 +506,36 @@ void main() {
       expect([].mapNotNull((it) => 1), []);
       expect([1, 2, 3, 4].mapNotNull((it) => null), []);
       expect(
-          [1, 2, 3, 4].mapNotNull((it) => it % 2 == 0 ? it * 2 : null), [4, 8]);
+        [1, 2, 3, 4].mapNotNull((it) => it % 2 == 0 ? it * 2 : null),
+        [4, 8],
+      );
     });
 
     test('.mapIndexed()', () {
       expect([].mapIndexed((index, it) => 1), []);
-      expect([1, 2, 3, 4].mapIndexed((index, it) => null),
-          [null, null, null, null]);
+      expect(
+        [1, 2, 3, 4].mapIndexed((index, it) => null),
+        [null, null, null, null],
+      );
       expect([5, 4, null, 2].mapIndexed((index, it) => index), [0, 1, 2, 3]);
       expect(
-          [1, 2, 3, 4].mapIndexed((index, it) => it % 2 == 0 ? it * 2 : null),
-          [null, 4, null, 8]);
+        [1, 2, 3, 4].mapIndexed((index, it) => it % 2 == 0 ? it * 2 : null),
+        [null, 4, null, 8],
+      );
     });
 
     test('.mapIndexedNotNull()', () {
       expect([].mapIndexedNotNull((index, it) => 1), []);
       expect([1, 2, 3, 4].mapIndexedNotNull((index, it) => null), []);
-      expect([5, 4, null, 2].mapIndexedNotNull((index, it) => index),
-          [0, 1, 2, 3]);
       expect(
-          [1, 2, 3, 4]
-              .mapIndexedNotNull((index, it) => it % 2 == 0 ? it * 2 : null),
-          [4, 8]);
+        [5, 4, null, 2].mapIndexedNotNull((index, it) => index),
+        [0, 1, 2, 3],
+      );
+      expect(
+        [1, 2, 3, 4]
+            .mapIndexedNotNull((index, it) => it % 2 == 0 ? it * 2 : null),
+        [4, 8],
+      );
     });
 
     test('.onEach()', () {
@@ -560,8 +573,10 @@ void main() {
       expect(list.chunked(1), list.map((it) => [it]));
 
       expect(list.chunked(10).length, 5);
-      expect(list.chunked(10).elementAt(3),
-          [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]);
+      expect(
+        list.chunked(10).elementAt(3),
+        [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+      );
 
       expect(list.chunked(11).length, 5);
       expect(list.chunked(11).elementAt(4), [44, 45, 46, 47, 48, 49]);

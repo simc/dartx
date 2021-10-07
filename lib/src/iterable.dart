@@ -600,7 +600,9 @@ extension IterableFilterIndexedTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void filterIndexedTo(
-          List<E> destination, bool Function(E element, int index) predicate) =>
+    List<E> destination,
+    bool Function(E element, int index) predicate,
+  ) =>
       whereIndexedTo(destination, predicate);
 }
 
@@ -627,7 +629,9 @@ extension IterableFilterNotToIndexed<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void filterNotToIndexed(
-          List<E> destination, bool Function(E element, int index) predicate) =>
+    List<E> destination,
+    bool Function(E element, int index) predicate,
+  ) =>
       whereNotToIndexed(destination, predicate);
 }
 
@@ -639,7 +643,8 @@ extension IterableFilterNotNull<E> on Iterable<E?> {
 extension IterableWhereIndexed<E> on Iterable<E> {
   /// Returns all elements that satisfy the given [predicate].
   Iterable<E> whereIndexed(
-      bool Function(E element, int index) predicate) sync* {
+    bool Function(E element, int index) predicate,
+  ) sync* {
     var index = 0;
     for (final element in this) {
       if (predicate(element, index++)) {
@@ -665,7 +670,9 @@ extension IterableWhereIndexedTo<E> on Iterable<E> {
   /// Appends all elements matching the given [predicate] to the given
   /// [destination].
   void whereIndexedTo(
-      List<E> destination, bool Function(E element, int index) predicate) {
+    List<E> destination,
+    bool Function(E element, int index) predicate,
+  ) {
     var index = 0;
     for (final element in this) {
       if (predicate(element, index++)) {
@@ -689,7 +696,8 @@ extension IterableWhereNot<E> on Iterable<E> {
 extension IterableWhereNotIndexed<E> on Iterable<E> {
   /// Returns all elements not matching the given [predicate].
   Iterable<E> whereNotIndexed(
-      bool Function(E element, int index) predicate) sync* {
+    bool Function(E element, int index) predicate,
+  ) sync* {
     var index = 0;
     for (final element in this) {
       if (!predicate(element, index++)) {
@@ -715,7 +723,9 @@ extension IterableWhereNotToIndexed<E> on Iterable<E> {
   /// Appends all elements not matching the given [predicate] to the given
   /// [destination].
   void whereNotToIndexed(
-      List<E> destination, bool Function(E element, int index) predicate) {
+    List<E> destination,
+    bool Function(E element, int index) predicate,
+  ) {
     var index = 0;
     for (final element in this) {
       if (!predicate(element, index++)) {

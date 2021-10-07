@@ -14,47 +14,61 @@ class _WrappedInt implements Comparable<_WrappedInt> {
 void main() {
   group('ComparableX', () {
     test('.coerceIn()', () {
-      expect(DateTime(1984, 11, 19).coerceIn(DateTime(1984, 11, 1)),
-          DateTime(1984, 11, 19));
       expect(
-          DateTime(1984, 11, 19).coerceIn(
-            DateTime(1984, 11, 1),
-            DateTime(1984, 11, 20),
-          ),
-          DateTime(1984, 11, 19));
+        DateTime(1984, 11, 19).coerceIn(DateTime(1984, 11, 1)),
+        DateTime(1984, 11, 19),
+      );
       expect(
-          DateTime(1984, 10, 28).coerceIn(
-            DateTime(1984, 11, 1),
-            DateTime(1984, 11, 20),
-          ),
-          DateTime(1984, 11, 1));
+        DateTime(1984, 11, 19).coerceIn(
+          DateTime(1984, 11, 1),
+          DateTime(1984, 11, 20),
+        ),
+        DateTime(1984, 11, 19),
+      );
       expect(
-          DateTime(1984, 12, 1).coerceIn(
-            DateTime(1984, 11, 1),
-            DateTime(1984, 11, 20),
-          ),
-          DateTime(1984, 11, 20));
+        DateTime(1984, 10, 28).coerceIn(
+          DateTime(1984, 11, 1),
+          DateTime(1984, 11, 20),
+        ),
+        DateTime(1984, 11, 1),
+      );
+      expect(
+        DateTime(1984, 12, 1).coerceIn(
+          DateTime(1984, 11, 1),
+          DateTime(1984, 11, 20),
+        ),
+        DateTime(1984, 11, 20),
+      );
       expect(() => 10.coerceIn(3, 2), throwsArgumentError);
       expect(
-          () => DateTime.now().coerceIn(
-                DateTime(1984, 11, 20),
-                DateTime(1984, 11, 1),
-              ),
-          throwsArgumentError);
+        () => DateTime.now().coerceIn(
+          DateTime(1984, 11, 20),
+          DateTime(1984, 11, 1),
+        ),
+        throwsArgumentError,
+      );
     });
 
     test('.coerceAtLeast()', () {
-      expect(DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 1, 1)),
-          DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 11, 20)),
-          DateTime(1984, 11, 20));
+      expect(
+        DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 1, 1)),
+        DateTime(1984, 11, 19),
+      );
+      expect(
+        DateTime(1984, 11, 19).coerceAtLeast(DateTime(1984, 11, 20)),
+        DateTime(1984, 11, 20),
+      );
     });
 
     test('.coerceAtMost()', () {
-      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 20)),
-          DateTime(1984, 11, 19));
-      expect(DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
-          DateTime(1984, 11, 1));
+      expect(
+        DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 20)),
+        DateTime(1984, 11, 19),
+      );
+      expect(
+        DateTime(1984, 11, 19).coerceAtMost(DateTime(1984, 11, 1)),
+        DateTime(1984, 11, 1),
+      );
     });
 
     test('.between()', () {
