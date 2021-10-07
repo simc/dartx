@@ -26,7 +26,7 @@ After you import the library, you can use the extensions.
 ```dart
 import 'package:dartx/dartx.dart';
 
-var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
+final slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 ```
 
 ## Iterable
@@ -36,10 +36,10 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 Returns elements at indices between `start` (inclusive) and `end` (inclusive).
 
 ```dart
-var list = [0, 1, 2, 3, 4, 5];
-var last = list.slice(-1); // [5]
-var lastHalf = list.slice(3); // [3, 4, 5]
-var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
+final list = [0, 1, 2, 3, 4, 5];
+final last = list.slice(-1); // [5]
+final lastHalf = list.slice(3); // [3, 4, 5]
+final allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
 ### .sortedBy() & .thenBy()
@@ -47,7 +47,7 @@ var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 Sort lists by multiple properties.
 
 ```dart
-var dogs = [
+final dogs = [
   Dog(name: "Tom", age: 3),
   Dog(name: "Charlie", age: 7),
   Dog(name: "Bark", age: 1),
@@ -55,7 +55,7 @@ var dogs = [
   Dog(name: "Charlie", age: 2),
 ];
 
-var sorted = dogs
+final sorted = dogs
     .sortedBy((dog) => dog.name)
     .thenByDescending((dog) => dog.age);
 // Bark, Cookie, Charlie (7), Charlie (2), Tom
@@ -66,8 +66,8 @@ var sorted = dogs
 Get distinct elements from a list.
 
 ```dart
-var list = ['this', 'is', 'a', 'test'];
-var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
+final list = ['this', 'is', 'a', 'test'];
+final distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
 ```
 
 ### .flatten()
@@ -75,8 +75,8 @@ var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a'
 Get a new lazy `Iterable` of all elements from all collections in a collection.
 
 ```dart
-var nestedList = [[1, 2, 3], [4, 5, 6]];
-var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+final nestedList = [[1, 2, 3], [4, 5, 6]];
+final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 ```
 
 ### .chunkWhile() & .splitWhen()
@@ -95,12 +95,21 @@ the predicate _didn't_ match.
 
 ## String
 
+### .capitalize
+
+Returns a copy of the string having its first letter uppercased, or the original string, if it's empty or already starts with an upper case letter.
+
+```dart
+print('abcd'.capitalize()) // Abcd
+print('Abcd'.capitalize()) // Abcd
+```
+
 ### .chars
 
 Get a list of single character strings from a string. Supports emojis.
 
 ```dart
-var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
+final chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
 ### .isBlank
@@ -108,8 +117,8 @@ var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l'
 Returns `true` if this string is empty or consists solely of whitespace characters.
 
 ```dart
-var notBlank = '   .'.isBlank; // false
-var blank = '  '.isBlank; // true
+final notBlank = '   .'.isBlank; // false
+final blank = '  '.isBlank; // true
 ```
 
 ### .toIntOrNull()
@@ -117,8 +126,8 @@ var blank = '  '.isBlank; // true
 Parses the string as an integer or returns `null` if it is not a number.
 
 ```dart
-var number = '12345'.toIntOrNull(); // 12345
-var notANumber = '123-45'.toIntOrNull(); // null
+final number = '12345'.toIntOrNull(); // 12345
+final notANumber = '123-45'.toIntOrNull(); // null
 ```
 
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
@@ -126,9 +135,9 @@ var notANumber = '123-45'.toIntOrNull(); // null
 Remove a prefix, a suffix, or both from a given string:
 
 ```dart
-var name = 'James Bond'.removePrefix('James '); // Bond
-var milliseconds = '100ms'.removeSuffix('ms'); // 100
-var text = '<p>Some HTML</p>'
+final name = 'James Bond'.removePrefix('James '); // Bond
+final milliseconds = '100ms'.removeSuffix('ms'); // 100
+final text = '<p>Some HTML</p>'
   .removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
 ```
 
@@ -153,8 +162,8 @@ Check out [⏰ time.dart](https://github.com/jogboms/time.dart) for more informa
 Ensures that this value lies in the specified range.
 
 ```dart
-var numberInRange = 123.coerceIn(0, 1000); // 123
-var numberOutOfRange = -123.coerceIn(0, 1000); // 0
+final numberInRange = 123.coerceIn(0, 1000); // 123
+final numberOutOfRange = -123.coerceIn(0, 1000); // 0
 ```
 
 ### .toBytes()
@@ -169,11 +178,11 @@ Creates a range between two ints (upwards, downwards and with custom steps)
 
 ```dart
 // upwards with default step size 1
-for (var i in 1.rangeTo(5)) {
+for (final i in 1.rangeTo(5)) {
   print(i); // 1, 2, 3, 4, 5
 }
 // downwards with custom step
-for (var i in 10.rangeTo(2).step(2)) {
+for (final i in 10.rangeTo(2).step(2)) {
   print(i); // 10, 8, 6, 4, 2
 }
 ```
@@ -185,7 +194,7 @@ for (var i in 10.rangeTo(2).step(2)) {
 Use `call()` instead. This is very useful for `null` checks.
 
 ```dart
-var func = (String value) {
+final func = (String value) {
   print(value);
 }
 
@@ -201,7 +210,7 @@ void greet(String firstName, String lastName) {
   print('Hi $firstName $lastName!');
 }
 
-var greetStark = greet.partial('Stark');
+final greetStark = greet.partial('Stark');
 greetStark('Sansa'); // Hi Sansa Stark!
 greetStark('Tony'); // Hi Tony Stark!
 ```
@@ -213,7 +222,7 @@ greetStark('Tony'); // Hi Tony Stark!
 Get the name and extension of a file.
 
 ```dart
-var file = File('some/path/testFile.dart');
+final file = File('some/path/testFile.dart');
 print(file.name); // testFile.dart
 print(file.nameWithoutExtension); // testFile
 ```
@@ -231,7 +240,7 @@ await File('someFile.json').appendText('{test: true}');
 Checks if a file is inside a directory.
 
 ```dart
-var dir = Directory('some/path');
+final dir = Directory('some/path');
 File('some/path/file.dart').isWithin(dir); // true
 ```
 
