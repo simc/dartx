@@ -344,8 +344,10 @@ void main() {
     });
 
     test('equals based on items', () {
-      const p1 = Pair('a', 'b');
-      const p2 = Pair('a', 'b');
+      // ignore: prefer_const_constructors
+      final p1 = Pair('a', 'b');
+      // ignore: prefer_const_constructors
+      final p2 = Pair('a', 'b');
       expect(identical(p1, p2), isFalse);
       expect(p1, p2);
 
