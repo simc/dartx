@@ -121,15 +121,6 @@ final notBlank = '   .'.isBlank; // false
 final blank = '  '.isBlank; // true
 ```
 
-### .toIntOrNull()
-
-Parses the string as an integer or returns `null` if it is not a number.
-
-```dart
-final number = '12345'.toIntOrNull(); // 12345
-final notANumber = '123-45'.toIntOrNull(); // null
-```
-
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
 
 Remove a prefix, a suffix, or both from a given string:
@@ -139,6 +130,15 @@ final name = 'James Bond'.removePrefix('James '); // Bond
 final milliseconds = '100ms'.removeSuffix('ms'); // 100
 final text = '<p>Some HTML</p>'
   .removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
+```
+
+### .toIntOrNull()
+
+Parses the string as an integer or returns `null` if it is not a number.
+
+```dart
+final number = '12345'.toIntOrNull(); // 12345
+final notANumber = '123-45'.toIntOrNull(); // null
 ```
 
 ## Time utils
