@@ -100,8 +100,8 @@ the predicate _didn't_ match.
 Returns a copy of the string having its first letter uppercased, or the original string, if it's empty or already starts with an upper case letter.
 
 ```dart
-print('abcd'.capitalize()) // Abcd
-print('Abcd'.capitalize()) // Abcd
+final word = 'abcd'.capitalize(); // Abcd
+final anotherWord = 'Abcd'.capitalize(); // Abcd
 ```
 
 ### .chars
@@ -112,6 +112,15 @@ Get a list of single character strings from a string. Supports emojis.
 final chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
+### .decapitalize
+
+Returns a copy of the string having its first letter lowercased, or the original string, if it's empty or already starts with a lower case letter.
+
+```dart
+final word = 'abcd'.decapitalize(); // abcd
+final anotherWord = 'Abcd'.decapitalize(); // abcd
+```
+
 ### .isBlank
 
 Returns `true` if this string is empty or consists solely of whitespace characters.
@@ -119,6 +128,37 @@ Returns `true` if this string is empty or consists solely of whitespace characte
 ```dart
 final notBlank = '   .'.isBlank; // false
 final blank = '  '.isBlank; // true
+```
+
+### .isNotBlank
+
+Returns `true` if this string is not empty and contains characters except whitespace characters.
+
+```dart
+final blank = '  '.isNotBlank; // false
+final notBlank = '   .'.isNotBlank; // true
+```
+
+### .isLowerCase
+
+Returns `true` if the entire string is lower case.
+
+```dart
+final a = 'abc'.isLowerCase; // true
+final b = 'abC'.isLowerCase; // false
+final c = '   '.isLowerCase; // true
+final d = ''.isLowerCase; // false
+```
+
+### .isUpperCase
+
+Returns `true` if the entire string is upper case.
+
+```dart
+final a = 'ABC'.isUpperCase; // true
+final b = 'ABc'.isUpperCase; // false
+final c = '   '.isUpperCase; // true
+final d = ''.isUpperCase; // false
 ```
 
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
