@@ -70,12 +70,28 @@ extension StringIsNotBlankExtension on String {
 
 extension StringIsUpperCaseExtension on String {
   /// Returns `true` if the whole string is upper case.
-  bool get isUpperCase => isNotEmpty && this == toUpperCase();
+  ///
+  /// ```dart
+  /// 'HI'.isUpperCase // true
+  /// 'Hi'.isUpperCase // false
+  /// '!'.isUpperCase // false
+  /// 'HEY, YOU!'.isUpperCase // true
+  /// ```
+  bool get isUpperCase =>
+      isNotEmpty && this == toUpperCase() && this != toLowerCase();
 }
 
 extension StringIsLowerCaseExtension on String {
   /// Returns `true` if the whole string is lower case.
-  bool get isLowerCase => isNotEmpty && this == toLowerCase();
+  ///
+  /// ```dart
+  /// 'hi'.isLowerCase // true
+  /// 'Hi'.isLowerCase // false
+  /// '!'.isLowerCase // false
+  /// 'hey, you!'.isLowerCase // true
+  /// ```
+  bool get isLowerCase =>
+      isNotEmpty && this == toLowerCase() && this != toUpperCase();
 }
 
 extension StringIsCapitalizedExtension on String {
