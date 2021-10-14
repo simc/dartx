@@ -60,9 +60,14 @@ void main() {
       expect('0'.isLowerCase, false);
       expect('!'.isLowerCase, false);
 
-      /// This function uses the language independent Unicode mapping and thus
-      /// only works in some languages.
+      // This function uses the language independent Unicode mapping and thus
+      // only works in some languages.
+      //
+      // Doesn't work:
       // expect('ß'.isLowerCase, true);
+      //
+      // Reason:
+      // 'ß'.toUpperCase // 'ß'
 
       expect('groß'.isLowerCase, true);
       expect('ä'.isLowerCase, true);
