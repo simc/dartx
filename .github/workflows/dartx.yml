@@ -60,4 +60,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Format
-        run: dart format --set-exit-if-changed -w --fix .
+        run: dart format --set-exit-if-changed --fix .
