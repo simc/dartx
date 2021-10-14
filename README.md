@@ -217,7 +217,7 @@ final text = '<p>Some HTML</p>'
 
 ### .slice()
 
-### .isDoubleOrNull()
+### .toDoubleOrNull()
 
 ### .toInt()
 
