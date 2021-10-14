@@ -30,6 +30,11 @@ void main() {
       expect('test'.decapitalize(), 'test');
     });
 
+    test('.isAscii', () {
+      expect('!jI7) ~'.isAscii, true);
+      expect('§3'.isAscii, false);
+    });
+
     test('.isBlank', () {
       expect('	 '.isBlank, true);
       expect('  .  '.isBlank, false);

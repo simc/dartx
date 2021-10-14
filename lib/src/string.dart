@@ -89,6 +89,7 @@ extension StringIsDecapitalizedExtension on String {
 }
 
 extension StringIsAsciiExtension on String {
+  /// Returns `true` if string is ASCII encoded.
   bool get isAscii {
     for (final codeUnit in codeUnits) {
       if (codeUnit > _ascii) return false;

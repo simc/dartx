@@ -123,6 +123,13 @@ final anotherWord = 'Abcd'.decapitalize(); // abcd
 
 ### .isAscii
 
+Returns `true` if string is ASCII encoded.
+
+```dart
+final isAscii = 'abc123 !,.~'.isAscii; // true
+final isNotAscii = '§3'.isAscii; // false
+````
+
 ### .isBlank
 
 Returns `true` if this string is empty or consists solely of whitespace characters.
