@@ -35,6 +35,11 @@ void main() {
       expect('§3'.isAscii, false);
     });
 
+    test('.isLatin1', () {
+      expect('!jI7) ~§Êü'.isLatin1, true);
+      expect('ő'.isLatin1, false);
+    });
+
     test('.isBlank', () {
       expect('	 '.isBlank, true);
       expect('  .  '.isBlank, false);
@@ -127,15 +132,29 @@ void main() {
       expect('123456789.987654321'.toDoubleOrNull(), 123456789.987654321);
     });
 
+    test('.isNullOrEmpty', () {
+      expect(null.isNullOrEmpty, true);
+      expect(''.isNullOrEmpty, true);
+      expect(' '.isNullOrEmpty, false);
+      expect('\n'.isNullOrEmpty, false);
+    });
+
+    test('.isNotNullOrEmpty', () {
+      expect(null.isNotNullOrEmpty, false);
+      expect(''.isNotNullOrEmpty, false);
+      expect(' '.isNotNullOrEmpty, true);
+      expect('\n'.isNotNullOrEmpty, true);
+    });
+
     test('.toUtf8()', () {
       expect(''.toUtf8(), []);
-      expect('hello'.toUtf8(), utf8.encode('hello'));
+      expect('hello'.toUtf8(), [104, 101, 108, 108, 111]);
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.toUtf8(), utf8.encode('ഐ⌛酪Б👨‍👨‍👧‍👦'));
     });
 
     test('.toUtf16()', () {
       expect(''.toUtf16(), []);
-      expect('hello'.toUtf16(), 'hello'.codeUnits);
+      expect('hello'.toUtf16(), [104, 101, 108, 108, 111]);
       expect('ഐ⌛酪Б👨‍👨‍👧‍👦'.toUtf16(), 'ഐ⌛酪Б👨‍👨‍👧‍👦'.codeUnits);
     });
 

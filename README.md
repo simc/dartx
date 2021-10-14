@@ -104,7 +104,9 @@ final word = 'abcd'.capitalize(); // Abcd
 final anotherWord = 'Abcd'.capitalize(); // Abcd
 ```
 
-### .chars
+### .chars - DEPRECATED
+
+Use `.characters` from the official characters package.
 
 Get a list of single character strings from a string. Supports emojis.
 
@@ -123,7 +125,7 @@ final anotherWord = 'Abcd'.decapitalize(); // abcd
 
 ### .isAscii
 
-Returns `true` if string is ASCII encoded.
+Returns `true` if the string is ASCII encoded.
 
 ```dart
 final isAscii = 'abc123 !,.~'.isAscii; // true
@@ -141,7 +143,7 @@ final blank = '  '.isBlank; // true
 
 ### .isDouble
 
-Returns `true` if string can be parsed as a double.
+Returns `true` if the string can be parsed as a double.
 
 ```dart
 final a = ''.isDouble; // false
@@ -165,6 +167,14 @@ final e = '1,000'.isInt; // false
 ```
 
 ### .isLatin1
+
+Returns `true` if the string is Latin 1 encoded.
+
+```dart
+final isLatin1 = '§Êü'.isLatin1; // true
+final isNotLatin1 = 'ő'.isLatin1; // false
+```
+
 ### .isLowerCase
 
 Returns `true` if the entire string is lower case.
@@ -187,7 +197,25 @@ final notBlank = '   .'.isNotBlank; // true
 
 ### .isNullOrEmpty
 
+Returns `true` if the String is either `null` or empty.
+
+```dart
+final isNull = null.isNullOrEmpty; // true
+final isEmpty = ''.isNullOrEmpty; // true
+final isBlank = ' '.isNullOrEmpty; // false
+final isLineBreak = '\n'.isNullOrEmpty; // false
+```
+
 ### .isNotNullOrEmpty
+
+Returns `true` if the String is neither `null` nor empty.
+
+```dart
+final isNull = null.isNullOrEmpty; // true
+final isEmpty = ''.isNullOrEmpty; // true
+final isBlank = ' '.isNullOrEmpty; // false
+final isLineBreak = '\n'.isNullOrEmpty; // false
+```
 
 ### .isUpperCase
 
@@ -202,6 +230,13 @@ final d = ''.isUpperCase; // false
 
 ### .md5
 
+Calculates the MD5 digest and returns the value as a string of hexadecimal digits.
+
+```dart
+final a = 'abc'.md5; // 900150983cd24fb0d6963f7d28e17f72
+final b = 'ഐ⌛酪Б👨‍👨‍👧‍👦'.md5; // c7834eff7c967101cfb65b8f6d15ad46
+```
+
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
 
 Remove a prefix, a suffix, or both from a given string:
@@ -215,11 +250,43 @@ final text = '<p>Some HTML</p>'
 
 ### .reversed
 
+Returns a new string with characters in reversed order.
+
+```dart
+final emptyString = ''.reversed; // ''
+final reversed = 'abc🤔'.reversed; // '🤔cba'
+```
+
 ### .slice()
+
+Returns a new substring containing all characters including indices [start] and [end].
+If [end] is omitted, it is being set to `lastIndex`.
+
+```dart
+final sliceOne = 'awesomeString'.slice(0,6)); // awesome
+final sliceTwo = 'awesomeString'.slice(7)); // String
+```
 
 ### .toDoubleOrNull()
 
+Parses the string as a `double` and returns the result or `null` if the String is not a valid representation of a number.
+
+```dart
+final numOne = '1'.toDoubleOrNull(); // 1.0
+final numTwo = '1.2'.toDoubleOrNull(); // 1.2
+final blank = ''.toDoubleOrNull(); // null
+```
+
 ### .toInt()
+
+Parses the string as an integer and returns the result. The radix (base) thereby defaults to 10. Throws a `FormatException` if parsing fails.
+
+```dart
+final a = '1'.toInt(); // 1
+final b = '100'.toInt(radix: 2); // 4
+final c = '100'.toInt(radix: 16); // 256
+final d = '1.0'.toInt(); // throws FormatException
+```
 
 ### .toIntOrNull()
 
@@ -232,7 +299,24 @@ final notANumber = '123-45'.toIntOrNull(); // null
 
 ### .toUtf8()
 
+Converts String to UTF-8 encoding.
+
+```dart
+final emptyString = ''.toUtf8(); // []
+final hi = 'hi'.toUtf8(); // [104, 105]
+final emoji = '😄'.toUtf8(); // [240, 159, 152, 132]
+
+```
+
 ### .toUtf16()
+
+Converts String to UTF-16 encoding.
+
+```dart
+final emptyString = ''.toUtf16(); // []
+final hi = 'hi'.toUtf16(); // [104, 105]
+final emoji = '😄'.toUtf16(); // [55357, 56836]
+```
 
 ## Time utils
 

@@ -89,7 +89,7 @@ extension StringIsDecapitalizedExtension on String {
 }
 
 extension StringIsAsciiExtension on String {
-  /// Returns `true` if string is ASCII encoded.
+  /// Returns `true` if the string is ASCII encoded.
   bool get isAscii {
     for (final codeUnit in codeUnits) {
       if (codeUnit > _ascii) return false;
@@ -99,6 +99,7 @@ extension StringIsAsciiExtension on String {
 }
 
 extension StringIsLatin1Extension on String {
+  /// Returns `true` if the string is Latin 1 encoded.
   bool get isLatin1 {
     for (final codeUnit in codeUnits) {
       if (codeUnit > _latin1) return false;
@@ -111,12 +112,10 @@ extension StringReversedExtension on String {
   /// Returns a new string with characters in reversed order.
   String get reversed {
     final range = characters.Characters(this).iteratorAtEnd;
-
     final buffer = StringBuffer();
     while (range.moveBack()) {
       buffer.write(range.current);
     }
-
     return buffer.toString();
   }
 }
@@ -152,6 +151,7 @@ extension StringToIntOrNullExtension on String {
 }
 
 extension StringIsDoubleExtension on String {
+  /// Returns `true` if the string can be parsed as a `double`.
   bool get isDouble => toDoubleOrNull() != null;
 }
 
@@ -161,16 +161,18 @@ extension StringToDoubleExtension on String {
 }
 
 extension StringToDoubleOrNullExtension on String {
-  /// Parses the string as an [double] number and returns the result or `null`
-  /// if the string is not a valid representation of a number.
+  /// Parses the string as a [double] number and returns the result or `null`
+  /// if the String is not a valid representation of a number.
   double? toDoubleOrNull() => double.tryParse(this);
 }
 
 extension StringToUtf8Extension on String {
+  /// Encodes String as UTF-8.
   List<int> toUtf8() => utf8.encode(this);
 }
 
 extension StringToUtf16Extension on String {
+  /// Encodes String as UTF-16.
   List<int> toUtf16() => codeUnits;
 }
 
@@ -242,10 +244,11 @@ extension StringSliceExtension on String {
 }
 
 extension NullableStringIsNullOrEmptyExtension on String? {
-  /// Returns `true` if the String is either null or empty.
+  /// Returns `true` if the string is either `null` or empty.
   bool get isNullOrEmpty => this?.isEmpty ?? true;
 }
 
 extension NullableStringIsNotNullOrEmptyExtension on String? {
+  /// Returns `true` if the string is neither null nor empty.
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
