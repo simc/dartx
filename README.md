@@ -121,6 +121,8 @@ final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
 ```
 
+### .isAscii
+
 ### .isBlank
 
 Returns `true` if this string is empty or consists solely of whitespace characters.
@@ -128,6 +130,24 @@ Returns `true` if this string is empty or consists solely of whitespace characte
 ```dart
 final notBlank = '   .'.isBlank; // false
 final blank = '  '.isBlank; // true
+```
+
+### .isDouble()
+
+### .isDoubleOrNull()
+
+### .isInt
+
+### .isLatin1
+### .isLowerCase
+
+Returns `true` if the entire string is lower case.
+
+```dart
+final a = 'abc'.isLowerCase; // true
+final b = 'abC'.isLowerCase; // false
+final c = '   '.isLowerCase; // true
+final d = ''.isLowerCase; // false
 ```
 
 ### .isNotBlank
@@ -139,16 +159,9 @@ final blank = '  '.isNotBlank; // false
 final notBlank = '   .'.isNotBlank; // true
 ```
 
-### .isLowerCase
+### .isNullOrEmpty
 
-Returns `true` if the entire string is lower case.
-
-```dart
-final a = 'abc'.isLowerCase; // true
-final b = 'abC'.isLowerCase; // false
-final c = '   '.isLowerCase; // true
-final d = ''.isLowerCase; // false
-```
+### .isNotNullOrEmpty
 
 ### .isUpperCase
 
@@ -161,6 +174,8 @@ final c = '   '.isUpperCase; // true
 final d = ''.isUpperCase; // false
 ```
 
+### .md5
+
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
 
 Remove a prefix, a suffix, or both from a given string:
@@ -172,6 +187,11 @@ final text = '<p>Some HTML</p>'
   .removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
 ```
 
+### .reversed
+
+### .slice()
+### .toInt()
+
 ### .toIntOrNull()
 
 Parses the string as an integer or returns `null` if it is not a number.
@@ -180,6 +200,10 @@ Parses the string as an integer or returns `null` if it is not a number.
 final number = '12345'.toIntOrNull(); // 12345
 final notANumber = '123-45'.toIntOrNull(); // null
 ```
+
+### .toUtf8()
+
+### .toUtf16()
 
 ## Time utils
 
