@@ -139,11 +139,30 @@ final notBlank = '   .'.isBlank; // false
 final blank = '  '.isBlank; // true
 ```
 
-### .isDouble()
+### .isDouble
 
-### .isDoubleOrNull()
+Returns `true` if string can be parsed as a double.
+
+```dart
+final a = ''.isDouble; // false
+final b = 'a'.isDouble; // false
+final c = '1'.isDouble; // true
+final d = '1.0'.isDouble; // true
+final e = '123456789.987654321'.isDouble; // true
+final f = '1,000'.isDouble; // false
+```
 
 ### .isInt
+
+Returns `true` if the string can be parsed as an integer.
+
+```dart
+final a = ''.isInt; // false
+final b = 'a'.isInt; // false
+final c = '1'.isInt; // true
+final d = '1.0'.isInt; // false
+final e = '1,000'.isInt; // false
+```
 
 ### .isLatin1
 ### .isLowerCase
@@ -197,6 +216,9 @@ final text = '<p>Some HTML</p>'
 ### .reversed
 
 ### .slice()
+
+### .isDoubleOrNull()
+
 ### .toInt()
 
 ### .toIntOrNull()

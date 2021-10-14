@@ -122,6 +122,7 @@ extension StringReversedExtension on String {
 }
 
 extension StringIsIntExtension on String {
+  /// Returns `true` if the string can be parsed as an integer.
   bool get isInt => toIntOrNull() != null;
 }
 
