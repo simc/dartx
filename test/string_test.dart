@@ -52,14 +52,38 @@ void main() {
 
     test('.isUpperCase', () {
       expect(''.isUpperCase, false);
+      expect(' '.isUpperCase, false);
+      expect('\n'.isUpperCase, false);
+      expect('0'.isUpperCase, false);
+      expect('!'.isUpperCase, false);
+      expect('ß'.isUpperCase, false);
+      expect('Ä'.isUpperCase, true);
       expect('TESt'.isUpperCase, false);
       expect('TEST'.isUpperCase, true);
+      expect('HEY, YOU!'.isUpperCase, true);
     });
 
     test('.isLowerCase', () {
       expect(''.isLowerCase, false);
+      expect(' '.isLowerCase, false);
+      expect('\n'.isLowerCase, false);
+      expect('0'.isLowerCase, false);
+      expect('!'.isLowerCase, false);
+
+      // This function uses the language independent Unicode mapping and thus
+      // only works in some languages.
+      //
+      // Doesn't work:
+      // expect('ß'.isLowerCase, true);
+      //
+      // Reason:
+      // 'ß'.toUpperCase // 'ß'
+
+      expect('groß'.isLowerCase, true);
+      expect('ä'.isLowerCase, true);
       expect('tesT'.isLowerCase, false);
       expect('test'.isLowerCase, true);
+      expect('hey, you!'.isLowerCase, true);
     });
 
     test('.isCapitalized', () {
