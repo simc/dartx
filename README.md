@@ -26,7 +26,7 @@ After you import the library, you can use the extensions.
 ```dart
 import 'package:dartx/dartx.dart';
 
-var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
+final slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 ```
 
 ## Iterable
@@ -36,10 +36,10 @@ var slice = [1, 2, 3, 4, 5].slice(1, -2); // [2, 3, 4]
 Returns elements at indices between `start` (inclusive) and `end` (inclusive).
 
 ```dart
-var list = [0, 1, 2, 3, 4, 5];
-var last = list.slice(-1); // [5]
-var lastHalf = list.slice(3); // [3, 4, 5]
-var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
+final list = [0, 1, 2, 3, 4, 5];
+final last = list.slice(-1); // [5]
+final lastHalf = list.slice(3); // [3, 4, 5]
+final allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 ```
 
 ### .sortedBy() & .thenBy()
@@ -47,7 +47,7 @@ var allButFirstAndLast = list.slice(1, -2); // [1, 2, 3, 4]
 Sort lists by multiple properties.
 
 ```dart
-var dogs = [
+final dogs = [
   Dog(name: "Tom", age: 3),
   Dog(name: "Charlie", age: 7),
   Dog(name: "Bark", age: 1),
@@ -55,7 +55,7 @@ var dogs = [
   Dog(name: "Charlie", age: 2),
 ];
 
-var sorted = dogs
+final sorted = dogs
     .sortedBy((dog) => dog.name)
     .thenByDescending((dog) => dog.age);
 // Bark, Cookie, Charlie (7), Charlie (2), Tom
@@ -66,8 +66,8 @@ var sorted = dogs
 Get distinct elements from a list.
 
 ```dart
-var list = ['this', 'is', 'a', 'test'];
-var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
+final list = ['this', 'is', 'a', 'test'];
+final distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a']
 ```
 
 ### .flatten()
@@ -75,8 +75,8 @@ var distinctByLength = list.distinctBy((it) => it.length); // ['this', 'is', 'a'
 Get a new lazy `Iterable` of all elements from all collections in a collection.
 
 ```dart
-var nestedList = [[1, 2, 3], [4, 5, 6]];
-var flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
+final nestedList = [[1, 2, 3], [4, 5, 6]];
+final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 ```
 
 ### .chunkWhile() & .splitWhen()
@@ -95,30 +95,146 @@ the predicate _didn't_ match.
 
 ## String
 
-### .chars
+### .capitalize
+
+Returns a copy of the string having its first letter uppercased, or the original string, if it's empty or already starts with an upper case letter.
+
+```dart
+final word = 'abcd'.capitalize(); // Abcd
+final anotherWord = 'Abcd'.capitalize(); // Abcd
+```
+
+### .chars - DEPRECATED
+
+Use `.characters` from the official characters package.
 
 Get a list of single character strings from a string. Supports emojis.
 
 ```dart
-var chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
+final chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
+
+### .decapitalize
+
+Returns a copy of the string having its first letter lowercased, or the original string, if it's empty or already starts with a lower case letter.
+
+```dart
+final word = 'abcd'.decapitalize(); // abcd
+final anotherWord = 'Abcd'.decapitalize(); // abcd
+```
+
+### .isAscii
+
+Returns `true` if the string is ASCII encoded.
+
+```dart
+final isAscii = 'abc123 !,.~'.isAscii; // true
+final isNotAscii = '§3'.isAscii; // false
+````
 
 ### .isBlank
 
 Returns `true` if this string is empty or consists solely of whitespace characters.
 
 ```dart
-var notBlank = '   .'.isBlank; // false
-var blank = '  '.isBlank; // true
+final notBlank = '   .'.isBlank; // false
+final blank = '  '.isBlank; // true
 ```
 
-### .toIntOrNull()
+### .isDouble
 
-Parses the string as an integer or returns `null` if it is not a number.
+Returns `true` if the string can be parsed as a double.
 
 ```dart
-var number = '12345'.toIntOrNull(); // 12345
-var notANumber = '123-45'.toIntOrNull(); // null
+final a = ''.isDouble; // false
+final b = 'a'.isDouble; // false
+final c = '1'.isDouble; // true
+final d = '1.0'.isDouble; // true
+final e = '123456789.987654321'.isDouble; // true
+final f = '1,000'.isDouble; // false
+```
+
+### .isInt
+
+Returns `true` if the string can be parsed as an integer.
+
+```dart
+final a = ''.isInt; // false
+final b = 'a'.isInt; // false
+final c = '1'.isInt; // true
+final d = '1.0'.isInt; // false
+final e = '1,000'.isInt; // false
+```
+
+### .isLatin1
+
+Returns `true` if the string is Latin 1 encoded.
+
+```dart
+final isLatin1 = '§Êü'.isLatin1; // true
+final isNotLatin1 = 'ő'.isLatin1; // false
+```
+
+### .isLowerCase
+
+Returns `true` if the entire string is lower case.
+
+```dart
+final a = 'abc'.isLowerCase; // true
+final b = 'abC'.isLowerCase; // false
+final c = '   '.isLowerCase; // true
+final d = ''.isLowerCase; // false
+```
+
+### .isNotBlank
+
+Returns `true` if this string is not empty and contains characters except whitespace characters.
+
+```dart
+final blank = '  '.isNotBlank; // false
+final notBlank = '   .'.isNotBlank; // true
+```
+
+### .isNullOrEmpty
+
+Returns `true` if the String is either `null` or empty.
+
+```dart
+final isNull = null.isNullOrEmpty; // true
+final isEmpty = ''.isNullOrEmpty; // true
+final isBlank = ' '.isNullOrEmpty; // false
+final isLineBreak = '\n'.isNullOrEmpty; // false
+```
+
+### .isNotNullOrEmpty
+
+Returns `true` if the String is neither `null` nor empty.
+
+```dart
+final isNull = null.isNullOrEmpty; // true
+final isEmpty = ''.isNullOrEmpty; // true
+final isBlank = ' '.isNullOrEmpty; // false
+final isLineBreak = '\n'.isNullOrEmpty; // false
+```
+
+### .isUpperCase
+
+Returns `true` if the entire string is upper case.
+
+```dart
+final a = 'ABC'.isUpperCase; // true
+final b = 'ABc'.isUpperCase; // false
+final c = '   '.isUpperCase; // true
+final d = ''.isUpperCase; // false
+```
+
+### .md5
+
+Calculates the MD5 digest and returns the value as a string of hexadecimal digits.
+
+```dart
+final a = 'abc'.md5; // 900150983cd24fb0d6963f7d28e17f72
+final b = 'ഐ⌛酪Б👨‍👨‍👧‍👦'.md5; // c7834eff7c967101cfb65b8f6d15ad46
 ```
 
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
@@ -126,10 +242,80 @@ var notANumber = '123-45'.toIntOrNull(); // null
 Remove a prefix, a suffix, or both from a given string:
 
 ```dart
-var name = 'James Bond'.removePrefix('James '); // Bond
-var milliseconds = '100ms'.removeSuffix('ms'); // 100
-var text = '<p>Some HTML</p>'
+final name = 'James Bond'.removePrefix('James '); // Bond
+final milliseconds = '100ms'.removeSuffix('ms'); // 100
+final text = '<p>Some HTML</p>'
   .removeSurrounding(prefix: '<p>', suffix: '</p>'); // Some HTML
+```
+
+### .reversed
+
+Returns a new string with characters in reversed order.
+
+```dart
+final emptyString = ''.reversed; // ''
+final reversed = 'abc🤔'.reversed; // '🤔cba'
+```
+
+### .slice()
+
+Returns a new substring containing all characters including indices [start] and [end].
+If [end] is omitted, it is being set to `lastIndex`.
+
+```dart
+final sliceOne = 'awesomeString'.slice(0,6)); // awesome
+final sliceTwo = 'awesomeString'.slice(7)); // String
+```
+
+### .toDoubleOrNull()
+
+Parses the string as a `double` and returns the result or `null` if the String is not a valid representation of a number.
+
+```dart
+final numOne = '1'.toDoubleOrNull(); // 1.0
+final numTwo = '1.2'.toDoubleOrNull(); // 1.2
+final blank = ''.toDoubleOrNull(); // null
+```
+
+### .toInt()
+
+Parses the string as an integer and returns the result. The radix (base) thereby defaults to 10. Throws a `FormatException` if parsing fails.
+
+```dart
+final a = '1'.toInt(); // 1
+final b = '100'.toInt(radix: 2); // 4
+final c = '100'.toInt(radix: 16); // 256
+final d = '1.0'.toInt(); // throws FormatException
+```
+
+### .toIntOrNull()
+
+Parses the string as an integer or returns `null` if it is not a number.
+
+```dart
+final number = '12345'.toIntOrNull(); // 12345
+final notANumber = '123-45'.toIntOrNull(); // null
+```
+
+### .toUtf8()
+
+Converts String to UTF-8 encoding.
+
+```dart
+final emptyString = ''.toUtf8(); // []
+final hi = 'hi'.toUtf8(); // [104, 105]
+final emoji = '😄'.toUtf8(); // [240, 159, 152, 132]
+
+```
+
+### .toUtf16()
+
+Converts String to UTF-16 encoding.
+
+```dart
+final emptyString = ''.toUtf16(); // []
+final hi = 'hi'.toUtf16(); // [104, 105]
+final emoji = '😄'.toUtf16(); // [55357, 56836]
 ```
 
 ## Time utils
@@ -153,8 +339,8 @@ Check out [⏰ time.dart](https://github.com/jogboms/time.dart) for more informa
 Ensures that this value lies in the specified range.
 
 ```dart
-var numberInRange = 123.coerceIn(0, 1000); // 123
-var numberOutOfRange = -123.coerceIn(0, 1000); // 0
+final numberInRange = 123.coerceIn(0, 1000); // 123
+final numberOutOfRange = -123.coerceIn(0, 1000); // 0
 ```
 
 ### .toBytes()
@@ -169,11 +355,11 @@ Creates a range between two ints (upwards, downwards and with custom steps)
 
 ```dart
 // upwards with default step size 1
-for (var i in 1.rangeTo(5)) {
+for (final i in 1.rangeTo(5)) {
   print(i); // 1, 2, 3, 4, 5
 }
 // downwards with custom step
-for (var i in 10.rangeTo(2).step(2)) {
+for (final i in 10.rangeTo(2).step(2)) {
   print(i); // 10, 8, 6, 4, 2
 }
 ```
@@ -185,7 +371,7 @@ for (var i in 10.rangeTo(2).step(2)) {
 Use `call()` instead. This is very useful for `null` checks.
 
 ```dart
-var func = (String value) {
+final func = (String value) {
   print(value);
 }
 
@@ -201,7 +387,7 @@ void greet(String firstName, String lastName) {
   print('Hi $firstName $lastName!');
 }
 
-var greetStark = greet.partial('Stark');
+final greetStark = greet.partial('Stark');
 greetStark('Sansa'); // Hi Sansa Stark!
 greetStark('Tony'); // Hi Tony Stark!
 ```
@@ -213,7 +399,7 @@ greetStark('Tony'); // Hi Tony Stark!
 Get the name and extension of a file.
 
 ```dart
-var file = File('some/path/testFile.dart');
+final file = File('some/path/testFile.dart');
 print(file.name); // testFile.dart
 print(file.nameWithoutExtension); // testFile
 ```
@@ -231,7 +417,7 @@ await File('someFile.json').appendText('{test: true}');
 Checks if a file is inside a directory.
 
 ```dart
-var dir = Directory('some/path');
+final dir = Directory('some/path');
 File('some/path/file.dart').isWithin(dir); // true
 ```
 
