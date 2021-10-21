@@ -77,8 +77,7 @@ extension StringIsUpperCaseExtension on String {
   /// '!'.isUpperCase // false
   /// 'HEY, YOU!'.isUpperCase // true
   /// ```
-  bool get isUpperCase =>
-      isNotEmpty && this == toUpperCase() && this != toLowerCase();
+  bool get isUpperCase => this == toUpperCase() && this != toLowerCase();
 }
 
 extension StringIsLowerCaseExtension on String {
@@ -90,8 +89,7 @@ extension StringIsLowerCaseExtension on String {
   /// '!'.isLowerCase // false
   /// 'hey, you!'.isLowerCase // true
   /// ```
-  bool get isLowerCase =>
-      isNotEmpty && this == toLowerCase() && this != toUpperCase();
+  bool get isLowerCase => this == toLowerCase() && this != toUpperCase();
 }
 
 extension StringIsCapitalizedExtension on String {
