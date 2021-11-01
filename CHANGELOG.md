@@ -1,3 +1,14 @@
+## 0.8.0
+
+- [PR-136](https://github.com/leisim/dartx/pull/136) New: Multiple extensions for `Map`. `all()`, `any()`, `count()`, `filter()`, `filterKeys()`, `filterNot`, `filterValues`, `getOrElse()`, `mapEntries()`, `mapKeys()`, `mapValues()`, `maxBy()`, `maxWith()`, `minBy()`, `minWith`, `none()`, `toList()`, `toMap()`, `orEmpty()`
+- [PR-127](https://github.com/leisim/dartx/pull/127) Improve: `sumBy` is now generic and works equally for `num`/`int`/`double`
+- [PR-131](https://github.com/leisim/dartx/pull/131) Fix: `min()`/`max()` which returned the wrong item for reversed ordered lists
+- [PR-133](https://github.com/leisim/dartx/pull/133) New: `plus()`/`minus()` and `plusOrNull`/`minusOrNull` to `num` which handle `null`
+- [PR-138](https://github.com/leisim/dartx/pull/138) Improve: `Iterable.second` returns `T` instead of `T?`. Analog to `first`
+- [PR-142](https://github.com/leisim/dartx/pull/142) Fix: `isUpperCase`/`isLowerCase` now threat only `[a-zA-Z]` chars as being uppercase
+
+Also, all linting issues have been fixed and the README has been drastically improved. Thanks @minhqdao 
+
 ## 0.7.1
 
 - [PR-126](https://github.com/leisim/dartx/pull/126) Improve runtime of `elementAtOrNull` for `List`

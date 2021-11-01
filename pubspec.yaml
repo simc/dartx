@@ -1,6 +1,6 @@
 name: dartx
 description: Superpowers for Dart. Collection of useful static extension methods.
-version: 0.7.1
+version: 0.8.0
 homepage: https://github.com/leisim/dartx
 
 environment:
