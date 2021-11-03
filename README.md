@@ -487,6 +487,59 @@ This is the `async` method, which returns a `Future<bool>`.
 
 Same as `.contains(FileSystemEntity entity, {bool recursive = false})` but synchronous. Returns a `bool`.
 
+## Console
+
+### printx()
+
+Prints the given arguments to the standard output stream, also you can define `separator` and `end` escape
+
+```dart
+print(['hello world', 1, 0.5, false], separator: ',', end: '\n');
+// hello world,1,0.5,false
+```
+
+### read...()
+
+Read from console.
+
+```dart
+final char = readChar(); 
+// input: hi | output: h
+final fiveCharacters = readCharacters(5); 
+// input: hi whats up | output: hi wha
+final word = read(); 
+// input: lorem lorem | output: lorem
+final words = readStrings(5); 
+// input: this is a test :) | output: [this, is, a, test, :)]
+final line = readLine(); 
+// input: this is a test. | output: this is a test.
+final lines = readLines(4); 
+// input:
+// this is a test.
+// 9999999
+// hi there.
+// 100.0
+// output: [this is a test., 9999999, hi there., 100.0]
+
+final intNumber = readInt(); 
+// input: 20 | output: 20
+final intNumbers = readInts(3); 
+// input: 
+// 20
+// 16
+// 13
+// output: [20, 16, 13]
+
+final doubleNumber = readDouble(); 
+// input: 3.14 | output: 3.14
+
+final doubleNumbers = readDoubles(2); 
+// input: 
+// 3.14
+// 2.19
+// output: [3.14, 2.19]
+```
+
 ## License
 
 ```plain
