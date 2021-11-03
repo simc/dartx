@@ -18,3 +18,4 @@ dev_dependencies:
   fake_async: ^1.2.0
   lint: ^1.5.0
   test: ^1.16.4
+  test_process: ^2.0.2
