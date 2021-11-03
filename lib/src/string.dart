@@ -266,3 +266,11 @@ extension NullableStringIsNotNullOrEmptyExtension on String? {
   /// Returns `true` if the string is neither null nor empty.
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
+
+/// Builds new string by populating newly created [StringBuffer] using provided [builderAction]
+/// and then converting it to [String].
+String buildString(void Function(StringBuffer it) builderAction) {
+  final buffer = StringBuffer();
+  builderAction(buffer);
+  return buffer.toString();
+}

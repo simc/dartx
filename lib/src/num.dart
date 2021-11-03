@@ -83,3 +83,8 @@ extension DoubleToBytesExtension<T extends double> on T {
     return data.buffer.asUint8List();
   }
 }
+
+extension IntToCharExtension<T extends int> on T {
+  /// Converts this [int] value to character.
+  String toChar() => String.fromCharCode(this);
+}

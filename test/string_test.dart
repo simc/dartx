@@ -270,5 +270,18 @@ void main() {
       expect(() => 'awesomeString'.slice(-14), throwsRangeError);
       expect(() => 'awesomeString'.slice(-1, -2), throwsRangeError);
     });
+
+    test('buildString()', () {
+      expect(buildString((it) => it.write('test')), 'test');
+
+      expect(
+        buildString((it) {
+          for (var i = 0; i < 10; i++) {
+            it.write(i);
+          }
+        }),
+        '0123456789',
+      );
+    });
   });
 }

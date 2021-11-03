@@ -83,6 +83,12 @@ void main() {
         Uint8List.fromList([21, 205, 91, 7, 0, 0, 0, 0]),
       );
     });
+
+    test('.toChar()', () {
+      expect(97.toChar(), 'a');
+      expect(65.toChar(), 'A');
+      expect(37.toChar(), '%');
+    });
   });
 
   group('DoubleX', () {
