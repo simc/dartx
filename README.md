@@ -2,7 +2,7 @@
 
 [![Dart CI](https://github.com/leisim/dartx/workflows/Dart%20CI/badge.svg?branch=master)](https://github.com/leisim/dartx/actions) [![Codecov](https://img.shields.io/codecov/c/github/leisim/dartx.svg)](https://codecov.io/gh/leisim/dartx) [![dartx](https://img.shields.io/pub/v/dartx?label=dartx)](https://pub.dev/packages/dartx) [![flutterx](https://img.shields.io/pub/v/flutterx?label=flutterx)](https://pub.dev/packages/flutterx)
 
-*If you miss an extension, please open an issue or pull request*
+_If you miss an extension, please open an issue or pull request_
 
 ### Resources:
 
@@ -95,6 +95,20 @@ the predicate _didn't_ match.
 
 ## String
 
+### buildString()
+
+Builds new string by populating newly created `StringBuffer` using provided `builderAction`
+and then converting it to `String`.
+
+```dart
+final word = buildString((it) {
+  for (var i = 0; i < 10; i++) {
+    it.write(i);
+  }
+});
+// 0123456789
+```
+
 ### .capitalize
 
 Returns a copy of the string having its first letter uppercased, or the original string, if it's empty or already starts with an upper case letter.
@@ -130,7 +144,7 @@ Returns `true` if the string is ASCII encoded.
 ```dart
 final isAscii = 'abc123 !,.~'.isAscii; // true
 final isNotAscii = '§3'.isAscii; // false
-````
+```
 
 ### .isBlank
 
@@ -347,6 +361,14 @@ final numberOutOfRange = -123.coerceIn(0, 1000); // 0
 
 Converts this value to binary form.
 
+### .toChar()
+
+Converts this value to character
+
+```dart
+final character = 97.toChar(); // a
+```
+
 ## range
 
 ### rangeTo
@@ -440,7 +462,6 @@ References a directory within a `Directory`
 Directory androidDir = Directory('flutter-app/android');
 Directory mainSrc = androidDir.directory("app/src/main");
 ```
-
 
 ### .contains(FileSystemEntity entity, {bool recursive = false})
 
