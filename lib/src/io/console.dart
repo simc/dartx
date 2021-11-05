@@ -5,6 +5,8 @@ const _charMinValue = '\u0000';
 /// Prints the given arguments to the standard output stream,
 /// also you can define [separator] and [end] escape
 ///
+/// #### Example : 
+/// 
 /// ```dart
 /// print(['hello world', 1, 0.5, false], separator: ',', end: '\n');
 /// // hello world,1,0.5,false
