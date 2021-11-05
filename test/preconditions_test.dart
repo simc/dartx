@@ -1,4 +1,4 @@
-import 'package:dartx/dartx_io.dart';
+import 'package:dartx/dartx.dart';
 import 'package:test/test.dart';
 
 void main() {
