@@ -18,5 +18,5 @@ T requireNotNull<T>(T? value, [dynamic message = 'Required value was null.']) {
   }
 }
 
-/// Throws an [IllegalStateException] with the given [message].
+/// Throws an [Exception] with the given [message].
 void error(dynamic message) => throw Exception(message);

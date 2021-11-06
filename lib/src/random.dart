@@ -41,7 +41,7 @@ extension RandomNextDoubleRange on Random {
   /// ```dart
   /// final rand = Random();
   /// final randomNumber = rand.nextDoubleRange(10, 11);
-  /// // a random number in range 10.0..10.99
+  /// // a random number in range [10.0..11)
   /// ```
   double nextDoubleRange(double start, double end) {
     _checkRangeBounds(start, end);
