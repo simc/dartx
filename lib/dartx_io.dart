@@ -5,12 +5,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dartx/dartx.dart';
 import 'package:path/path.dart' as path_helper;
 
 export 'dartx.dart';
 
-part 'src/io/console.dart';
 part 'src/io/directory.dart';
 part 'src/io/file_system_entity.dart';
 part 'src/io/file.dart';
