@@ -267,6 +267,34 @@ extension NullableStringIsNotNullOrEmptyExtension on String? {
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
 
+extension NullableStringOrEmptyExtension on String? {
+  /// Returns the string if it is not `null`, or the empty string otherwise.
+  String orEmpty() => this ?? '';
+}
+
+extension StringMatchesExtension on String {
+  /// Returns `true` if this char sequence matches the given regular expression.
+  bool matches(RegExp regex) => regex.hasMatch(this);
+}
+
+extension StringIsHttpExtension on String {
+  /// If the string is a HTTP URL (ie. Starts with http:// or https://)
+  bool get isHttp => matches(RegExp('(http|https)://[^\\s]*'));
+}
+
+extension StringUrlCodingExtension on String {
+  /// Translates a string into application/x-www-form-urlencoded format using a specific encoding scheme.
+  String get urlEncode => Uri.encodeFull(this);
+
+  /// Decodes an application/x-www-form-urlencoded string using a specific encoding scheme.
+  String get urlDecode => Uri.decodeFull(this);
+}
+
+extension StringBufferWriteSpaceExtension on StringBuffer {
+  /// Add a space to the buffer.
+  void writeSpace() => write(' ');
+}
+
 /// Builds new string by populating newly created [StringBuffer] using provided [builderAction]
 /// and then converting it to [String].
 String buildString(void Function(StringBuffer it) builderAction) {

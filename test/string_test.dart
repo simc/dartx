@@ -170,6 +170,13 @@ void main() {
       expect('\n'.isNotNullOrEmpty, true);
     });
 
+    test('.orEmpty', () {
+      String? value;
+      expect(value.orEmpty(), '');
+      expect('hi'.orEmpty(), 'hi');
+      expect(''.orEmpty(), '');
+    });
+
     test('.toUtf8()', () {
       expect(''.toUtf8(), []);
       expect('hello'.toUtf8(), [104, 101, 108, 108, 111]);
@@ -269,6 +276,38 @@ void main() {
       expect(() => 'awesomeString'.slice(13), throwsRangeError);
       expect(() => 'awesomeString'.slice(-14), throwsRangeError);
       expect(() => 'awesomeString'.slice(-1, -2), throwsRangeError);
+    });
+
+    test('.matches()', () {
+      expect('as'.matches(RegExp(r'^.s$')), true);
+      expect('mst'.matches(RegExp(r'^.s$')), false);
+    });
+
+    test('.isHttp', () {
+      expect('http://www.example.com'.isHttp, true);
+      expect('https://www.example.com'.isHttp, true);
+      expect('htt://www//'.isHttp, false);
+    });
+
+    test('url coding', () {
+      const originalUrl = 'Hello Ladies + Gentlemen, a signed OAuth request!';
+      final encodingUrl = originalUrl.urlEncode;
+      expect(
+        encodingUrl,
+        'Hello%20Ladies%20+%20Gentlemen,%20a%20signed%20OAuth%20request!',
+      );
+      final decodedUrl = originalUrl.urlDecode;
+      expect(decodedUrl, originalUrl);
+    });
+  });
+
+  group('StringBuffer', () {
+    test('.writeSpace()', () {
+      final buffer = StringBuffer();
+      buffer.writeSpace();
+      expect(buffer.isNotEmpty, true);
+      expect(buffer.length, 1);
+      expect(buffer.toString(), ' ');
     });
 
     test('buildString()', () {
