@@ -251,6 +251,35 @@ final a = 'abc'.md5; // 900150983cd24fb0d6963f7d28e17f72
 final b = 'ഐ⌛酪Б👨‍👨‍👧‍👦'.md5; // c7834eff7c967101cfb65b8f6d15ad46
 ```
 
+### .isHttp
+
+If the string is a HTTP URL (ie. Starts with http:// or https://)
+
+```dart
+print('http://www.example.com'.isHttp); // true
+print('htt://www//'.isHttp); // false
+```
+
+### .urlEncode
+
+Translates a string into application/x-www-form-urlencoded format using a specific encoding scheme.
+
+```dart
+const originalUrl = 'Hello Ladies + Gentlemen, a signed OAuth request!';
+final encodedUrl = originalUrl.urlEncode;
+// 'Hello%20Ladies%20+%20Gentlemen,%20a%20signed%20OAuth%20request!'
+```
+
+### .urlDecode
+
+Decodes an application/x-www-form-urlencoded string using a specific encoding scheme.
+
+```dart
+const encodedUrl = 'Hello%20Ladies%20+%20Gentlemen,%20a%20signed%20OAuth%20request!';
+final decodedUrl = encodingUrl.urlDecode;
+// 'Hello Ladies + Gentlemen, a signed OAuth request!'
+```
+
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
 
 Remove a prefix, a suffix, or both from a given string:
@@ -330,6 +359,24 @@ Converts String to UTF-16 encoding.
 final emptyString = ''.toUtf16(); // []
 final hi = 'hi'.toUtf16(); // [104, 105]
 final emoji = '😄'.toUtf16(); // [55357, 56836]
+```
+
+### .orEmpty()
+
+Returns the string if it is not `null`, or the empty string otherwise.
+
+```dart
+String? nullableStr;
+final str = nullableStr.orEmpty(); // ''
+```
+
+### .matches()
+
+Returns `true` if this char sequence matches the given regular expression.
+
+```dart
+print('as'.matches(RegExp('^.s\$'))) // true
+print('mst'.matches(RegExp('^.s\$'))) // false
 ```
 
 ## Time utils
@@ -486,59 +533,6 @@ This is the `async` method, which returns a `Future<bool>`.
 ### .containsSync(FileSystemEntity entity, {bool recursive = false})
 
 Same as `.contains(FileSystemEntity entity, {bool recursive = false})` but synchronous. Returns a `bool`.
-
-## Console
-
-### printx()
-
-Prints the given arguments to the standard output stream, also you can define `separator` and `end` escape
-
-```dart
-print(['hello world', 1, 0.5, false], separator: ',', end: '\n');
-// hello world,1,0.5,false
-```
-
-### read...()
-
-Read from console.
-
-```dart
-final char = readChar(); 
-// input: hi | output: h
-final fiveCharacters = readCharacters(5); 
-// input: hi whats up | output: hi wha
-final word = read(); 
-// input: lorem lorem | output: lorem
-final words = readStrings(5); 
-// input: this is a test :) | output: [this, is, a, test, :)]
-final line = readLine(); 
-// input: this is a test. | output: this is a test.
-final lines = readLines(4); 
-// input:
-// this is a test.
-// 9999999
-// hi there.
-// 100.0
-// output: [this is a test., 9999999, hi there., 100.0]
-
-final intNumber = readInt(); 
-// input: 20 | output: 20
-final intNumbers = readInts(3); 
-// input: 
-// 20
-// 16
-// 13
-// output: [20, 16, 13]
-
-final doubleNumber = readDouble(); 
-// input: 3.14 | output: 3.14
-
-final doubleNumbers = readDoubles(2); 
-// input: 
-// 3.14
-// 2.19
-// output: [3.14, 2.19]
-```
 
 ## License
 
