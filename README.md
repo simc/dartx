@@ -137,6 +137,16 @@ final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
 ```
 
+### .title
+
+Return a version of the string where each word is titlecased.
+More specifically, words start with uppercased characters and all remaining cased characters have lower case.
+
+```dart
+const text = 'welcome to my 2nd world';
+print(text.title()); // Welcome To My 2nd World
+```
+  
 ### .isAscii
 
 Returns `true` if the string is ASCII encoded.
@@ -379,7 +389,38 @@ print('as'.matches(RegExp('^.s\$'))) // true
 print('mst'.matches(RegExp('^.s\$'))) // false
 ```
 
-## Time utils
+### .count()
+
+Return the number of non-overlapping occurrences of substring sub in string. Optional arguments start and end are interpreted as in slice notation
+
+```dart
+const text = 'I love apples, apple are my favorite fruit';
+print(text.count('apple', 0, 20)) // 2
+```
+
+### .partition()
+
+Partition the string into three parts using the given separator.
+
+```dart
+const text = 'I could eat bananas all day';
+print(text.partition('bananas') // ['I could eat ', 'bananas', ' all day']
+print(text.partition('apple') // ['I could eat bananas all day', '', '']
+```
+
+### .center(), .leftJustify() and .rightJustify()
+
+Return a centered, left-justified and right-justified string of length width.
+Padding is done using the specified fill character (default is a space).
+
+```dart
+const text = 'banana';
+print(text.center(2, '*')); // **banana**
+print(text.leftJust(2, '*')); // **banana
+print(text.rightJust(2, '*')); // banana**
+```
+
+### Time utils
 
 Dartx exports [@jogboms](https://github.com/jogboms) great [⏰ time.dart](https://github.com/jogboms/time.dart) package so you can do the following:
 

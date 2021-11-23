@@ -326,7 +326,7 @@ void main() {
       expect(text.center(2, '*'), '**banana**');
     });
 
-    test('.leftJust()', () {
+    test('.leftJustify()', () {
       const text = 'banana';
       expect(text.leftJustify(1), ' banana');
       expect(text.leftJustify(5), '     banana');
@@ -334,7 +334,7 @@ void main() {
       expect(text.leftJustify(2, '*'), '**banana');
     });
 
-    test('.rightJust()', () {
+    test('.rightJustify()', () {
       const text = 'banana';
       expect(text.rightJustify(1), 'banana ');
       expect(text.rightJustify(5), 'banana     ');
