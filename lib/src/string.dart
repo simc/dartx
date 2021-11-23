@@ -290,6 +290,110 @@ extension StringUrlCodingExtension on String {
   String get urlDecode => Uri.decodeFull(this);
 }
 
+extension StringCountExtension on String {
+  /// Return the number of non-overlapping occurrences of substring sub in
+  /// string. Optional arguments start and end are interpreted as in slice notation
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'I love apples, apple are my favorite fruit';
+  /// print(text.count('apple', 0, 20)) // 2
+  /// ```
+  int count(String sub, [int start = 0, int? end]) {
+    final len = length - 1;
+    return sub.allMatches(slice(start, end ?? len)).length;
+  }
+}
+
+extension StringPartitionExtension on String {
+  /// Partition the string into three parts using the given separator.
+  ///
+  /// This will search for the separator in the string. If the separator is found, returns a 3-list containing the part before the separator, the separator itself, and the part after it.
+  /// If the separator is not found, returns a 3-list containing the original string and two empty strings.
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'I could eat bananas all day';
+  /// print(text.partition('bananas') // ['I could eat ', 'bananas', ' all day']
+  /// print(text.partition('apple') // ['I could eat bananas all day', '', '']
+  /// ```
+  List<String> partition(String seperator) {
+    if (contains(seperator)) {
+      final firstIndex = indexOf(seperator);
+      return [
+        substring(0, firstIndex),
+        substring(firstIndex, firstIndex + seperator.length),
+        substring(firstIndex + seperator.length, length)
+      ];
+    } else {
+      return [this, '', ''];
+    }
+  }
+}
+
+extension StringCenterExtension on String {
+  /// Return a centered string of length width.
+  ///
+  /// Padding is done using the specified fill character (default is a space).
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'banana';
+  /// print(text.center(2, '*')); // **banana**
+  /// ```
+  String center(int width, [String fillChar = ' ']) =>
+      '${fillChar * width}${this}${fillChar * width}';
+}
+
+extension StringLeftJustifyExtension on String {
+  /// Return a left-justified string of length width.
+  ///
+  /// Padding is done using the specified fill character (default is a space).
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'banana';
+  /// print(text.leftJust(2, '*')); // **banana
+  /// ```
+  String leftJustify(int width, [String fillChar = ' ']) =>
+      '${fillChar * width}${this}';
+}
+
+extension StringRightJustifyExtension on String {
+  /// Return a right-justified string of length width.
+  ///
+  /// Padding is done using the specified fill character (default is a space).
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'banana';
+  /// print(text.rightJust(2, '*')); // banana**
+  /// ```
+  String rightJustify(int width, [String fillChar = ' ']) =>
+      '${this}${fillChar * width}';
+}
+
+extension StringTitleExtension on String {
+  /// Return a version of the string where each word is titlecased.
+  ///
+  /// More specifically, words start with uppercased characters and all remaining cased characters have lower case.
+  ///
+  /// #### Example :
+  ///
+  /// ```dart
+  /// const text = 'welcome to my 2nd world';
+  /// print(text.title()); // Welcome To My 2nd World
+  /// ```
+  String title() {
+    return split(' ').map((e) => e.capitalize()).joinToString(separator: ' ');
+  }
+}
+
 extension StringBufferWriteSpaceExtension on StringBuffer {
   /// Add a space to the buffer.
   void writeSpace() => write(' ');
