@@ -104,16 +104,6 @@ final word = 'abcd'.capitalize(); // Abcd
 final anotherWord = 'Abcd'.capitalize(); // Abcd
 ```
 
-### .chars - DEPRECATED
-
-Use `.characters` from the official characters package.
-
-Get a list of single character strings from a string. Supports emojis.
-
-```dart
-final chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
-```
-
 ### .decapitalize
 
 Returns a copy of the string having its first letter lowercased, or the original string, if it's empty or already starts with a lower case letter.
@@ -365,18 +355,6 @@ for (final i in 10.rangeTo(2).step(2)) {
 ```
 
 ## Function
-
-### .invoke() - DEPRECATED
-
-Use `call()` instead. This is very useful for `null` checks.
-
-```dart
-final func = (String value) {
-  print(value);
-}
-
-func?.call('hello world');
-```
 
 ### .partial(), .partial2() ...
 

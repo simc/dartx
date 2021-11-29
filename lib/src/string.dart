@@ -3,18 +3,6 @@ part of dartx;
 const _ascii = 0x007f;
 const _latin1 = 0x00ff;
 
-extension StringCharsExtension on String {
-  /// The characters of a string.
-  ///
-  /// A character is a Unicode Grapheme cluster represented by a substring of
-  /// the original string.
-  ///
-  /// Please use [StringCharacters].characters
-  /// https://github.com/dart-lang/characters/blob/10527437926f1b454edf9912fe700aa2506b1c3d/lib/src/extensions.dart#L9
-  @Deprecated('Use .characters from the official characters package')
-  Iterable<String> get chars => characters.Characters(this);
-}
-
 extension StringCapitalizeExtension on String {
   /// Returns a copy of this string having its first letter uppercased, or the
   /// original string, if it's empty or already starts with an upper case
