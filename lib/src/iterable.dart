@@ -828,12 +828,16 @@ extension IterableChunked<E> on Iterable<E> {
   /// Splits this collection into a new lazy [Iterable] of lists each not
   /// exceeding the given [size].
   ///
-  /// The last list in the resulting list may have less elements than the given
-  /// [size].
+  /// If [fill] is not provided, the last list in the resulting list may have less elements
+  /// than the given [size]. If [fill] is provided, the list will be filled to length [size]
+  /// with the value returned by [fill].
   ///
   /// [size] must be positive and can be greater than the number of elements in
   /// this collection.
-  Iterable<List<E>> chunked(int size) sync* {
+  Iterable<List<E>> chunked(
+    int size, {
+    E Function(int chunkIndex)? fill,
+  }) sync* {
     if (size < 1) {
       throw ArgumentError('Requested chunk size $size is less than one.');
     }
@@ -847,6 +851,11 @@ extension IterableChunked<E> on Iterable<E> {
       }
     }
     if (currentChunk.isNotEmpty) {
+      if (fill != null) {
+        for (var i = currentChunk.length; i < size; i++) {
+          currentChunk.add(fill(i));
+        }
+      }
       yield currentChunk;
     }
   }

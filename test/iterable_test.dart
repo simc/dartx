@@ -582,6 +582,8 @@ void main() {
       expect(list.chunked(11).elementAt(4), [44, 45, 46, 47, 48, 49]);
 
       expect(list.chunked(60), [list]);
+
+      expect(list.chunked(3, fill: (i) => i).last, [48, 49, 2]);
     });
 
     group('.chunkWhile()', () {
