@@ -207,6 +207,30 @@ final isBlank = ' '.isNullOrEmpty; // false
 final isLineBreak = '\n'.isNullOrEmpty; // false
 ```
 
+### .isNullOrBlank
+
+Returns `true` if the String is either `null` or blank.
+
+```dart
+final isNull = null.isNullOrBlank; // true
+final isEmpty = ''.isNullOrBlank; // true
+final isBlank = ' '.isNullOrBlank; // true
+final isLineBreak = '\n'.isNullOrBlank; // true
+final isFoo = ' foo '.isNullOrBlank; // false
+```
+
+### .isNotNullOrBlank
+
+Returns `true` if the String is neither `null` nor blank.
+
+```dart
+final isNull = null.isNullOrBlank; // true
+final isEmpty = ''.isNullOrBlank; // true
+final isBlank = ' '.isNullOrBlank; // true
+final isLineBreak = '\n'.isNullOrBlank; // true
+final isFoo = ' foo '.isNullOrBlank; // true
+```
+
 ### .isUpperCase
 
 Returns `true` if the entire string is upper case.
