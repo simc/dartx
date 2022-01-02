@@ -1003,5 +1003,47 @@ void main() {
       expect([null, 1, 2, 3].startsWith([null, 1]), true);
       expect([1, null, 3].startsWith([1, null]), true);
     });
+
+    test('.modifyWhere()', () {
+      final items = [1, 2, 3, 4, 5, 6];
+
+      expect(
+        items.modifyWhere((v) => v < 3, (i) => -i),
+        [-1, -2, 3, 4, 5, 6],
+      );
+      expect(
+        items.modifyWhere((v) => v > 3, (i) => -i),
+        [1, 2, 3, -4, -5, -6],
+      );
+      expect(
+        items.modifyWhere((v) => v < 0, (i) => -i),
+        [1, 2, 3, 4, 5, 6],
+      );
+      expect(
+        items.modifyWhere((v) => v > 0, (i) => i * 2),
+        [2, 4, 6, 8, 10, 12],
+      );
+    });
+
+    test('.modifyFirstWhere()', () {
+      final items = [1, 2, 3, 4, 5, 6];
+
+      expect(
+        items.modifyFirstWhere((v) => v < 3, (i) => -i),
+        [-1, 2, 3, 4, 5, 6],
+      );
+      expect(
+        items.modifyFirstWhere((v) => v > 3, (i) => -i),
+        [1, 2, 3, -4, 5, 6],
+      );
+      expect(
+        items.modifyFirstWhere((v) => v < 0, (i) => -i),
+        [1, 2, 3, 4, 5, 6],
+      );
+      expect(
+        items.modifyFirstWhere((v) => v > 0, (i) => i * 2),
+        [2, 2, 3, 4, 5, 6],
+      );
+    });
   });
 }
