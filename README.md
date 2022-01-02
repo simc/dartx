@@ -93,6 +93,22 @@ final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
 `splitWhen` is the opposite of `chunkWhile` that starts a new chunk every time
 the predicate _didn't_ match.
 
+### .modifyWhere()
+
+Applies a given modifier as long as predicate is true:
+```dart
+final values = [1, 2, 3];
+values.modifyWhere((v) => v > 1, (v) => -v); // [1, -2, -3]
+```
+
+### .modifyFirstWhere()
+
+Applies the modifier to the first element that matches predicate:
+```dart
+final values = [1, 2, 3];
+values.modifyWhere((v) => v > 1, (v) => -v); // [1, -2, 3]
+```
+
 ## String
 
 ### .capitalize
