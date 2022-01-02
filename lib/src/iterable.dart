@@ -1381,3 +1381,40 @@ extension IterableStartsWithExtension<E> on Iterable<E> {
     return true;
   }
 }
+
+extension IterableModifyWhereExtension<T> on Iterable<T> {
+  /// Applies [modifier] to all elements matching the given [predicate]
+  ///
+  /// ```dart
+  /// final values = [1, 2, 3];
+  /// values.modifyWhere((v) => v > 1, (v) => -v); // [1, -2, -3]
+  /// ```
+  Iterable<T> modifyWhere(
+    bool Function(T) predicate,
+    T Function(T) modifier,
+  ) {
+    return map((item) => predicate(item) ? modifier(item) : item);
+  }
+}
+
+extension IterableModifyFirstWhereExtension<T> on Iterable<T> {
+  /// Applies [modifier] to the first element matching the given [predicate]
+  ///
+  /// ```dart
+  /// final values = [1, 2, 3];
+  /// values.modifyWhere((v) => v > 1, (v) => -v); // [1, -2, 3]
+  /// ```
+  Iterable<T> modifyFirstWhere(
+    bool Function(T) predicate,
+    T Function(T) modifier,
+  ) {
+    bool modified = false;
+    return modifyWhere(
+      (v) => !modified && predicate(v),
+      (v) {
+        modified = true;
+        return modifier(v);
+      },
+    );
+  }
+}
