@@ -1,14 +1,14 @@
 part of dartx;
 
-extension IntSuffix<T extends int> on T {
-  /// Returns a string adding a proper suffix on any integer
+extension Ordinals<T extends int> on T {
+  /// Returns an ordinal number of `String` type for any integer
   ///
   /// ```dart
-  /// 101.addSuffix(); // 101st
+  /// 101.ordinal(); // 101st
   ///
-  /// 999218.addSuffix(); // 999218th
+  /// 999218.ordinal(); // 999218th
   /// ```
-  String addSuffix() {
+  String ordinal() {
     final onesPlace = this % 10;
     final tensPlace = ((this / 10).floor()) % 10;
     if (tensPlace == 1) {

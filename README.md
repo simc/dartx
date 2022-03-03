@@ -93,6 +93,17 @@ final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
 `splitWhen` is the opposite of `chunkWhile` that starts a new chunk every time
 the predicate _didn't_ match.
 
+## int
+
+### .ordinal
+
+Returns an ordinal number of `String` type for any integer
+
+```dart
+final a = 1.ordinal();  // 1st
+final b = 108.ordinal();  // 108th
+```
+
 ## String
 
 ### .capitalize
