@@ -178,7 +178,8 @@ void main() {
 
       expect(list1.contentEquals(list2.toList()), false);
       expect(list1.contentEquals(list2), false);
-      bool compareCodeUnits(e1, e2) => e1.codeUnitAt(0) == e2.codeUnitAt(0);
+      bool compareCodeUnits(String e1, String e2) =>
+          e1.codeUnitAt(0) == e2.codeUnitAt(0);
       expect(list1.contentEquals(list2, compareCodeUnits), true);
       expect(list3.contentEquals(list4), false);
       expect(list4.contentEquals(list3), false);
@@ -370,7 +371,7 @@ void main() {
     });
 
     test('.filterIndexed()', () {
-      final result = [6, 5, 4, 3, 2, 1, 0].filter((it) => it % 2 == 0);
+      final result = [6, 5, 4, 3, 2, 1, 0].filter((it) => it.isEven);
       expect(result, [6, 4, 2, 0]);
     });
 
@@ -387,7 +388,7 @@ void main() {
 
     test('.filterTo()', () {
       final list = <int>[];
-      [1, 2, 3, 4, 3, 2, 1].filterTo(list, (e) => e % 2 == 0);
+      [1, 2, 3, 4, 3, 2, 1].filterTo(list, (e) => e.isEven);
       expect(list, [2, 4, 2]);
     });
 
@@ -396,13 +397,13 @@ void main() {
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterIndexedTo(list, (e, i) {
         expect(index++, i);
-        return e % 2 == 0;
+        return e.isEven;
       });
       expect(list, [2, 4, 2]);
     });
 
     test('.filterNot()', () {
-      expect([1, 2, 3, 4, 3, 2, 1].filterNot((e) => e % 2 == 0), [1, 3, 3, 1]);
+      expect([1, 2, 3, 4, 3, 2, 1].filterNot((e) => e.isEven), [1, 3, 3, 1]);
     });
 
     test('.filterNotIndexed()', () {
@@ -410,7 +411,7 @@ void main() {
       expect(
         [1, 2, 3, 4, 3, 2, 1].filterNotIndexed((e, i) {
           expect(index++, i);
-          return e % 2 == 0;
+          return e.isEven;
         }),
         [1, 3, 3, 1],
       );
@@ -418,7 +419,7 @@ void main() {
 
     test('.filterNotTo()', () {
       final list = <int>[];
-      [1, 2, 3, 4, 3, 2, 1].filterNotTo(list, (e) => e % 2 == 0);
+      [1, 2, 3, 4, 3, 2, 1].filterNotTo(list, (e) => e.isEven);
       expect(list, [1, 3, 3, 1]);
     });
 
@@ -427,7 +428,7 @@ void main() {
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].filterNotToIndexed(list, (e, i) {
         expect(index++, i);
-        return e % 2 == 0;
+        return e.isEven;
       });
       expect(list, [1, 3, 3, 1]);
     });
@@ -449,7 +450,7 @@ void main() {
 
     test('.whereTo()', () {
       final list = <int>[];
-      [1, 2, 3, 4, 3, 2, 1].whereTo(list, (e) => e % 2 == 0);
+      [1, 2, 3, 4, 3, 2, 1].whereTo(list, (e) => e.isEven);
       expect(list, [2, 4, 2]);
     });
 
@@ -458,13 +459,13 @@ void main() {
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereIndexedTo(list, (e, i) {
         expect(index++, i);
-        return e % 2 == 0;
+        return e.isEven;
       });
       expect(list, [2, 4, 2]);
     });
 
     test('.whereNot()', () {
-      expect([1, 2, 3, 4, 3, 2, 1].whereNot((e) => e % 2 == 0), [1, 3, 3, 1]);
+      expect([1, 2, 3, 4, 3, 2, 1].whereNot((e) => e.isEven), [1, 3, 3, 1]);
     });
 
     test('.whereNotIndexed()', () {
@@ -472,7 +473,7 @@ void main() {
       expect(
         [1, 2, 3, 4, 3, 2, 1].whereNotIndexed((e, i) {
           expect(index++, i);
-          return e % 2 == 0;
+          return e.isEven;
         }),
         [1, 3, 3, 1],
       );
@@ -480,7 +481,7 @@ void main() {
 
     test('.whereNotTo()', () {
       final list = <int>[];
-      [1, 2, 3, 4, 3, 2, 1].whereNotTo(list, (e) => e % 2 == 0);
+      [1, 2, 3, 4, 3, 2, 1].whereNotTo(list, (e) => e.isEven);
       expect(list, [1, 3, 3, 1]);
     });
 
@@ -489,7 +490,7 @@ void main() {
       final list = <int>[];
       [1, 2, 3, 4, 3, 2, 1].whereNotToIndexed(list, (e, i) {
         expect(index++, i);
-        return e % 2 == 0;
+        return e.isEven;
       });
       expect(list, [1, 3, 3, 1]);
     });
@@ -506,7 +507,7 @@ void main() {
       expect([].mapNotNull((it) => 1), []);
       expect([1, 2, 3, 4].mapNotNull((it) => null), []);
       expect(
-        [1, 2, 3, 4].mapNotNull((it) => it % 2 == 0 ? it * 2 : null),
+        [1, 2, 3, 4].mapNotNull((it) => it.isEven ? it * 2 : null),
         [4, 8],
       );
     });
@@ -519,7 +520,7 @@ void main() {
       );
       expect([5, 4, null, 2].mapIndexed((index, it) => index), [0, 1, 2, 3]);
       expect(
-        [1, 2, 3, 4].mapIndexed((index, it) => it % 2 == 0 ? it * 2 : null),
+        [1, 2, 3, 4].mapIndexed((index, it) => it.isEven ? it * 2 : null),
         [null, 4, null, 8],
       );
     });
@@ -533,7 +534,7 @@ void main() {
       );
       expect(
         [1, 2, 3, 4]
-            .mapIndexedNotNull((index, it) => it % 2 == 0 ? it * 2 : null),
+            .mapIndexedNotNull((index, it) => it.isEven ? it * 2 : null),
         [4, 8],
       );
     });
@@ -925,8 +926,7 @@ void main() {
 
     test('groupBy', () {
       expect(
-        ['foo', 'bar', 'baz', 'bop', 'qux']
-            .groupBy((dynamic string) => string[1]),
+        ['foo', 'bar', 'baz', 'bop', 'qux'].groupBy((it) => it[1]),
         equals({
           'o': ['foo', 'bop'],
           'a': ['bar', 'baz'],
@@ -937,7 +937,7 @@ void main() {
 
     test('.partition()', () {
       expect([].partition((it) => false), <List<int>>[[], []]);
-      expect([1, 2, 3, 4, 5, 6].partition((it) => it % 2 == 1), [
+      expect([1, 2, 3, 4, 5, 6].partition((it) => it.isOdd), [
         [1, 3, 5],
         [2, 4, 6]
       ]);
