@@ -12,17 +12,17 @@ Comparator<E> _getComparator<E>(
   return parent?.compose(newComparator) ?? newComparator;
 }
 
-class _SortedList<E> extends _DelegatingList<E> {
+class SortedList<E> extends _DelegatingList<E> {
   final Iterable<E> _source;
   final Comparator<E> _comparator;
   List<E>? _sortedResults;
 
-  _SortedList._(
+  SortedList._(
     this._source,
     this._comparator,
   );
 
-  _SortedList._withSelector(
+  SortedList._withSelector(
     this._source,
     Comparable Function(E element) selector,
     int order,
@@ -44,8 +44,8 @@ class _SortedList<E> extends _DelegatingList<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> thenBy(Comparable Function(E element) selector) {
-    return _SortedList<E>._withSelector(this, selector, 1, _comparator);
+  SortedList<E> thenBy(Comparable Function(E element) selector) {
+    return SortedList<E>._withSelector(this, selector, 1, _comparator);
   }
 
   /// Returns a new list with all elements sorted according to previously
@@ -54,8 +54,8 @@ class _SortedList<E> extends _DelegatingList<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> thenByDescending(Comparable Function(E element) selector) {
-    return _SortedList<E>._withSelector(this, selector, -1, _comparator);
+  SortedList<E> thenByDescending(Comparable Function(E element) selector) {
+    return SortedList<E>._withSelector(this, selector, -1, _comparator);
   }
 
   /// Returns a new list with all elements sorted according to previously
@@ -63,8 +63,8 @@ class _SortedList<E> extends _DelegatingList<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> thenWith(Comparator<E> comparator) {
-    return _SortedList<E>._(this, _comparator.compose(comparator));
+  SortedList<E> thenWith(Comparator<E> comparator) {
+    return SortedList<E>._(this, _comparator.compose(comparator));
   }
 
   @override
