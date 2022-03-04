@@ -43,7 +43,7 @@ void main() {
       expect(_sortedList.firstWhere((it) => it.isEven), 2);
     });
     test('fold', () {
-      expect(_sortedList.fold(0, (dynamic a, b) => a + b), 10);
+      expect(_sortedList.fold(0, (int a, b) => a + b), 10);
     });
     test('followedBy', () {
       expect(_sortedList.followedBy([2]), [1, 2, 3, 4, 2]);
@@ -108,7 +108,7 @@ void main() {
       expect(_sortedList.toSet(), {1, 2, 3, 4});
     });
     test('where', () {
-      expect(_sortedList.where((it) => it % 2 == 0), [2, 4]);
+      expect(_sortedList.where((it) => it.isEven), [2, 4]);
     });
     test('whereType', () {
       expect(_sortedList.whereType<int>(), [1, 2, 3, 4]);
@@ -211,7 +211,7 @@ void main() {
     });
     test('removeWhere', () {
       final list = _sortedList;
-      list.removeWhere((it) => it % 2 == 0);
+      list.removeWhere((it) => it.isEven);
       expect(list, [1, 3]);
     });
     test('replaceRange', () {
@@ -221,7 +221,7 @@ void main() {
     });
     test('retainWhere', () {
       final list = _sortedList;
-      list.retainWhere((it) => it % 2 == 0);
+      list.retainWhere((it) => it.isEven);
       expect(list, [2, 4]);
     });
     test('reversed', () {

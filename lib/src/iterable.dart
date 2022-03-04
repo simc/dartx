@@ -277,8 +277,8 @@ extension IterableSortedBy<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> sortedBy(Comparable Function(E element) selector) {
-    return _SortedList<E>._withSelector(this, selector, 1, null);
+  SortedList<E> sortedBy(Comparable Function(E element) selector) {
+    return SortedList<E>._withSelector(this, selector, 1, null);
   }
 }
 
@@ -292,8 +292,8 @@ extension IterableSortedByDescending<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> sortedByDescending(Comparable Function(E element) selector) {
-    return _SortedList<E>._withSelector(this, selector, -1, null);
+  SortedList<E> sortedByDescending(Comparable Function(E element) selector) {
+    return SortedList<E>._withSelector(this, selector, -1, null);
   }
 }
 
@@ -306,8 +306,8 @@ extension IterableSortedWith<E> on Iterable<E> {
   ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  _SortedList<E> sortedWith(Comparator<E> comparator) {
-    return _SortedList<E>._(this, comparator);
+  SortedList<E> sortedWith(Comparator<E> comparator) {
+    return SortedList<E>._(this, comparator);
   }
 }
 
