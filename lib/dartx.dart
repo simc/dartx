@@ -17,6 +17,7 @@ part 'src/arithmetic.dart';
 part 'src/comparable.dart';
 part 'src/comparator.dart';
 part 'src/function.dart';
+part 'src/int.dart';
 part 'src/iterable.dart';
 part 'src/iterable_num.dart';
 part 'src/list.dart';
