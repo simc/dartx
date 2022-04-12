@@ -254,3 +254,13 @@ extension NullableStringIsNotNullOrEmptyExtension on String? {
   /// Returns `true` if the string is neither null nor empty.
   bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
+
+extension NullableStringIsNullOrBlankExtension on String? {
+  /// Returns `true` if the string is either `null` or blank.
+  bool get isNullOrBlank => this?.isBlank ?? true;
+}
+
+extension NullableStringIsNotNullOrBlankExtension on String? {
+  /// Returns `true` if the string is neither null nor blank.
+  bool get isNotNullOrBlank => !isNullOrBlank;
+}

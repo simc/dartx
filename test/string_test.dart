@@ -161,6 +161,22 @@ void main() {
       expect('\n'.isNotNullOrEmpty, true);
     });
 
+    test('.isNullOrBlank', () {
+      expect(null.isNullOrBlank, true);
+      expect(''.isNullOrBlank, true);
+      expect(' '.isNullOrBlank, true);
+      expect('\n'.isNullOrBlank, true);
+      expect(' foo '.isNullOrBlank, false);
+    });
+
+    test('.isNotNullOrBlank', () {
+      expect(null.isNotNullOrBlank, false);
+      expect(''.isNotNullOrBlank, false);
+      expect(' '.isNotNullOrBlank, false);
+      expect('\n'.isNotNullOrBlank, false);
+      expect(' foo '.isNotNullOrBlank, true);
+    });
+
     test('.toUtf8()', () {
       expect(''.toUtf8(), []);
       expect('hello'.toUtf8(), [104, 101, 108, 108, 111]);
