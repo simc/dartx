@@ -6,12 +6,6 @@ typedef Function2<A, B, R> = R Function(A a, B b);
 typedef Function3<A, B, C, R> = R Function(A a, B b, C c);
 typedef Function4<A, B, C, D, R> = R Function(A a, B b, C c, D d);
 
-extension Function0InvokeExtension<R> on Function0<R> {
-  /// Invokes this function and returns it's return value.
-  @Deprecated('Use `call()`')
-  R invoke() => this();
-}
-
 extension Function1InvokeExtensions<A, R> on Function1<A, R> {
   /// Invokes this function and returns it's return value.
   R invoke(A first) => this(first);

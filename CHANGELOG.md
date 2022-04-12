@@ -1,3 +1,7 @@
+## 1.0.0
+- Promote to stable version
+- Remove deprecated extensions
+
 ## 0.8.0
 
 - [PR-136](https://github.com/leisim/dartx/pull/136) New: Multiple extensions for `Map`. `all()`, `any()`, `count()`, `filter()`, `filterKeys()`, `filterNot`, `filterValues`, `getOrElse()`, `mapEntries()`, `mapKeys()`, `mapValues()`, `maxBy()`, `maxWith()`, `minBy()`, `minWith`, `none()`, `toList()`, `toMap()`, `orEmpty()`

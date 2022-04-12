@@ -93,7 +93,7 @@ final increasingSubSequences = list.chunkWhile((a, b) => a + 1 == b);
 `splitWhen` is the opposite of `chunkWhile` that starts a new chunk every time
 the predicate _didn't_ match.
 
-## String
+## int
 
 ### buildString()
 
@@ -107,7 +107,18 @@ final word = buildString((sb) {
   }
 });
 // 0123456789
+``` 
+
+### .ordinal
+
+Returns an ordinal number of `String` type for any integer
+
+```dart
+final a = 1.ordinal();  // 1st
+final b = 108.ordinal();  // 108th
 ```
+
+## String
 
 ### .capitalize
 
@@ -116,16 +127,6 @@ Returns a copy of the string having its first letter uppercased, or the original
 ```dart
 final word = 'abcd'.capitalize(); // Abcd
 final anotherWord = 'Abcd'.capitalize(); // Abcd
-```
-
-### .chars - DEPRECATED
-
-Use `.characters` from the official characters package.
-
-Get a list of single character strings from a string. Supports emojis.
-
-```dart
-final chars = 'family👨‍👨‍👧‍👦'.chars; // ['f', 'a', 'm', 'i', 'l', 'y', '👨‍👨‍👧‍👦']
 ```
 
 ### .decapitalize
@@ -229,6 +230,30 @@ final isNull = null.isNullOrEmpty; // true
 final isEmpty = ''.isNullOrEmpty; // true
 final isBlank = ' '.isNullOrEmpty; // false
 final isLineBreak = '\n'.isNullOrEmpty; // false
+```
+
+### .isNullOrBlank
+
+Returns `true` if the String is either `null` or blank.
+
+```dart
+final isNull = null.isNullOrBlank; // true
+final isEmpty = ''.isNullOrBlank; // true
+final isBlank = ' '.isNullOrBlank; // true
+final isLineBreak = '\n'.isNullOrBlank; // true
+final isFoo = ' foo '.isNullOrBlank; // false
+```
+
+### .isNotNullOrBlank
+
+Returns `true` if the String is neither `null` nor blank.
+
+```dart
+final isNull = null.isNullOrBlank; // true
+final isEmpty = ''.isNullOrBlank; // true
+final isBlank = ' '.isNullOrBlank; // true
+final isLineBreak = '\n'.isNullOrBlank; // true
+final isFoo = ' foo '.isNullOrBlank; // true
 ```
 
 ### .isUpperCase
@@ -425,18 +450,6 @@ for (final i in 10.rangeTo(2).step(2)) {
 ```
 
 ## Function
-
-### .invoke() - DEPRECATED
-
-Use `call()` instead. This is very useful for `null` checks.
-
-```dart
-final func = (String value) {
-  print(value);
-}
-
-func?.call('hello world');
-```
 
 ### .partial(), .partial2() ...
 

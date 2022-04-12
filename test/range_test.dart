@@ -316,7 +316,7 @@ void main() {
       });
       test('lastWhere', () {
         final range = IntProgression(0, 9, step: 3);
-        bool isEven(it) => it % 2 == 0;
+        bool isEven(int it) => it.isEven;
         expect(range.last, 9);
         expect(range.lastWhere(isEven), 6);
       });
@@ -347,7 +347,7 @@ void main() {
       });
       test('firstWhere minds the predicate', () {
         final range = IntProgression(1, 10, step: 3);
-        bool isEven(it) => it % 2 == 0;
+        bool isEven(int it) => it.isEven;
         expect(range.first, 1);
         expect(range.firstWhere(isEven), 4);
       });
