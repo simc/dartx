@@ -7,6 +7,7 @@
 - [PR-147](https://github.com/leisim/dartx/pull/147) New: `String.matches(RexExp): bool`
 - [PR-147](https://github.com/leisim/dartx/pull/147) New: `String.urlEncode` and `String.urlDecode`
 - [PR-147](https://github.com/leisim/dartx/pull/147) New: `buildString` to build a `StringBuffer` an immediately return it
+- [PR-156](https://github.com/leisim/dartx/pull/156) Fix: `Iterable.takeFirst(n)` and `Iterable.takeLast(n)` crashed when n > length
 
 ## 1.0.0
 - Promote to stable version
