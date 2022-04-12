@@ -2,7 +2,7 @@
 
 [![Dart CI](https://github.com/leisim/dartx/workflows/Dart%20CI/badge.svg?branch=master)](https://github.com/leisim/dartx/actions) [![Codecov](https://img.shields.io/codecov/c/github/leisim/dartx.svg)](https://codecov.io/gh/leisim/dartx) [![dartx](https://img.shields.io/pub/v/dartx?label=dartx)](https://pub.dev/packages/dartx) [![flutterx](https://img.shields.io/pub/v/flutterx?label=flutterx)](https://pub.dev/packages/flutterx)
 
-*If you miss an extension, please open an issue or pull request*
+_If you miss an extension, please open an issue or pull request_
 
 ### Resources:
 
@@ -95,6 +95,20 @@ the predicate _didn't_ match.
 
 ## int
 
+### buildString()
+
+Builds new string by populating newly created `StringBuffer` using provided `builderAction`
+and then converting it to `String`.
+
+```dart
+final word = buildString((sb) {
+  for (var i = 0; i < 10; i++) {
+    sb.write(i);
+  }
+});
+// 0123456789
+``` 
+
 ### .ordinal
 
 Returns an ordinal number of `String` type for any integer
@@ -123,7 +137,7 @@ Returns a copy of the string having its first letter lowercased, or the original
 final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
 ```
-
+  
 ### .isAscii
 
 Returns `true` if the string is ASCII encoded.
@@ -131,7 +145,7 @@ Returns `true` if the string is ASCII encoded.
 ```dart
 final isAscii = 'abc123 !,.~'.isAscii; // true
 final isNotAscii = '§3'.isAscii; // false
-````
+```
 
 ### .isBlank
 
@@ -262,6 +276,26 @@ final a = 'abc'.md5; // 900150983cd24fb0d6963f7d28e17f72
 final b = 'ഐ⌛酪Б👨‍👨‍👧‍👦'.md5; // c7834eff7c967101cfb65b8f6d15ad46
 ```
 
+### .urlEncode
+
+Translates a string into application/x-www-form-urlencoded format using a specific encoding scheme.
+
+```dart
+const originalUrl = 'Hello Ladies + Gentlemen, a signed OAuth request!';
+final encodedUrl = originalUrl.urlEncode;
+// 'Hello%20Ladies%20+%20Gentlemen,%20a%20signed%20OAuth%20request!'
+```
+
+### .urlDecode
+
+Decodes an application/x-www-form-urlencoded string using a specific encoding scheme.
+
+```dart
+const encodedUrl = 'Hello%20Ladies%20+%20Gentlemen,%20a%20signed%20OAuth%20request!';
+final decodedUrl = encodingUrl.urlDecode;
+// 'Hello Ladies + Gentlemen, a signed OAuth request!'
+```
+
 ### .removePrefix(), .removeSuffix() and .removeSurrounding()
 
 Remove a prefix, a suffix, or both from a given string:
@@ -343,7 +377,25 @@ final hi = 'hi'.toUtf16(); // [104, 105]
 final emoji = '😄'.toUtf16(); // [55357, 56836]
 ```
 
-## Time utils
+### .orEmpty()
+
+Returns the string if it is not `null`, or the empty string otherwise.
+
+```dart
+String? nullableStr;
+final str = nullableStr.orEmpty(); // ''
+```
+
+### .matches()
+
+Returns `true` if this char sequence matches the given regular expression.
+
+```dart
+print('as'.matches(RegExp('^.s\$'))) // true
+print('mst'.matches(RegExp('^.s\$'))) // false
+```
+
+### Time utils
 
 Dartx exports [@jogboms](https://github.com/jogboms) great [⏰ time.dart](https://github.com/jogboms/time.dart) package so you can do the following:
 
@@ -371,6 +423,14 @@ final numberOutOfRange = -123.coerceIn(0, 1000); // 0
 ### .toBytes()
 
 Converts this value to binary form.
+
+### .toChar()
+
+Converts this value to character
+
+```dart
+final character = 97.toChar(); // a
+```
 
 ## range
 
@@ -453,7 +513,6 @@ References a directory within a `Directory`
 Directory androidDir = Directory('flutter-app/android');
 Directory mainSrc = androidDir.directory("app/src/main");
 ```
-
 
 ### .contains(FileSystemEntity entity, {bool recursive = false})
 
