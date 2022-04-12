@@ -283,12 +283,6 @@ void main() {
       expect('mst'.matches(RegExp(r'^.s$')), false);
     });
 
-    test('.isHttp', () {
-      expect('http://www.example.com'.isHttp, true);
-      expect('https://www.example.com'.isHttp, true);
-      expect('htt://www//'.isHttp, false);
-    });
-
     test('url coding', () {
       const originalUrl = 'Hello Ladies + Gentlemen, a signed OAuth request!';
       final encodingUrl = originalUrl.urlEncode;
@@ -298,55 +292,6 @@ void main() {
       );
       final decodedUrl = originalUrl.urlDecode;
       expect(decodedUrl, originalUrl);
-    });
-
-    test('.count()', () {
-      const text = 'I love apples, apple are my favorite fruit';
-      expect(text.count('apple', 5, 15), 1);
-      expect(text.count('e', 5), 5);
-      expect(text.count(''), 43);
-      expect(text.count('a'), 4);
-    });
-
-    test('.partition()', () {
-      const text = 'I could eat bananas all day';
-      expect(
-        text.partition('bananas'),
-        ['I could eat ', 'bananas', ' all day'],
-      );
-      expect(text.partition('apple'), ['I could eat bananas all day', '', '']);
-      expect(text.partition('a'), ['I could e', 'a', 't bananas all day']);
-    });
-
-    test('.center()', () {
-      const text = 'banana';
-      expect(text.center(1), ' banana ');
-      expect(text.center(5), '     banana     ');
-      expect(text.center(10), '          banana          ');
-      expect(text.center(2, '*'), '**banana**');
-    });
-
-    test('.leftJustify()', () {
-      const text = 'banana';
-      expect(text.leftJustify(1), ' banana');
-      expect(text.leftJustify(5), '     banana');
-      expect(text.leftJustify(10), '          banana');
-      expect(text.leftJustify(2, '*'), '**banana');
-    });
-
-    test('.rightJustify()', () {
-      const text = 'banana';
-      expect(text.rightJustify(1), 'banana ');
-      expect(text.rightJustify(5), 'banana     ');
-      expect(text.rightJustify(10), 'banana          ');
-      expect(text.rightJustify(2, '*'), 'banana**');
-    });
-
-    test('.title()', () {
-      var text = 'welcome to my 2nd world';
-      expect(text.title(), 'Welcome To My 2nd World');
-      text = 'this is a test';
-      expect(text.title(), 'This Is A Test');
     });
   });
 

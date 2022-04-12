@@ -101,9 +101,9 @@ Builds new string by populating newly created `StringBuffer` using provided `bui
 and then converting it to `String`.
 
 ```dart
-final word = buildString((it) {
+final word = buildString((sb) {
   for (var i = 0; i < 10; i++) {
-    it.write(i);
+    sb.write(i);
   }
 });
 // 0123456789
@@ -135,16 +135,6 @@ Returns a copy of the string having its first letter lowercased, or the original
 ```dart
 final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
-```
-
-### .title
-
-Return a version of the string where each word is titlecased.
-More specifically, words start with uppercased characters and all remaining cased characters have lower case.
-
-```dart
-const text = 'welcome to my 2nd world';
-print(text.title()); // Welcome To My 2nd World
 ```
   
 ### .isAscii
@@ -259,15 +249,6 @@ Calculates the MD5 digest and returns the value as a string of hexadecimal digit
 ```dart
 final a = 'abc'.md5; // 900150983cd24fb0d6963f7d28e17f72
 final b = 'ഐ⌛酪Б👨‍👨‍👧‍👦'.md5; // c7834eff7c967101cfb65b8f6d15ad46
-```
-
-### .isHttp
-
-If the string is a HTTP URL (ie. Starts with http:// or https://)
-
-```dart
-print('http://www.example.com'.isHttp); // true
-print('htt://www//'.isHttp); // false
 ```
 
 ### .urlEncode
@@ -387,37 +368,6 @@ Returns `true` if this char sequence matches the given regular expression.
 ```dart
 print('as'.matches(RegExp('^.s\$'))) // true
 print('mst'.matches(RegExp('^.s\$'))) // false
-```
-
-### .count()
-
-Return the number of non-overlapping occurrences of substring sub in string. Optional arguments start and end are interpreted as in slice notation
-
-```dart
-const text = 'I love apples, apple are my favorite fruit';
-print(text.count('apple', 0, 20)) // 2
-```
-
-### .partition()
-
-Partition the string into three parts using the given separator.
-
-```dart
-const text = 'I could eat bananas all day';
-print(text.partition('bananas') // ['I could eat ', 'bananas', ' all day']
-print(text.partition('apple') // ['I could eat bananas all day', '', '']
-```
-
-### .center(), .leftJustify() and .rightJustify()
-
-Return a centered, left-justified and right-justified string of length width.
-Padding is done using the specified fill character (default is a space).
-
-```dart
-const text = 'banana';
-print(text.center(2, '*')); // **banana**
-print(text.leftJust(2, '*')); // **banana
-print(text.rightJust(2, '*')); // banana**
 ```
 
 ### Time utils
