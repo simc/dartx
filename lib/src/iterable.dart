@@ -520,7 +520,7 @@ extension IterableTakeFirst<E> on Iterable<E> {
   /// ```
   List<E> takeFirst(int n) {
     final list = this is List<E> ? this as List<E> : toList();
-    return list.sublist(0, n);
+    return list.take(n).toList();
   }
 }
 
@@ -536,7 +536,7 @@ extension IterableTakeLast<E> on Iterable<E> {
   /// ```
   List<E> takeLast(int n) {
     final list = this is List<E> ? this as List<E> : toList();
-    return list.sublist(length - n);
+    return list.reversed.take(n).reversed.toList();
   }
 }
 

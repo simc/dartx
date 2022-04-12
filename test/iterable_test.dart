@@ -348,12 +348,14 @@ void main() {
       expect([].takeFirst(0), []);
       expect([1, 2, 3].takeFirst(0), []);
       expect([1, 2, 3].takeFirst(2), [1, 2]);
+      expect([1, 2, 3].takeFirst(4), [1, 2, 3]);
     });
 
     test('.takeLast()', () {
       expect([].takeLast(0), []);
       expect([1, 2, 3].takeLast(0), []);
       expect([1, 2, 3].takeLast(2), [2, 3]);
+      expect([1, 2, 3].takeLast(4), [1, 2, 3]);
     });
 
     test('.firstWhile()', () {
