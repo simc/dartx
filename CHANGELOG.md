@@ -1,3 +1,13 @@
+## 1.1.0
+
+- [PR-151](https://github.com/leisim/dartx/pull/151) New: `String?.isNullOrBlank`, `String?.isNotNullOrBlank`
+- [PR-149](https://github.com/leisim/dartx/pull/149) Fix type of extension: `IterableForthItem` -> `IterableFourthItem`
+- [PR-147](https://github.com/leisim/dartx/pull/147) New: `int.toChar(): String`
+- [PR-147](https://github.com/leisim/dartx/pull/147) New: `String?.orEmpty: bool`
+- [PR-147](https://github.com/leisim/dartx/pull/147) New: `String.matches(RexExp): bool`
+- [PR-147](https://github.com/leisim/dartx/pull/147) New: `String.urlEncode` and `String.urlDecode`
+- [PR-147](https://github.com/leisim/dartx/pull/147) New: `buildString` to build a `StringBuffer` an immediately return it
+
 ## 1.0.0
 - Promote to stable version
 - Remove deprecated extensions
