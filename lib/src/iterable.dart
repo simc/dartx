@@ -18,7 +18,7 @@ extension IterableThirdItem<E> on Iterable<E> {
   E get third => elementAt(2);
 }
 
-extension IterableForthItem<E> on Iterable<E> {
+extension IterableFourthItem<E> on Iterable<E> {
   /// Fourth element.
   ///
   /// ```dart
