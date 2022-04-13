@@ -81,7 +81,7 @@ final flattened = nestedList.flatten(); // [1, 2, 3, 4, 5, 6]
 
 ### .chunkWhile() & .splitWhen()
 
-Chunk entries as long as long as two elements match a predicate:
+Chunk entries as long as two elements match a predicate:
 
 ```dart
 final list = [1, 2, 4, 9, 10, 11, 12, 15, 16, 19, 20, 21];
