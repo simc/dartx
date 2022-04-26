@@ -382,5 +382,12 @@ void main() {
       const pair = Pair('a', 'b');
       expect(pair.toList(), ['a', 'b']);
     });
+
+    test('.clone', () {
+      final map = {1: 'Bulbasaur', 2: 'Ivysaur'};
+
+      expect(map.clone(), {1: 'Bulbasaur', 2: 'Ivysaur'});
+      expect(map.clone() == map, false);
+    });
   });
 }

@@ -265,6 +265,11 @@ extension MapOrEmpty<K, V> on Map<K, V>? {
   Map<K, V> orEmpty() => this ?? <K, V>{};
 }
 
+extension MapClone<K, V> on Map<K, V>? {
+  /// Returns a deep copied map with the same entries as this [Map].
+  Map<K, V> clone() => this != null ? <K, V>{...this!} : <K, V>{};
+}
+
 /// Represents a generic pair of two values.
 ///
 /// There is no meaning attached to values in this class, it can be used for any purpose.

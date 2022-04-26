@@ -83,5 +83,12 @@ void main() {
       final List<int> flatten = nestedList.flatten();
       expect(flatten, [0, 0, 0, 1, 1, 1, 2, 2, 2]);
     });
+
+    test('.clone', () {
+      final list = [1, 2, 3];
+
+      expect(list.clone(), [1, 2, 3]);
+      expect(list.clone() == list, false);
+    });
   });
 }

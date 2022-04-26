@@ -221,3 +221,8 @@ extension ListFlattenExtension<E> on List<List<E>> {
   /// ```
   List<E> flatten() => [for (final list in this) ...list];
 }
+
+extension ListCloneExtension<E> on List<E> {
+  /// Returns a deep copied [List] with the same elements as this [List].
+  List<E> clone() => <E>[...this];
+}
