@@ -295,3 +295,35 @@ String buildString(void Function(StringBuffer sb) builderAction) {
   builderAction(buffer);
   return buffer.toString();
 }
+
+extension StringIsLetterOrDigits on String {
+  /// Returns `true` if all the characters in string are digits & there is atleast 1 character,
+  /// `false` elseways
+  bool get isDigit {
+    if (isBlank) {
+      return false;
+    }
+    final regex = RegExp(r'^\d+$');
+    return regex.hasMatch(this);
+  }
+
+  /// Returns `true` if all the characters in string are letters & there is atleast 1 character,
+  /// `false` elseways
+  bool get isAlpha {
+    if (isBlank) {
+      return false;
+    }
+    final regex = RegExp(r'^[a-zA-Z]+$');
+    return regex.hasMatch(this);
+  }
+
+  /// Returns `true` if all the characters in string are either digits or letters
+  /// & there is atleast 1 character, `false` elseways
+  bool get isAlNum {
+    if (isBlank) {
+      return false;
+    }
+    final regex = RegExp(r'^[a-zA-Z0-9]+$');
+    return regex.hasMatch(this);
+  }
+}
