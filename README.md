@@ -137,7 +137,57 @@ Returns a copy of the string having its first letter lowercased, or the original
 final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
 ```
-  
+
+### .camel
+
+Returns a copy of this string in camelCase style, or the original string, if it's empty.
+
+```dart
+final a = 'Hello World'.camel(); // helloWorld
+final b = 'helloWorld'.camel(); // helloWorld
+final c = 'long   space'.camel(); // longSpace
+```
+
+### .pascal
+
+Returns a copy of this string in PascalCase style, or the original string, if it's empty.
+
+```dart
+final a = 'Hello World'.pascal(); // HelloWorld
+final b = 'helloWorld'.pascal(); // HelloWorld
+final c = 'long   space'.pascal(); // LongSpace
+```
+
+### .snake
+
+Returns a copy of this string in snake_case style, or the original string, if it's empty.
+
+```dart
+final a = 'Hello World'.snake(); // hello_world
+final b = 'helloWorld'.snake(); // hello_world
+final c = 'long   space'.snake(); // long_space
+```
+
+### .kebab
+
+Returns a copy of this string in kebab-case style, or the original string, if it's empty.
+
+```dart
+final a = 'Hello World'.snake(); // hello-world
+final b = 'helloWorld'.snake(); // hello-world
+final c = 'long   space'.snake(); // long-space
+```
+
+### .dot
+
+Returns a copy of this string in dot.case style, or the original string, if it's empty.
+
+```dart
+final a = 'Hello World'.snake(); // hello.world
+final b = 'helloWorld'.snake(); // hello.world
+final c = 'long   space'.snake(); // long.space
+```
+
 ### .isAscii
 
 Returns `true` if the string is ASCII encoded.
