@@ -13,6 +13,14 @@ void main() {
       expect('Test'.capitalize(), 'Test');
     });
 
+    test('Word Capitalize', () {
+      expect('lorem ipsum'.wordFormatCapitalize(), 'Lorem Ipsum');
+      expect('lorem'.wordFormatCapitalize(), 'Lorem');
+      expect('123'.wordFormatCapitalize(), '123');
+      expect(''.wordFormatCapitalize(), '');
+      expect('123 123 a123'.wordFormatCapitalize(), '123 123 A123');
+    });
+
     test('.decapitalize()', () {
       expect(''.decapitalize(), '');
       expect('123'.decapitalize(), '123');
