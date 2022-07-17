@@ -24,6 +24,15 @@ extension StringCapitalizeExtension on String {
   }
 }
 
+extension StringWordCapitalize on String {
+  String wordFormatCapitalize() {
+    final result = split(' ');
+    final buffer = StringBuffer();
+    buffer.write(result.map((e) => e.capitalize()).join(' '));
+    return buffer.toString();
+  }
+}
+
 extension StringDecapitalizeExtension on String {
   /// Returns a copy of this string having its first letter lowercased, or the
   /// original string, if it's empty or already starts with a lower case letter.
