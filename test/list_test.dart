@@ -83,5 +83,84 @@ void main() {
       final List<int> flatten = nestedList.flatten();
       expect(flatten, [0, 0, 0, 1, 1, 1, 2, 2, 2]);
     });
+
+    test('.move()', () {
+      final list = [1, 2, 3];
+      expect(list..move(1, 0), [1, 2, 3]);
+      expect(list..move(1, 2), [2, 3, 1]);
+      expect(list..move(3, 0), [3, 2, 1]);
+      expect(() => list..move(3, 3), throwsA(isA<RangeError>()));
+    });
+
+    test('.moveAt()', () {
+      final list = [1, 2, 3];
+      expect(list..moveAt(0, 0), [1, 2, 3]);
+      expect(list..moveAt(0, 2), [2, 3, 1]);
+      expect(list..moveAt(1, 0), [3, 2, 1]);
+      expect(() => list..moveAt(3, 0), throwsA(isA<RangeError>()));
+      expect(() => list..moveAt(0, 3), throwsA(isA<RangeError>()));
+    });
+
+    test('.moveAll()', () {
+      final list = [1, 2, 3];
+      expect(
+        list..moveAll(1, (element) => element < 3),
+        [3, 1, 2],
+      );
+      expect(
+        list..moveAll(1, (element) => element == 2),
+        [3, 2, 1],
+      );
+      expect(
+        () => list..moveAll(3, (element) => true),
+        throwsA(isA<RangeError>()),
+      );
+    });
+
+    test('.moveUp()', () {
+      final list = [1, 2, 3];
+      expect(list.moveUp(0), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveUp(1), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveUp(2), isTrue);
+      expect(list, [2, 1, 3]);
+      expect(list.moveUp(3), isTrue);
+      expect(list, [2, 3, 1]);
+    });
+
+    test('.moveUpAt()', () {
+      final list = [1, 2, 3];
+      expect(list.moveUpAt(0), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveUpAt(1), isTrue);
+      expect(list, [2, 1, 3]);
+      expect(list.moveUpAt(2), isTrue);
+      expect(list, [2, 3, 1]);
+      expect(() => list.moveUpAt(3), throwsA(isA<RangeError>()));
+    });
+
+    test('.moveDown()', () {
+      final list = [1, 2, 3];
+      expect(list.moveDown(0), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveDown(3), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveDown(2), isTrue);
+      expect(list, [1, 3, 2]);
+      expect(list.moveDown(1), isTrue);
+      expect(list, [3, 1, 2]);
+    });
+
+    test('.moveDownAt()', () {
+      final list = [1, 2, 3];
+      expect(list.moveDownAt(2), isFalse);
+      expect(list, [1, 2, 3]);
+      expect(list.moveDownAt(1), isTrue);
+      expect(list, [1, 3, 2]);
+      expect(list.moveDownAt(0), isTrue);
+      expect(list, [3, 1, 2]);
+      expect(() => list.moveDownAt(3), throwsA(isA<RangeError>()));
+    });
   });
 }
