@@ -12,14 +12,14 @@ jobs:
         version: ["2.12", "2.19", "3.0", "beta"]
 
     container:
-      image:  dart:${{ matrix.version }}
+      image: dart:${{ matrix.version }}
 
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
 
   test-windows:
     timeout-minutes: 5
@@ -46,9 +46,9 @@ jobs:
       - name: Install the Dart formula
         run: brew install dart
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
 
   format:
     timeout-minutes: 5
