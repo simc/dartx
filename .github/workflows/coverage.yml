@@ -15,8 +15,8 @@ jobs:
         run: dart pub get
       - name: Collect coverage
         run: |
-          dart pub global activate test_coverage
-          dart pub global run test_coverage
+          dart pub global activate coverage
+          dart pub global run coverage:test_with_coverage
       - uses: codecov/codecov-action@v3
         with:
           file: coverage/lcov.info
