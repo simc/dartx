@@ -9,10 +9,10 @@ jobs:
 
     strategy:
       matrix:
-        version: ["2.12", "2.19", "3.0", "dev"]
+        version: ["2.12", "2.19", "3.0", "beta"]
 
     container:
-      image:  google/dart:${{ matrix.version }}
+      image:  dart:${{ matrix.version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:dev
+      image: dart:stable
 
     steps:
       - uses: actions/checkout@v2
