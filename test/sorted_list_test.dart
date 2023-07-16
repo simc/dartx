@@ -11,6 +11,14 @@ void main() {
   test('sort', () {
     expect([4, 2, 1, 3].sortedBy((it) => it), [1, 2, 3, 4]);
   });
+  test('thenBy', () {
+    final list = ['ba', 'c', 'aa'].sortedBy((it) => it.length);
+    expect(list, ['c', 'ba', 'aa']);
+    final thenBy = list.thenBy((it) => it);
+    expect(thenBy, ['c', 'aa', 'ba']);
+    final thenByDesc = list.thenByDescending((it) => it);
+    expect(thenByDesc, ['c', 'ba', 'aa']);
+  });
   group('_DelegatingIterable', () {
     test('any', () {
       expect(_sortedList.any((it) => it > 2), isTrue);
