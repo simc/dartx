@@ -9,17 +9,17 @@ jobs:
 
     strategy:
       matrix:
-        version: ["2.12", "dev"]
+        version: ["2.12", "2.19", "3.0", "beta"]
 
     container:
-      image:  google/dart:${{ matrix.version }}
+      image: dart:${{ matrix.version }}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
 
   test-windows:
     timeout-minutes: 5
@@ -29,11 +29,11 @@ jobs:
       - name: Install dart
         run: |
           choco install dart-sdk
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
-        run: C:\tools\dart-sdk\bin\pub.bat get
+        run: C:\tools\dart-sdk\bin\dart.exe pub get
       - name: Run tests
-        run: C:\tools\dart-sdk\bin\pub.bat run test
+        run: C:\tools\dart-sdk\bin\dart.exe pub run test
 
   test-macos:
     timeout-minutes: 5
@@ -46,18 +46,18 @@ jobs:
       - name: Install the Dart formula
         run: brew install dart
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
 
   format:
     timeout-minutes: 5
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:dev
+      image: dart:stable
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Format
         run: dart format --set-exit-if-changed --fix .
