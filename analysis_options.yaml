@@ -2,4 +2,6 @@ include: package:lint/analysis_options_package.yaml
 
 linter:
   rules:
-    prefer_single_quotes: true    # This is an easy way to prevent name clashes with parameters    no_leading_underscores_for_local_identifiers: false
+    prefer_single_quotes: true
+    # This is an easy way to prevent name clashes with parameters
+    no_leading_underscores_for_local_identifiers: false
