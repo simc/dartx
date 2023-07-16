@@ -9,13 +9,13 @@ jobs:
 
     strategy:
       matrix:
-        version: ["2.12", "dev"]
+        version: ["2.12", "2.19", "3.0", "dev"]
 
     container:
       image:  google/dart:${{ matrix.version }}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: pub get
       - name: Run tests
@@ -29,7 +29,7 @@ jobs:
       - name: Install dart
         run: |
           choco install dart-sdk
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: C:\tools\dart-sdk\bin\pub.bat get
       - name: Run tests
@@ -58,6 +58,6 @@ jobs:
       image:  google/dart:dev
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Format
         run: dart format --set-exit-if-changed --fix .

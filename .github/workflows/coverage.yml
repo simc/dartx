@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:2.12
+      image:  google/dart:3.0
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: pub get
       - name: Collect coverage
