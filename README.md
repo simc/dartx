@@ -449,6 +449,48 @@ for (final i in 10.rangeTo(2).step(2)) {
 }
 ```
 
+## Random
+
+### .nextIntRange()
+
+Gets the next random `int` from the random number generator in the specified range.
+
+```dart
+final rand = Random();
+final randomNumber = rand.nextIntRange((-10).rangeTo(10).step(2)));
+// print a number from [-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10]
+```
+
+### .nextDoubleRange()
+
+Gets the next random `double` from the random number generator in the specified range.
+
+```dart
+final rand = Random();
+final randomNumber = rand.nextDoubleRange(10, 11);
+// a random number in range [10.0..11)
+```
+
+### .choice()
+
+Returns a random element from this list
+
+```dart
+final rand = Random();
+final randomNumber = rand.choice([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+// choice a number from [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+### .choices()
+
+Returns a list with the randomly selected element from the specified sequence
+
+ ```dart
+final rand = Random();
+final randomList = rand.choices([1, 2, 3, 4, 5], weights: [100, 1, 1, 1, 100], length: 4);
+// create a list like that [1, 5, 5, 1]
+```
+
 ## Function
 
 ### .partial(), .partial2() ...

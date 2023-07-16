@@ -23,6 +23,8 @@ part 'src/iterable_num.dart';
 part 'src/list.dart';
 part 'src/map.dart';
 part 'src/num.dart';
+part 'src/preconditions.dart';
+part 'src/random.dart';
 part 'src/range.dart';
 part 'src/sorted_list.dart';
 part 'src/string.dart';
