@@ -1,3 +1,7 @@
+## 1.2.0
+- Official Dart 3.0 release
+- General cleanup and CI update
+
 ## 1.1.0
 
 - [PR-151](https://github.com/leisim/dartx/pull/151) New: `String?.isNullOrBlank`, `String?.isNotNullOrBlank`
