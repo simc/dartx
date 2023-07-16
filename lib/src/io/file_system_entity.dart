@@ -1,4 +1,6 @@
-part of dartx_io;
+import 'dart:io';
+
+import 'package:path/path.dart' as path_helper;
 
 extension FileSystemEntityNameExtension on FileSystemEntity {
   /// Gets the part of [path] after the last separator.

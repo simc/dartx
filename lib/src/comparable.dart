@@ -1,4 +1,4 @@
-part of dartx;
+import 'package:dartx/dartx.dart';
 
 /// Provides comparison operators for [Comparable] types.
 extension ComparableSmallerExtension<T extends Comparable<T>> on T {

@@ -1,4 +1,6 @@
-part of dartx;
+import 'dart:typed_data';
+
+import 'package:dartx/dartx.dart';
 
 extension NumCoerceInExtension<T extends num> on T {
   /// Ensures that this value lies in the specified range

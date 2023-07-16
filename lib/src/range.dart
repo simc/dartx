@@ -1,4 +1,4 @@
-part of dartx;
+import 'dart:collection';
 
 /// Represents a range of values (for example, numbers or characters)
 /// with a fixed [start] value and a fixed [endInclusive] value.

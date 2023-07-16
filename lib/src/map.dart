@@ -1,5 +1,3 @@
-part of dartx;
-
 extension MapAll<K, V> on Map<K, V> {
   /// Returns true if all entries match the given [predicate].
   /// [predicate] must not be null.

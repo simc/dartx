@@ -1,5 +1,3 @@
-part of dartx;
-
 extension CompararatorComposeExtensions<T> on Comparator<T> {
   /// return a new comparator,
   /// that sorts the items first by the criteria of this comparator,

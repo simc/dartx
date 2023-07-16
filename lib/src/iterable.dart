@@ -1,4 +1,8 @@
-part of dartx;
+import 'dart:collection';
+import 'dart:math';
+
+import 'package:collection/collection.dart' as collection;
+import 'package:dartx/src/sorted_list.dart';
 
 extension IterableSecondItem<E> on Iterable<E> {
   /// Second element.
@@ -278,7 +282,7 @@ extension IterableSortedBy<E> on Iterable<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> sortedBy(Comparable Function(E element) selector) {
-    return SortedList<E>._withSelector(this, selector, 1, null);
+    return SortedList<E>.withSelector(this, selector, 1, null);
   }
 }
 
@@ -293,7 +297,7 @@ extension IterableSortedByDescending<E> on Iterable<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> sortedByDescending(Comparable Function(E element) selector) {
-    return SortedList<E>._withSelector(this, selector, -1, null);
+    return SortedList<E>.withSelector(this, selector, -1, null);
   }
 }
 
@@ -307,7 +311,7 @@ extension IterableSortedWith<E> on Iterable<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> sortedWith(Comparator<E> comparator) {
-    return SortedList<E>._(this, comparator);
+    return SortedList<E>(this, comparator);
   }
 }
 
