@@ -31,9 +31,9 @@ jobs:
           choco install dart-sdk
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: C:\tools\dart-sdk\bin\dart.bat pub get
+        run: C:\tools\dart-sdk\bin\dart.exe pub get
       - name: Run tests
-        run: C:\tools\dart-sdk\bin\dart.bat pub run test
+        run: C:\tools\dart-sdk\bin\dart.exe pub run test
 
   test-macos:
     timeout-minutes: 5
