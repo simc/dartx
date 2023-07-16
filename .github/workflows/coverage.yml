@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Collect coverage
         run: |
-          pub global activate test_coverage
-          pub global run test_coverage
-      - uses: codecov/codecov-action@v1
+          dart pub global activate test_coverage
+          dart pub global run test_coverage
+      - uses: codecov/codecov-action@v3
         with:
           file: coverage/lcov.info
