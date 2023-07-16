@@ -1,6 +1,4 @@
-// ignore_for_file: deprecated_member_use
-
-part of dartx;
+import 'package:collection/collection.dart' as collection;
 
 extension ListExtension<E> on List<E> {
   /// Index of the first element or -1 if the collection is empty.

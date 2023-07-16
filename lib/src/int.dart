@@ -1,5 +1,3 @@
-part of dartx;
-
 extension Ordinals<T extends int> on T {
   /// Returns an ordinal number of `String` type for any integer
   ///

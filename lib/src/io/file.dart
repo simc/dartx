@@ -1,4 +1,6 @@
-part of dartx_io;
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 extension FileAppendBytesExtension on File {
   /// Appends an array of [bytes] to the content of this file.

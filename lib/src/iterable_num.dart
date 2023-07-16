@@ -1,5 +1,3 @@
-part of dartx;
-
 /// Extensions for iterables
 extension IterableNumSumExtension<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.

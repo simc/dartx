@@ -1,5 +1,3 @@
-part of dartx;
-
 extension NumArithmeticX<T extends num> on T {
   /// Minus val if if it not null else returns `this`
   T? minus(T? val) => val == null ? this : this - val as T?;

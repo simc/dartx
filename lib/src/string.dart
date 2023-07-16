@@ -1,4 +1,7 @@
-part of dartx;
+import 'dart:convert';
+
+import 'package:characters/characters.dart' as characters;
+import 'package:crypto/crypto.dart' as crypto;
 
 const _ascii = 0x007f;
 const _latin1 = 0x00ff;

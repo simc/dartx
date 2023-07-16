@@ -1,5 +1,3 @@
-part of dartx;
-
 typedef Function0<R> = R Function();
 typedef Function1<A, R> = R Function(A a);
 typedef Function2<A, B, R> = R Function(A a, B b);

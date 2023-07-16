@@ -1,4 +1,5 @@
-part of dartx;
+import 'dart:math';
+import 'package:dartx/dartx.dart';
 
 Comparator<E> _getComparator<E>(
   int order,
@@ -17,12 +18,12 @@ class SortedList<E> extends _DelegatingList<E> {
   final Comparator<E> _comparator;
   List<E>? _sortedResults;
 
-  SortedList._(
+  SortedList(
     this._source,
     this._comparator,
   );
 
-  SortedList._withSelector(
+  SortedList.withSelector(
     this._source,
     Comparable Function(E element) selector,
     int order,
@@ -45,7 +46,7 @@ class SortedList<E> extends _DelegatingList<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> thenBy(Comparable Function(E element) selector) {
-    return SortedList<E>._withSelector(this, selector, 1, _comparator);
+    return SortedList<E>.withSelector(this, selector, 1, _comparator);
   }
 
   /// Returns a new list with all elements sorted according to previously
@@ -55,7 +56,7 @@ class SortedList<E> extends _DelegatingList<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> thenByDescending(Comparable Function(E element) selector) {
-    return SortedList<E>._withSelector(this, selector, -1, _comparator);
+    return SortedList<E>.withSelector(this, selector, -1, _comparator);
   }
 
   /// Returns a new list with all elements sorted according to previously
@@ -64,7 +65,7 @@ class SortedList<E> extends _DelegatingList<E> {
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
   SortedList<E> thenWith(Comparator<E> comparator) {
-    return SortedList<E>._(this, _comparator.compose(comparator));
+    return SortedList<E>(this, _comparator.compose(comparator));
   }
 
   @override
