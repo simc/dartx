@@ -21,6 +21,46 @@ void main() {
       expect('test'.decapitalize(), 'test');
     });
 
+    test('.camel()', () {
+      expect(''.camel(), '');
+      expect('Hello World'.camel(), 'helloWorld');
+      expect('helloWorld'.camel(), 'helloWorld');
+      expect('HelloWorld'.camel(), 'helloWorld');
+      expect('long   space'.camel(), 'longSpace');
+    });
+
+    test('.pascal()', () {
+      expect(''.pascal(), '');
+      expect('Hello World'.pascal(), 'HelloWorld');
+      expect('helloWorld'.pascal(), 'HelloWorld');
+      expect('HelloWorld'.pascal(), 'HelloWorld');
+      expect('long   space'.pascal(), 'LongSpace');
+    });
+
+    test('.snake()', () {
+      expect(''.snake(), '');
+      expect('Hello World'.snake(), 'hello_world');
+      expect('helloWorld'.snake(), 'hello_world');
+      expect('HelloWorld'.snake(), 'hello_world');
+      expect('long   space'.snake(), 'long_space');
+    });
+
+    test('.kebab()', () {
+      expect(''.kebab(), '');
+      expect('Hello World'.kebab(), 'hello-world');
+      expect('helloWorld'.kebab(), 'hello-world');
+      expect('HelloWorld'.kebab(), 'hello-world');
+      expect('long   space'.kebab(), 'long-space');
+    });
+
+    test('.dot()', () {
+      expect(''.dot(), '');
+      expect('Hello World'.dot(), 'hello.world');
+      expect('helloWorld'.dot(), 'hello.world');
+      expect('HelloWorld'.dot(), 'hello.world');
+      expect('long   space'.dot(), 'long.space');
+    });
+
     test('.isAscii', () {
       expect('!jI7) ~'.isAscii, true);
       expect('§3'.isAscii, false);

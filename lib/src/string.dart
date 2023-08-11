@@ -47,6 +47,106 @@ extension StringDecapitalizeExtension on String {
   }
 }
 
+extension StringCamelCaseExtension on String {
+  /// Returns a copy of this string in camelCase style, or the original string,
+  /// if it's empty.
+  ///
+  /// ```dart
+  /// print('Hello World'.camel()) // helloWorld
+  /// print('helloWorld'.camel()) // helloWorld
+  /// print('long   space'.camel()) // longSpace
+  /// ```
+  String camel() {
+    if (length > 0) {
+      return pascal().decapitalize();
+    } else {
+      return this;
+    }
+  }
+}
+
+extension StringPascalCaseExtension on String {
+  /// Returns a copy of this string in PascalCase style, or the original string,
+  /// if it's empty.
+  ///
+  /// ```dart
+  /// print('Hello World'.pascal()) // HelloWorld
+  /// print('helloWorld'.pascal()) // HelloWorld
+  /// print('long   space'.pascal()) // LongSpace
+  /// ```
+  String pascal() {
+    switch (length) {
+      case 0:
+        return this;
+      case 1:
+        return toUpperCase();
+      default:
+        return splitMapJoin(
+          RegExp(r'\s+'),
+          onMatch: (m) => '',
+          onNonMatch: (n) => n.capitalize(),
+        );
+    }
+  }
+}
+
+extension StringSnakeCaseExtension on String {
+  /// Returns a copy of this string in snake_case style, or the original string,
+  /// if it's empty.
+  ///
+  /// ```dart
+  /// print('Hello World'.pascal()) // hello_world
+  /// print('helloWorld'.pascal()) // hello_world
+  /// print('long   space'.pascal()) // long_space
+  /// ```
+  String snake() {
+    switch (length) {
+      case 0:
+        return this;
+      case 1:
+        return toLowerCase();
+      default:
+        return splitMapJoin(
+          RegExp('[A-Z]'),
+          onMatch: (m) => ' ${m[0]}'.toLowerCase(),
+          onNonMatch: (n) => n.decapitalize(),
+        ).trim().splitMapJoin(
+              RegExp(r'\s+'),
+              onMatch: (m) => '_',
+              onNonMatch: (n) => n.decapitalize(),
+            );
+    }
+  }
+}
+
+extension StringKebabCaseExtension on String {
+  /// Returns a copy of this string in kebab-case style, or the original string,
+  /// if it's empty.
+  ///
+  /// ```dart
+  /// print('Hello World'.pascal()) // hello-world
+  /// print('helloWorld'.pascal()) // hello-world
+  /// print('long   space'.pascal()) // long-space
+  /// ```
+  String kebab() {
+    return snake().replaceAll('_', '-');
+  }
+}
+
+extension StringDotCaseExtension on String {
+  /// Returns a copy of this string in dot.case style, or the original string,
+  /// if it's empty.
+  ///
+  /// ```dart
+  /// print('Hello World'.dot()) // hello.world
+  /// print('helloWorld'.dot()) // hello.world
+  /// print('long   space'.dot()) // long.space
+  /// ```
+  String dot() {
+    return snake().replaceAll('_', '.');
+  }
+}
+
 extension StringIsBlankExtension on String {
   /// Returns `true` if this string is empty or consists solely of whitespace
   /// characters.
