@@ -58,7 +58,7 @@ final dogs = [
 final sorted = dogs
     .sortedBy((dog) => dog.name)
     .thenByDescending((dog) => dog.age);
-// Bark, Cookie, Charlie (7), Charlie (2), Tom
+// Bark, Charlie (7), Charlie (2), Cookie, Tom
 ```
 
 ### .distinctBy()
@@ -107,7 +107,7 @@ final word = buildString((sb) {
   }
 });
 // 0123456789
-``` 
+```
 
 ### .ordinal
 
@@ -137,7 +137,7 @@ Returns a copy of the string having its first letter lowercased, or the original
 final word = 'abcd'.decapitalize(); // abcd
 final anotherWord = 'Abcd'.decapitalize(); // abcd
 ```
-  
+
 ### .isAscii
 
 Returns `true` if the string is ASCII encoded.
