@@ -17,7 +17,7 @@ void main() {
 
   final sorted =
       dogs.sortedBy((dog) => dog.name).thenByDescending((dog) => dog.age);
-  // Bark, Cookie, Charlie (7), Charlie (2), Tom
+  // Bark, Charlie (7), Charlie (2), Cookie, Tom
 
   final words = ['this', 'is', 'a', 'test'];
   final distinctByLength =
