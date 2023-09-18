@@ -219,3 +219,150 @@ extension ListFlattenExtension<E> on List<List<E>> {
   /// ```
   List<E> flatten() => [for (final list in this) ...list];
 }
+
+extension ListMoveExtension<E> on List<E> {
+  /// Moves the [element] from its current index to the [newIndex].
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.move(1, 2); // [2, 3, 1]
+  /// ```
+  void move(E element, int newIndex) {
+    RangeError.checkValidIndex(newIndex, this, 'newIndex');
+
+    final currentIndex = indexOf(element);
+
+    if (currentIndex < 0) {
+      return;
+    }
+
+    removeAt(currentIndex);
+    insert(newIndex, element);
+  }
+}
+
+extension ListMoveAtExtension<E> on List<E> {
+  /// Moves the element at the [oldIndex] to the [newIndex].
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveAt(0, 2); // [2, 3, 1]
+  /// ```
+  void moveAt(int oldIndex, int newIndex) {
+    RangeError.checkValidIndex(oldIndex, this, 'oldIndex');
+    RangeError.checkValidIndex(newIndex, this, 'newIndex');
+
+    final element = this[oldIndex];
+
+    removeAt(oldIndex);
+    insert(newIndex, element);
+  }
+}
+
+extension ListMoveAllExtension<E> on List<E> {
+  /// Moves all the elements that satisfy the given [predicate] to the [newIndex].
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveAll(1, (element) => element.isOdd); // [2, 1, 3]
+  /// ```
+  void moveAll(int newIndex, bool Function(E element) predicate) {
+    RangeError.checkValidIndex(newIndex, this, 'newIndex');
+
+    final split = partition(predicate);
+
+    clear();
+    addAll(split[1]);
+    insertAll(newIndex, split[0]);
+  }
+}
+
+extension ListMoveUpExtension<E> on List<E> {
+  /// Moves the [element] up by one index increment unless it is at the top already.
+  ///
+  /// Returns `true` if the move was successful otherwise `false`.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveUp(3); // [1, 3, 2]
+  /// ```
+  bool moveUp(E element) {
+    final currentIndex = indexOf(element);
+
+    if (currentIndex > 0) {
+      removeAt(currentIndex);
+      insert(currentIndex - 1, element);
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+extension ListMoveUpAtExtension<E> on List<E> {
+  /// Moves the element at the [index] up by one index increment unless it is at the top already.
+  ///
+  /// Returns `true` if the move was successful otherwise `false`.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveUpAt(2); // [1, 3, 2]
+  /// ```
+  bool moveUpAt(int index) {
+    RangeError.checkValidIndex(index, this, 'index');
+
+    if (index > 0) {
+      final element = this[index];
+      removeAt(index);
+      insert(index - 1, element);
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+extension ListMoveDownExtension<E> on List<E> {
+  /// Moves the [element] down by one index increment unless it is at the bottom already.
+  ///
+  /// Returns `true` if the move was successful otherwise `false`.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveDown(1); // [2, 1, 3]
+  /// ```
+  bool moveDown(E element) {
+    final currentIndex = indexOf(element);
+
+    if (currentIndex >= 0 && currentIndex < length - 1) {
+      removeAt(currentIndex);
+      insert(currentIndex + 1, element);
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+extension ListMoveDownAtExtension<E> on List<E> {
+  /// Moves the element at the [index] down by one index increment unless it is at the bottom already.
+  ///
+  /// Returns `true` if the move was successful otherwise `false`.
+  ///
+  /// ```dart
+  /// final list = [1, 2, 3];
+  /// list.moveDownAt(0); // [2, 1, 3]
+  /// ```
+  bool moveDownAt(int index) {
+    RangeError.checkValidIndex(index, this, 'index');
+
+    if (index >= 0 && index < length - 1) {
+      final element = this[index];
+      removeAt(index);
+      insert(index + 1, element);
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
