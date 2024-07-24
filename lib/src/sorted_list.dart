@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:dartx/dartx.dart';
 
 Comparator<E> _getComparator<E>(
@@ -43,10 +44,22 @@ class SortedList<E> extends _DelegatingList<E> {
   /// defined order and natural sort order of the values returned by specified
   /// [selector] function.
   ///
+  /// The [ascending] parameter controls the order of sorting:
+  /// - Defaults to `true`, sorting elements in ascending order.
+  /// - Set to `false` to sort elements in descending order.
+  ///
   /// **Note:** The actual sorting is performed when an element is accessed for
   /// the first time.
-  SortedList<E> thenBy(Comparable Function(E element) selector) {
-    return SortedList<E>.withSelector(this, selector, 1, _comparator);
+  SortedList<E> thenBy(
+    Comparable Function(E element) selector, {
+    bool ascending = true,
+  }) {
+    return SortedList<E>.withSelector(
+      this,
+      selector,
+      ascending ? 1 : -1,
+      _comparator,
+    );
   }
 
   /// Returns a new list with all elements sorted according to previously
