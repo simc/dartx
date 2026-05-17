@@ -32,5 +32,17 @@ void main() {
       // handles double values
       expect([1.5, 2, 2.5, 4, 5].median(), 2.5);
     });
+
+    test('.min()', () {
+      expect(() => <int>[].min(), throwsStateError);
+      expect([5, 3, 2, 4, 1].min(), 1);
+      expect([5.0, 3.0, 2.0, 4.0, 1.0].min(), 1.0);
+    });
+
+    test('.max()', () {
+      expect(() => <int>[].max(), throwsStateError);
+      expect([5, 3, 2, 4, 1].max(), 5);
+      expect([5.0, 3.0, 2.0, 4.0, 1.0].max(), 5.0);
+    });
   });
 }

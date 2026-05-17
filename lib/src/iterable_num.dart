@@ -49,3 +49,35 @@ extension IterableNumMedianExtension<T extends num> on Iterable<T> {
     }
   }
 }
+
+extension IterableNumMinExtension<T extends num> on Iterable<T> {
+  /// Returns the minimum element in this collection.
+  ///
+  /// Empty collections throw an error.
+  T min() {
+    if (length == 0) throw StateError('No elements in collection');
+    var min = first;
+    for (final current in this) {
+      if (current < min) {
+        min = current;
+      }
+    }
+    return min;
+  }
+}
+
+extension IterableNumMaxExtension<T extends num> on Iterable<T> {
+  /// Returns the maximum element in this collection.
+  ///
+  /// Empty collections throw an error.
+  T max() {
+    if (length == 0) throw StateError('No elements in collection');
+    var max = first;
+    for (final current in this) {
+      if (current > max) {
+        max = current;
+      }
+    }
+    return max;
+  }
+}
