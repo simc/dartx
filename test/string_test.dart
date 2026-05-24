@@ -31,6 +31,14 @@ void main() {
       expect('ő'.isLatin1, false);
     });
 
+    test('.onlyDigits', () {
+      expect(''.onlyDigits, '');
+      expect('abc'.onlyDigits, '');
+      expect('123'.onlyDigits, '123');
+      expect('Phone: +1 (555) 123-4567'.onlyDigits, '15551234567');
+      expect('a1 b2-c3'.onlyDigits, '123');
+    });
+
     test('.isBlank', () {
       expect('	 '.isBlank, true);
       expect('  .  '.isBlank, false);
@@ -130,6 +138,16 @@ void main() {
       expect('1'.isDouble, true);
       expect('1.0'.isDouble, true);
       expect('123456789.987654321'.isDouble, true);
+    });
+
+    test('.isNumeric', () {
+      expect(''.isNumeric, false);
+      expect('a'.isNumeric, false);
+      expect('12abc'.isNumeric, false);
+      expect('1'.isNumeric, true);
+      expect('-42'.isNumeric, true);
+      expect('1.0'.isNumeric, true);
+      expect('123456789.987654321'.isNumeric, true);
     });
 
     test('.toDouble()', () {

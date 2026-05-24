@@ -113,6 +113,11 @@ extension StringIsLatin1Extension on String {
   }
 }
 
+extension StringOnlyDigitsExtension on String {
+  /// Returns a string containing only ASCII digit characters from this string.
+  String get onlyDigits => replaceAll(RegExp(r'[^0-9]'), '');
+}
+
 extension StringReversedExtension on String {
   /// Returns a new string with characters in reversed order.
   String get reversed {
@@ -158,6 +163,11 @@ extension StringToIntOrNullExtension on String {
 extension StringIsDoubleExtension on String {
   /// Returns `true` if the string can be parsed as a `double`.
   bool get isDouble => toDoubleOrNull() != null;
+}
+
+extension StringIsNumericExtension on String {
+  /// Returns `true` if the string can be parsed as a number.
+  bool get isNumeric => toDoubleOrNull() != null;
 }
 
 extension StringToDoubleExtension on String {
